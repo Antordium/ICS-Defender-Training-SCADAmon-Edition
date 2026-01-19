@@ -5,285 +5,1898 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ICS Defender Training: SCADAmon Edition</title>
   <link rel="stylesheet" href="css/pokemon-theme.css">
+  <link rel="stylesheet" href="css/battle-ui.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    /* Horizontal scroll container */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .course-container {
+      display: flex;
+      width: max-content;
+      height: 100vh;
+      transition: transform 0.5s ease-out;
+    }
+
+    .course-section {
+      width: 100vw;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .section-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      padding-bottom: 100px;
+    }
+
+    /* Navigation arrows */
+    .nav-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pokemon-red) 0%, var(--pokemon-red-dark) 100%);
+      border: 3px solid #fff;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: all 0.2s ease;
+    }
+
+    .nav-arrow:hover:not(:disabled) {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 28, 28, 0.4);
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-arrow.prev {
+      left: 20px;
+    }
+
+    .nav-arrow.next {
+      right: 20px;
+    }
+
+    /* Progress bar at top */
+    .progress-bar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pokemon-red) 0%, var(--pokemon-yellow) 100%);
+      transition: width 0.3s ease;
+    }
+
+    /* Section indicator */
+    .section-indicator {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      padding: 8px 20px;
+      border-radius: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-indicator-text {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .section-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .section-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #555;
+      border: 2px solid #777;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .section-dot.active {
+      background: var(--pokemon-yellow);
+      border-color: #fff;
+      box-shadow: 0 0 8px var(--pokemon-yellow);
+    }
+
+    .section-dot.completed {
+      background: var(--success);
+      border-color: #fff;
+    }
+
+    .section-dot:hover {
+      transform: scale(1.2);
+    }
+
+    /* Intro section specific */
+    .intro-hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, var(--pokemon-red) 0%, var(--pokemon-blue) 100%);
+      border-radius: 16px;
+      margin-bottom: 32px;
+    }
+
+    .intro-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+    }
+
+    .intro-hero .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Team display */
+    .team-display {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.8);
+      padding: 10px 16px;
+      border-radius: 12px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .team-display-label {
+      color: #888;
+      font-size: 0.75rem;
+      margin-right: 8px;
+    }
+
+    .team-member {
+      font-size: 24px;
+      transition: transform 0.2s ease;
+    }
+
+    .team-member:hover {
+      transform: scale(1.2);
+    }
+
+    .team-member.fainted {
+      opacity: 0.3;
+      filter: grayscale(100%);
+    }
+
+    /* Badge display */
+    .badge-display {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      padding: 10px 16px;
+      border-radius: 12px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-display-label {
+      color: #888;
+      font-size: 0.75rem;
+      margin-right: 8px;
+    }
+
+    .badge-slot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #333;
+      border: 2px solid #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .badge-slot.earned {
+      background: linear-gradient(135deg, var(--pokemon-yellow) 0%, #FFA500 100%);
+      border-color: #fff;
+      box-shadow: 0 0 8px rgba(255, 222, 0, 0.5);
+    }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-pokeball {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--pokemon-red) 50%, #fff 50%);
+      border-radius: 50%;
+      border: 4px solid #333;
+      position: relative;
+      animation: pokeballSpin 1s linear infinite;
+    }
+
+    .loading-pokeball::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      border: 4px solid #333;
+    }
+
+    @keyframes pokeballSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 20px;
+      color: #fff;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-  <!-- Course Header -->
-  <header class="course-header">
-    <h1>🛡️ ICS Defender Training</h1>
-    <p class="subtitle">SCADAmon Edition • Industrial Control System Cybersecurity</p>
-    <p style="font-size: 0.9rem; margin-top: 8px; opacity: 0.9;">
-      Aligned with SANS ICS410 • GICSP Certification Prep
-    </p>
-  </header>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-pokeball"></div>
+    <div class="loading-text">Loading SCADAmon...</div>
+  </div>
 
-  <!-- Main Content -->
-  <main class="content-container">
-    
-    <!-- Introduction Section -->
-    <section class="content-section fade-in">
-      <h2><span class="section-icon">📚</span> Welcome, Trainer!</h2>
-      <p>
-        Welcome to <strong>ICS Defender Training: SCADAmon Edition</strong> – your journey to becoming 
-        an Industrial Control System security expert begins here!
-      </p>
-      <p>
-        This course will teach you the essential skills needed to defend critical infrastructure 
-        including power plants, water treatment facilities, and manufacturing systems. Complete all 
-        8 modules to unlock the <strong>SCADAmon capstone game</strong> where you'll prove your mastery!
-      </p>
-      
-      <div class="info-box">
-        <p class="info-box-title">🎯 Course Objectives</p>
-        <p>Upon completion, you will be able to:</p>
-        <ul class="content-list">
-          <li>Identify ICS components, architectures, and security implications</li>
-          <li>Apply the Purdue Model to segment and defend industrial networks</li>
-          <li>Analyze ICS protocols for vulnerabilities and implement controls</li>
-          <li>Secure Windows and Linux systems in OT environments</li>
-          <li>Implement governance frameworks (NIST, NERC CIP, IEC 62443)</li>
-          <li>Detect, respond to, and recover from ICS security incidents</li>
-        </ul>
-      </div>
-    </section>
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+  </div>
 
-    <!-- Pokeball Divider -->
-    <div class="pokeball-divider">
-      <div class="pokeball-icon"></div>
+  <!-- Section Indicator -->
+  <div class="section-indicator" id="section-indicator">
+    <span class="section-indicator-text" id="section-name">Welcome</span>
+    <div class="section-dots" id="section-dots">
+      <!-- Dots will be generated by JS -->
     </div>
+  </div>
 
-    <!-- Progress Tracker -->
-    <section class="content-section">
-      <h2><span class="section-icon">🏆</span> Your Gym Badges</h2>
-      <p>Earn badges by completing each module's quiz with 80% or higher!</p>
-      
-      <div class="progress-tracker" id="badge-tracker">
-        <div class="progress-badge" data-module="1" title="Module 1: Foundation Badge">⚡</div>
-        <div class="progress-badge" data-module="2" title="Module 2: Architecture Badge">🏗️</div>
-        <div class="progress-badge" data-module="3" title="Module 3: Protocol Badge">🌊</div>
-        <div class="progress-badge" data-module="4" title="Module 4: Windows Badge">❄️</div>
-        <div class="progress-badge" data-module="5" title="Module 5: Unix Badge">🌑</div>
-        <div class="progress-badge" data-module="6" title="Module 6: Governance Badge">📜</div>
-        <div class="progress-badge" data-module="7" title="Module 7: Response Badge">🔥</div>
-        <div class="progress-badge" data-module="8" title="Module 8: Champion Badge">👻</div>
+  <!-- Navigation Arrows -->
+  <button class="nav-arrow prev" id="nav-prev" disabled>&larr;</button>
+  <button class="nav-arrow next" id="nav-next">&rarr;</button>
+
+  <!-- Team Display -->
+  <div class="team-display" id="team-display" style="display: none;">
+    <span class="team-display-label">TEAM:</span>
+    <div id="team-members"></div>
+  </div>
+
+  <!-- Badge Display -->
+  <div class="badge-display" id="badge-display" style="display: none;">
+    <span class="badge-display-label">BADGES:</span>
+    <div class="badge-slot" data-gym="1" title="Foundation Badge"></div>
+    <div class="badge-slot" data-gym="2" title="Architecture Badge"></div>
+    <div class="badge-slot" data-gym="3" title="Protocol Badge"></div>
+    <div class="badge-slot" data-gym="4" title="Windows Badge"></div>
+    <div class="badge-slot" data-gym="5" title="Unix Badge"></div>
+    <div class="badge-slot" data-gym="6" title="Governance Badge"></div>
+    <div class="badge-slot" data-gym="7" title="Response Badge"></div>
+    <div class="badge-slot" data-gym="8" title="Champion Badge"></div>
+  </div>
+
+  <!-- Course Container (Horizontal Sections) -->
+  <div class="course-container" id="course-container">
+
+    <!-- Section 0: Introduction / Starter Selection -->
+    <section class="course-section" id="section-intro" data-section="0" data-name="Welcome">
+      <div class="section-content">
+        <div class="intro-hero">
+          <h1>ICS Defender Training</h1>
+          <p class="subtitle">SCADAmon Edition</p>
+          <p style="margin-top: 16px; font-size: 0.9rem; opacity: 0.8;">
+            Aligned with SANS ICS410 | GICSP Certification Prep
+          </p>
+        </div>
+
+        <div class="content-section fade-in">
+          <h2><span class="section-icon">📚</span> Welcome, Trainer!</h2>
+          <p>
+            Welcome to <strong>ICS Defender Training: SCADAmon Edition</strong> – your journey to becoming
+            an Industrial Control System security expert begins here!
+          </p>
+          <p>
+            This course will teach you the essential skills needed to defend critical infrastructure
+            including power plants, water treatment facilities, and manufacturing systems.
+          </p>
+
+          <div class="info-box">
+            <p class="info-box-title">How It Works</p>
+            <ul class="content-list">
+              <li>Choose your starter SCADAmon partner</li>
+              <li>Learn ICS security concepts through 8 training modules</li>
+              <li>Battle Gym Leaders by answering security questions</li>
+              <li>Catch new SCADAmon to build your team</li>
+              <li>Defeat the Elite 4 and your Rival to become Champion!</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Starter Selection -->
+        <div class="content-section" id="starter-section">
+          <h2><span class="section-icon">🎮</span> Choose Your Starter SCADAmon</h2>
+          <p>Professor OAKLEY has three SCADAmon ready for you. Choose wisely!</p>
+
+          <div class="starter-grid" id="starter-grid">
+            <!-- Starters will be loaded by JS -->
+          </div>
+
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary" id="confirm-starter-btn" disabled>
+              Choose This SCADAmon
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- Module Navigation -->
-    <nav class="module-nav">
-      <div class="module-nav-header">
-        <div class="indicator-lights">
-          <div class="indicator-light blue"></div>
-          <div class="indicator-light red"></div>
-          <div class="indicator-light yellow"></div>
-          <div class="indicator-light green"></div>
+    <!-- Section 1: Module 1 Content -->
+    <section class="course-section" id="section-module1" data-section="1" data-name="Module 1: ICS Fundamentals">
+      <div class="section-content">
+        <!-- Module 1 content will be loaded here -->
+        <div id="module1-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 1...</h2>
         </div>
-        <h2 style="margin: 0; border: none; padding: 0;">Training Modules</h2>
-      </div>
-      
-      <div class="module-list">
-        <!-- Module 1 -->
-        <a href="modules/module1.html" class="module-card" data-module="1">
-          <span class="module-number">MODULE 1</span>
-          <h3 class="module-title">ICS Fundamentals</h3>
-          <p class="module-description">
-            Learn the basics of SCADA, PLCs, RTUs, HMIs, and the Purdue Model. 
-            Understand IT vs OT priorities.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 60 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-
-        <!-- Module 2 -->
-        <a href="modules/module2.html" class="module-card" data-module="2">
-          <span class="module-number">MODULE 2</span>
-          <h3 class="module-title">Network Architecture & Defense</h3>
-          <p class="module-description">
-            Master network segmentation, DMZs, defense in depth, and IEC 62443 
-            zone concepts.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 75 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-
-        <!-- Module 3 -->
-        <a href="modules/module3.html" class="module-card" data-module="3">
-          <span class="module-number">MODULE 3</span>
-          <h3 class="module-title">ICS Protocols & Communications</h3>
-          <p class="module-description">
-            Understand Modbus, DNP3, OPC UA - their security limitations 
-            and compensating controls.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 60 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-
-        <!-- Module 4 -->
-        <a href="modules/module4.html" class="module-card" data-module="4">
-          <span class="module-number">MODULE 4</span>
-          <h3 class="module-title">Windows in OT Environments</h3>
-          <p class="module-description">
-            Secure Windows HMIs, SCADA servers, and historians. Master 
-            patching and Active Directory security.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 60 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-
-        <!-- Module 5 -->
-        <a href="modules/module5.html" class="module-card" data-module="5">
-          <span class="module-number">MODULE 5</span>
-          <h3 class="module-title">Unix/Linux in OT Environments</h3>
-          <p class="module-description">
-            Harden Linux systems, manage privileges with sudo, configure 
-            logging and auditing.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 45 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-
-        <!-- Module 6 -->
-        <a href="modules/module6.html" class="module-card" data-module="6">
-          <span class="module-number">MODULE 6</span>
-          <h3 class="module-title">ICS Governance & Compliance</h3>
-          <p class="module-description">
-            Apply NIST CSF, NERC CIP, and IEC 62443. Conduct risk 
-            assessments for critical infrastructure.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 75 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-
-        <!-- Module 7 -->
-        <a href="modules/module7.html" class="module-card" data-module="7">
-          <span class="module-number">MODULE 7</span>
-          <h3 class="module-title">Incident Detection & Response</h3>
-          <p class="module-description">
-            Detect ICS threats, respond to incidents, conduct forensics, 
-            and plan for recovery.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 60 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-
-        <!-- Module 8 -->
-        <a href="modules/module8.html" class="module-card" data-module="8">
-          <span class="module-number">MODULE 8</span>
-          <h3 class="module-title">Synthesis & Capstone Prep</h3>
-          <p class="module-description">
-            Integrate all knowledge domains and prepare for the 
-            SCADAmon game assessment.
-          </p>
-          <div class="module-meta">
-            <span>⏱️ 45 min</span>
-            <span>📝 10 questions</span>
-          </div>
-        </a>
-      </div>
-    </nav>
-
-    <!-- Capstone Preview -->
-    <section class="content-section">
-      <h2><span class="section-icon">🎮</span> Capstone: SCADAmon Game</h2>
-      <p>
-        After completing all modules, you'll face the ultimate test: <strong>SCADAmon</strong> – 
-        a Pokemon-inspired game where your ICS security knowledge determines your success!
-      </p>
-      
-      <div class="pokedex-entry">
-        <div class="pokedex-entry-header">
-          <span class="pokedex-entry-title">SCADAmon Challenge</span>
-          <span class="pokedex-entry-number">#CAPSTONE</span>
-        </div>
-        <div class="pokedex-entry-content">
-          <div class="pokedex-entry-image">
-            <span style="font-size: 4rem;">🎮</span>
-          </div>
-          <div class="pokedex-entry-details">
-            <div class="pokedex-stat">
-              <span class="pokedex-stat-label">Type:</span>
-              <span>Hands-On Assessment</span>
-            </div>
-            <div class="pokedex-stat">
-              <span class="pokedex-stat-label">Gyms:</span>
-              <span>8 Gym Leaders to Defeat</span>
-            </div>
-            <div class="pokedex-stat">
-              <span class="pokedex-stat-label">Objective:</span>
-              <span>Defeat Team Hack-It & Become Champion</span>
-            </div>
-            <div class="pokedex-stat">
-              <span class="pokedex-stat-label">Skills:</span>
-              <span>All 8 Module Domains Tested</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div style="text-align: center; margin-top: 24px;">
-        <button class="btn btn-primary" disabled id="capstone-btn">
-          🔒 Complete All Modules to Unlock
-        </button>
       </div>
     </section>
 
-  </main>
+    <!-- Section 2: Gym 1 Battle -->
+    <section class="course-section" id="section-gym1" data-section="2" data-name="Gym 1: Foundation Falls">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">🏛️</span> Gym 1: Foundation Falls</h2>
+          <p>Gym Leader <strong>AXIOM</strong> awaits! Prove your ICS fundamentals knowledge!</p>
 
-  <!-- Footer -->
-  <footer class="course-footer">
-    <p>ICS Defender Training: SCADAmon Edition v1.0</p>
-    <p>Aligned with SANS ICS410 • GICSP Certification Prep</p>
-    <p style="margin-top: 16px;">USCYBERCOM J74 Train the Force</p>
-  </footer>
+          <div class="info-box">
+            <p class="info-box-title">Battle Rules</p>
+            <ul class="content-list">
+              <li>Select moves to attack - each move triggers a question</li>
+              <li>Answer correctly to land your attack</li>
+              <li>Wrong answers mean your attack misses and the enemy attacks you</li>
+              <li>Score 80% or higher to win the badge</li>
+              <li>Score below 80% and your team faints - you must retry!</li>
+            </ul>
+          </div>
+
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary" id="start-gym1-btn">
+              Challenge Gym Leader AXIOM
+            </button>
+          </div>
+
+          <!-- Battle container -->
+          <div id="gym1-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Catch Phase 1 -->
+    <section class="course-section" id="section-catch1" data-section="3" data-name="Catch Phase">
+      <div class="section-content">
+        <div class="catch-phase">
+          <h2 class="catch-title">Congratulations!</h2>
+          <p class="catch-subtitle">You earned the Foundation Badge! As a reward, you can catch a new SCADAmon!</p>
+
+          <div class="catch-grid" id="catch1-grid">
+            <!-- Available SCADAmon will be loaded by JS -->
+          </div>
+
+          <button class="catch-confirm-btn" id="catch1-confirm-btn" disabled>
+            Add to Team
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 2: Architecture -->
+    <section class="course-section" id="section-module2" data-section="4" data-name="Module 2: Architecture">
+      <div class="section-content">
+        <div id="module2-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 2...</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gym 2 -->
+    <section class="course-section" id="section-gym2" data-section="5" data-name="Gym 2: Purdue City">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">🏗️</span> Gym 2: Purdue City</h2>
+          <p>Gym Leader <strong>SEGMENT</strong> is a master of network architecture!</p>
+          <div class="info-box">
+            <p class="info-box-title">Battle Challenge</p>
+            <p>Prove your understanding of network segmentation and defense-in-depth!</p>
+          </div>
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary gym-battle-btn" data-gym="2">Challenge Gym Leader SEGMENT</button>
+          </div>
+          <div id="gym2-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catch Phase 2 -->
+    <section class="course-section" id="section-catch2" data-section="6" data-name="Catch Phase">
+      <div class="section-content">
+        <div class="catch-phase">
+          <h2 class="catch-title">Architecture Badge Earned!</h2>
+          <p class="catch-subtitle">Choose a new SCADAmon to join your team!</p>
+          <div class="catch-grid" id="catch2-grid"></div>
+          <button class="catch-confirm-btn" id="catch2-confirm-btn" disabled>Add to Team</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 3: Protocols -->
+    <section class="course-section" id="section-module3" data-section="7" data-name="Module 3: Protocols">
+      <div class="section-content">
+        <div id="module3-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 3...</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gym 3 -->
+    <section class="course-section" id="section-gym3" data-section="8" data-name="Gym 3: Protocol Port">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">🔐</span> Gym 3: Protocol Port</h2>
+          <p>Gym Leader <strong>CIPHER</strong> speaks the language of ICS protocols!</p>
+          <div class="info-box">
+            <p class="info-box-title">Battle Challenge</p>
+            <p>Demonstrate your knowledge of Modbus, DNP3, and OPC UA!</p>
+          </div>
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary gym-battle-btn" data-gym="3">Challenge Gym Leader CIPHER</button>
+          </div>
+          <div id="gym3-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catch Phase 3 -->
+    <section class="course-section" id="section-catch3" data-section="9" data-name="Catch Phase">
+      <div class="section-content">
+        <div class="catch-phase">
+          <h2 class="catch-title">Protocol Badge Earned!</h2>
+          <p class="catch-subtitle">Choose a new SCADAmon to join your team!</p>
+          <div class="catch-grid" id="catch3-grid"></div>
+          <button class="catch-confirm-btn" id="catch3-confirm-btn" disabled>Add to Team</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 4: Windows Security -->
+    <section class="course-section" id="section-module4" data-section="10" data-name="Module 4: Windows">
+      <div class="section-content">
+        <div id="module4-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 4...</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gym 4 -->
+    <section class="course-section" id="section-gym4" data-section="11" data-name="Gym 4: Patch Plains">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">🪟</span> Gym 4: Patch Plains</h2>
+          <p>Gym Leader <strong>PATCHER</strong> is a Windows security expert!</p>
+          <div class="info-box">
+            <p class="info-box-title">Battle Challenge</p>
+            <p>Show your skills in Windows hardening and patch management!</p>
+          </div>
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary gym-battle-btn" data-gym="4">Challenge Gym Leader PATCHER</button>
+          </div>
+          <div id="gym4-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catch Phase 4 -->
+    <section class="course-section" id="section-catch4" data-section="12" data-name="Catch Phase">
+      <div class="section-content">
+        <div class="catch-phase">
+          <h2 class="catch-title">Windows Badge Earned!</h2>
+          <p class="catch-subtitle">Choose a new SCADAmon to join your team!</p>
+          <div class="catch-grid" id="catch4-grid"></div>
+          <button class="catch-confirm-btn" id="catch4-confirm-btn" disabled>Add to Team</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 5: Unix Security -->
+    <section class="course-section" id="section-module5" data-section="13" data-name="Module 5: Unix">
+      <div class="section-content">
+        <div id="module5-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 5...</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gym 5 -->
+    <section class="course-section" id="section-gym5" data-section="14" data-name="Gym 5: Root Valley">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">🐧</span> Gym 5: Root Valley</h2>
+          <p>Gym Leader <strong>ROOTGUARD</strong> commands the power of Unix!</p>
+          <div class="info-box">
+            <p class="info-box-title">Battle Challenge</p>
+            <p>Prove your Unix security and privilege management skills!</p>
+          </div>
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary gym-battle-btn" data-gym="5">Challenge Gym Leader ROOTGUARD</button>
+          </div>
+          <div id="gym5-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catch Phase 5 -->
+    <section class="course-section" id="section-catch5" data-section="15" data-name="Catch Phase">
+      <div class="section-content">
+        <div class="catch-phase">
+          <h2 class="catch-title">Unix Badge Earned!</h2>
+          <p class="catch-subtitle">Choose a new SCADAmon to join your team!</p>
+          <div class="catch-grid" id="catch5-grid"></div>
+          <button class="catch-confirm-btn" id="catch5-confirm-btn" disabled>Add to Team</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 6: Governance -->
+    <section class="course-section" id="section-module6" data-section="16" data-name="Module 6: Governance">
+      <div class="section-content">
+        <div id="module6-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 6...</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gym 6 -->
+    <section class="course-section" id="section-gym6" data-section="17" data-name="Gym 6: Compliance Citadel">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">📜</span> Gym 6: Compliance Citadel</h2>
+          <p>Gym Leader <strong>AUDITOR</strong> enforces the rules!</p>
+          <div class="info-box">
+            <p class="info-box-title">Battle Challenge</p>
+            <p>Demonstrate your governance and compliance knowledge!</p>
+          </div>
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary gym-battle-btn" data-gym="6">Challenge Gym Leader AUDITOR</button>
+          </div>
+          <div id="gym6-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catch Phase 6 -->
+    <section class="course-section" id="section-catch6" data-section="18" data-name="Catch Phase">
+      <div class="section-content">
+        <div class="catch-phase">
+          <h2 class="catch-title">Governance Badge Earned!</h2>
+          <p class="catch-subtitle">Choose a new SCADAmon to join your team!</p>
+          <div class="catch-grid" id="catch6-grid"></div>
+          <button class="catch-confirm-btn" id="catch6-confirm-btn" disabled>Add to Team</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 7: Incident Response -->
+    <section class="course-section" id="section-module7" data-section="19" data-name="Module 7: Response">
+      <div class="section-content">
+        <div id="module7-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 7...</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gym 7 -->
+    <section class="course-section" id="section-gym7" data-section="20" data-name="Gym 7: Incident Island">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">🚨</span> Gym 7: Incident Island</h2>
+          <p>Gym Leader <strong>RESPONDER</strong> handles every emergency!</p>
+          <div class="info-box">
+            <p class="info-box-title">Battle Challenge</p>
+            <p>Show your incident response and forensics skills!</p>
+          </div>
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary gym-battle-btn" data-gym="7">Challenge Gym Leader RESPONDER</button>
+          </div>
+          <div id="gym7-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catch Phase 7 -->
+    <section class="course-section" id="section-catch7" data-section="21" data-name="Catch Phase">
+      <div class="section-content">
+        <div class="catch-phase">
+          <h2 class="catch-title">Response Badge Earned!</h2>
+          <p class="catch-subtitle">Choose a new SCADAmon to join your team!</p>
+          <div class="catch-grid" id="catch7-grid"></div>
+          <button class="catch-confirm-btn" id="catch7-confirm-btn" disabled>Add to Team</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 8: Synthesis -->
+    <section class="course-section" id="section-module8" data-section="22" data-name="Module 8: Synthesis">
+      <div class="section-content">
+        <div id="module8-content">
+          <h2 style="text-align: center; margin-top: 40px;">Loading Module 8...</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gym 8 (Final Gym) -->
+    <section class="course-section" id="section-gym8" data-section="23" data-name="Gym 8: Synthesis Summit">
+      <div class="section-content">
+        <div class="content-section">
+          <h2><span class="section-icon">🏆</span> Gym 8: Synthesis Summit</h2>
+          <p>Gym Leader <strong>INTEGRATOR</strong> is the final gym challenge!</p>
+          <div class="info-box">
+            <p class="info-box-title">Final Gym Battle</p>
+            <p>Combine everything you've learned to defeat the last gym leader!</p>
+          </div>
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary gym-battle-btn" data-gym="8">Challenge Gym Leader INTEGRATOR</button>
+          </div>
+          <div id="gym8-battle-container" style="display: none; margin-top: 32px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Elite 4 Intro -->
+    <section class="course-section" id="section-elite4-intro" data-section="24" data-name="Elite 4">
+      <div class="section-content">
+        <div class="elite4-intro">
+          <h1><span class="section-icon">🏰</span> The Elite 4</h1>
+          <p class="elite4-subtitle">You've collected all 8 badges. Now face Team Hack-It's Admins!</p>
+
+          <div class="info-box warning">
+            <p class="info-box-title">⚠️ Warning</p>
+            <p>The Elite 4 is a continuous challenge. You must defeat all four admins without losing! This is an assessment only - no learning content will be provided.</p>
+          </div>
+
+          <div class="elite4-admins">
+            <div class="elite4-admin-card">
+              <span class="admin-emoji">👾</span>
+              <span class="admin-name">GLITCH</span>
+              <span class="admin-specialty">Basic Attacks</span>
+            </div>
+            <div class="elite4-admin-card">
+              <span class="admin-emoji">🕷️</span>
+              <span class="admin-name">ARCHITECT</span>
+              <span class="admin-specialty">Network Attacks</span>
+            </div>
+            <div class="elite4-admin-card">
+              <span class="admin-emoji">📡</span>
+              <span class="admin-name">WIRETAP</span>
+              <span class="admin-specialty">Protocol Attacks</span>
+            </div>
+            <div class="elite4-admin-card">
+              <span class="admin-emoji">💀</span>
+              <span class="admin-name">RANSOMWARE</span>
+              <span class="admin-specialty">Encryption Attacks</span>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-danger" id="start-elite4-btn">Enter the Elite 4 Challenge</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Elite 4 Battle Sections -->
+    <section class="course-section" id="section-elite4-1" data-section="25" data-name="Elite 4: GLITCH">
+      <div class="section-content">
+        <div class="elite4-battle">
+          <h2><span class="section-icon">👾</span> Admin GLITCH</h2>
+          <p>Team Hack-It Admin specializing in basic attacks!</p>
+          <div id="elite4-1-battle-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="course-section" id="section-elite4-2" data-section="26" data-name="Elite 4: ARCHITECT">
+      <div class="section-content">
+        <div class="elite4-battle">
+          <h2><span class="section-icon">🕷️</span> Admin ARCHITECT</h2>
+          <p>Team Hack-It Admin specializing in network attacks!</p>
+          <div id="elite4-2-battle-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="course-section" id="section-elite4-3" data-section="27" data-name="Elite 4: WIRETAP">
+      <div class="section-content">
+        <div class="elite4-battle">
+          <h2><span class="section-icon">📡</span> Admin WIRETAP</h2>
+          <p>Team Hack-It Admin specializing in protocol attacks!</p>
+          <div id="elite4-3-battle-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="course-section" id="section-elite4-4" data-section="28" data-name="Elite 4: RANSOMWARE">
+      <div class="section-content">
+        <div class="elite4-battle">
+          <h2><span class="section-icon">💀</span> Admin RANSOMWARE</h2>
+          <p>Team Hack-It's most dangerous admin!</p>
+          <div id="elite4-4-battle-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rival Battle -->
+    <section class="course-section" id="section-rival" data-section="29" data-name="Rival Battle">
+      <div class="section-content">
+        <div class="rival-battle-intro">
+          <h1><span class="section-icon">😏</span> Rival Jerry</h1>
+          <p class="rival-subtitle">Your rival awaits. One final battle to become Champion!</p>
+
+          <div class="rival-speech">
+            <p>"I've been waiting for you! I beat the Elite 4 first, but I'm not champion yet. That title goes to whoever wins THIS battle!"</p>
+          </div>
+
+          <div id="rival-battle-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Champion Hall -->
+    <section class="course-section" id="section-champion" data-section="30" data-name="Champion!">
+      <div class="section-content">
+        <div class="champion-celebration">
+          <div class="champion-badge">🏆</div>
+          <h1 class="champion-title">CONGRATULATIONS!</h1>
+          <p class="champion-subtitle">You are the ICS Defender Champion!</p>
+
+          <div class="champion-stats" id="champion-stats">
+            <!-- Stats will be populated by JS -->
+          </div>
+
+          <div class="champion-message">
+            <p>You have proven yourself as a true ICS security defender. You've mastered the fundamentals, architecture, protocols, operating systems, governance, and incident response.</p>
+            <p>Your SCADAmon team stands ready to protect critical infrastructure!</p>
+          </div>
+
+          <div class="badge-collection">
+            <h3>Your Badges</h3>
+            <div class="badge-display-large" id="final-badges"></div>
+          </div>
+
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary" id="complete-course-btn">Complete Course</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
 
   <!-- Scripts -->
   <script src="js/cmi5-wrapper.js"></script>
-  <script>
-    // Check module completion status from localStorage/LRS
-    document.addEventListener('DOMContentLoaded', function() {
-      const badges = document.querySelectorAll('.progress-badge');
-      const moduleCards = document.querySelectorAll('.module-card');
-      
-      // Load completion status
-      const completedModules = JSON.parse(localStorage.getItem('ics_completed_modules') || '[]');
-      
-      badges.forEach(badge => {
-        const moduleId = badge.dataset.module;
-        if (completedModules.includes(moduleId)) {
-          badge.classList.add('completed');
+  <script type="module">
+    import { STARTERS, WILD_SCADAMON, GYM_LEADERS, ELITE_FOUR, RIVAL, TYPE_COLORS, CATCH_RATES, getAvailableWildScadamon, getScadamonByName } from './js/scadamon-data.js';
+    import stateManager from './js/state-manager.js';
+    import BattleEngine from './js/battle-engine.js';
+
+    // Store last gym score for catch phase
+    let lastGymScore = 0;
+
+    // Current Elite 4 member being battled
+    let elite4Index = 0;
+
+    // Course navigation state
+    let currentSection = 0;
+    let totalSections = 0;
+    let selectedStarter = null;
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Wait for state manager
+      await stateManager.initialize();
+
+      // Setup sections
+      const sections = document.querySelectorAll('.course-section');
+      totalSections = sections.length;
+
+      // Generate section dots
+      generateSectionDots();
+
+      // Setup navigation
+      setupNavigation();
+
+      // Load starter options
+      loadStarterOptions();
+
+      // Check if already started
+      if (stateManager.hasStarted()) {
+        // Skip to appropriate section based on progress
+        const currentSectionId = stateManager.getCurrentSection();
+        const sectionIndex = getSectionIndexById(currentSectionId);
+        if (sectionIndex > 0) {
+          navigateToSection(sectionIndex, false);
         }
-      });
-      
-      moduleCards.forEach(card => {
-        const moduleId = card.dataset.module;
-        if (completedModules.includes(moduleId)) {
-          card.classList.add('completed');
-        }
-      });
-      
-      // Check if all modules completed
-      if (completedModules.length >= 8) {
-        const capstoneBtn = document.getElementById('capstone-btn');
-        capstoneBtn.disabled = false;
-        capstoneBtn.textContent = '🎮 Launch SCADAmon Game!';
-        capstoneBtn.onclick = () => window.location.href = 'game/index.html';
+
+        // Show team and badges
+        updateTeamDisplay();
+        updateBadgeDisplay();
       }
+
+      // Load module content
+      await loadModuleContent(1);
+
+      // Hide loading screen
+      document.getElementById('loading-screen').classList.add('hidden');
     });
+
+    // Generate section indicator dots
+    function generateSectionDots() {
+      const container = document.getElementById('section-dots');
+      const sections = document.querySelectorAll('.course-section');
+
+      sections.forEach((section, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'section-dot' + (index === 0 ? ' active' : '');
+        dot.dataset.section = index;
+        dot.title = section.dataset.name || `Section ${index + 1}`;
+        dot.onclick = () => navigateToSection(index);
+        container.appendChild(dot);
+      });
+    }
+
+    // Setup navigation
+    function setupNavigation() {
+      const prevBtn = document.getElementById('nav-prev');
+      const nextBtn = document.getElementById('nav-next');
+
+      prevBtn.onclick = () => navigateToSection(currentSection - 1);
+      nextBtn.onclick = () => navigateToSection(currentSection + 1);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentSection > 0) {
+          navigateToSection(currentSection - 1);
+        } else if (e.key === 'ArrowRight' && currentSection < totalSections - 1) {
+          navigateToSection(currentSection + 1);
+        }
+      });
+
+      updateNavButtons();
+    }
+
+    // Navigate to section
+    function navigateToSection(index, animate = true) {
+      if (index < 0 || index >= totalSections) return;
+
+      // Check if section is locked
+      if (!canAccessSection(index)) {
+        showMessage('Complete the previous section first!');
+        return;
+      }
+
+      currentSection = index;
+      const container = document.getElementById('course-container');
+      const offset = -index * 100;
+
+      container.style.transition = animate ? 'transform 0.5s ease-out' : 'none';
+      container.style.transform = `translateX(${offset}vw)`;
+
+      // Update UI
+      updateNavButtons();
+      updateSectionDots();
+      updateProgressBar();
+      updateSectionName();
+
+      // Trigger section-specific loading
+      onSectionChange(index);
+    }
+
+    // Check if section is accessible - see comprehensive version at bottom
+
+    // Get section index by ID
+    function getSectionIndexById(sectionId) {
+      const mapping = {
+        'intro': 0,
+        'module1': 1, 'gym1': 2, 'catch1': 3,
+        'module2': 4, 'gym2': 5, 'catch2': 6,
+        'module3': 7, 'gym3': 8, 'catch3': 9,
+        'module4': 10, 'gym4': 11, 'catch4': 12,
+        'module5': 13, 'gym5': 14, 'catch5': 15,
+        'module6': 16, 'gym6': 17, 'catch6': 18,
+        'module7': 19, 'gym7': 20, 'catch7': 21,
+        'module8': 22, 'gym8': 23,
+        'elite4-intro': 24, 'elite4-1': 25, 'elite4-2': 26, 'elite4-3': 27, 'elite4-4': 28,
+        'rival': 29, 'champion': 30
+      };
+      return mapping[sectionId] ?? 0;
+    }
+
+    // Update navigation buttons
+    function updateNavButtons() {
+      document.getElementById('nav-prev').disabled = currentSection === 0;
+      document.getElementById('nav-next').disabled = currentSection >= totalSections - 1 || !canAccessSection(currentSection + 1);
+    }
+
+    // Update section dots
+    function updateSectionDots() {
+      const dots = document.querySelectorAll('.section-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.remove('active');
+        if (index === currentSection) {
+          dot.classList.add('active');
+        }
+      });
+    }
+
+    // Update progress bar
+    function updateProgressBar() {
+      const progress = ((currentSection + 1) / totalSections) * 100;
+      document.getElementById('progress-fill').style.width = `${progress}%`;
+    }
+
+    // Update section name
+    function updateSectionName() {
+      const section = document.querySelectorAll('.course-section')[currentSection];
+      const name = section?.dataset.name || `Section ${currentSection + 1}`;
+      document.getElementById('section-name').textContent = name;
+    }
+
+    // Load starter options
+    function loadStarterOptions() {
+      const grid = document.getElementById('starter-grid');
+      if (!grid) return;
+
+      grid.innerHTML = STARTERS.map(starter => `
+        <div class="starter-card" data-starter="${starter.name}">
+          <div class="starter-emoji">${starter.emoji}</div>
+          <div class="starter-name">${starter.name}</div>
+          <div class="starter-types">
+            ${starter.types.map(t => `<span class="type-badge" style="background: ${TYPE_COLORS[t]}">${t}</span>`).join('')}
+          </div>
+          <div class="starter-description">${starter.description}</div>
+          <div class="starter-stats">
+            <div class="stat-box">
+              <span class="stat-box-label">HP</span>
+              <span class="stat-box-value">${starter.baseStats.hp}</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">ATK</span>
+              <span class="stat-box-value">${starter.baseStats.atk}</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">DEF</span>
+              <span class="stat-box-value">${starter.baseStats.def}</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">SPD</span>
+              <span class="stat-box-value">${starter.baseStats.spd}</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">INT</span>
+              <span class="stat-box-value">${starter.baseStats.int}</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">RES</span>
+              <span class="stat-box-value">${starter.baseStats.res}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Add click handlers
+      grid.querySelectorAll('.starter-card').forEach(card => {
+        card.onclick = () => selectStarter(card.dataset.starter);
+      });
+
+      // Confirm button
+      document.getElementById('confirm-starter-btn').onclick = confirmStarter;
+    }
+
+    // Select starter
+    function selectStarter(starterName) {
+      selectedStarter = starterName;
+
+      // Update UI
+      document.querySelectorAll('.starter-card').forEach(card => {
+        card.classList.remove('selected');
+        if (card.dataset.starter === starterName) {
+          card.classList.add('selected');
+        }
+      });
+
+      document.getElementById('confirm-starter-btn').disabled = false;
+    }
+
+    // Confirm starter selection
+    async function confirmStarter() {
+      if (!selectedStarter) return;
+
+      const btn = document.getElementById('confirm-starter-btn');
+      btn.disabled = true;
+      btn.textContent = 'Starting...';
+
+      try {
+        await stateManager.startGame(selectedStarter);
+
+        // Show team and badges
+        updateTeamDisplay();
+        updateBadgeDisplay();
+
+        // Navigate to module 1
+        navigateToSection(1);
+
+        showMessage(`${selectedStarter} joined your team!`);
+      } catch (error) {
+        console.error('Error starting game:', error);
+        btn.disabled = false;
+        btn.textContent = 'Choose This SCADAmon';
+      }
+    }
+
+    // Update team display
+    function updateTeamDisplay() {
+      const display = document.getElementById('team-display');
+      const container = document.getElementById('team-members');
+      const team = stateManager.getTeam();
+
+      if (team.length === 0) {
+        display.style.display = 'none';
+        return;
+      }
+
+      display.style.display = 'flex';
+      container.innerHTML = team.map(mon => `
+        <span class="team-member ${mon.currentHp <= 0 ? 'fainted' : ''}" title="${mon.name} Lv.${mon.level}">
+          ${mon.emoji}
+        </span>
+      `).join('');
+    }
+
+    // Update badge display
+    function updateBadgeDisplay() {
+      const display = document.getElementById('badge-display');
+      const badges = stateManager.getBadges();
+
+      if (!stateManager.hasStarted()) {
+        display.style.display = 'none';
+        return;
+      }
+
+      display.style.display = 'flex';
+
+      // Mark earned badges
+      const badgeSlots = display.querySelectorAll('.badge-slot');
+      const badgeEmojis = ['⚡', '🏗️', '🌊', '❄️', '🌑', '📜', '🔥', '👻'];
+
+      badgeSlots.forEach((slot, i) => {
+        const gymId = i + 1;
+        if (stateManager.isGymCompleted(gymId)) {
+          slot.classList.add('earned');
+          slot.textContent = badgeEmojis[i];
+        }
+      });
+    }
+
+    // Load module content
+    async function loadModuleContent(moduleId) {
+      try {
+        const response = await fetch(`modules/module${moduleId}.html`);
+        const html = await response.text();
+
+        // Extract just the main content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const mainContent = doc.querySelector('main.content-container');
+
+        if (mainContent) {
+          document.getElementById(`module${moduleId}-content`).innerHTML = mainContent.innerHTML;
+        }
+      } catch (error) {
+        console.error(`Error loading module ${moduleId}:`, error);
+      }
+    }
+
+    // Setup gym battle
+    document.getElementById('start-gym1-btn')?.addEventListener('click', async () => {
+      const battleContainer = document.getElementById('gym1-battle-container');
+      const startBtn = document.getElementById('start-gym1-btn');
+
+      startBtn.style.display = 'none';
+      battleContainer.style.display = 'block';
+
+      // Load questions
+      let questions = [];
+      try {
+        const response = await fetch('quizzes/module1-questions.json');
+        const data = await response.json();
+        questions = data.questions || [];
+      } catch (error) {
+        console.error('Error loading questions:', error);
+      }
+
+      // Merge with gym-specific questions
+      try {
+        const gymResponse = await fetch('References/gym1_ics_basics.json');
+        const gymData = await gymResponse.json();
+        questions = [...questions, ...(gymData.questions || [])];
+      } catch (error) {
+        console.log('No gym-specific questions found');
+      }
+
+      // Initialize battle
+      const gymLeader = GYM_LEADERS.find(g => g.id === 1);
+
+      const battle = new BattleEngine('gym1-battle-container', {
+        gymId: 1,
+        gymLeader: gymLeader,
+        questions: questions,
+        passingScore: 80,
+        onComplete: async (result) => {
+          if (result.victory) {
+            await stateManager.completeGym(1, gymLeader.badge, result.score);
+            updateBadgeDisplay();
+
+            // Store score for catch phase
+            lastGymScore = result.score;
+
+            // Show victory overlay
+            showBattleResult(true, result);
+
+            // Enable navigation to catch phase
+            updateNavButtons();
+          } else {
+            // Show defeat overlay
+            showBattleResult(false, result);
+          }
+        }
+      });
+    });
+
+    // ========================================
+    // Catch Phase Logic
+    // ========================================
+
+    let selectedCatchScadamon = null;
+
+    // Load catch phase options
+    function loadCatchPhaseOptions(gymId) {
+      const grid = document.getElementById(`catch${gymId}-grid`);
+      if (!grid) return;
+
+      // Get available wild SCADAmon based on completed gyms and score
+      const completedGyms = stateManager.getFullState().progress.completedGyms;
+      const available = getAvailableWildScadamon(completedGyms, lastGymScore);
+
+      // Filter to SCADAmon that become available after this specific gym
+      const newlyAvailable = available.filter(s => s.availableAfterGym === gymId);
+
+      // If no newly available, show from all available
+      const toShow = newlyAvailable.length > 0 ? newlyAvailable : available.slice(0, 3);
+
+      if (toShow.length === 0) {
+        grid.innerHTML = '<p style="text-align: center; color: #888;">No SCADAmon available right now. Keep progressing!</p>';
+        return;
+      }
+
+      // Determine catch quality message based on score
+      let qualityMessage = '';
+      if (lastGymScore >= 100) {
+        qualityMessage = '🌟 PERFECT! You can catch any rarity!';
+      } else if (lastGymScore >= 95) {
+        qualityMessage = '✨ Excellent! Rare SCADAmon are available!';
+      } else if (lastGymScore >= 90) {
+        qualityMessage = '👍 Great! Uncommon SCADAmon unlocked!';
+      } else {
+        qualityMessage = '👌 Good job! Common SCADAmon available.';
+      }
+
+      grid.innerHTML = `
+        <div class="catch-quality-message">${qualityMessage}</div>
+        ${toShow.map(scadamon => `
+          <div class="catch-card" data-scadamon="${scadamon.name}">
+            <div class="catch-rarity-badge ${scadamon.rarity}">${scadamon.rarity.toUpperCase()}</div>
+            <div class="catch-emoji">${scadamon.emoji}</div>
+            <div class="catch-name">${scadamon.name}</div>
+            <div class="catch-types">
+              ${scadamon.types.map(t => `<span class="type-badge" style="background: ${TYPE_COLORS[t]}">${t}</span>`).join('')}
+            </div>
+            <div class="catch-description">${scadamon.description}</div>
+            <div class="catch-stats">
+              <div class="stat-mini"><span class="stat-label">HP</span>${scadamon.baseStats.hp}</div>
+              <div class="stat-mini"><span class="stat-label">ATK</span>${scadamon.baseStats.atk}</div>
+              <div class="stat-mini"><span class="stat-label">DEF</span>${scadamon.baseStats.def}</div>
+              <div class="stat-mini"><span class="stat-label">SPD</span>${scadamon.baseStats.spd}</div>
+            </div>
+          </div>
+        `).join('')}
+      `;
+
+      // Add click handlers
+      grid.querySelectorAll('.catch-card').forEach(card => {
+        card.onclick = () => selectCatchScadamon(card.dataset.scadamon, gymId);
+      });
+
+      // Setup confirm button
+      const confirmBtn = document.getElementById(`catch${gymId}-confirm-btn`);
+      if (confirmBtn) {
+        confirmBtn.disabled = true;
+        confirmBtn.onclick = () => confirmCatch(gymId);
+      }
+    }
+
+    // Select a SCADAmon to catch
+    function selectCatchScadamon(scadamonName, gymId) {
+      selectedCatchScadamon = scadamonName;
+
+      // Update UI
+      const grid = document.getElementById(`catch${gymId}-grid`);
+      grid.querySelectorAll('.catch-card').forEach(card => {
+        card.classList.remove('selected');
+        if (card.dataset.scadamon === scadamonName) {
+          card.classList.add('selected');
+        }
+      });
+
+      document.getElementById(`catch${gymId}-confirm-btn`).disabled = false;
+    }
+
+    // Confirm catch selection
+    async function confirmCatch(gymId) {
+      if (!selectedCatchScadamon) return;
+
+      const btn = document.getElementById(`catch${gymId}-confirm-btn`);
+      btn.disabled = true;
+      btn.textContent = 'Catching...';
+
+      // Find the SCADAmon definition
+      const definition = WILD_SCADAMON.find(s => s.name === selectedCatchScadamon);
+      if (!definition) {
+        console.error('SCADAmon not found:', selectedCatchScadamon);
+        return;
+      }
+
+      // Create instance at appropriate level based on gym progression
+      const levelRanges = {
+        1: { min: 8, max: 12 },
+        2: { min: 15, max: 20 },
+        3: { min: 23, max: 28 },
+        4: { min: 30, max: 36 },
+        5: { min: 36, max: 42 },
+        6: { min: 42, max: 48 },
+        7: { min: 48, max: 54 },
+        8: { min: 54, max: 60 }
+      };
+
+      const range = levelRanges[gymId] || { min: 10, max: 15 };
+      const level = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+
+      // Create the SCADAmon instance
+      const newScadamon = stateManager.createScadamonInstance(definition, level);
+
+      // Add to team
+      stateManager.addToTeam(newScadamon);
+
+      // Mark catch phase complete
+      stateManager.completeCatchPhase(gymId);
+
+      // Update displays
+      updateTeamDisplay();
+
+      // Show success message
+      showMessage(`${selectedCatchScadamon} (Lv.${level}) joined your team!`);
+
+      // Animate the catch
+      const selectedCard = document.querySelector(`.catch-card[data-scadamon="${selectedCatchScadamon}"]`);
+      if (selectedCard) {
+        selectedCard.style.animation = 'catchSuccess 0.5s ease-out';
+      }
+
+      // Wait a moment then navigate
+      setTimeout(() => {
+        btn.textContent = 'Add to Team';
+        selectedCatchScadamon = null;
+
+        // Navigate to next module
+        const nextSection = gymId + 3; // catch1 is at 3, so module2 is at 4
+        navigateToSection(nextSection);
+      }, 1500);
+    }
+
+    // Update sections when navigating to them
+    function onSectionChange(sectionIndex) {
+      const section = document.querySelectorAll('.course-section')[sectionIndex];
+      const sectionId = section?.id;
+
+      // Check if this is a catch phase section
+      if (sectionId && sectionId.startsWith('section-catch')) {
+        const gymId = parseInt(sectionId.replace('section-catch', ''));
+        loadCatchPhaseOptions(gymId);
+      }
+
+      // Check if this is a module section and load content
+      if (sectionId && sectionId.startsWith('section-module')) {
+        const moduleId = parseInt(sectionId.replace('section-module', ''));
+        if (moduleId > 1) {
+          loadModuleContent(moduleId);
+        }
+      }
+    }
+
+    // Show battle result overlay
+    function showBattleResult(victory, result) {
+      const overlay = document.createElement('div');
+      overlay.className = 'battle-result-overlay';
+      overlay.innerHTML = `
+        <div class="result-badge">${victory ? '🏆' : '💔'}</div>
+        <div class="result-title ${victory ? 'victory' : 'defeat'}">${victory ? 'Victory!' : 'Defeat'}</div>
+        <div class="result-score">Score: ${result.score}%</div>
+        <div class="result-message">
+          ${victory
+            ? `You earned the ${result.badge}! Continue to catch a new SCADAmon!`
+            : 'Your SCADAmon have fainted. Review the material and try again!'}
+        </div>
+        <button class="result-button">${victory ? 'Continue' : 'Try Again'}</button>
+      `;
+
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('.result-button').onclick = () => {
+        overlay.remove();
+        if (victory) {
+          navigateToSection(3); // Catch phase
+        } else {
+          // Reset and retry
+          stateManager.healTeam();
+          updateTeamDisplay();
+          document.getElementById('gym1-battle-container').style.display = 'none';
+          document.getElementById('start-gym1-btn').style.display = 'block';
+        }
+      };
+    }
+
+    // Show toast message
+    function showMessage(text) {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.9);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        z-index: 2000;
+        animation: fadeIn 0.3s ease-out;
+      `;
+      toast.textContent = text;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'fadeIn 0.3s ease-out reverse';
+        setTimeout(() => toast.remove(), 300);
+      }, 2000);
+    }
+
+    // ========================================
+    // Generic Gym Battle Setup
+    // ========================================
+
+    // Setup all gym battles (for gyms 2-8)
+    document.querySelectorAll('.gym-battle-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const gymId = parseInt(btn.dataset.gym);
+        await startGymBattle(gymId);
+      });
+    });
+
+    // Generic gym battle function
+    async function startGymBattle(gymId) {
+      const battleContainer = document.getElementById(`gym${gymId}-battle-container`);
+      const startBtn = document.querySelector(`.gym-battle-btn[data-gym="${gymId}"]`);
+
+      if (startBtn) startBtn.style.display = 'none';
+      if (battleContainer) battleContainer.style.display = 'block';
+
+      // Load questions for this gym's domain
+      let questions = [];
+      try {
+        const response = await fetch(`quizzes/module${gymId}-questions.json`);
+        const data = await response.json();
+        questions = data.questions || [];
+      } catch (error) {
+        console.log(`No module ${gymId} questions file, using defaults`);
+      }
+
+      // Try gym-specific questions
+      try {
+        const gymResponse = await fetch(`References/gym${gymId}_questions.json`);
+        const gymData = await gymResponse.json();
+        questions = [...questions, ...(gymData.questions || [])];
+      } catch (error) {
+        // Use generic questions if no specific ones found
+      }
+
+      // Ensure we have at least some questions
+      if (questions.length < 5) {
+        questions = generateGenericQuestions(gymId);
+      }
+
+      const gymLeader = GYM_LEADERS.find(g => g.id === gymId);
+
+      const battle = new BattleEngine(`gym${gymId}-battle-container`, {
+        gymId: gymId,
+        gymLeader: gymLeader,
+        questions: questions,
+        passingScore: 80,
+        onComplete: async (result) => {
+          if (result.victory) {
+            await stateManager.completeGym(gymId, gymLeader.badge, result.score);
+            updateBadgeDisplay();
+            lastGymScore = result.score;
+
+            // Show result and navigate to catch phase (except for gym 8)
+            if (gymId < 8) {
+              showGymBattleResult(true, result, gymId);
+            } else {
+              // After gym 8, go to Elite 4
+              showGymBattleResult(true, result, gymId, true);
+            }
+            updateNavButtons();
+          } else {
+            showGymBattleResult(false, result, gymId);
+          }
+        }
+      });
+    }
+
+    // Show gym battle result
+    function showGymBattleResult(victory, result, gymId, isLastGym = false) {
+      const overlay = document.createElement('div');
+      overlay.className = 'battle-result-overlay';
+
+      let message = '';
+      let nextSection = 0;
+      if (victory) {
+        if (isLastGym) {
+          message = `You earned all 8 badges! Time to face the Elite 4!`;
+          nextSection = 24; // Elite 4 intro
+        } else {
+          message = `You earned the ${result.badge}! Continue to catch a new SCADAmon!`;
+          // Calculate catch section based on gym
+          // Gym 1 -> catch1 (section 3), Gym 2 -> catch2 (section 6), etc.
+          nextSection = (gymId - 1) * 3 + 3;
+        }
+      } else {
+        message = 'Your SCADAmon have fainted. Review the material and try again!';
+      }
+
+      overlay.innerHTML = `
+        <div class="result-badge">${victory ? '🏆' : '💔'}</div>
+        <div class="result-title ${victory ? 'victory' : 'defeat'}">${victory ? 'Victory!' : 'Defeat'}</div>
+        <div class="result-score">Score: ${result.score}%</div>
+        <div class="result-message">${message}</div>
+        <button class="result-button">${victory ? 'Continue' : 'Try Again'}</button>
+      `;
+
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('.result-button').onclick = () => {
+        overlay.remove();
+        if (victory) {
+          navigateToSection(nextSection);
+        } else {
+          stateManager.healTeam();
+          updateTeamDisplay();
+          document.getElementById(`gym${gymId}-battle-container`).style.display = 'none';
+          const btn = document.querySelector(`.gym-battle-btn[data-gym="${gymId}"]`);
+          if (btn) btn.style.display = 'block';
+        }
+      };
+    }
+
+    // Generate generic questions if none found
+    function generateGenericQuestions(gymId) {
+      const domains = ['ics_basics', 'architecture', 'protocols', 'windows', 'unix', 'governance', 'response', 'synthesis'];
+      const domain = domains[gymId - 1] || 'general';
+
+      return [
+        {
+          question: "What is the primary purpose of network segmentation in ICS?",
+          answers: ["To isolate critical systems from less secure networks", "To improve network speed", "To reduce hardware costs", "To simplify management"],
+          correct: 0,
+          domain: domain
+        },
+        {
+          question: "Which protocol is commonly used for serial communication in ICS?",
+          answers: ["HTTP", "Modbus RTU", "FTP", "SMTP"],
+          correct: 1,
+          domain: domain
+        },
+        {
+          question: "What does a PLC stand for?",
+          answers: ["Power Line Controller", "Programmable Logic Controller", "Protocol Link Connection", "Process Level Computer"],
+          correct: 1,
+          domain: domain
+        },
+        {
+          question: "What is defense in depth?",
+          answers: ["A single strong firewall", "Multiple layers of security controls", "Deep packet inspection only", "Physical security only"],
+          correct: 1,
+          domain: domain
+        },
+        {
+          question: "Which is a key principle of ICS security?",
+          answers: ["Security through obscurity", "Least privilege access", "Open network access", "Shared credentials"],
+          correct: 1,
+          domain: domain
+        }
+      ];
+    }
+
+    // ========================================
+    // Elite 4 Battle Logic
+    // ========================================
+
+    document.getElementById('start-elite4-btn')?.addEventListener('click', () => {
+      elite4Index = 0;
+      navigateToSection(25); // First Elite 4 battle
+      startElite4Battle(0);
+    });
+
+    async function startElite4Battle(index) {
+      if (index >= ELITE_FOUR.length) {
+        // All Elite 4 defeated, proceed to Rival
+        navigateToSection(29); // Rival section
+        setTimeout(() => startRivalBattle(), 500);
+        return;
+      }
+
+      const elite4Member = ELITE_FOUR[index];
+      const containerId = `elite4-${index + 1}-battle-container`;
+
+      // Load assessment questions
+      let questions = [];
+      try {
+        const response = await fetch('quizzes/elite4-questions.json');
+        const data = await response.json();
+        questions = data.questions || [];
+      } catch (error) {
+        questions = generateGenericQuestions(index + 1);
+      }
+
+      // Create custom gym leader object for Elite 4
+      const elite4AsLeader = {
+        id: elite4Member.id,
+        name: elite4Member.name,
+        title: elite4Member.title,
+        badge: null, // No badge for Elite 4
+        team: elite4Member.team,
+        defeatMessage: elite4Member.defeatMessage,
+        preBattleMessage: elite4Member.preBattleMessage
+      };
+
+      const battle = new BattleEngine(containerId, {
+        gymId: `elite4-${index + 1}`,
+        gymLeader: elite4AsLeader,
+        questions: questions,
+        passingScore: 80,
+        onComplete: async (result) => {
+          if (result.victory) {
+            await stateManager.defeatEliteFour(elite4Member.id);
+            showElite4Result(true, result, index);
+          } else {
+            showElite4Result(false, result, index);
+          }
+        }
+      });
+    }
+
+    function showElite4Result(victory, result, index) {
+      const overlay = document.createElement('div');
+      overlay.className = 'battle-result-overlay';
+
+      const isLast = index >= ELITE_FOUR.length - 1;
+      let message = '';
+
+      if (victory) {
+        if (isLast) {
+          message = 'You defeated all Elite 4 Admins! Now face your Rival!';
+        } else {
+          message = `${ELITE_FOUR[index].name} defeated! ${ELITE_FOUR.length - index - 1} Admin(s) remaining!`;
+        }
+      } else {
+        message = 'Team Hack-It has defeated you. Train more and try again!';
+      }
+
+      overlay.innerHTML = `
+        <div class="result-badge">${victory ? '⚔️' : '💔'}</div>
+        <div class="result-title ${victory ? 'victory' : 'defeat'}">${victory ? 'Admin Defeated!' : 'Defeat'}</div>
+        <div class="result-score">Score: ${result.score}%</div>
+        <div class="result-message">${message}</div>
+        <button class="result-button">${victory ? 'Continue' : 'Retry Elite 4'}</button>
+      `;
+
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('.result-button').onclick = () => {
+        overlay.remove();
+        if (victory) {
+          elite4Index++;
+          if (elite4Index < ELITE_FOUR.length) {
+            navigateToSection(25 + elite4Index);
+            setTimeout(() => startElite4Battle(elite4Index), 500);
+          } else {
+            navigateToSection(29); // Rival battle
+            setTimeout(() => startRivalBattle(), 500);
+          }
+        } else {
+          // Reset to Elite 4 intro
+          stateManager.healTeam();
+          updateTeamDisplay();
+          elite4Index = 0;
+          navigateToSection(24); // Back to Elite 4 intro
+        }
+      };
+    }
+
+    // ========================================
+    // Rival Battle Logic
+    // ========================================
+
+    async function startRivalBattle() {
+      const containerId = 'rival-battle-container';
+
+      // Get player's starter to determine Jerry's team
+      const playerStarter = stateManager.getFullState().player.starterChoice;
+      const rivalTeam = RIVAL.getTeam(playerStarter);
+
+      // Load assessment questions
+      let questions = [];
+      try {
+        const response = await fetch('quizzes/rival-questions.json');
+        const data = await response.json();
+        questions = data.questions || [];
+      } catch (error) {
+        // Generate comprehensive questions for final battle
+        questions = [
+          ...generateGenericQuestions(1),
+          ...generateGenericQuestions(2),
+          ...generateGenericQuestions(3)
+        ];
+      }
+
+      // Create rival as gym leader object
+      const rivalAsLeader = {
+        id: 'rival-jerry',
+        name: `Rival ${RIVAL.name}`,
+        title: RIVAL.title,
+        badge: null,
+        team: rivalTeam,
+        defeatMessage: RIVAL.defeatMessage,
+        preBattleMessage: RIVAL.preBattleMessage
+      };
+
+      const battle = new BattleEngine(containerId, {
+        gymId: 'rival',
+        gymLeader: rivalAsLeader,
+        questions: questions,
+        passingScore: 80,
+        onComplete: async (result) => {
+          if (result.victory) {
+            await stateManager.defeatRival();
+            showChampionScreen(result);
+          } else {
+            showRivalResult(false, result);
+          }
+        }
+      });
+    }
+
+    function showRivalResult(victory, result) {
+      const overlay = document.createElement('div');
+      overlay.className = 'battle-result-overlay';
+
+      overlay.innerHTML = `
+        <div class="result-badge">💔</div>
+        <div class="result-title defeat">Defeat</div>
+        <div class="result-score">Score: ${result.score}%</div>
+        <div class="result-message">Jerry: "Ha! Looks like I'm still the stronger trainer!"</div>
+        <button class="result-button">Try Again</button>
+      `;
+
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('.result-button').onclick = () => {
+        overlay.remove();
+        stateManager.healTeam();
+        updateTeamDisplay();
+        navigateToSection(24); // Back to Elite 4 intro
+      };
+    }
+
+    // ========================================
+    // Champion Screen
+    // ========================================
+
+    function showChampionScreen(result) {
+      navigateToSection(30); // Champion hall
+
+      // Populate champion stats
+      const statsContainer = document.getElementById('champion-stats');
+      const team = stateManager.getTeam();
+      const state = stateManager.getFullState();
+
+      statsContainer.innerHTML = `
+        <div class="champion-stat-row">
+          <span class="stat-label">Final Score:</span>
+          <span class="stat-value">${result.score}%</span>
+        </div>
+        <div class="champion-stat-row">
+          <span class="stat-label">Team Size:</span>
+          <span class="stat-value">${team.length} SCADAmon</span>
+        </div>
+        <div class="champion-stat-row">
+          <span class="stat-label">Badges Earned:</span>
+          <span class="stat-value">8/8</span>
+        </div>
+      `;
+
+      // Populate badge display
+      const badgesContainer = document.getElementById('final-badges');
+      const badges = stateManager.getBadges();
+      badgesContainer.innerHTML = badges.map(badge => `
+        <div class="badge-large">
+          <span class="badge-icon">🏅</span>
+          <span class="badge-name">${badge}</span>
+        </div>
+      `).join('');
+    }
+
+    // Complete course button
+    document.getElementById('complete-course-btn')?.addEventListener('click', async () => {
+      showMessage('Congratulations! Course completed!');
+      // cmi5 completion is already handled in defeatRival
+    });
+
+    // ========================================
+    // Section Access Control Update
+    // ========================================
+
+    // Override canAccessSection for all new sections
+    const originalCanAccess = canAccessSection;
+    function canAccessSection(index) {
+      if (index === 0) return true;
+      if (!stateManager.hasStarted()) return false;
+
+      const progress = stateManager.getFullState().progress;
+
+      // Section mapping:
+      // 0: intro, 1: module1, 2: gym1, 3: catch1
+      // 4: module2, 5: gym2, 6: catch2
+      // ... pattern continues
+      // 24: elite4-intro, 25-28: elite4 battles, 29: rival, 30: champion
+
+      // Module sections (0-based: 1,4,7,10,13,16,19,22)
+      // Gym sections: 2,5,8,11,14,17,20,23
+      // Catch sections: 3,6,9,12,15,18,21
+
+      if (index <= 3) {
+        // First module, gym, catch
+        if (index === 1) return true;
+        if (index === 2) return progress.completedModules.includes(1) || true; // Allow gym after module
+        if (index === 3) return progress.completedGyms.includes(1);
+      }
+
+      // For subsequent sections, check the pattern
+      const sectionGroup = Math.floor((index - 1) / 3); // Which group (module/gym/catch)
+      const gymNumber = sectionGroup + 1;
+
+      // Sections 4-23 follow the pattern
+      if (index >= 4 && index <= 23) {
+        const prevGym = gymNumber - 1;
+        if (prevGym > 0 && !progress.completedGyms.includes(prevGym)) {
+          return false;
+        }
+        return true;
+      }
+
+      // Elite 4 intro (24) - need all 8 badges
+      if (index === 24) {
+        return progress.completedGyms.length >= 8;
+      }
+
+      // Elite 4 battles (25-28) - progressive
+      if (index >= 25 && index <= 28) {
+        const e4Index = index - 25;
+        if (e4Index === 0) return progress.completedGyms.length >= 8;
+        return progress.eliteFourDefeated.length >= e4Index;
+      }
+
+      // Rival (29) - need all Elite 4 defeated
+      if (index === 29) {
+        return progress.eliteFourDefeated.length >= 4;
+      }
+
+      // Champion (30) - need rival defeated
+      if (index === 30) {
+        return progress.rivalDefeated;
+      }
+
+      return true;
+    }
+
+    // Export to window for debugging
+    window.gameState = stateManager;
+    window.navigateToSection = navigateToSection;
+    window.startGymBattle = startGymBattle;
   </script>
 </body>
 </html>
