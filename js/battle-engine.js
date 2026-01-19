@@ -73,15 +73,23 @@ class BattleEngine {
       currentHp: mon.currentHp
     }));
 
-    // Create enemy team from gym leader
+    // Calculate average player level for scaling
+    const avgPlayerLevel = Math.round(
+      this.playerTeam.reduce((sum, mon) => sum + mon.level, 0) / this.playerTeam.length
+    );
+
+    // Create enemy team from gym leader, scaled to player level
     if (this.options.gymLeader) {
-      this.enemyTeam = this.options.gymLeader.team.map(entry => {
+      this.enemyTeam = this.options.gymLeader.team.map((entry, index) => {
         const def = getScadamonByName(entry.scadamon);
         if (!def) {
           console.error(`SCADAmon not found: ${entry.scadamon}`);
           return null;
         }
-        return this.createEnemyInstance(def, entry.level);
+        // Scale enemy level: match player level, with slight increase for later enemies
+        // First enemy = player level, subsequent enemies +1 each
+        const scaledLevel = avgPlayerLevel + index;
+        return this.createEnemyInstance(def, scaledLevel);
       }).filter(Boolean);
     }
 
@@ -560,12 +568,38 @@ class BattleEngine {
       return;
     }
 
-    await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
-
-    // Calculate damage based on remaining HP and wrong answers
-    // More wrong answers = more damage taken
+    // Calculate current performance
+    const currentScore = this.getScore();
     const wrongAnswers = this.questionsAsked - this.questionsCorrect;
-    const damageMultiplier = 1 + (wrongAnswers * 0.2); // 20% more damage per wrong answer
+
+    // Performance-based damage scaling:
+    // - 100% correct: enemy deals 0 damage (perfect defense)
+    // - 90%+ correct: enemy deals 25% damage (strong defense)
+    // - 80%+ correct: enemy deals 50% damage (good defense)
+    // - Below 80%: enemy deals full damage + 20% per wrong answer
+    let damageMultiplier = 1.0;
+
+    if (wrongAnswers === 0 && this.questionsAsked > 0) {
+      // Perfect score - enemy misses entirely
+      await this.showMessage(`${enemy.name} tried to use ${enemyMove.name}...`, 1500);
+      await this.showMessage(`But your defenses are perfect! Attack blocked!`, 1500);
+      this.startPlayerTurn();
+      return;
+    } else if (currentScore >= 90) {
+      damageMultiplier = 0.25; // Strong performance = 25% damage
+      await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
+      await this.showMessage(`Your strong defenses reduce the impact!`, 1000);
+    } else if (currentScore >= 80) {
+      damageMultiplier = 0.5; // Passing = 50% damage
+      await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
+    } else {
+      // Below passing - full damage plus penalty
+      damageMultiplier = 1 + (wrongAnswers * 0.2);
+      await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
+      if (wrongAnswers > 2) {
+        await this.showMessage(`Your weak defenses make the attack more effective!`, 1000);
+      }
+    }
 
     if (enemyMove.power > 0) {
       const baseDamage = calculateDamage(enemy, player, enemyMove, true);
@@ -574,22 +608,29 @@ class BattleEngine {
       // Play attack animation
       await this.animateAttack('enemy-sprite', 'player-sprite');
 
-      // Apply damage
-      player.currentHp = Math.max(0, player.currentHp - damage);
+      // Apply damage (but don't kill if score is passing - leave at 1 HP)
+      let newHp = player.currentHp - damage;
+
+      // Protection: if player is at passing score or above, can't be killed
+      if (currentScore >= this.options.passingScore && newHp <= 0) {
+        newHp = 1; // Leave at 1 HP - player is doing well enough to survive
+      }
+
+      player.currentHp = Math.max(0, newHp);
       await this.animateHpDrain('player-hp', this.getHpPercent(player));
 
       // Update actual team state
       stateManager.updateTeamMember(this.playerCurrent, { currentHp: player.currentHp });
 
-      // Check if player fainted
+      // Check if player fainted (only possible if below passing score)
       if (player.currentHp <= 0) {
         await this.handlePlayerFaint();
         return;
       }
     }
 
-    // Check score - if under passing, team wipe
-    if (this.questionsAsked >= 5 && this.getScore() < this.options.passingScore) {
+    // Check score - if under passing for too long, team wipe
+    if (this.questionsAsked >= 10 && this.getScore() < this.options.passingScore) {
       await this.checkTeamWipe();
       if (this.state === BATTLE_STATE.DEFEAT) return;
     }
@@ -661,13 +702,15 @@ class BattleEngine {
    */
   async checkTeamWipe() {
     const score = this.getScore();
+    // Only wipe if below passing score AND have answered enough questions
     if (score < this.options.passingScore && this.questionsAsked >= 10) {
-      await this.showMessage(`Your score dropped below ${this.options.passingScore}%!`, 2000);
-      await this.showMessage('All your SCADAmon are overwhelmed!', 2000);
+      await this.showMessage(`Your score is ${score}% - below the ${this.options.passingScore}% required!`, 2000);
+      await this.showMessage('All your SCADAmon are overwhelmed by the enemy!', 2000);
 
       // Wipe all HP
       for (const mon of this.playerTeam) {
         mon.currentHp = 0;
+        stateManager.updateTeamMember(this.playerTeam.indexOf(mon), { currentHp: 0 });
       }
 
       await this.handleDefeat();
