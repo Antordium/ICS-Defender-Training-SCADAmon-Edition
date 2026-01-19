@@ -1446,37 +1446,93 @@
         return;
       }
 
-      // Get available wild SCADAmon based on completed gyms and score
+      // Get wild SCADAmon - higher scores unlock SCADAmon from future gyms
       const completedGyms = stateManager.getFullState().progress.completedGyms;
-      const available = getAvailableWildScadamon(completedGyms, lastGymScore);
+      const maxGym = Math.max(...completedGyms, 0);
 
-      // Sort by rarity (legendary > rare > uncommon > common) to show best options first
+      // Score-based gym level bonus for accessing higher rarity SCADAmon
+      // 100% = access ALL SCADAmon (including legendaries from any gym)
+      // 92%+ = +3 gym levels, 88%+ = +2 gym levels, <88% = current gym only
+      let effectiveMaxGym = maxGym;
+      if (lastGymScore >= 100) {
+        effectiveMaxGym = 8; // Perfect score unlocks ALL SCADAmon
+      } else if (lastGymScore >= 92) {
+        effectiveMaxGym = Math.min(maxGym + 3, 8);
+      } else if (lastGymScore >= 88) {
+        effectiveMaxGym = Math.min(maxGym + 2, 8);
+      }
+
+      const allAvailable = WILD_SCADAMON.filter(s => s.availableAfterGym <= effectiveMaxGym);
+
+      // Group by rarity
+      const byRarity = {
+        legendary: allAvailable.filter(s => s.rarity === 'legendary'),
+        rare: allAvailable.filter(s => s.rarity === 'rare'),
+        uncommon: allAvailable.filter(s => s.rarity === 'uncommon'),
+        common: allAvailable.filter(s => s.rarity === 'common')
+      };
+
+      // Shuffle each rarity pool
+      const shuffle = arr => [...arr].sort(() => Math.random() - 0.5);
+      Object.keys(byRarity).forEach(r => byRarity[r] = shuffle(byRarity[r]));
+
+      // Determine what to show based on score:
+      // 100%: 2 rare, 1 legendary
+      // 92%+: 2 uncommon, 1 rare
+      // 88%+: 1 common, 2 uncommon
+      // <88%: 3 common
+      let toShow = [];
+      let qualityMessage = '';
+
+      if (lastGymScore >= 100) {
+        qualityMessage = '🌟 PERFECT SCORE! Legendary SCADAmon unlocked!';
+        // 2 rare, 1 legendary - fallback to lower rarity if not enough
+        toShow = [
+          ...byRarity.legendary.slice(0, 1),
+          ...byRarity.rare.slice(0, 2)
+        ];
+        // Fill with uncommon/common if needed
+        while (toShow.length < 3 && byRarity.uncommon.length > 0) {
+          toShow.push(byRarity.uncommon.shift());
+        }
+        while (toShow.length < 3 && byRarity.common.length > 0) {
+          toShow.push(byRarity.common.shift());
+        }
+      } else if (lastGymScore >= 92) {
+        qualityMessage = '✨ Excellent! (23+/25) Rare SCADAmon available!';
+        // 2 uncommon, 1 rare
+        toShow = [
+          ...byRarity.rare.slice(0, 1),
+          ...byRarity.uncommon.slice(0, 2)
+        ];
+        // Fill with common if needed
+        while (toShow.length < 3 && byRarity.common.length > 0) {
+          toShow.push(byRarity.common.shift());
+        }
+      } else if (lastGymScore >= 88) {
+        qualityMessage = '👍 Great! (22/25) Uncommon SCADAmon unlocked!';
+        // 1 common, 2 uncommon
+        toShow = [
+          ...byRarity.uncommon.slice(0, 2),
+          ...byRarity.common.slice(0, 1)
+        ];
+        // Fill with common if needed
+        while (toShow.length < 3 && byRarity.common.length > 0) {
+          toShow.push(byRarity.common.shift());
+        }
+      } else {
+        qualityMessage = '👌 Good job! Common SCADAmon available.';
+        // 3 common
+        toShow = byRarity.common.slice(0, 3);
+      }
+
+      // Sort to show best rarity first
       const rarityOrder = { legendary: 0, rare: 1, uncommon: 2, common: 3 };
-      const sorted = [...available].sort((a, b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]);
-
-      // Show up to 3 of the best available (prioritize newly unlocked at this gym, then by rarity)
-      const newlyAvailable = sorted.filter(s => s.availableAfterGym === gymId);
-      const previouslyAvailable = sorted.filter(s => s.availableAfterGym < gymId);
-
-      // Combine: prioritize new unlocks, fill rest with best previously available
-      const toShow = [...newlyAvailable, ...previouslyAvailable].slice(0, 3);
+      toShow.sort((a, b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]);
 
       if (toShow.length === 0) {
         grid.innerHTML = '<p style="text-align: center; color: #888;">No SCADAmon available right now. Keep progressing!</p>';
         return;
-      }
-
-      // Determine catch quality message based on score (new thresholds)
-      // 25/25 = 100% = legendary, 23/25 = 92% = rare, 22/25 = 88% = uncommon
-      let qualityMessage = '';
-      if (lastGymScore >= 100) {
-        qualityMessage = '🌟 PERFECT SCORE! Legendary SCADAmon unlocked!';
-      } else if (lastGymScore >= 92) {
-        qualityMessage = '✨ Excellent! (23+/25) Rare SCADAmon available!';
-      } else if (lastGymScore >= 88) {
-        qualityMessage = '👍 Great! (22/25) Uncommon SCADAmon unlocked!';
-      } else {
-        qualityMessage = '👌 Good job! Common SCADAmon available.';
       }
 
       grid.innerHTML = `
