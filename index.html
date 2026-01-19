@@ -1145,6 +1145,9 @@
     // Current Elite 4 member being battled
     let elite4Index = 0;
 
+    // Battle state - prevents navigation during battles
+    let battleInProgress = false;
+
     // Course navigation state
     let currentSection = 0;
     let totalSections = 0;
@@ -1306,8 +1309,14 @@
     }
 
     // Navigate to section
-    function navigateToSection(index, animate = true) {
+    function navigateToSection(index, animate = true, bypassBattleCheck = false) {
       if (index < 0 || index >= totalSections) return;
+
+      // Block navigation during battles (unless bypassed for victory/defeat screens)
+      if (battleInProgress && !bypassBattleCheck) {
+        showMessage('Complete the battle first!');
+        return;
+      }
 
       // Check if section is locked
       if (!canAccessSection(index)) {
@@ -1354,7 +1363,17 @@
 
     // Update navigation buttons
     function updateNavButtons() {
-      document.getElementById('nav-prev').disabled = currentSection === 0;
+      const prevBtn = document.getElementById('nav-prev');
+      const nextBtn = document.getElementById('nav-next');
+
+      // Disable all navigation during battles
+      if (battleInProgress) {
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      prevBtn.disabled = currentSection === 0;
 
       // Find next accessible section (may skip locked sections)
       let nextAccessible = -1;
@@ -1365,7 +1384,6 @@
         }
       }
 
-      const nextBtn = document.getElementById('nav-next');
       nextBtn.disabled = nextAccessible === -1;
 
       // Store the next accessible section for the click handler
@@ -1629,13 +1647,28 @@
         const response = await fetch(`modules/module${moduleId}.html`);
         const html = await response.text();
 
-        // Extract just the main content
+        // Extract the content - handle different formats
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const mainContent = doc.querySelector('main.content-container');
 
-        if (mainContent) {
-          document.getElementById(`module${moduleId}-content`).innerHTML = mainContent.innerHTML;
+        // Try main.content-container first (old format)
+        let mainContent = doc.querySelector('main.content-container');
+
+        // If not found, try getting the content-section directly (new format)
+        if (!mainContent) {
+          mainContent = doc.querySelector('.content-section');
+        }
+
+        // If still not found, try body content
+        if (!mainContent) {
+          mainContent = doc.body;
+        }
+
+        const targetElement = document.getElementById(`module${moduleId}-content`);
+        if (mainContent && targetElement) {
+          targetElement.innerHTML = mainContent.innerHTML;
+        } else {
+          console.error(`Could not find target element module${moduleId}-content or content to load`);
         }
       } catch (error) {
         console.error(`Error loading module ${moduleId}:`, error);
@@ -1646,6 +1679,10 @@
     document.getElementById('start-gym1-btn')?.addEventListener('click', async () => {
       const battleContainer = document.getElementById('gym1-battle-container');
       const startBtn = document.getElementById('start-gym1-btn');
+
+      // Lock navigation during battle
+      battleInProgress = true;
+      updateNavButtons();
 
       startBtn.style.display = 'none';
       battleContainer.style.display = 'block';
@@ -1986,8 +2023,12 @@
 
       overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
+        // Unlock navigation after battle ends
+        battleInProgress = false;
+        updateNavButtons();
+
         if (victory) {
-          navigateToSection(3); // Catch phase
+          navigateToSection(3, true, true); // Catch phase, bypass battle check
         } else {
           // Reset and retry - ensure heal completes before allowing restart
           await stateManager.healTeam();
@@ -2135,6 +2176,10 @@
       const battleContainer = document.getElementById(`gym${gymId}-battle-container`);
       const startBtn = document.querySelector(`.gym-battle-btn[data-gym="${gymId}"]`);
 
+      // Lock navigation during battle
+      battleInProgress = true;
+      updateNavButtons();
+
       if (startBtn) startBtn.style.display = 'none';
       if (battleContainer) battleContainer.style.display = 'block';
 
@@ -2224,8 +2269,12 @@
 
       overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
+        // Unlock navigation after battle ends
+        battleInProgress = false;
+        updateNavButtons();
+
         if (victory) {
-          navigateToSection(nextSection);
+          navigateToSection(nextSection, true, true); // bypass battle check
         } else {
           // Reset and retry - ensure heal completes before allowing restart
           await stateManager.healTeam();
@@ -2289,10 +2338,14 @@
     async function startElite4Battle(index) {
       if (index >= ELITE_FOUR.length) {
         // All Elite 4 defeated, proceed to Rival
-        navigateToSection(29); // Rival section
+        navigateToSection(29, true, true); // Rival section
         setTimeout(() => startRivalBattle(), 500);
         return;
       }
+
+      // Lock navigation during battle
+      battleInProgress = true;
+      updateNavButtons();
 
       const elite4Member = ELITE_FOUR[index];
       const containerId = `elite4-${index + 1}-battle-container`;
@@ -2364,13 +2417,17 @@
 
       overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
+        // Unlock navigation after battle ends
+        battleInProgress = false;
+        updateNavButtons();
+
         if (victory) {
           elite4Index++;
           if (elite4Index < ELITE_FOUR.length) {
-            navigateToSection(25 + elite4Index);
+            navigateToSection(25 + elite4Index, true, true);
             setTimeout(() => startElite4Battle(elite4Index), 500);
           } else {
-            navigateToSection(29); // Rival battle
+            navigateToSection(29, true, true); // Rival battle
             setTimeout(() => startRivalBattle(), 500);
           }
         } else {
@@ -2378,7 +2435,7 @@
           await stateManager.healTeam();
           updateTeamDisplay();
           elite4Index = 0;
-          navigateToSection(24); // Back to Elite 4 intro
+          navigateToSection(24, true, true); // Back to Elite 4 intro
         }
       };
     }
@@ -2388,6 +2445,9 @@
     // ========================================
 
     async function startRivalBattle() {
+      // Lock navigation during battle
+      battleInProgress = true;
+      updateNavButtons();
       const containerId = 'rival-battle-container';
 
       // Get player's starter to determine Jerry's team
@@ -2453,10 +2513,13 @@
 
       overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
+        // Unlock navigation after battle ends
+        battleInProgress = false;
+        updateNavButtons();
         // Ensure heal completes before allowing restart
         await stateManager.healTeam();
         updateTeamDisplay();
-        navigateToSection(24); // Back to Elite 4 intro
+        navigateToSection(24, true, true); // Back to Elite 4 intro
       };
     }
 
@@ -2465,7 +2528,10 @@
     // ========================================
 
     function showChampionScreen(result) {
-      navigateToSection(30); // Champion hall
+      // Unlock navigation - game complete
+      battleInProgress = false;
+      updateNavButtons();
+      navigateToSection(30, true, true); // Champion hall
 
       // Populate champion stats
       const statsContainer = document.getElementById('champion-stats');
@@ -2531,16 +2597,21 @@
         const sectionType = (index - 1) % 3; // 0=module, 1=gym, 2=catch
         const groupNum = Math.floor((index - 1) / 3) + 1; // Which module/gym/catch group (1-8)
 
-        // Module: Always accessible if previous gym is completed (or it's module 1)
+        // Module: Accessible if previous catch phase is completed (or it's module 1)
+        // This ensures: module -> gym -> catch -> next module
         if (sectionType === 0) {
           if (groupNum === 1) return true;
-          return progress.completedGyms.includes(groupNum - 1);
+          // Must have completed BOTH the previous gym AND its catch phase
+          const prevCatchCompleted = progress.completedCatchPhases?.includes(groupNum - 1) || false;
+          return progress.completedGyms.includes(groupNum - 1) && prevCatchCompleted;
         }
 
-        // Gym: Always accessible once you reach the module (can always try the gym)
+        // Gym: Only accessible after viewing module (we'll trust linear navigation)
+        // For now, just require previous gym to be done
         if (sectionType === 1) {
           if (groupNum === 1) return true;
-          return progress.completedGyms.includes(groupNum - 1);
+          const prevCatchCompleted = progress.completedCatchPhases?.includes(groupNum - 1) || false;
+          return progress.completedGyms.includes(groupNum - 1) && prevCatchCompleted;
         }
 
         // Catch phase: Only accessible after beating that gym
