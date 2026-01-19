@@ -842,9 +842,11 @@
   <!-- Scripts -->
   <script src="js/cmi5-wrapper.js"></script>
   <script type="module">
-    import { STARTERS, WILD_SCADAMON, GYM_LEADERS, ELITE_FOUR, RIVAL, TYPE_COLORS, CATCH_RATES, getAvailableWildScadamon, getScadamonByName } from './js/scadamon-data.js';
-    import stateManager from './js/state-manager.js';
-    import BattleEngine from './js/battle-engine.js';
+    // Cache-bust version - increment to force reload
+    const v = '2';
+    import { STARTERS, WILD_SCADAMON, GYM_LEADERS, ELITE_FOUR, RIVAL, TYPE_COLORS, CATCH_RATES, getAvailableWildScadamon, getScadamonByName } from './js/scadamon-data.js?v=2';
+    import stateManager from './js/state-manager.js?v=2';
+    import BattleEngine from './js/battle-engine.js?v=2';
 
     // Store last gym score for catch phase
     let lastGymScore = 0;
