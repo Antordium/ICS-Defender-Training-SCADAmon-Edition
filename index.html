@@ -200,6 +200,165 @@
       filter: grayscale(100%);
     }
 
+    .team-display:hover {
+      background: rgba(0,0,0,0.95);
+      box-shadow: 0 0 10px rgba(255, 222, 0, 0.3);
+    }
+
+    /* Team Panel */
+    .team-panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-panel {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 3px solid #FFDE00;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(255, 222, 0, 0.2);
+    }
+
+    .team-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 2px solid #FFDE00;
+    }
+
+    .team-panel-header h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      color: #FFDE00;
+      margin: 0;
+    }
+
+    .team-panel-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 0 8px;
+    }
+
+    .team-panel-close:hover {
+      color: #FF1C1C;
+    }
+
+    .team-panel-content {
+      padding: 24px;
+      overflow-y: auto;
+      max-height: calc(80vh - 70px);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .team-panel-member {
+      background: rgba(0,0,0,0.4);
+      border: 2px solid #333;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .team-panel-member:hover {
+      border-color: #FFDE00;
+      transform: translateY(-2px);
+    }
+
+    .team-panel-member.fainted {
+      opacity: 0.5;
+      border-color: #FF1C1C;
+    }
+
+    .team-panel-emoji {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    .team-panel-name {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.7rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .team-panel-level {
+      font-size: 0.8rem;
+      color: #FFDE00;
+      margin-bottom: 8px;
+    }
+
+    .team-panel-hp {
+      margin-bottom: 12px;
+    }
+
+    .team-panel-hp-bar {
+      height: 8px;
+      background: #333;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .team-panel-hp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4CAF50, #8BC34A);
+      transition: width 0.3s ease;
+    }
+
+    .team-panel-hp-fill.low {
+      background: linear-gradient(90deg, #FF9800, #FFC107);
+    }
+
+    .team-panel-hp-fill.critical {
+      background: linear-gradient(90deg, #f44336, #FF5722);
+    }
+
+    .team-panel-types {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .team-panel-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      font-size: 0.65rem;
+    }
+
+    .team-panel-stat {
+      background: rgba(255,255,255,0.1);
+      padding: 4px;
+      border-radius: 4px;
+    }
+
+    .team-panel-stat-label {
+      color: #888;
+      display: block;
+    }
+
+    .team-panel-stat-value {
+      color: #fff;
+      font-weight: bold;
+    }
+
     /* Badge display */
     .badge-display {
       position: fixed;
@@ -436,10 +595,21 @@
   <button class="nav-arrow prev" id="nav-prev" disabled>&larr;</button>
   <button class="nav-arrow next" id="nav-next">&rarr;</button>
 
-  <!-- Team Display -->
-  <div class="team-display" id="team-display" style="display: none;">
+  <!-- Team Display (clickable) -->
+  <div class="team-display" id="team-display" style="display: none; cursor: pointer;" onclick="showTeamPanel()">
     <span class="team-display-label">TEAM:</span>
     <div id="team-members"></div>
+  </div>
+
+  <!-- Team Panel (overlay) -->
+  <div class="team-panel-overlay" id="team-panel-overlay" style="display: none;">
+    <div class="team-panel">
+      <div class="team-panel-header">
+        <h2>Your Team</h2>
+        <button class="team-panel-close" onclick="hideTeamPanel()">&times;</button>
+      </div>
+      <div class="team-panel-content" id="team-panel-content"></div>
+    </div>
   </div>
 
   <!-- Badge Display -->
@@ -1332,6 +1502,79 @@
       `).join('');
     }
 
+    // Show team panel
+    function showTeamPanel() {
+      const overlay = document.getElementById('team-panel-overlay');
+      const content = document.getElementById('team-panel-content');
+      const team = stateManager.getTeam();
+
+      if (team.length === 0) return;
+
+      content.innerHTML = team.map(mon => {
+        const hpPercent = Math.round((mon.currentHp / mon.maxHp) * 100);
+        let hpClass = '';
+        if (hpPercent <= 25) hpClass = 'critical';
+        else if (hpPercent <= 50) hpClass = 'low';
+
+        return `
+          <div class="team-panel-member ${mon.currentHp <= 0 ? 'fainted' : ''}">
+            <div class="team-panel-emoji">${mon.emoji}</div>
+            <div class="team-panel-name">${mon.name}</div>
+            <div class="team-panel-level">Lv. ${mon.level}</div>
+            <div class="team-panel-types">
+              ${mon.types.map(t => `<span class="type-badge" style="background: ${TYPE_COLORS[t]}; font-size: 0.6rem; padding: 2px 6px;">${t}</span>`).join('')}
+            </div>
+            <div class="team-panel-hp">
+              <span style="font-size: 0.7rem; color: #888;">HP: ${mon.currentHp}/${mon.maxHp}</span>
+              <div class="team-panel-hp-bar">
+                <div class="team-panel-hp-fill ${hpClass}" style="width: ${hpPercent}%"></div>
+              </div>
+            </div>
+            <div class="team-panel-stats">
+              <div class="team-panel-stat">
+                <span class="team-panel-stat-label">ATK</span>
+                <span class="team-panel-stat-value">${mon.stats.atk}</span>
+              </div>
+              <div class="team-panel-stat">
+                <span class="team-panel-stat-label">DEF</span>
+                <span class="team-panel-stat-value">${mon.stats.def}</span>
+              </div>
+              <div class="team-panel-stat">
+                <span class="team-panel-stat-label">SPD</span>
+                <span class="team-panel-stat-value">${mon.stats.spd}</span>
+              </div>
+              <div class="team-panel-stat">
+                <span class="team-panel-stat-label">INT</span>
+                <span class="team-panel-stat-value">${mon.stats.int}</span>
+              </div>
+              <div class="team-panel-stat">
+                <span class="team-panel-stat-label">RES</span>
+                <span class="team-panel-stat-value">${mon.stats.res}</span>
+              </div>
+              <div class="team-panel-stat">
+                <span class="team-panel-stat-label">HP</span>
+                <span class="team-panel-stat-value">${mon.stats.hp}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      overlay.style.display = 'flex';
+    }
+
+    // Hide team panel
+    function hideTeamPanel() {
+      document.getElementById('team-panel-overlay').style.display = 'none';
+    }
+
+    // Close team panel when clicking outside
+    document.getElementById('team-panel-overlay')?.addEventListener('click', (e) => {
+      if (e.target.id === 'team-panel-overlay') {
+        hideTeamPanel();
+      }
+    });
+
     // Update badge display
     function updateBadgeDisplay() {
       const display = document.getElementById('badge-display');
@@ -1622,6 +1865,16 @@
       const btn = document.getElementById(`catch${gymId}-confirm-btn`);
       btn.disabled = true;
       btn.textContent = 'Catching...';
+
+      // Immediately lock the UI - disable all card clicks and show locked state
+      const grid = document.getElementById(`catch${gymId}-grid`);
+      grid.querySelectorAll('.catch-card').forEach(card => {
+        card.onclick = null;
+        card.style.pointerEvents = 'none';
+        if (card.dataset.scadamon !== selectedCatchScadamon) {
+          card.style.opacity = '0.3';
+        }
+      });
 
       // Create instance at appropriate level based on gym progression
       const levelRanges = {
