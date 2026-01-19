@@ -1279,6 +1279,18 @@
     async function confirmStarter() {
       if (!selectedStarter) return;
 
+      // Show confirmation dialog
+      const starterDef = STARTERS.find(s => s.name === selectedStarter);
+      const confirmed = await showConfirmDialog(
+        'Confirm Your Choice',
+        `Are you sure you want ${selectedStarter} as your starter? This choice cannot be changed!`,
+        `Choose ${starterDef?.emoji || ''} ${selectedStarter}`,
+        'Go Back',
+        'positive'
+      );
+
+      if (!confirmed) return;
+
       const btn = document.getElementById('confirm-starter-btn');
       btn.disabled = true;
       btn.textContent = 'Starting...';
@@ -1589,16 +1601,27 @@
     async function confirmCatch(gymId) {
       if (!selectedCatchScadamon) return;
 
-      const btn = document.getElementById(`catch${gymId}-confirm-btn`);
-      btn.disabled = true;
-      btn.textContent = 'Catching...';
-
       // Find the SCADAmon definition
       const definition = WILD_SCADAMON.find(s => s.name === selectedCatchScadamon);
       if (!definition) {
         console.error('SCADAmon not found:', selectedCatchScadamon);
         return;
       }
+
+      // Show confirmation dialog
+      const confirmed = await showConfirmDialog(
+        'Confirm Your Choice',
+        `Are you sure you want to catch ${selectedCatchScadamon}? This choice cannot be changed!`,
+        `Catch ${definition.emoji} ${selectedCatchScadamon}`,
+        'Go Back',
+        'positive'
+      );
+
+      if (!confirmed) return;
+
+      const btn = document.getElementById(`catch${gymId}-confirm-btn`);
+      btn.disabled = true;
+      btn.textContent = 'Catching...';
 
       // Create instance at appropriate level based on gym progression
       const levelRanges = {
@@ -1724,7 +1747,16 @@
     }
 
     // Show confirmation dialog
-    function showConfirmDialog(title, message, confirmText, cancelText) {
+    // style: 'warning' (red, for destructive actions) or 'positive' (green, for confirmations)
+    function showConfirmDialog(title, message, confirmText, cancelText, style = 'warning') {
+      const isPositive = style === 'positive';
+      const borderColor = isPositive ? '#4CAF50' : '#FF1C1C';
+      const shadowColor = isPositive ? 'rgba(76, 175, 80, 0.3)' : 'rgba(255, 28, 28, 0.3)';
+      const buttonBg = isPositive
+        ? 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)'
+        : 'linear-gradient(135deg, #FF1C1C 0%, #CC0000 100%)';
+      const icon = isPositive ? '❓' : '⚠️';
+
       return new Promise((resolve) => {
         const overlay = document.createElement('div');
         overlay.style.cssText = `
@@ -1740,14 +1772,14 @@
         overlay.innerHTML = `
           <div style="
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: 3px solid #FF1C1C;
+            border: 3px solid ${borderColor};
             border-radius: 16px;
             padding: 32px;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(255, 28, 28, 0.3);
+            box-shadow: 0 8px 32px ${shadowColor};
           ">
-            <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+            <div style="font-size: 48px; margin-bottom: 16px;">${icon}</div>
             <h2 style="color: #FFDE00; margin-bottom: 16px; font-family: 'Press Start 2P', cursive; font-size: 1rem;">${title}</h2>
             <p style="color: #ccc; margin-bottom: 24px; line-height: 1.6;">${message}</p>
             <div style="display: flex; gap: 16px; justify-content: center;">
@@ -1765,7 +1797,7 @@
                 font-family: 'Press Start 2P', cursive;
                 font-size: 0.7rem;
                 padding: 12px 24px;
-                background: linear-gradient(135deg, #FF1C1C 0%, #CC0000 100%);
+                background: ${buttonBg};
                 color: #fff;
                 border: 2px solid #fff;
                 border-radius: 8px;
