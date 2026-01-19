@@ -1,0 +1,806 @@
+# SCADAmon Sprite Generation Prompts
+## For NanoBanana AI Image Generation
+
+**Universal Style Prefix (add to ALL prompts):**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette per sprite, chunky pixels, clean edges, no anti-aliasing, retro 1998 Pokemon aesthetic,
+```
+
+---
+
+## #001 GRIDLING (Electric)
+*Baby power grid sprite - tiny, curious, made of electricity*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small cute electric creature, spherical yellow body with power line patterns, two big curious blue LED eyes, tiny lightning bolt antenna on head, small stubby arms with plug-shaped hands, sparks floating around it, friendly happy expression, front-facing centered portrait pose, white background
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small electric sphere creature in attack stance, body crackling with yellow electricity, lightning antenna sparking, shooting small thunderbolt forward, determined face, side-facing action pose, dynamic energy effects
+```
+
+---
+
+## #002 GRIDEON (Electric)
+*Evolved grid guardian - transformer-like, more powerful*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, medium electric robot creature shaped like power transformer, metallic grey body with yellow circuit patterns, head has three lightning rod spikes as crown, thick cable arms ending in plug fists, power gauge on chest glowing, confident stance, front-facing portrait
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, transformer robot creature attacking, lightning arcing between crown spikes, cable arms raised channeling electricity, power gauge maxed out and red, massive electrical surge attack, side-facing aggressive pose
+```
+
+---
+
+## #003 GRIDMASTER (Electric/Steel)
+*Ultimate grid guardian - transmission tower inspired, majestic*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, large majestic creature combining transmission tower and robot, lattice steel frame body with gold electricity flowing through, angular head with visor eyes, massive arms ending in high-voltage insulators, cape of electrical energy, regal powerful stance, front-facing portrait
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, transmission tower titan unleashing power, lattice body blazing with golden electricity, arms shooting concentrated lightning beams, electrical cape flaring, ground cracking beneath, epic attack pose, overwhelming energy
+```
+
+---
+
+## #004 PUMPLET (Water)
+*Baby water pump spirit - cute, bubbly, industrial-cute*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small cute water creature shaped like cartoon pump, round blue body with pump handle curved on top, happy face with dot eyes on pressure gauge belly, small pipe arms, water droplets floating around, cheerful expression, front-facing portrait
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small pump creature attacking, leaning forward shooting water jet from mouth, pump handle pulled back, pressure gauge in red zone, water splashing, determined expression, side-facing action pose
+```
+
+---
+
+## #005 PUMPLUX (Water)
+*Evolved water guardian - treatment plant inspired*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, medium water creature resembling treatment system, large blue tank body with multiple pipes from shoulders, two circular gauge eyes, valve wheel mouth, industrial pipe arms with spray nozzles, professional appearance, front-facing portrait
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, water treatment creature in combat, pressurized tank body glowing, multiple pipes shooting high-pressure streams, gauge eyes spinning, valve mouth spraying, water barrier forming, powerful stance
+```
+
+---
+
+## #006 PUMPMASTER (Water/Steel)
+*Ultimate water guardian - massive treatment facility incarnate*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, large majestic creature embodying water facility, gleaming steel-blue structure body with filtration chambers, crown of water towers on head, massive pipe system arms, chest displays green water quality indicators, concrete pillar legs, dignified pose, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, water facility titan attacking, water tower crown releasing coordinated jets, pipe arms creating pressurized water wall, tidal wave building behind, quality indicators flashing, commanding battle pose
+```
+
+---
+
+## #007 SPARKLET (Fire)
+*Baby refinery flame - flickering, energetic, pilot light*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small cute fire creature, dancing orange-red flame body on small pipe base, bright yellow eyes in flame, excited grin, two small flame wisp arms, tiny pilot light tuft on head, warm glow effect, playful expression, front-facing portrait
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small flame creature attacking, body flaring up bright orange, flame arms shooting fire burst, pilot light blazing, leaving ember trail, fierce expression, leaping forward attack pose
+```
+
+---
+
+## #008 REFINAX (Fire)
+*Evolved refinery guardian - distillation column inspired*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, medium fire creature shaped like distillation column, tall cylindrical body with visible glowing tray levels, dome head with flare stack releasing flame, pipe manifold arms with valves, temperature gauges on chest, industrial orange-grey, front-facing portrait
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, distillation column creature attacking, internal trays glowing white-hot, flare stack shooting massive flame jet, pipe arms releasing fire streams, gauges showing maximum, heat distortion visible, powerful attack pose
+```
+
+---
+
+## #009 REFINEMASTER (Fire/Steel)
+*Ultimate process safety guardian - entire refinery incarnate*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, large majestic creature embodying oil refinery, complex steel tower body with strategic flames, head crowned with multiple flare stacks forming fiery mane, pipe rack arms, control panel chest all green, reactor vessel legs, imposing presence, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, refinery titan in emergency response, all flare stacks blazing forming fire crown, pipe arms directing controlled inferno, safety panel coordinating response, ground heated glowing, ultimate fire attack, spectacular flames
+```
+
+---
+
+## #010 SENSORB (Electric)
+*Floating sensor orb - curious, monitoring, eye-like*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small floating sphere creature, smooth pale blue-grey round body, single large camera lens eye in center, small antenna with blinking LED on top, tiny sensor nodes around middle, scanning beam from eye, curious expression, front-facing hovering portrait
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, sensor orb in alert mode, eye glowing bright yellow, antenna fully extended sparking, all sensors activated, shooting scanning beam attack, aggressive forward tilt, electric sparks around body
+```
+
+---
+
+## #011 SENSOMAX (Electric/Normal)
+*Evolved multi-sensor array - multiple eyes, SOC-like*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, medium floating creature with multiple sensor eyes, sleek monitoring station body, one large central eye with four smaller eyes around it, multiple antenna types on top, data displays floating nearby, sophisticated appearance, front-facing hovering
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, multi-sensor creature in detection mode, all five eyes glowing different colors scanning, antenna array crackling, firing multiple scanning beams simultaneously, overwhelming sensor assault, action pose
+```
+
+---
+
+## #012 ACTUMON (Electric/Steel)
+*Sturdy actuator robot - mechanical, loyal, worker*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, stocky robot creature resembling actuator, compact grey metal box body, valve wheel head that spins, hydraulic piston arms with gripper hands, mounting bracket legs, position dial on chest, dependable expression, front-facing stance
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, actuator robot in action, valve wheel head spinning rapidly, hydraulic arms extending in powerful punch, position dial at maximum, steam venting from joints, mechanical power strike, action pose
+```
+
+---
+
+## #013 PLCEE (Electric/Steel)
+*PLC spirit - boxy controller, ladder logic, processing*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, rectangular creature resembling PLC module, grey industrial box body with row of green LEDs, small LCD display face showing happy emoticon, ribbon cable arms with connector hands, DIN rail clip legs, I/O terminals on sides, neat organized, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, PLC creature executing program, LCD face showing aggressive symbols, LEDs blinking rapidly in sequence, cable arms shooting data pulses, logic symbols floating around, processing attack, action pose
+```
+
+---
+
+## #014 PLCMASTER (Electric/Steel)
+*Evolved secure PLC - hardened, authenticated, fortress*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, larger fortified PLC creature, reinforced grey chassis with security locks visible, advanced display face showing security status, armored cable arms with encrypted connectors, glowing authentication module on chest, SECURED indicator lit, imposing trustworthy, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, fortified PLC in defense mode, security locks engaged glowing, display showing firewall active, armored arms blocking while shooting authenticated commands, authentication barrier forming, defensive battle stance
+```
+
+---
+
+## #015 HMINDER (Normal/Electric)
+*HMI spirit - screen-faced, interface, helpful display*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, creature with large touchscreen face, sleek panel-shaped light grey body, screen shows friendly animated eyes and smile, small stylus-pointer finger arms, pedestal base legs, process graphics in background of screen, helpful welcoming, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, touchscreen creature in alert mode, screen face showing warning symbols flashing red, stylus arms shooting data visualization attacks, process graphics going haywire, alarm indicators around body, warning battle pose
+```
+
+---
+
+## #016 FIREWOLF (Ground/Steel)
+*Firewall guardian wolf - barrier creating, protective*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, mechanical wolf creature made of firewall components, angular steel plate body with circuit patterns, wolf head with glowing red eyes like deny indicators, mane of vertical barrier lines, thick cable tail, paw rule-set markings, protective stance, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, mechanical wolf attacking, barrier mane bristling extending, red eyes glowing, lunging forward with claws creating firewall barriers, rule symbols appearing where paws strike, blocking while attacking, aggressive action pose
+```
+
+---
+
+## #017 DMZEON (Ground)
+*DMZ buffer spirit - between spaces, translator, liminal*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, semi-transparent creature representing buffer zone, body split into two halves darker and lighter meeting in middle, calm neutral face eyes, gateway arch arms, inspection symbols floating through body, exists between spaces, serene expression, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, DMZ creature filtering traffic, body split showing data passing through inspection, gateway arms raised creating checkpoint barriers, focused concentration face, blocking symbols on dark side allowing on light side, filtering pose
+```
+
+---
+
+## #018 SEGMENTRON (Ground/Steel)
+*Ultimate segmentation fortress - impenetrable, zone master*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, large fortress creature made of network segments, body is multiple distinct sections separated by barrier walls, watchtower head with searchlight eyes, drawbridge gate arms, zone map on chest all segments secure, reinforced foundation legs, commanding presence, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, fortress creature in lockdown, all segment walls raised maximum height, searchlight eyes scanning, drawbridge arms slamming down, zone map showing red alert, creating multiple barrier walls, ultimate defense pose
+```
+
+---
+
+## #019 MODBUZZ (Water/Ghost)
+*Modbus spirit - ghostly legacy protocol, passes through*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, ghostly creature made of flowing data packets, translucent blue-white wavy body, old-fashioned dot-matrix eyes, visible 502 port number on body, register data stream arms, floats without legs, slightly dated appearance, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, ghostly protocol attacking, body surging forward as wave of unencrypted data, dot-matrix eyes showing function codes, register arms reaching through defenses, 502 glowing, passing through barriers, legacy attack pose
+```
+
+---
+
+## #020 DNPEEP (Water)
+*DNP3 spirit - more solid than Modbus, utility-focused*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, water creature resembling utility infrastructure, solid blue form with visible data object structures, reliable steady eyes, subtle 20000 port display, outstation cable arms, data link layer legs, more professional than Modbuzz, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, utility protocol creature attacking, body pulsing with unsolicited responses, determined eyes, cable arms shooting integrity polls, data objects flowing through body, time-sync charging, technical action pose
+```
+
+---
+
+## #021 DNPSHIELD (Water/Steel)
+*Secured DNP3 - armored, authenticated, evolved*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, armored water creature, DNPEEP form encased in steel authentication armor, verified checkmark eyes, SA ENABLED badge on body, encrypted data channel arms with locks, authentication symbols orbiting, proud secure stance, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, armored protocol in authenticated attack, armor glowing with verification, checkmark eyes confirming targets, encrypted arms shooting challenge-response attacks, SA badge pulsing, protective ring while attacking, secure strike pose
+```
+
+---
+
+## #022 OPCURON (Water/Steel)
+*OPC UA spirit - modern, natively secure, next-gen*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, sleek modern protocol creature, streamlined chrome and blue body, certificate-verified eyes with padlock pupils, encrypted data flowing through transparent sections, secure channel arms with key symbols, next-generation appearance, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, modern protocol in secure attack, chrome body encrypted glowing, certificate eyes validating, secure channel arms establishing encrypted connections before striking, namespace mapping attack, superior protocol assault
+```
+
+---
+
+## #023 ACTIVDIR (Ice/Steel)
+*Active Directory spirit - tree-like, domain controller*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, organizational tree creature, central trunk domain controller body with OU branch arms, head crowned with forest trust symbols, LDAP query eyes, group policy icons on chest, DNS root system legs, commanding corporate appearance, ice blue and steel, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, domain controller asserting authority, branches extending to entangle in group policy, LDAP eyes scanning querying, Kerberos tickets shooting from crown, forest trust creating barriers, domain dominance pose
+```
+
+---
+
+## #024 PATCHMON (Ice)
+*Windows Update spirit - helpful but problematic, patchy*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, creature made of software patches, blue body with patch squares of different colors like quilt, pie-chart progress eyes, arms carrying update packages, download progress bar on body, anxious helpful expression, Windows blue, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, patch creature deploying updates, patches activating shooting toward enemy, progress eyes showing installation, arms throwing packages rapidly, body occasionally glitching, forced update attack, chaotic helpful pose
+```
+
+---
+
+## #025 PATCHMASTER (Ice/Steel)
+*Evolved mature patching - tested, staged, professional*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, refined patch creature in IT professional form, organized body with tested-verified badge patches, calm confident eyes with TESTED indicators, staged rollout container arms, compatibility matrix all green on chest, professional reliable, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, professional patch in coordinated deployment, patches launching in organized waves, verified eyes confirming safe targets, staged arms deploying controlled sequence, zero-day shield forming, masterful update assault
+```
+
+---
+
+## #026 BLUSCREEN (Ice/Ghost)
+*Blue Screen of Death - feared, crash-causing, terrifying*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, terrifying BSOD creature, rectangular solid blue body with white error text visible, sad emoticon :( face but with glowing menacing eyes, memory dump stream arms, stop error code legs, system failure aura, ominous presence, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, BSOD creature crashing systems, blue body expanding to fill space, sad face now terrifying with glowing eyes, memory dump arms corrupting enemies, kernel panic waves, system halt ultimate attack, terrifying crash pose
+```
+
+---
+
+## #027 BASHLING (Dark)
+*Command line spirit - terminal, text-based, hacker*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, creature made of terminal text, dark rectangle body with green command text scrolling, $ prompt mouth and cursor-block eyes, pipe symbol | arms, command string legs, blinking cursor somewhere, hacker aesthetic, terminal green on dark, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, terminal creature executing commands, rapid command scrolling on body, cursor eyes targeting, pipe arms chaining attacks, grep sed awk symbols flying as projectiles, command injection attack, hacker action pose
+```
+
+---
+
+## #028 BASHMASTER (Dark/Steel)
+*Root shell master - elevated, ultimate system control*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, empowered terminal creature with root access, reinforced terminal body with # root prompt, superuser eyes glowing with power, elevated privilege pipe arms with sudo badges, root@system on chest, crown of shell symbols, authoritative, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, root shell with full system access, commands executing with ultimate authority, superuser eyes seeing all, privilege arms executing without restriction, root crown blazing, system takeover overwhelming defenses, ultimate shell pose
+```
+
+---
+
+## #029 CRONMON (Dark/Ghost)
+*Scheduled task spirit - time-based, patient, persistent*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, ghostly creature with clock elements, dark ethereal body with visible crontab schedule, clock eyes showing specific times, timer mechanism arms, body phases in and out, patient waiting expression, dark purple and grey, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, scheduled task activating, clock eyes hitting trigger time glowing, body fully materializing, timer arms executing scheduled assault, all crontab entries firing, midnight run attack, timed attack action pose
+```
+
+---
+
+## #030 SUDOKING (Dark/Steel)
+*Privilege king - gatekeeper, permission master, regal*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, regal creature guarding privilege, fortified throne body made of sudoers text, crown with sudo command, stern authorization eyes, permission scepter arms granted and denied, privilege matrix on chest, royal security appearance, dark with gold, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, privilege king in judgment, throne body evaluating requests, crown glowing with sudo power, authorization eyes scanning credentials, scepters granting allies power or smiting enemies, root guard defense, royal security pose
+```
+
+---
+
+## #031 NISTLING (Normal)
+*Security framework baby - organized, bureaucratic cute*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, small creature made of organized documents, stack of framework papers forming round body, reading-glasses eyes, arms holding five colored NIST function cards blue green yellow orange red, compliance bow-tie, helpful neat appearance, professional neutral colors, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, framework creature deploying controls, papers flying into attack formation, glasses eyes assessing, five function cards shooting as elemental attacks in sequence, bow-tie spinning as shield, organized systematic assault
+```
+
+---
+
+## #032 FRAMEWORKER (Normal/Steel)
+*Evolved compliance master - multiple frameworks, expert*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, sophisticated creature embodying multiple frameworks, complex matrix body with NIST ISO IEC visible interconnected, auditor eyes with multiple lenses, crosswalk bridge arms, unified control mapping on chest, professional business appearance, grey with colored accents, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, compliance master auditing, matrix body revealing all controls, auditor eyes finding every gap, crosswalk arms translating requirements into attacks, framework mastery overwhelming chaos, authoritative action pose
+```
+
+---
+
+## #033 NERCCIP (Normal/Electric)
+*NERC CIP compliance - electric utility regulatory*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, official regulatory creature, formal document body with electric utility symbols, stern compliance officer eyes, CIP standard numbers CIP-002 through 014 displayed, violation penalty hammer arms, NERC authority badge, government official appearance, official blue yellow, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, regulatory creature enforcing compliance, standards activating as requirements, compliance eyes identifying violations, penalty hammer arms ready to strike, CIP numbers shooting as binding obligations, regulatory enforcement pose
+```
+
+---
+
+## #034 IECMON (Normal/Steel)
+*IEC 62443 guardian - international standard, zones and conduits*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, international standards creature, segmented zone diagram body come to life, security level SL1-4 indicator eyes, conduit path arms connecting zones, maturity model levels on chest, foundational requirement legs, technical accessible appearance, blue and industrial grey, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, ICS standard defining zones, body segments activating as defensive zones, security level eyes assessing threats, conduit arms controlling traffic, zone and conduit attack restructuring battlefield, architectural action pose
+```
+
+---
+
+## #035 DETECTRON (Fire/Dark)
+*Intrusion detection spirit - alert, vigilant, watching*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, vigilant creature always on alert, sensor array body with radar dish elements, wide alert eyes constantly scanning, signature database displayed on body, detection beam arms, small sensor nodes floating around, never rests appearance, alert orange and dark, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, detection creature in full alert, radar body spinning rapidly, alert eyes locked on targets, signature matching threats, detection beams painting targets, sensor nodes spreading for coverage, anomaly spotted attack
+```
+
+---
+
+## #036 DETECTMASTER (Fire/Dark)
+*Threat hunter - proactive, aggressive, predator*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, elite threat hunter creature, advanced detection body with hunting trophies of caught malware, predator hunter eyes with threat intelligence, active hunting tool arms, threat map chest with tracked APTs, stalking hunter stance, hunter orange and shadow, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, threat hunter in active pursuit, fully engaged hunt mode body, predator eyes tracking invisible threats, hunting tools actively seeking destroying, APT identify revealing hidden enemies, preemptive strike before enemy acts, hunting action pose
+```
+
+---
+
+## #037 FORENSIX (Fire/Ghost)
+*Digital forensics - investigator, evidence gatherer*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, detective creature for forensics, ghostly body carrying solid evidence containers, magnifying glass eyes, evidence collection tool arms disk imager memory dumper, timeline of events on body, investigator coat of chain-of-custody forms, grey and ghost blue, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, forensic investigator reconstructing, body revealing hidden evidence, magnifying eyes exposing secrets, evidence tools extracting data, timeline showing enemy past actions, chain of custody preserving proof, investigative action pose
+```
+
+---
+
+## #038 RECOVEREX (Fire/Steel)
+*Disaster recovery - resilient, restoring, phoenix-like*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, resilient recovery creature, body built from backup tapes and recovery media forming armor, determined never-give-up eyes, restore operation tool arms, recovery point objective timer on chest, business continuity foundation legs, phoenix resilient appearance, recovery green and steel, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, recovery creature activating DR plan, backup armor deploying restoration fields, determined eyes focused on recovery, restore arms rebuilding allies, RPO timer counting to full recovery, failover switching to backup mode, resilient action pose
+```
+
+---
+
+## #039 LOGMON (Normal/Dark)
+*Log aggregation - remembers everything, SIEM-like*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, creature made of log entries, scrolling log data forming rounded body, timestamp eyes always showing current time, log collector tendril arms, correlated events highlighted on body, database storage belly, patient observer appearance, log green on dark, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, log creature in correlation mode, logs scrolling at high speed on body, timestamp eyes synchronizing events, collector tendrils gathering enemy data, correlated events triggering alerts, SIEM power analysis attack, data action pose
+```
+
+---
+
+## #040 BACKUPBUD (Steel)
+*Backup storage friend - reliable, protective, trustworthy*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, friendly backup storage creature, stack of backup media tapes drives forming sturdy body, reliable steady eyes, backup schedule symbol arms, LAST BACKUP SUCCESS on chest, air-gap shield carried, trustworthy loyal appearance, storage grey and safe green, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, backup creature in protection mode, media body creating backup copies of allies, steady eyes maintaining schedule, arms deploying incremental protection, air-gap shield blocking ransomware, restore test proving backups work, protective action pose
+```
+
+---
+
+## #041 MALWAREMON (Ghost/Poison)
+*Team Hack-It - malicious code, infectious, corrupting*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, sinister viral creature, glitchy mass of corrupted code in sickly purple-green, glowing malicious red eyes, constantly shifting morphing body, infection tendrils dripping corrupt data, trail of corrupted pixels, menacing unstable, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, malware spreading infection, glitchy body expanding corrupting surroundings, malicious eyes targeting vulnerable systems, infection tendrils reaching, payload delivery launching, persistence activating, spreading attack multiplying, infectious action pose
+```
+
+---
+
+## #042 SCRIPTKID (Ghost)
+*Team Hack-It - amateur, copy-paste attacker*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, amateur hacker creature, hoodie-wearing ghost with visible copied code inside, wannabe-cool eyes behind basic mask, arms holding pre-made exploit tools, download progress bars on body, tries to look tough but inexperienced, amateur dark grey, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, script kiddie using downloaded tools, hoodie body deploying exploit kit, wannabe eyes following tutorials, tool arms attacking without understanding, copy-paste attack using others work, fails against patched targets, amateur action pose
+```
+
+---
+
+## #043 BOTLING (Ghost/Normal)
+*Team Hack-It - tiny bot, swarm member, follows orders*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, tiny bot drone creature, small simple shape with bot ID number, blank obedient eyes, small antenna for receiving commands, minimal arms, clearly one of many in swarm, awaiting orders appearance, minion grey, very small sprite, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, tiny bot joining swarm, body linking with implied other bots, obedient eyes receiving command, antenna glowing with C2 signal, contributing to DDoS as part of larger assault, swarm signal calling more, small swarm action pose
+```
+
+---
+
+## #044 LATERMON (Ghost/Ground)
+*Team Hack-It - lateral movement specialist, network traverser*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, shadowy creature moving through networks, fluid shadow body with network map visible inside, path-finding eyes that see routes, connection bridge arms, multiple traversed segments shown on body, always moving appearance, shadow dark with network green, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, lateral mover finding paths, shadow body flowing through barriers, path-finder eyes mapping defenses, bridge arms creating routes through segments, infiltration progress shown, pivot attack jumping targets, infiltration action pose
+```
+
+---
+
+## #045 PIVOTEER (Ghost/Dark)
+*Team Hack-It - foothold creator, persistent access*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, creature that establishes footholds, anchored body with beacon signals emanating, patient waiting eyes, tunnel connection arms to outside, time counter showing long persistence, clearly dug in waiting, dark shadow with beacon red, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, pivot creature activating after wait, anchored body now operational, patient eyes finally acting, tunnel arms opening C2 connections, persistence counter reaching trigger, staging point enabling attackers to enter, activation action pose
+```
+
+---
+
+## #046 SNIFFERMON (Water/Ghost)
+*Team Hack-It - packet sniffer, eavesdropper*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, eavesdropping creature, translucent body showing captured packets flowing through, wide listening eyes seeing all traffic, large ear-like sensors on head, packet capture tool arms, unencrypted credentials visible, silent observer, wiretap blue-grey, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, sniffer in passive collection, translucent body filling with captured data, listening eyes watching traffic, ear sensors deployed, capture arms grabbing packets from air, credential harvest revealing passwords, silent collection pose
+```
+
+---
+
+## #047 SPOOFEON (Water/Ghost)
+*Team Hack-It - identity thief, impersonator*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, shape-shifting impersonator creature, mirror-like body that copies others, deceptive shifting eyes, multiple fake identities overlaid on body, transforming arms matching targets, untrustworthy despite friendly facade, deceptive shifting colors, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, spoofer impersonating, mirror body copying target appearance, deceptive eyes maintaining false identity, arms forging credentials, ARP poison misdirecting traffic, replay attack using captured commands, man-in-middle achieved, deception action pose
+```
+
+---
+
+## #048 CRYPTLOCK (Dark/Steel)
+*Team Hack-It - ransomware, encryptor, extortionist*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, menacing encryption creature, body covered in lock symbols and encrypted gibberish, countdown timer eyes showing payment deadline, key-shaped arms but keys held hostage, ransom demand in bitcoin on chest, threatening businesslike, ransom red and lock black, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, ransomware encrypting everything, lock body spreading encryption to all touched, timer eyes counting down, key arms locking away abilities, ransom chest demanding payment, full lockdown disabling systems, decrypt key just out of reach, extortion action pose
+```
+
+---
+
+## #049 EXFILMON (Dark/Ghost)
+*Team Hack-It - data exfiltration, thief, smuggler*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, stealthy data thief creature, dark bag-like body filled with stolen data files, sneaky thief eyes looking for exits, grabber claw arms for snatching data, data being compressed for transport visible, moves low and quiet, thief dark purple, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, exfil creature stealing during battle, bag body expanding with grabbed info, thief eyes identifying valuable targets, grabber arms snatching data, DNS tunnel smuggling data through hidden channels, slow drip maintaining stealth, theft action pose
+```
+
+---
+
+## #050 NULLVOID (Dark/Ghost)
+*Team Hack-It BOSS - ultimate hacker, embodies all attacks*
+
+**POKEDEX:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, ultimate adversary creature, void of darkness with all previous hack-it creatures visible as shadows within, all-knowing eyes that have seen every vulnerability, form shifts between attack types, aura of total compromise, apex cyber threat, void black with all threat colors as accents, front-facing
+```
+
+**BATTLE:**
+```
+Game Boy Color pixel art, 64x64 sprite, limited 4-color palette, ultimate threat unleashing everything, void body releasing all attack types simultaneously, all-knowing eyes perfectly countering defenses, shifting form using APT tactics, zero-day exploits materializing, total compromise threatening complete takeover, final boss apocalyptic pose
+```
+
+---
+
+## QUICK REFERENCE
+
+| # | Name | Type Colors | Key Visual Elements |
+|---|------|-------------|---------------------|
+| 1-3 | GRIDLING line | Yellow/Gold/Steel | Power lines, transformers, lightning |
+| 4-6 | PUMPLET line | Blue/Cyan/Steel | Pumps, pipes, gauges, water |
+| 7-9 | SPARKLET line | Orange/Red/Steel | Flames, flare stacks, refineries |
+| 10-11 | SENSORB line | Blue-grey/Yellow | Floating orbs, eyes, sensors |
+| 12 | ACTUMON | Grey/Yellow | Robot, valves, pistons |
+| 13-14 | PLCEE line | Grey/Green | PLC boxes, LEDs, cables |
+| 15 | HMINDER | Grey/Light blue | Touchscreen face, displays |
+| 16 | FIREWOLF | Steel/Red | Mechanical wolf, barriers |
+| 17 | DMZEON | Two-tone grey | Split body, buffer zone |
+| 18 | SEGMENTRON | Brown/Steel | Fortress, segments, walls |
+| 19 | MODBUZZ | Pale blue/Ghost | Ghostly packet, transparent |
+| 20-21 | DNPEEP line | Blue/Steel | Utility, cables, armor |
+| 22 | OPCURON | Chrome/Blue | Sleek, modern, encrypted |
+| 23 | ACTIVDIR | Ice blue/Steel | Tree structure, corporate |
+| 24-25 | PATCHMON line | Windows blue | Patches, updates, progress bars |
+| 26 | BLUSCREEN | BSOD blue/White | Error screen, sad face |
+| 27-28 | BASHLING line | Dark/Green | Terminal text, command prompts |
+| 29 | CRONMON | Dark purple | Clock, schedules, ghostly |
+| 30 | SUDOKING | Dark/Gold | Crown, throne, royal |
+| 31-32 | NISTLING line | Neutral/Grey | Documents, frameworks |
+| 33 | NERCCIP | Official blue/Yellow | Regulatory, badges |
+| 34 | IECMON | Blue/Grey | Zones, segments |
+| 35-36 | DETECTRON line | Orange/Dark | Radar, sensors, hunting |
+| 37 | FORENSIX | Grey/Ghost blue | Magnifying glass, evidence |
+| 38 | RECOVEREX | Green/Steel | Backup media, phoenix |
+| 39 | LOGMON | Green/Dark | Scrolling logs, timestamps |
+| 40 | BACKUPBUD | Grey/Green | Tapes, storage, sturdy |
+| 41 | MALWAREMON | Purple/Green | Glitchy, virus, corrupt |
+| 42 | SCRIPTKID | Dark grey | Hoodie, amateur |
+| 43 | BOTLING | Grey | Tiny, minimal, swarm |
+| 44 | LATERMON | Shadow/Green | Flowing, network paths |
+| 45 | PIVOTEER | Shadow/Red | Anchored, beacon |
+| 46 | SNIFFERMON | Blue-grey | Translucent, ears, listening |
+| 47 | SPOOFEON | Shifting colors | Mirror, shapeshifting |
+| 48 | CRYPTLOCK | Red/Black | Locks, timer, ransom |
+| 49 | EXFILMON | Dark purple | Bag of stolen data |
+| 50 | NULLVOID | Black/All colors | Void, shadows within, ultimate |
+
+---
+
+*Total: 100 prompts (50 Pokedex + 50 Battle)*
+*Document Version 1.0 for SCADAmon Project*
