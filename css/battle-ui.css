@@ -889,6 +889,18 @@
   box-shadow: 0 0 10px rgba(255, 222, 0, 0.5);
 }
 
+.catch-rarity-badge.legendary {
+  background: linear-gradient(135deg, #9333EA 0%, #7C3AED 50%, #6366F1 100%);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.6);
+  animation: legendaryGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes legendaryGlow {
+  from { box-shadow: 0 0 15px rgba(147, 51, 234, 0.6); }
+  to { box-shadow: 0 0 25px rgba(147, 51, 234, 0.9), 0 0 35px rgba(99, 102, 241, 0.5); }
+}
+
 .catch-description {
   font-size: 0.85rem;
   color: #aaa;

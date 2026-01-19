@@ -500,6 +500,237 @@ export const WILD_SCADAMON = [
       20: ['ZERO_TRUST'],
       35: ['DEFENSE_IN_DEPTH']
     }
+  },
+
+  // NEW UNCOMMON SCADAMON (6)
+  {
+    id: 21,
+    name: 'PATCHMON',
+    types: ['STEEL', 'NORMAL'],
+    baseStats: { hp: 55, atk: 45, def: 65, spd: 40, int: 55, res: 60 },
+    description: 'A diligent patch management creature. It constantly updates and fixes vulnerabilities.',
+    emoji: '🩹',
+    rarity: 'uncommon',
+    availableAfterGym: 2,
+    moves: {
+      1: ['PATCH_DEPLOY', 'BASELINE_CHECK'],
+      15: ['ENCRYPTION_SHIELD'],
+      25: ['DEFENSE_IN_DEPTH']
+    }
+  },
+  {
+    id: 22,
+    name: 'VLANIX',
+    types: ['GROUND', 'ELECTRIC'],
+    baseStats: { hp: 50, atk: 50, def: 60, spd: 55, int: 65, res: 55 },
+    description: 'A VLAN boundary guardian. It segments networks with precision.',
+    emoji: '🔀',
+    rarity: 'uncommon',
+    availableAfterGym: 2,
+    moves: {
+      1: ['NETWORK_SEGMENT', 'SPARK'],
+      15: ['FIREWALL_BLOCK'],
+      25: ['ZERO_TRUST']
+    }
+  },
+  {
+    id: 23,
+    name: 'SIEMGUARD',
+    types: ['STEEL', 'ELECTRIC'],
+    baseStats: { hp: 60, atk: 55, def: 70, spd: 35, int: 70, res: 65 },
+    description: 'A Siemens-style industrial controller guardian. Robust and reliable.',
+    emoji: '🏭',
+    rarity: 'uncommon',
+    availableAfterGym: 3,
+    moves: {
+      1: ['SPARK', 'PATCH_DEPLOY'],
+      15: ['GRID_SURGE'],
+      25: ['DEFENSE_IN_DEPTH']
+    }
+  },
+  {
+    id: 24,
+    name: 'LOGKEEPER',
+    types: ['NORMAL', 'WATER'],
+    baseStats: { hp: 65, atk: 40, def: 55, spd: 45, int: 75, res: 60 },
+    description: 'A log aggregation spirit. It remembers everything that happens.',
+    emoji: '📜',
+    rarity: 'uncommon',
+    availableAfterGym: 4,
+    moves: {
+      1: ['BASELINE_CHECK', 'PROTOCOL_SCAN'],
+      15: ['INCIDENT_DETECT'],
+      25: ['FORENSIC_SCAN']
+    }
+  },
+  {
+    id: 25,
+    name: 'HASHLOCK',
+    types: ['STEEL', 'DARK'],
+    baseStats: { hp: 50, atk: 55, def: 65, spd: 50, int: 70, res: 65 },
+    description: 'A cryptographic hash guardian. It ensures data integrity through checksums.',
+    emoji: '🔗',
+    rarity: 'uncommon',
+    availableAfterGym: 4,
+    moves: {
+      1: ['ENCRYPTION_SHIELD', 'BASELINE_CHECK'],
+      15: ['ZERO_TRUST'],
+      25: ['FORENSIC_SCAN']
+    }
+  },
+  {
+    id: 26,
+    name: 'CRONOS',
+    types: ['GHOST', 'NORMAL'],
+    baseStats: { hp: 55, atk: 50, def: 50, spd: 60, int: 65, res: 55 },
+    description: 'A scheduled task spirit. It executes jobs at precise times, watching for anomalies.',
+    emoji: '⏰',
+    rarity: 'uncommon',
+    availableAfterGym: 5,
+    moves: {
+      1: ['BASELINE_CHECK', 'RISK_ASSESS'],
+      15: ['INCIDENT_DETECT'],
+      25: ['COMPLIANCE_AUDIT']
+    }
+  },
+
+  // NEW RARE SCADAMON (5)
+  {
+    id: 27,
+    name: 'ZEROTRUST',
+    types: ['STEEL', 'GHOST'],
+    baseStats: { hp: 65, atk: 60, def: 75, spd: 55, int: 80, res: 75 },
+    description: 'Never trust, always verify. This creature questions everything.',
+    emoji: '🚫',
+    rarity: 'rare',
+    availableAfterGym: 5,
+    moves: {
+      1: ['ZERO_TRUST', 'NETWORK_SEGMENT'],
+      20: ['DEFENSE_IN_DEPTH'],
+      35: ['FORENSIC_SCAN']
+    }
+  },
+  {
+    id: 28,
+    name: 'AIRGAPPER',
+    types: ['GROUND', 'STEEL'],
+    baseStats: { hp: 80, atk: 55, def: 90, spd: 25, int: 60, res: 85 },
+    description: 'The ultimate isolationist. Completely disconnects systems from networks.',
+    emoji: '🏝️',
+    rarity: 'rare',
+    availableAfterGym: 5,
+    moves: {
+      1: ['NETWORK_SEGMENT', 'FIREWALL_BLOCK'],
+      20: ['DEFENSE_IN_DEPTH'],
+      35: ['ZERO_TRUST']
+    }
+  },
+  {
+    id: 29,
+    name: 'FORENSIX',
+    types: ['GHOST', 'DARK'],
+    baseStats: { hp: 55, atk: 65, def: 50, spd: 70, int: 90, res: 60 },
+    description: 'A digital forensics master. It uncovers hidden evidence and traces attacks.',
+    emoji: '🔬',
+    rarity: 'rare',
+    availableAfterGym: 6,
+    moves: {
+      1: ['FORENSIC_SCAN', 'INCIDENT_DETECT'],
+      20: ['RISK_ASSESS'],
+      35: ['COMPLIANCE_AUDIT']
+    }
+  },
+  {
+    id: 30,
+    name: 'HONEYPOT',
+    types: ['POISON', 'GHOST'],
+    baseStats: { hp: 70, atk: 45, def: 55, spd: 50, int: 85, res: 70 },
+    description: 'A deception specialist. It lures attackers into revealing themselves.',
+    emoji: '🍯',
+    rarity: 'rare',
+    availableAfterGym: 6,
+    moves: {
+      1: ['BASELINE_CHECK', 'INCIDENT_DETECT'],
+      20: ['FORENSIC_SCAN'],
+      35: ['ZERO_TRUST']
+    }
+  },
+  {
+    id: 31,
+    name: 'SOCMON',
+    types: ['ELECTRIC', 'DARK'],
+    baseStats: { hp: 65, atk: 70, def: 60, spd: 65, int: 85, res: 65 },
+    description: 'Security Operations Center guardian. 24/7 vigilance personified.',
+    emoji: '👁️‍🗨️',
+    rarity: 'rare',
+    availableAfterGym: 7,
+    moves: {
+      1: ['INCIDENT_DETECT', 'SPARK'],
+      20: ['FORENSIC_SCAN'],
+      35: ['GRID_SURGE']
+    }
+  },
+
+  // NEW LEGENDARY SCADAMON (4)
+  {
+    id: 32,
+    name: 'STUXBANE',
+    types: ['ELECTRIC', 'STEEL'],
+    baseStats: { hp: 80, atk: 90, def: 80, spd: 75, int: 95, res: 80 },
+    description: 'Born from lessons of Stuxnet. The ultimate ICS defender against targeted attacks.',
+    emoji: '⚔️',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['GRID_SURGE', 'ZERO_TRUST'],
+      30: ['DEFENSE_IN_DEPTH'],
+      50: ['FORENSIC_SCAN']
+    }
+  },
+  {
+    id: 33,
+    name: 'TRITONIX',
+    types: ['FIRE', 'POISON'],
+    baseStats: { hp: 85, atk: 85, def: 75, spd: 80, int: 90, res: 85 },
+    description: 'Forged from the TRITON/TRISIS attack lessons. Protects safety systems.',
+    emoji: '☢️',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['EMBER', 'INCIDENT_DETECT'],
+      30: ['FORENSIC_SCAN'],
+      50: ['RISK_ASSESS']
+    }
+  },
+  {
+    id: 34,
+    name: 'GRIDLORD',
+    types: ['ELECTRIC', 'DARK'],
+    baseStats: { hp: 90, atk: 80, def: 85, spd: 70, int: 100, res: 90 },
+    description: 'Master of the power grid. Learned from Ukraine blackout attacks.',
+    emoji: '👑',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['GRID_SURGE', 'DEFENSE_IN_DEPTH'],
+      30: ['ZERO_TRUST'],
+      50: ['INCIDENT_DETECT']
+    }
+  },
+  {
+    id: 35,
+    name: 'SCADAKING',
+    types: ['STEEL', 'ELECTRIC'],
+    baseStats: { hp: 95, atk: 85, def: 90, spd: 65, int: 95, res: 95 },
+    description: 'The ultimate ICS defender. Embodies all principles of SCADA security.',
+    emoji: '🦁',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['ZERO_TRUST', 'GRID_SURGE'],
+      30: ['DEFENSE_IN_DEPTH'],
+      50: ['COMPLIANCE_AUDIT']
+    }
   }
 ];
 
@@ -823,12 +1054,13 @@ export const XP_BONUSES = {
   pass: { min: 0, max: 79, multiplier: 1.0, label: 'Keep practicing!' }
 };
 
-// Catch rates based on quiz performance
+// Catch rates based on quiz performance (out of 25 questions)
+// 25/25 = 100% = legendary, 23/25 = 92% = rare, 22/25 = 88% = uncommon
 export const CATCH_RATES = {
-  perfect: { min: 100, max: 100, rarity: ['common', 'uncommon', 'rare'], bonusPick: true },
-  excellent: { min: 95, max: 99, rarity: ['common', 'uncommon', 'rare'], bonusPick: false },
-  great: { min: 90, max: 94, rarity: ['common', 'uncommon'], bonusPick: false },
-  good: { min: 80, max: 89, rarity: ['common'], bonusPick: false }
+  legendary: { minScore: 100 },  // 25/25 perfect score
+  rare: { minScore: 92 },        // 23/25 or better
+  uncommon: { minScore: 88 },    // 22/25 or better
+  common: { minScore: 0 }        // Always available
 };
 
 // Helper function to get SCADAmon by name
@@ -893,10 +1125,12 @@ export function getTypeEffectiveness(attackType, defenderTypes) {
 export function getAvailableWildScadamon(completedGyms, quizScore) {
   const maxGym = Math.max(...completedGyms, 0);
 
-  // Determine available rarities based on score
+  // Determine available rarities based on score using new thresholds
+  // 25/25 = 100% = legendary, 23/25 = 92% = rare, 22/25 = 88% = uncommon
   let availableRarities = ['common'];
-  if (quizScore >= 90) availableRarities.push('uncommon');
-  if (quizScore >= 95) availableRarities.push('rare');
+  if (quizScore >= CATCH_RATES.uncommon.minScore) availableRarities.push('uncommon');
+  if (quizScore >= CATCH_RATES.rare.minScore) availableRarities.push('rare');
+  if (quizScore >= CATCH_RATES.legendary.minScore) availableRarities.push('legendary');
 
   return WILD_SCADAMON.filter(s =>
     s.availableAfterGym <= maxGym &&

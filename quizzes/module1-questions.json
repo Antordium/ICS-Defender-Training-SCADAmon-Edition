@@ -50,12 +50,12 @@
     },
     {
       "id": "m1_q06",
-      "type": "true_false",
+      "type": "multiple_choice",
       "difficulty": 1,
-      "question": "An HMI allows operators to monitor and interact with industrial control systems.",
-      "options": ["True", "False"],
+      "question": "An HMI allows operators to monitor and interact with industrial control systems. What does HMI stand for?",
+      "options": ["Human-Machine Interface", "Hardware Monitoring Integration", "High-Memory Interconnect", "Hybrid Management Infrastructure"],
       "correctIndex": 0,
-      "explanation": "True. HMI (Human-Machine Interface) is the dashboard that allows operators to monitor status and send commands."
+      "explanation": "HMI (Human-Machine Interface) is the dashboard that allows operators to monitor status and send commands."
     },
     {
       "id": "m1_q07",
@@ -79,17 +79,17 @@
       "id": "m1_q09",
       "type": "multiple_choice",
       "difficulty": 3,
-      "question": "In the 2021 Oldsmar attack, what did the attacker attempt?",
-      "options": ["Shut down pumps", "Increase sodium hydroxide to dangerous levels", "Steal customer data", "Install ransomware"],
+      "question": "In the 2021 Oldsmar water treatment attack, what did the attacker attempt?",
+      "options": ["Shut down all pumps", "Increase sodium hydroxide to dangerous levels", "Steal customer billing data", "Install ransomware on SCADA servers"],
       "correctIndex": 1,
-      "explanation": "The attacker tried to increase sodium hydroxide (lye) from 100 ppm to 11,100 ppm - a dangerous amount."
+      "explanation": "The attacker tried to increase sodium hydroxide (lye) from 100 ppm to 11,100 ppm - a dangerous amount that could have harmed public health."
     },
     {
       "id": "m1_q10",
       "type": "multiple_choice",
       "difficulty": 2,
       "question": "Which Purdue level contains the corporate IT network?",
-      "options": ["Level 2", "Level 3", "Level 4", "Level 5 - Enterprise"],
+      "options": ["Level 2 - Supervisory", "Level 3 - Site Operations", "Level 4 - Business Planning", "Level 5 - Enterprise"],
       "correctIndex": 3,
       "explanation": "Level 5 (Enterprise) contains corporate IT, business systems, email, and internet connectivity."
     },
@@ -98,18 +98,18 @@
       "type": "multiple_choice",
       "difficulty": 2,
       "question": "What distinguishes a DCS from a SCADA system?",
-      "options": ["DCS cannot use networks", "DCS is for localized continuous processes while SCADA covers geographically dispersed assets", "SCADA can only monitor", "DCS doesn't use PLCs"],
+      "options": ["DCS cannot use networks", "DCS is for localized continuous processes while SCADA covers geographically dispersed assets", "SCADA can only monitor, not control", "DCS doesn't use PLCs"],
       "correctIndex": 1,
-      "explanation": "DCS is for continuous processes within a plant; SCADA monitors/controls geographically dispersed assets."
+      "explanation": "DCS is typically used for continuous processes within a plant; SCADA monitors and controls geographically dispersed assets."
     },
     {
       "id": "m1_q12",
-      "type": "true_false",
+      "type": "multiple_choice",
       "difficulty": 2,
-      "question": "In ICS, system availability is generally more important than data confidentiality.",
-      "options": ["True", "False"],
-      "correctIndex": 0,
-      "explanation": "True. In OT, safety and availability typically take priority over confidentiality due to critical operations."
+      "question": "In ICS environments, which priority typically comes FIRST?",
+      "options": ["Confidentiality", "Integrity", "Availability", "Safety"],
+      "correctIndex": 3,
+      "explanation": "In OT/ICS, safety typically takes priority over all other concerns due to potential physical harm from system failures."
     },
     {
       "id": "m1_q13",
@@ -124,19 +124,244 @@
       "id": "m1_q14",
       "type": "multiple_choice",
       "difficulty": 1,
-      "question": "Which sector does NOT typically use ICS/SCADA?",
-      "options": ["Water and wastewater", "Electric power", "Social media platforms", "Oil and gas"],
+      "question": "Which sector does NOT typically use ICS/SCADA systems?",
+      "options": ["Water and wastewater", "Electric power generation", "Social media platforms", "Oil and gas pipelines"],
       "correctIndex": 2,
-      "explanation": "Social media platforms are IT systems. Water, power, and oil/gas heavily rely on ICS/SCADA."
+      "explanation": "Social media platforms are IT systems. Water, power, and oil/gas heavily rely on ICS/SCADA for operations."
     },
     {
       "id": "m1_q15",
-      "type": "true_false",
+      "type": "multiple_choice",
       "difficulty": 2,
-      "question": "Legacy ICS systems were designed with cybersecurity as a primary concern.",
-      "options": ["True", "False"],
+      "question": "Why were legacy ICS systems not designed with cybersecurity in mind?",
+      "options": ["Security wasn't invented yet", "They were designed for isolated environments before network connectivity", "PLCs cannot be hacked", "Vendors didn't care about security"],
       "correctIndex": 1,
-      "explanation": "False. Legacy ICS was designed for reliability and safety in isolated environments, before cybersecurity concerns existed."
+      "explanation": "Legacy ICS was designed for reliability and safety in isolated environments, before widespread network connectivity made cybersecurity a concern."
+    },
+    {
+      "id": "m1_q16",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What does ICS stand for?",
+      "options": ["Internet Control Systems", "Industrial Control Systems", "Integrated Computing Services", "Infrastructure Communication Standards"],
+      "correctIndex": 1,
+      "explanation": "ICS stands for Industrial Control Systems - the general term for systems that control physical processes."
+    },
+    {
+      "id": "m1_q17",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the DMZ in the context of ICS architecture?",
+      "options": ["A military zone protecting physical assets", "A network segment that separates IT from OT networks", "A type of PLC programming", "A backup power system"],
+      "correctIndex": 1,
+      "explanation": "The DMZ (Demilitarized Zone) is a network segment that provides controlled connectivity between IT and OT networks."
+    },
+    {
+      "id": "m1_q18",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "The 2015 Ukraine power grid attack used which malware family?",
+      "options": ["Stuxnet", "BlackEnergy", "WannaCry", "NotPetya"],
+      "correctIndex": 1,
+      "explanation": "BlackEnergy malware was used in the 2015 Ukraine attack that caused power outages for approximately 230,000 customers."
+    },
+    {
+      "id": "m1_q19",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What is an actuator in ICS?",
+      "options": ["A monitoring display", "A device that converts control signals into physical movement", "A type of network switch", "A security firewall"],
+      "correctIndex": 1,
+      "explanation": "An actuator converts control signals into physical action, such as opening a valve or starting a motor."
+    },
+    {
+      "id": "m1_q20",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Which is NOT a common ICS component?",
+      "options": ["PLC", "RTU", "Web Browser", "HMI"],
+      "correctIndex": 2,
+      "explanation": "Web browsers are IT tools. PLCs, RTUs, and HMIs are core ICS components."
+    },
+    {
+      "id": "m1_q21",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the typical lifespan expectation for ICS equipment?",
+      "options": ["2-3 years like smartphones", "15-25 years or longer", "Same as IT systems (3-5 years)", "1 year before replacement"],
+      "correctIndex": 1,
+      "explanation": "ICS equipment is designed for long lifespans of 15-25 years or more, unlike IT systems that are replaced every few years."
+    },
+    {
+      "id": "m1_q22",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What does OT stand for?",
+      "options": ["Overtime Technology", "Operational Technology", "Output Terminal", "Optical Transfer"],
+      "correctIndex": 1,
+      "explanation": "OT stands for Operational Technology - hardware and software that monitors and controls physical devices and processes."
+    },
+    {
+      "id": "m1_q23",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What makes patching ICS systems more challenging than IT systems?",
+      "options": ["Patches don't exist for ICS", "Systems often cannot be taken offline and patches may affect stability", "ICS vendors refuse to provide patches", "ICS systems auto-update constantly"],
+      "correctIndex": 1,
+      "explanation": "ICS systems often run 24/7 critical processes and patches may affect system stability, requiring extensive testing before deployment."
+    },
+    {
+      "id": "m1_q24",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "At which Purdue Model level would you find HMI workstations?",
+      "options": ["Level 0", "Level 1", "Level 2", "Level 4"],
+      "correctIndex": 2,
+      "explanation": "Level 2 (Area Supervisory Control) contains HMI workstations, engineering workstations, and local supervisory systems."
+    },
+    {
+      "id": "m1_q25",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the purpose of a sensor in ICS?",
+      "options": ["To send commands to machines", "To measure physical conditions like temperature or pressure", "To display data to operators", "To store historical data"],
+      "correctIndex": 1,
+      "explanation": "Sensors measure physical conditions (temperature, pressure, flow, level) and convert them to signals that controllers can read."
+    },
+    {
+      "id": "m1_q26",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "Which attack targeted safety instrumented systems (SIS) at a petrochemical facility?",
+      "options": ["Stuxnet", "BlackEnergy", "TRITON/TRISIS", "Colonial Pipeline ransomware"],
+      "correctIndex": 2,
+      "explanation": "TRITON/TRISIS specifically targeted Schneider Electric Triconex safety controllers at a Saudi Arabian petrochemical facility in 2017."
+    },
+    {
+      "id": "m1_q27",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "Which industry would most likely use a SCADA system to monitor remote wells?",
+      "options": ["Healthcare", "Banking", "Oil and Gas", "Retail"],
+      "correctIndex": 2,
+      "explanation": "Oil and Gas uses SCADA to monitor geographically dispersed assets like wells, pipelines, and pump stations."
+    },
+    {
+      "id": "m1_q28",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is 'air-gapping' in ICS security?",
+      "options": ["Cooling systems for data centers", "Physical isolation of networks with no electronic connection", "A type of firewall rule", "Gaps in security training"],
+      "correctIndex": 1,
+      "explanation": "Air-gapping physically isolates a network from other networks, though this is increasingly difficult to maintain in modern environments."
+    },
+    {
+      "id": "m1_q29",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What role does a SCADA Master/Server play?",
+      "options": ["Directly control physical equipment", "Collect data from RTUs/PLCs and present it to operators", "Provide internet access", "Store long-term historical data"],
+      "correctIndex": 1,
+      "explanation": "The SCADA Master/Server collects data from field devices (RTUs, PLCs), processes it, and presents information to operators through HMIs."
+    },
+    {
+      "id": "m1_q30",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What is the IT/OT convergence?",
+      "options": ["Merging IT and OT departments", "Connecting previously isolated OT networks to IT infrastructure", "Converting IT systems to OT", "Eliminating OT entirely"],
+      "correctIndex": 1,
+      "explanation": "IT/OT convergence refers to the increasing integration of traditionally isolated OT systems with IT networks for efficiency and remote access."
+    },
+    {
+      "id": "m1_q31",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What type of process would a water treatment plant typically run?",
+      "options": ["Batch process only", "Continuous process", "Discrete manufacturing", "None of the above"],
+      "correctIndex": 1,
+      "explanation": "Water treatment is a continuous process where water flows through treatment stages constantly, requiring 24/7 operation."
+    },
+    {
+      "id": "m1_q32",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Why is availability so critical in ICS environments?",
+      "options": ["To maintain profits", "Downtime can cause safety hazards, environmental damage, or loss of essential services", "For regulatory compliance only", "To support IT systems"],
+      "correctIndex": 1,
+      "explanation": "ICS controls critical infrastructure. Downtime can cause physical safety hazards, environmental damage, or loss of essential public services."
+    },
+    {
+      "id": "m1_q33",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What is a Safety Instrumented System (SIS)?",
+      "options": ["An antivirus for ICS", "A system that automatically brings processes to safe states during dangerous conditions", "A physical security guard system", "An IT network monitoring tool"],
+      "correctIndex": 1,
+      "explanation": "An SIS is an independent system designed to automatically bring a process to a safe state if dangerous conditions are detected."
+    },
+    {
+      "id": "m1_q34",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What does the Purdue Model provide?",
+      "options": ["A vendor certification program", "A reference architecture for ICS network segmentation", "A malware detection system", "A programming language for PLCs"],
+      "correctIndex": 1,
+      "explanation": "The Purdue Enterprise Reference Architecture provides a framework for segmenting ICS networks into hierarchical levels."
+    },
+    {
+      "id": "m1_q35",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What physical action might a PLC control?",
+      "options": ["Sending emails", "Opening and closing a valve", "Browsing websites", "Processing payroll"],
+      "correctIndex": 1,
+      "explanation": "PLCs control physical actions like opening/closing valves, starting/stopping motors, and controlling conveyor belts."
+    },
+    {
+      "id": "m1_q36",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What was unique about the Colonial Pipeline attack of 2021?",
+      "options": ["It targeted PLCs directly", "Ransomware on IT systems led to voluntary OT shutdown", "It used Stuxnet malware", "It only affected billing systems"],
+      "correctIndex": 1,
+      "explanation": "The Colonial Pipeline attack was ransomware on IT systems, but the company shut down OT operations as a precaution, causing fuel shortages."
+    },
+    {
+      "id": "m1_q37",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the primary purpose of an engineering workstation in ICS?",
+      "options": ["Running business applications", "Programming and configuring PLCs and control systems", "Browsing the internet", "Storing customer data"],
+      "correctIndex": 1,
+      "explanation": "Engineering workstations are used to program, configure, and maintain PLCs and other control system components."
+    },
+    {
+      "id": "m1_q38",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Which statement about ICS protocols is correct?",
+      "options": ["They always include strong authentication", "Many legacy protocols lack security features like encryption", "They are identical to IT protocols", "Security was a primary design goal"],
+      "correctIndex": 1,
+      "explanation": "Many ICS protocols (Modbus, DNP3) were designed decades ago without security features like authentication or encryption."
+    },
+    {
+      "id": "m1_q39",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What is meant by 'defense in depth' for ICS?",
+      "options": ["Having deep underground bunkers", "Using multiple layers of security controls throughout the system", "Only using firewalls", "Relying on a single strong password"],
+      "correctIndex": 1,
+      "explanation": "Defense in depth uses multiple overlapping security controls so that if one fails, others continue to provide protection."
+    },
+    {
+      "id": "m1_q40",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is Level 3.5 (DMZ) in the Purdue Model used for?",
+      "options": ["Running PLCs", "Providing a secure buffer zone between IT and OT networks", "Storing sensor data", "Controlling actuators"],
+      "correctIndex": 1,
+      "explanation": "Level 3.5 is the Industrial DMZ that provides secure data sharing between IT (Level 4/5) and OT (Level 0-3) networks."
     }
   ]
 }

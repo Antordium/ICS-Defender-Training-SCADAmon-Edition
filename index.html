@@ -1199,7 +1199,8 @@
         gymId: 1,
         gymLeader: gymLeader,
         questions: questions,
-        passingScore: 80,
+        passingScore: 75,
+        questionsPerBattle: 25,
         onComplete: async (result) => {
           if (result.victory) {
             await stateManager.completeGym(1, gymLeader.badge, result.score);
@@ -1247,14 +1248,15 @@
         return;
       }
 
-      // Determine catch quality message based on score
+      // Determine catch quality message based on score (new thresholds)
+      // 25/25 = 100% = legendary, 23/25 = 92% = rare, 22/25 = 88% = uncommon
       let qualityMessage = '';
       if (lastGymScore >= 100) {
-        qualityMessage = '🌟 PERFECT! You can catch any rarity!';
-      } else if (lastGymScore >= 95) {
-        qualityMessage = '✨ Excellent! Rare SCADAmon are available!';
-      } else if (lastGymScore >= 90) {
-        qualityMessage = '👍 Great! Uncommon SCADAmon unlocked!';
+        qualityMessage = '🌟 PERFECT SCORE! Legendary SCADAmon unlocked!';
+      } else if (lastGymScore >= 92) {
+        qualityMessage = '✨ Excellent! (23+/25) Rare SCADAmon available!';
+      } else if (lastGymScore >= 88) {
+        qualityMessage = '👍 Great! (22/25) Uncommon SCADAmon unlocked!';
       } else {
         qualityMessage = '👌 Good job! Common SCADAmon available.';
       }
@@ -1497,7 +1499,8 @@
         gymId: gymId,
         gymLeader: gymLeader,
         questions: questions,
-        passingScore: 80,
+        passingScore: 75,
+        questionsPerBattle: 25,
         onComplete: async (result) => {
           if (result.victory) {
             await stateManager.completeGym(gymId, gymLeader.badge, result.score);
@@ -1649,7 +1652,8 @@
         gymId: `elite4-${index + 1}`,
         gymLeader: elite4AsLeader,
         questions: questions,
-        passingScore: 80,
+        passingScore: 75,
+        questionsPerBattle: 25,
         onComplete: async (result) => {
           if (result.victory) {
             await stateManager.defeatEliteFour(elite4Member.id);
@@ -1750,7 +1754,8 @@
         gymId: 'rival',
         gymLeader: rivalAsLeader,
         questions: questions,
-        passingScore: 80,
+        passingScore: 75,
+        questionsPerBattle: 25,
         onComplete: async (result) => {
           if (result.victory) {
             await stateManager.defeatRival();

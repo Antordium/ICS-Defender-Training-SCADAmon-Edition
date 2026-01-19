@@ -36,7 +36,8 @@ class BattleEngine {
       gymId: options.gymId || 1,
       gymLeader: options.gymLeader || null,
       questions: options.questions || [],
-      passingScore: options.passingScore || 80,
+      passingScore: options.passingScore || 75,
+      questionsPerBattle: options.questionsPerBattle || 25,
       onComplete: options.onComplete || (() => {}),
       animationSpeed: options.animationSpeed || 'normal',
       ...options
@@ -96,11 +97,29 @@ class BattleEngine {
       }).filter(Boolean);
     }
 
+    // Shuffle and limit questions to questionsPerBattle
+    if (this.options.questions.length > this.options.questionsPerBattle) {
+      this.options.questions = this.shuffleArray([...this.options.questions])
+        .slice(0, this.options.questionsPerBattle);
+      console.log(`[BattleEngine] Limited questions to ${this.options.questionsPerBattle} from bank`);
+    }
+
     // Render battle UI
     this.render();
 
     // Start intro sequence
     await this.playIntro();
+  }
+
+  /**
+   * Shuffle array using Fisher-Yates algorithm
+   */
+  shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   /**
@@ -405,7 +424,31 @@ class BattleEngine {
       return;
     }
 
-    this.currentQuestion = question;
+    // Randomize answer order while tracking correct answer
+    const originalCorrectIndex = question.correctIndex ?? question.correct ?? 0;
+    const originalOptions = [...question.options];
+
+    // Create shuffled indices
+    const indices = originalOptions.map((_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+
+    // Create shuffled options and find new correct index
+    const shuffledOptions = indices.map(i => originalOptions[i]);
+    const newCorrectIndex = indices.indexOf(originalCorrectIndex);
+
+    // Store the randomized question with updated correct index
+    this.currentQuestion = {
+      ...question,
+      options: shuffledOptions,
+      correctIndex: newCorrectIndex,
+      correct: newCorrectIndex,
+      originalOptions: originalOptions,
+      originalCorrectIndex: originalCorrectIndex
+    };
+
     this.questionsAsked++;
 
     // Update stats display
@@ -416,11 +459,11 @@ class BattleEngine {
     const answersGrid = document.getElementById('answers-grid');
 
     if (questionText) {
-      questionText.textContent = question.question;
+      questionText.textContent = this.currentQuestion.question;
     }
 
     if (answersGrid) {
-      answersGrid.innerHTML = question.options.map((opt, i) => `
+      answersGrid.innerHTML = this.currentQuestion.options.map((opt, i) => `
         <button class="answer-button" data-index="${i}">
           <span class="answer-letter">${String.fromCharCode(65 + i)}</span>
           <span class="answer-text">${opt}</span>
@@ -575,30 +618,23 @@ class BattleEngine {
     const currentScore = this.getScore();
     const wrongAnswers = this.questionsAsked - this.questionsCorrect;
 
+    // NEW MECHANICS: Enemy always attacks - no more perfect blocking
     // Performance-based damage scaling:
-    // - 100% correct: enemy deals 0 damage (perfect defense)
-    // - 90%+ correct: enemy deals 25% damage (strong defense)
-    // - 80%+ correct: enemy deals 50% damage (good defense)
-    // - Below 80%: enemy deals full damage + 20% per wrong answer
+    // - 90%+ correct: enemy deals 30% damage (strong defense)
+    // - 75%+ correct: enemy deals 50% damage (passing defense)
+    // - Below 75%: enemy deals full damage + 15% per wrong answer
     let damageMultiplier = 1.0;
 
-    if (wrongAnswers === 0 && this.questionsAsked > 0) {
-      // Perfect score - enemy misses entirely
-      await this.showMessage(`${enemy.name} tried to use ${enemyMove.name}...`, 1500);
-      await this.showMessage(`But your defenses are perfect! Attack blocked!`, 1500);
-      this.startPlayerTurn();
-      return;
-    } else if (currentScore >= 90) {
-      damageMultiplier = 0.25; // Strong performance = 25% damage
-      await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
+    await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
+
+    if (currentScore >= 90) {
+      damageMultiplier = 0.3; // Strong performance = 30% damage
       await this.showMessage(`Your strong defenses reduce the impact!`, 1000);
-    } else if (currentScore >= 80) {
+    } else if (currentScore >= this.options.passingScore) {
       damageMultiplier = 0.5; // Passing = 50% damage
-      await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
     } else {
       // Below passing - full damage plus penalty
-      damageMultiplier = 1 + (wrongAnswers * 0.2);
-      await this.showMessage(`${enemy.name} used ${enemyMove.name}!`, 1500);
+      damageMultiplier = 1.0 + (wrongAnswers * 0.15);
       if (wrongAnswers > 2) {
         await this.showMessage(`Your weak defenses make the attack more effective!`, 1000);
       }
@@ -632,8 +668,22 @@ class BattleEngine {
       }
     }
 
+    // Check if we've reached the question limit
+    if (this.questionsAsked >= this.options.questionsPerBattle) {
+      if (currentScore >= this.options.passingScore) {
+        // Victory! Player passed with enough questions
+        await this.handleVictory();
+        return;
+      } else {
+        // Defeat - didn't meet passing score after all questions
+        await this.showMessage(`Your final score is ${currentScore}% - below the ${this.options.passingScore}% required!`, 2500);
+        await this.handleDefeat();
+        return;
+      }
+    }
+
     // Check score - if under passing for too long, team wipe
-    if (this.questionsAsked >= 10 && this.getScore() < this.options.passingScore) {
+    if (this.questionsAsked >= this.options.questionsPerBattle && this.getScore() < this.options.passingScore) {
       await this.checkTeamWipe();
       if (this.state === BATTLE_STATE.DEFEAT) return;
     }
@@ -705,8 +755,8 @@ class BattleEngine {
    */
   async checkTeamWipe() {
     const score = this.getScore();
-    // Only wipe if below passing score AND have answered enough questions
-    if (score < this.options.passingScore && this.questionsAsked >= 10) {
+    // Only wipe if below passing score AND have answered all questions
+    if (score < this.options.passingScore && this.questionsAsked >= this.options.questionsPerBattle) {
       await this.showMessage(`Your score is ${score}% - below the ${this.options.passingScore}% required!`, 2000);
       await this.showMessage('All your SCADAmon are overwhelmed by the enemy!', 2000);
 
