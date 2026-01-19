@@ -289,6 +289,113 @@
       color: #fff;
       font-size: 1rem;
     }
+
+    /* Lobby/Title Screen Styles */
+    .lobby-screen {
+      position: fixed;
+      inset: 0;
+      background-image: url('assets/images/SCADAmon_lobby_image.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1500;
+      transition: opacity 0.5s ease;
+    }
+
+    .lobby-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lobby-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+    }
+
+    .lobby-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .lobby-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 3rem;
+      color: #FFDE00;
+      text-shadow:
+        4px 4px 0 #3B4CCA,
+        -2px -2px 0 #FF0000,
+        2px -2px 0 #FF0000,
+        -2px 2px 0 #FF0000;
+      margin-bottom: 16px;
+      animation: titlePulse 2s ease-in-out infinite;
+    }
+
+    .lobby-subtitle {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      color: #fff;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+      margin-bottom: 60px;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .lobby-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .lobby-btn {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.2rem;
+      padding: 20px 60px;
+      border: 4px solid #fff;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 280px;
+      text-transform: uppercase;
+    }
+
+    .lobby-btn-new {
+      background: linear-gradient(135deg, #FF1C1C 0%, #CC0000 100%);
+      color: #fff;
+    }
+
+    .lobby-btn-continue {
+      background: linear-gradient(135deg, #3B4CCA 0%, #2A3A99 100%);
+      color: #fff;
+    }
+
+    .lobby-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .lobby-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .lobby-version {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+    }
   </style>
 </head>
 <body>
@@ -296,6 +403,20 @@
   <div class="loading-screen" id="loading-screen">
     <div class="loading-pokeball"></div>
     <div class="loading-text">Loading SCADAmon...</div>
+  </div>
+
+  <!-- Lobby/Title Screen -->
+  <div class="lobby-screen" id="lobby-screen">
+    <div class="lobby-overlay"></div>
+    <div class="lobby-content">
+      <h1 class="lobby-title">SCADAmon</h1>
+      <p class="lobby-subtitle">ICS Defender Training Edition</p>
+      <div class="lobby-buttons">
+        <button class="lobby-btn lobby-btn-new" id="lobby-new-game">New Game</button>
+        <button class="lobby-btn lobby-btn-continue" id="lobby-continue" disabled>Continue</button>
+      </div>
+    </div>
+    <div class="lobby-version">v1.0 | SANS ICS410 Aligned</div>
   </div>
 
   <!-- Progress Bar -->
@@ -877,26 +998,73 @@
       // Load starter options
       loadStarterOptions();
 
-      // Check if already started
-      if (stateManager.hasStarted()) {
-        // Skip to appropriate section based on progress
-        const currentSectionId = stateManager.getCurrentSection();
-        const sectionIndex = getSectionIndexById(currentSectionId);
-        if (sectionIndex > 0) {
-          navigateToSection(sectionIndex, false);
-        }
-
-        // Show team and badges
-        updateTeamDisplay();
-        updateBadgeDisplay();
-      }
+      // Setup lobby screen buttons
+      setupLobbyScreen();
 
       // Load module content
       await loadModuleContent(1);
 
-      // Hide loading screen
+      // Hide loading screen, show lobby
       document.getElementById('loading-screen').classList.add('hidden');
     });
+
+    // Setup lobby screen
+    function setupLobbyScreen() {
+      const lobbyScreen = document.getElementById('lobby-screen');
+      const newGameBtn = document.getElementById('lobby-new-game');
+      const continueBtn = document.getElementById('lobby-continue');
+
+      // Enable continue button if game has started
+      if (stateManager.hasStarted()) {
+        continueBtn.disabled = false;
+      }
+
+      // New Game button
+      newGameBtn.onclick = async () => {
+        // Reset game state
+        await stateManager.resetGame();
+
+        // Hide lobby and show intro
+        lobbyScreen.classList.add('hidden');
+        navigateToSection(0, false);
+
+        // Reload starter options
+        loadStarterOptions();
+      };
+
+      // Continue button
+      continueBtn.onclick = () => {
+        // Hide lobby
+        lobbyScreen.classList.add('hidden');
+
+        // Resume from saved progress
+        const currentSectionId = stateManager.getCurrentSection();
+        const sectionIndex = getSectionIndexById(currentSectionId);
+        navigateToSection(sectionIndex > 0 ? sectionIndex : 1, false);
+
+        // Show team and badges
+        updateTeamDisplay();
+        updateBadgeDisplay();
+
+        // Hide starter section since already chosen
+        hideStarterSection();
+      };
+    }
+
+    // Hide starter selection for returning players
+    function hideStarterSection() {
+      const starterSection = document.getElementById('starter-section');
+      if (starterSection && stateManager.hasStarted()) {
+        const starterName = stateManager.getFullState().player.starterChoice;
+        starterSection.innerHTML = `
+          <div class="content-section">
+            <h2><span class="section-icon">✅</span> Your Starter SCADAmon</h2>
+            <p>You chose <strong>${starterName}</strong> as your starter!</p>
+            <p style="color: #888; font-size: 0.9rem;">Navigate to Module 1 to continue your training.</p>
+          </div>
+        `;
+      }
+    }
 
     // Generate section indicator dots
     function generateSectionDots() {
@@ -1014,6 +1182,12 @@
     function loadStarterOptions() {
       const grid = document.getElementById('starter-grid');
       if (!grid) return;
+
+      // If already started, show the chosen starter instead
+      if (stateManager.hasStarted()) {
+        hideStarterSection();
+        return;
+      }
 
       grid.innerHTML = STARTERS.map(starter => `
         <div class="starter-card" data-starter="${starter.name}">
@@ -1233,15 +1407,34 @@
       const grid = document.getElementById(`catch${gymId}-grid`);
       if (!grid) return;
 
+      // Check if catch phase already completed
+      if (stateManager.isCatchPhaseComplete(gymId)) {
+        grid.innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+            <p style="color: #4CAF50; font-size: 1.2rem;">You already caught a SCADAmon here!</p>
+            <p style="color: #888; margin-top: 8px;">Continue to the next module.</p>
+          </div>
+        `;
+        const confirmBtn = document.getElementById(`catch${gymId}-confirm-btn`);
+        if (confirmBtn) confirmBtn.style.display = 'none';
+        return;
+      }
+
       // Get available wild SCADAmon based on completed gyms and score
       const completedGyms = stateManager.getFullState().progress.completedGyms;
       const available = getAvailableWildScadamon(completedGyms, lastGymScore);
 
-      // Filter to SCADAmon that become available after this specific gym
-      const newlyAvailable = available.filter(s => s.availableAfterGym === gymId);
+      // Sort by rarity (legendary > rare > uncommon > common) to show best options first
+      const rarityOrder = { legendary: 0, rare: 1, uncommon: 2, common: 3 };
+      const sorted = [...available].sort((a, b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]);
 
-      // If no newly available, show from all available
-      const toShow = newlyAvailable.length > 0 ? newlyAvailable : available.slice(0, 3);
+      // Show up to 3 of the best available (prioritize newly unlocked at this gym, then by rarity)
+      const newlyAvailable = sorted.filter(s => s.availableAfterGym === gymId);
+      const previouslyAvailable = sorted.filter(s => s.availableAfterGym < gymId);
+
+      // Combine: prioritize new unlocks, fill rest with best previously available
+      const toShow = [...newlyAvailable, ...previouslyAvailable].slice(0, 3);
 
       if (toShow.length === 0) {
         grid.innerHTML = '<p style="text-align: center; color: #888;">No SCADAmon available right now. Keep progressing!</p>';

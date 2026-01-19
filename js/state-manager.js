@@ -92,6 +92,7 @@ class StateManager {
         currentSection: 'intro', // intro, module1, gym1, catch1, module2, etc.
         completedModules: [],
         completedGyms: [],
+        completedCatchPhases: [], // Track which catch phases are done
         badges: [],
         eliteFourDefeated: [],
         rivalDefeated: false,
@@ -201,6 +202,16 @@ class StateManager {
    */
   hasStarted() {
     return this.state.player.startedAt !== null;
+  }
+
+  /**
+   * Reset game state for new game
+   */
+  async resetGame() {
+    this.state = this.createNewState();
+    await this.forceSave();
+    console.log('Game state reset');
+    return this.state;
   }
 
   /**
@@ -545,8 +556,21 @@ class StateManager {
    * Complete catch phase
    */
   completeCatchPhase(gymId) {
+    if (!this.state.progress.completedCatchPhases) {
+      this.state.progress.completedCatchPhases = [];
+    }
+    if (!this.state.progress.completedCatchPhases.includes(gymId)) {
+      this.state.progress.completedCatchPhases.push(gymId);
+    }
     this.state.progress.currentSection = `module${gymId + 1}`;
     this.saveState();
+  }
+
+  /**
+   * Check if catch phase is complete
+   */
+  isCatchPhaseComplete(gymId) {
+    return this.state.progress.completedCatchPhases?.includes(gymId) || false;
   }
 
   /**
