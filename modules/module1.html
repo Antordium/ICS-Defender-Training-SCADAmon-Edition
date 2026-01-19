@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1: ICS Fundamentals | ICS Defender Training</title>
+  <link rel="stylesheet" href="../css/pokemon-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Module Header -->
+  <header class="course-header" style="background: linear-gradient(135deg, var(--type-electric) 0%, #B8860B 100%);">
+    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 1</div>
+    <h1>⚡ ICS Fundamentals</h1>
+    <p class="subtitle">Foundation Falls • Gym Leader: AXIOM</p>
+  </header>
+
+  <main class="content-container">
+    
+    <!-- Learning Objectives -->
+    <section class="content-section fade-in">
+      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
+      <p>By the end of this module, you will be able to:</p>
+      <ul class="content-list">
+        <li>Define ICS, SCADA, and DCS and explain their roles in critical infrastructure</li>
+        <li>Identify and describe PLCs, RTUs, HMIs, and their functions</li>
+        <li>Explain Purdue Model levels 0-3 and component placement</li>
+        <li>Contrast IT vs OT priorities (CIA vs AIC/Safety)</li>
+        <li>Recognize major ICS security incidents and lessons learned</li>
+      </ul>
+    </section>
+
+    <!-- Section 1: What is ICS? -->
+    <section class="content-section">
+      <h2><span class="section-icon">🏭</span> 1. What is ICS?</h2>
+      
+      <p>
+        <strong>Industrial Control Systems (ICS)</strong> are the computers and networks that monitor 
+        and control physical processes in critical infrastructure. Unlike IT systems that process 
+        data, ICS systems control the physical world – opening valves, starting pumps, generating 
+        electricity, and treating water.
+      </p>
+
+      <!-- Video Placeholder -->
+      <div class="video-container">
+        <div class="video-placeholder-icon">🎬</div>
+        <div class="video-placeholder-text">Video: Welcome to the World of ICS</div>
+        <div class="video-id">[V1.1 - assets/videos/m1_v1_welcome_ics.mp4]</div>
+      </div>
+
+      <div class="info-box">
+        <p class="info-box-title">🔑 Key Point</p>
+        <p>
+          ICS is found in nearly every critical infrastructure sector: electric power, water and 
+          wastewater, oil and gas, chemical manufacturing, transportation, and more. When these 
+          systems are compromised, the consequences can be physical – affecting safety, the 
+          environment, and human lives.
+        </p>
+      </div>
+
+      <h3>Critical Infrastructure Sectors Using ICS</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Sector</th>
+            <th>ICS Applications</th>
+            <th>Impact of Compromise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>⚡ Electric Power</td>
+            <td>Generation, transmission, distribution control</td>
+            <td>Blackouts affecting millions</td>
+          </tr>
+          <tr>
+            <td>💧 Water/Wastewater</td>
+            <td>Treatment, pumping, distribution</td>
+            <td>Contamination, service disruption</td>
+          </tr>
+          <tr>
+            <td>🛢️ Oil & Gas</td>
+            <td>Drilling, pipelines, refineries</td>
+            <td>Explosions, environmental damage</td>
+          </tr>
+          <tr>
+            <td>🏭 Manufacturing</td>
+            <td>Assembly lines, process control</td>
+            <td>Product defects, safety hazards</td>
+          </tr>
+          <tr>
+            <td>🚂 Transportation</td>
+            <td>Rail signals, traffic control</td>
+            <td>Accidents, congestion</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 2: Core ICS Components -->
+    <section class="content-section">
+      <h2><span class="section-icon">🔧</span> 2. Core ICS Components</h2>
+      
+      <p>
+        Every ICS environment contains several key components that work together to monitor 
+        and control physical processes. Understanding these components is fundamental to 
+        securing them.
+      </p>
+
+      <!-- Infographic Placeholder -->
+      <div class="image-container">
+        <div class="image-placeholder-icon">🖼️</div>
+        <div class="image-placeholder-text">Infographic: ICS Component Family</div>
+        <div class="image-id">[I1.1 - assets/images/m1_i1_ics_components.png]</div>
+      </div>
+
+      <!-- PLC Pokedex Entry -->
+      <div class="pokedex-entry">
+        <div class="pokedex-entry-header">
+          <span class="pokedex-entry-title">PLC - Programmable Logic Controller</span>
+          <span class="pokedex-entry-number">#001</span>
+        </div>
+        <div class="pokedex-entry-content">
+          <div class="pokedex-entry-image">
+            <span style="font-size: 3rem;">🤖</span>
+          </div>
+          <div class="pokedex-entry-details">
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Type:</span>
+              <span>ELECTRIC/STEEL</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Location:</span>
+              <span>Purdue Level 1</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Function:</span>
+              <span>Executes control logic to operate field devices</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Programming:</span>
+              <span>Ladder Logic, Function Block, Structured Text</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RTU Pokedex Entry -->
+      <div class="pokedex-entry">
+        <div class="pokedex-entry-header">
+          <span class="pokedex-entry-title">RTU - Remote Terminal Unit</span>
+          <span class="pokedex-entry-number">#002</span>
+        </div>
+        <div class="pokedex-entry-content">
+          <div class="pokedex-entry-image">
+            <span style="font-size: 3rem;">📡</span>
+          </div>
+          <div class="pokedex-entry-details">
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Type:</span>
+              <span>ELECTRIC/GROUND</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Location:</span>
+              <span>Purdue Level 1 (Remote Sites)</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Function:</span>
+              <span>Data acquisition from geographically dispersed locations</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Environment:</span>
+              <span>Ruggedized for outdoor/harsh conditions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HMI Pokedex Entry -->
+      <div class="pokedex-entry">
+        <div class="pokedex-entry-header">
+          <span class="pokedex-entry-title">HMI - Human-Machine Interface</span>
+          <span class="pokedex-entry-number">#003</span>
+        </div>
+        <div class="pokedex-entry-content">
+          <div class="pokedex-entry-image">
+            <span style="font-size: 3rem;">🖥️</span>
+          </div>
+          <div class="pokedex-entry-details">
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Type:</span>
+              <span>NORMAL/ELECTRIC</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Location:</span>
+              <span>Purdue Level 2</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Function:</span>
+              <span>Operator interface for monitoring and control</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Displays:</span>
+              <span>Process graphics, alarms, trends</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Historian Pokedex Entry -->
+      <div class="pokedex-entry">
+        <div class="pokedex-entry-header">
+          <span class="pokedex-entry-title">Historian - Data Historian</span>
+          <span class="pokedex-entry-number">#004</span>
+        </div>
+        <div class="pokedex-entry-content">
+          <div class="pokedex-entry-image">
+            <span style="font-size: 3rem;">💾</span>
+          </div>
+          <div class="pokedex-entry-details">
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Type:</span>
+              <span>NORMAL/STEEL</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Location:</span>
+              <span>Purdue Level 3</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Function:</span>
+              <span>Stores time-series process data for analysis</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Uses:</span>
+              <span>Trending, troubleshooting, compliance reporting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: The Purdue Model -->
+    <section class="content-section">
+      <h2><span class="section-icon">🏗️</span> 3. The Purdue Model</h2>
+      
+      <p>
+        The <strong>Purdue Enterprise Reference Architecture</strong> (Purdue Model) organizes 
+        ICS environments into hierarchical levels. Understanding this model is essential for 
+        network segmentation and security architecture.
+      </p>
+
+      <!-- Video Placeholder -->
+      <div class="video-container">
+        <div class="video-placeholder-icon">🎬</div>
+        <div class="video-placeholder-text">Video: Climbing the Purdue Tower</div>
+        <div class="video-id">[V1.2 - assets/videos/m1_v2_purdue_model.mp4]</div>
+      </div>
+
+      <!-- Infographic Placeholder -->
+      <div class="image-container">
+        <div class="image-placeholder-icon">🗺️</div>
+        <div class="image-placeholder-text">Infographic: Purdue Model Map</div>
+        <div class="image-id">[I1.2 - assets/images/m1_i2_purdue_map.png]</div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Name</th>
+            <th>Components</th>
+            <th>Security Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Level 5</strong></td>
+            <td>Enterprise</td>
+            <td>Corporate IT, Internet, Email</td>
+            <td>Standard IT security</td>
+          </tr>
+          <tr>
+            <td><strong>Level 4</strong></td>
+            <td>Business Planning</td>
+            <td>ERP, Business systems</td>
+            <td>IT/OT boundary</td>
+          </tr>
+          <tr style="background: rgba(255, 165, 0, 0.2);">
+            <td><strong>Level 3.5</strong></td>
+            <td>IDMZ</td>
+            <td>Jump servers, Data diodes</td>
+            <td>⚠️ CRITICAL BOUNDARY</td>
+          </tr>
+          <tr>
+            <td><strong>Level 3</strong></td>
+            <td>Site Operations</td>
+            <td>Historians, App servers</td>
+            <td>High protection</td>
+          </tr>
+          <tr>
+            <td><strong>Level 2</strong></td>
+            <td>Area Supervisory</td>
+            <td>HMI, Engineering WS</td>
+            <td>Very high protection</td>
+          </tr>
+          <tr>
+            <td><strong>Level 1</strong></td>
+            <td>Basic Control</td>
+            <td>PLCs, RTUs, DCS</td>
+            <td>Maximum protection</td>
+          </tr>
+          <tr>
+            <td><strong>Level 0</strong></td>
+            <td>Physical Process</td>
+            <td>Sensors, Actuators, Valves</td>
+            <td>Physical security</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box warning">
+        <p class="info-box-title">⚠️ Critical Concept</p>
+        <p>
+          Lower Purdue levels require MORE security, not less. Level 0-1 devices directly control 
+          physical processes – their compromise can cause real-world harm. The IDMZ (Level 3.5) 
+          is the critical boundary between IT and OT networks.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 4: IT vs OT -->
+    <section class="content-section">
+      <h2><span class="section-icon">⚔️</span> 4. IT vs OT: Different Worlds</h2>
+      
+      <p>
+        Information Technology (IT) and Operational Technology (OT) have fundamentally different 
+        priorities. Understanding these differences is crucial for effective ICS security.
+      </p>
+
+      <!-- Infographic Placeholder -->
+      <div class="image-container">
+        <div class="image-placeholder-icon">🃏</div>
+        <div class="image-placeholder-text">Infographic: IT vs OT Battle Card</div>
+        <div class="image-id">[I1.3 - assets/images/m1_i3_it_vs_ot.png]</div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th>IT Environment</th>
+            <th>OT Environment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Priority #1</strong></td>
+            <td>Confidentiality</td>
+            <td>Safety / Availability</td>
+          </tr>
+          <tr>
+            <td><strong>Downtime Tolerance</strong></td>
+            <td>Minutes to hours acceptable</td>
+            <td>Seconds can be critical</td>
+          </tr>
+          <tr>
+            <td><strong>Patching</strong></td>
+            <td>Regular, often automated</td>
+            <td>Requires testing, vendor approval</td>
+          </tr>
+          <tr>
+            <td><strong>System Lifecycle</strong></td>
+            <td>3-5 years</td>
+            <td>15-30+ years</td>
+          </tr>
+          <tr>
+            <td><strong>Updates</strong></td>
+            <td>Frequent, automatic</td>
+            <td>Rare, carefully planned</td>
+          </tr>
+          <tr>
+            <td><strong>Failure Impact</strong></td>
+            <td>Data loss, business disruption</td>
+            <td>Physical damage, safety hazards</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box success">
+        <p class="info-box-title">💡 Remember: SAIC vs CIA</p>
+        <p>
+          <strong>IT</strong> follows <strong>CIA</strong>: Confidentiality, Integrity, Availability<br>
+          <strong>OT</strong> follows <strong>SAIC</strong>: Safety, Availability, Integrity, Confidentiality
+        </p>
+        <p>
+          In OT, keeping the process running SAFELY is paramount. A power plant that's offline is 
+          as much a failure as one that's compromised.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 5: Learning from History -->
+    <section class="content-section">
+      <h2><span class="section-icon">📜</span> 5. Learning from History</h2>
+      
+      <p>
+        Major ICS cyber incidents have demonstrated the real-world consequences of inadequate 
+        security. These events shape our understanding of threats and defenses.
+      </p>
+
+      <!-- Video Placeholder -->
+      <div class="video-container">
+        <div class="video-placeholder-icon">🎬</div>
+        <div class="video-placeholder-text">Video: ICS Attacks - A History</div>
+        <div class="video-id">[V1.3 - assets/videos/m1_v3_ics_attacks.mp4]</div>
+      </div>
+
+      <h3>Stuxnet (2010)</h3>
+      <div class="info-box danger">
+        <p class="info-box-title">🎯 Target: Iranian Nuclear Facility</p>
+        <p>
+          The first known cyber weapon designed specifically for ICS. Stuxnet targeted Siemens 
+          Step 7 PLCs controlling uranium enrichment centrifuges, causing them to spin at 
+          damaging speeds while reporting normal operations to operators.
+        </p>
+        <p><strong>Key Lesson:</strong> Air gaps can be crossed via removable media (USB).</p>
+      </div>
+
+      <h3>Ukraine Power Grid (2015, 2016)</h3>
+      <div class="info-box danger">
+        <p class="info-box-title">⚡ Target: Electric Distribution</p>
+        <p>
+          Attackers gained remote access to SCADA systems at three Ukrainian power distribution 
+          companies. They manually opened breakers, causing blackouts for approximately 230,000 
+          customers. Systems were also wiped to complicate recovery.
+        </p>
+        <p><strong>Key Lesson:</strong> Remote access can be weaponized; have manual backups.</p>
+      </div>
+
+      <h3>Oldsmar Water Treatment (2021)</h3>
+      <div class="info-box danger">
+        <p class="info-box-title">💧 Target: Water Treatment</p>
+        <p>
+          An attacker remotely accessed the HMI at a Florida water treatment plant and attempted 
+          to increase sodium hydroxide (lye) levels from 100 ppm to 11,100 ppm – potentially 
+          dangerous to public health. An alert operator noticed and reversed the change.
+        </p>
+        <p><strong>Key Lesson:</strong> HMI monitoring and quick operator response are critical.</p>
+      </div>
+
+      <h3>Colonial Pipeline (2021)</h3>
+      <div class="info-box danger">
+        <p class="info-box-title">🛢️ Target: Fuel Pipeline</p>
+        <p>
+          Ransomware attack on IT systems led to the precautionary shutdown of OT systems 
+          controlling the largest fuel pipeline on the US East Coast. Result: Fuel shortages, 
+          panic buying, and $4.4 million ransom paid.
+        </p>
+        <p><strong>Key Lesson:</strong> IT attacks can force OT shutdowns; segment networks.</p>
+      </div>
+    </section>
+
+    <!-- Pokeball Divider -->
+    <div class="pokeball-divider">
+      <div class="pokeball-icon"></div>
+    </div>
+
+    <!-- Quiz Section -->
+    <section class="content-section">
+      <h2><span class="section-icon">📝</span> Module 1 Quiz</h2>
+      <p>
+        Test your knowledge of ICS Fundamentals! Answer 10 questions with 80% accuracy to 
+        earn your <strong>Foundation Badge</strong> and unlock Module 2.
+      </p>
+      
+      <div id="quiz-container">
+        <!-- Quiz will be loaded here by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+      <a href="../index.html" class="btn btn-secondary">← Back to Course</a>
+      <a href="module2.html" class="btn btn-primary" id="next-module-btn" style="opacity: 0.5; pointer-events: none;">
+        Module 2: Architecture →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="course-footer">
+    <p>ICS Defender Training: SCADAmon Edition</p>
+    <p>Module 1: ICS Fundamentals • Gym: Foundation Falls</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/cmi5-wrapper.js"></script>
+  <script src="../js/quiz-engine.js"></script>
+  <script>
+    // Initialize quiz when page loads
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Initialize cmi5 and report module launch
+      await window.cmi5.initialize();
+      await window.cmi5.launched('Module 1: ICS Fundamentals');
+      
+      // Create quiz instance
+      window.quiz = new QuizEngine('quiz-container', {
+        questionsPerQuiz: 10,
+        passingScore: 80,
+        moduleId: '1',
+        moduleName: 'ICS Fundamentals',
+        badgeName: 'Foundation Badge'
+      });
+      
+      // Load questions and render start screen
+      await quiz.loadQuestions('../quizzes/module1-questions.json');
+      quiz.renderQuiz();
+    });
+    
+    // Course navigation helper
+    window.courseNav = {
+      markModuleComplete: function(moduleId) {
+        const completed = JSON.parse(localStorage.getItem('ics_completed_modules') || '[]');
+        if (!completed.includes(moduleId)) {
+          completed.push(moduleId);
+          localStorage.setItem('ics_completed_modules', JSON.stringify(completed));
+        }
+        
+        // Enable next module button
+        const nextBtn = document.getElementById('next-module-btn');
+        if (nextBtn) {
+          nextBtn.style.opacity = '1';
+          nextBtn.style.pointerEvents = 'auto';
+        }
+      }
+    };
+  </script>
+</body>
+</html>

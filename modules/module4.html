@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4: Windows in OT Environments | ICS Defender Training</title>
+  <link rel="stylesheet" href="../css/pokemon-theme.css">
+</head>
+<body>
+  <header class="course-header" style="background: linear-gradient(135deg, var(--type-ice) 0%, #333 100%);">
+    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 4</div>
+    <h1>❄️ Windows in OT Environments</h1>
+    <p class="subtitle">Windows Workshop • Gym Leader: PATCHMASTER</p>
+  </header>
+
+  <main class="content-container">
+    <section class="content-section fade-in">
+      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
+      <p>Content for Module 4 will be displayed here once media assets are generated.</p>
+      
+      <div class="info-box">
+        <p class="info-box-title">📝 Module Status</p>
+        <p>This module's content structure is defined in the Course Design Document. 
+        Video and infographic placeholders will be replaced with generated media assets.</p>
+      </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="content-section">
+      <h2><span class="section-icon">📝</span> Module 4 Quiz</h2>
+      <div id="quiz-container"></div>
+    </section>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+      <a href="module3.html" class="btn btn-secondary">← Previous Module</a>
+      <a href="module5.html" class="btn btn-primary">Next Module →</a>
+    </div>
+  </main>
+
+  <footer class="course-footer">
+    <p>ICS Defender Training: SCADAmon Edition</p>
+    <p>Module 4: Windows in OT Environments</p>
+  </footer>
+
+  <script src="../js/cmi5-wrapper.js"></script>
+  <script src="../js/quiz-engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      await window.cmi5.initialize();
+      window.quiz = new QuizEngine('quiz-container', {
+        questionsPerQuiz: 10,
+        passingScore: 80,
+        moduleId: '4',
+        moduleName: 'Windows in OT Environments',
+        badgeName: 'Windows Workshop Badge'
+      });
+      await quiz.loadQuestions('../quizzes/module4-questions.json');
+      quiz.renderQuiz();
+    });
+  </script>
+</body>
+</html>

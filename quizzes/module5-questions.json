@@ -1,0 +1,142 @@
+{
+  "moduleId": "5",
+  "moduleName": "Unix/Linux in OT Environments",
+  "domain": "unix",
+  "questions": [
+    {
+      "id": "m5_q01",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "Where are Linux/Unix systems commonly found in ICS environments?",
+      "options": ["Only in corporate IT networks", "Embedded in PLCs/RTUs, network appliances, and some SCADA servers", "Linux is never used in ICS", "Only for gaming systems"],
+      "correctIndex": 1,
+      "explanation": "Linux is widely used in ICS: embedded in PLCs and RTUs, running on network security appliances, powering some SCADA/HMI applications, and in historians."
+    },
+    {
+      "id": "m5_q02",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the purpose of the 'sudo' command in Linux?",
+      "options": ["To shut down the system", "To execute commands with elevated (root) privileges", "To delete files permanently", "To connect to the internet"],
+      "correctIndex": 1,
+      "explanation": "sudo allows authorized users to execute commands with root privileges without logging in as root, supporting the principle of least privilege."
+    },
+    {
+      "id": "m5_q03",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is SELinux?",
+      "options": ["A Linux distribution for science", "Security-Enhanced Linux - a mandatory access control system", "A text editor", "A network protocol"],
+      "correctIndex": 1,
+      "explanation": "SELinux implements mandatory access controls that restrict processes to only the resources they need, limiting damage from successful exploits."
+    },
+    {
+      "id": "m5_q04",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the purpose of the /etc/sudoers file?",
+      "options": ["To store user passwords", "To define which users can use sudo and what commands they can run", "To configure network settings", "To log system events"],
+      "correctIndex": 1,
+      "explanation": "The /etc/sudoers file controls sudo access - defining which users/groups can use sudo, what commands they can execute, and on which hosts."
+    },
+    {
+      "id": "m5_q05",
+      "type": "true_false",
+      "difficulty": 1,
+      "question": "The root account in Linux has unrestricted access to all system resources.",
+      "options": ["True", "False"],
+      "correctIndex": 0,
+      "explanation": "True. The root account (UID 0) has complete control over a Linux system and can bypass most security checks."
+    },
+    {
+      "id": "m5_q06",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the recommended way to disable direct root login via SSH?",
+      "options": ["Delete the root account", "Set 'PermitRootLogin no' in /etc/ssh/sshd_config", "Uninstall SSH", "Set root password to blank"],
+      "correctIndex": 1,
+      "explanation": "Setting 'PermitRootLogin no' prevents direct root login over SSH. Users must login with their own account and use sudo."
+    },
+    {
+      "id": "m5_q07",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is auditd in Linux?",
+      "options": ["Financial audit software", "The Linux audit daemon for security logging", "Audio player", "Update manager"],
+      "correctIndex": 1,
+      "explanation": "auditd records security-relevant events like file access, system calls, and user actions - essential for security monitoring in ICS."
+    },
+    {
+      "id": "m5_q08",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What does 'chmod 600 file.txt' do?",
+      "options": ["Deletes the file", "Sets read/write for owner only, no access for others", "Makes file executable", "Changes file owner"],
+      "correctIndex": 1,
+      "explanation": "chmod 600 sets permissions to rw------- (read/write for owner, no permissions for group or others)."
+    },
+    {
+      "id": "m5_q09",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is iptables used for?",
+      "options": ["Managing database tables", "Configuring the Linux firewall", "Creating spreadsheets", "Managing users"],
+      "correctIndex": 1,
+      "explanation": "iptables is the Linux kernel's packet filtering framework, providing host-based firewall capabilities."
+    },
+    {
+      "id": "m5_q10",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What is the security risk of SUID binaries?",
+      "options": ["They run slowly", "They execute with owner's privileges, allowing potential privilege escalation", "They cannot execute", "They use too much disk"],
+      "correctIndex": 1,
+      "explanation": "SUID binaries run with the file owner's permissions. If vulnerable, attackers can exploit them for privilege escalation."
+    },
+    {
+      "id": "m5_q11",
+      "type": "true_false",
+      "difficulty": 2,
+      "question": "AppArmor and SELinux both provide mandatory access control on Linux.",
+      "options": ["True", "False"],
+      "correctIndex": 0,
+      "explanation": "True. Both implement MAC that restricts what processes can do beyond traditional Unix permissions."
+    },
+    {
+      "id": "m5_q12",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Why should SSH keys be preferred over passwords?",
+      "options": ["Keys are faster to type", "Keys are much harder to brute-force and not vulnerable to credential theft", "Keys don't need security", "Passwords aren't supported"],
+      "correctIndex": 1,
+      "explanation": "SSH keys are cryptographically strong, practically impossible to brute-force, and not vulnerable to phishing."
+    },
+    {
+      "id": "m5_q13",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What is the risk of using Telnet instead of SSH?",
+      "options": ["Telnet is too fast", "Telnet transmits passwords in plaintext", "Telnet is too modern", "No difference"],
+      "correctIndex": 1,
+      "explanation": "Telnet sends all data including passwords unencrypted. SSH encrypts all communications, protecting against eavesdropping."
+    },
+    {
+      "id": "m5_q14",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What is syslog used for?",
+      "options": ["System backup", "Centralized logging of system messages", "System updates", "Network configuration"],
+      "correctIndex": 1,
+      "explanation": "syslog collects log messages from the kernel, services, and applications for centralized monitoring and analysis."
+    },
+    {
+      "id": "m5_q15",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the security benefit of disabling unnecessary services?",
+      "options": ["Faster boot", "Reduces attack surface and potential vulnerabilities", "Frees disk space", "Better graphics"],
+      "correctIndex": 1,
+      "explanation": "Every running service is a potential attack vector. Fewer services means fewer vulnerabilities to exploit or patch."
+    }
+  ]
+}

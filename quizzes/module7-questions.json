@@ -1,0 +1,142 @@
+{
+  "moduleId": "7",
+  "moduleName": "Incident Detection & Response",
+  "domain": "response",
+  "questions": [
+    {
+      "id": "m7_q01",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What is an ICS-specific Indicator of Compromise (IOC)?",
+      "options": ["A financial indicator", "Observable evidence that an ICS system may have been compromised", "A performance metric", "A quality control measure"],
+      "correctIndex": 1,
+      "explanation": "ICS IOCs include unusual network traffic, unexpected program changes to PLCs, anomalous process values, unauthorized configuration changes, and other evidence of potential compromise."
+    },
+    {
+      "id": "m7_q02",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the ICS Cyber Kill Chain?",
+      "options": ["A physical destruction technique", "A model describing stages of ICS-specific cyber attacks from reconnaissance to impact", "A malware removal tool", "A network cable type"],
+      "correctIndex": 1,
+      "explanation": "The ICS Cyber Kill Chain (developed by SANS/Michael Assante) describes attack stages: reconnaissance, weaponization, delivery, exploitation, installation, command & control, actions on objectives, and ICS attack development/execution."
+    },
+    {
+      "id": "m7_q03",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Why is passive network monitoring preferred for initial ICS security assessment?",
+      "options": ["It's faster", "It doesn't inject traffic that could disrupt sensitive ICS devices", "It's cheaper", "It provides better results"],
+      "correctIndex": 1,
+      "explanation": "Passive monitoring (like port mirroring/SPAN) observes traffic without sending packets. Active scanning can crash legacy ICS devices, cause process disruptions, or trigger safety systems."
+    },
+    {
+      "id": "m7_q04",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "During an ICS incident, when should you prioritize safety over investigation?",
+      "options": ["Never, investigation is always priority", "Only if management approves", "Always - safety of people and processes takes priority over forensics", "Only during working hours"],
+      "correctIndex": 2,
+      "explanation": "In ICS incident response, safety is always the top priority. If there's a choice between preserving evidence and ensuring human safety or process safety, safety wins every time."
+    },
+    {
+      "id": "m7_q05",
+      "type": "true_false",
+      "difficulty": 2,
+      "question": "Antivirus software alone is sufficient to detect all ICS-specific malware.",
+      "options": ["True", "False"],
+      "correctIndex": 1,
+      "explanation": "False. ICS-specific malware like Stuxnet, Industroyer, and TRITON are highly sophisticated and may evade traditional AV. Defense-in-depth including behavioral analysis, network monitoring, and process anomaly detection is required."
+    },
+    {
+      "id": "m7_q06",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is 'baselining' in ICS security monitoring?",
+      "options": ["Drawing lines on network diagrams", "Establishing normal behavior patterns to detect anomalies", "Setting up network cables", "Configuring firewall rules"],
+      "correctIndex": 1,
+      "explanation": "Baselining involves documenting normal network traffic, process values, and system behavior. Deviations from baseline can indicate attacks, misconfigurations, or process problems."
+    },
+    {
+      "id": "m7_q07",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What should be the first action when an ICS intrusion is detected?",
+      "options": ["Immediately shut down all systems", "Assess the scope and impact while maintaining safety", "Delete all logs to prevent attacker access", "Announce the breach on social media"],
+      "correctIndex": 1,
+      "explanation": "Initial response should assess scope and impact, ensure safety systems are functional, and determine appropriate containment without causing additional harm. Hasty shutdowns can cause safety issues."
+    },
+    {
+      "id": "m7_q08",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What is 'living off the land' in the context of ICS attacks?",
+      "options": ["Farming techniques", "Attackers using legitimate system tools and protocols rather than custom malware", "Backup power systems", "Physical security measures"],
+      "correctIndex": 1,
+      "explanation": "Living off the land attacks use legitimate tools already present (like PowerShell, WMI, or native ICS protocols) to avoid detection. They don't require custom malware and blend in with normal activity."
+    },
+    {
+      "id": "m7_q09",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the role of a SIEM in ICS security?",
+      "options": ["To control industrial processes", "To aggregate, correlate, and analyze security events from multiple sources", "To replace firewalls", "To manage user passwords"],
+      "correctIndex": 1,
+      "explanation": "A Security Information and Event Management (SIEM) system collects logs from multiple sources, correlates events, detects patterns, and alerts on potential security incidents."
+    },
+    {
+      "id": "m7_q10",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What is digital forensics in an ICS context?",
+      "options": ["DNA analysis", "Systematic collection and analysis of digital evidence after a security incident", "Fingerprint scanning", "Facility design"],
+      "correctIndex": 1,
+      "explanation": "ICS digital forensics involves collecting, preserving, and analyzing evidence from affected systems including network captures, log files, memory dumps, and PLC project files."
+    },
+    {
+      "id": "m7_q11",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Why are backups critical for ICS incident recovery?",
+      "options": ["For regulatory compliance only", "To restore systems to a known good state after compromise or ransomware", "To save storage space", "To improve network speed"],
+      "correctIndex": 1,
+      "explanation": "Backups enable recovery to a known-good state. For ICS, this includes PLC programs, configurations, historian data, and system images. Without backups, recovery from ransomware or destructive attacks may be impossible."
+    },
+    {
+      "id": "m7_q12",
+      "type": "true_false",
+      "difficulty": 2,
+      "question": "An ICS incident response plan should be tested through tabletop exercises before a real incident occurs.",
+      "options": ["True", "False"],
+      "correctIndex": 0,
+      "explanation": "True. Tabletop exercises test the IR plan, identify gaps, build team coordination, and ensure everyone knows their roles - before the stress of a real incident."
+    },
+    {
+      "id": "m7_q13",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "What was unique about the TRITON/TRISIS malware?",
+      "options": ["It was the fastest malware ever", "It targeted Safety Instrumented Systems (SIS) designed to prevent catastrophic failures", "It was written in Python", "It only affected Linux systems"],
+      "correctIndex": 1,
+      "explanation": "TRITON (discovered 2017) targeted Schneider Triconex Safety Instrumented Systems. SIS are the last line of defense against dangerous conditions - compromising them could enable physical destruction."
+    },
+    {
+      "id": "m7_q14",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is 'anomaly detection' in ICS monitoring?",
+      "options": ["Finding network cables", "Identifying behavior that deviates from established normal patterns", "Detecting physical intruders", "Monitoring weather anomalies"],
+      "correctIndex": 1,
+      "explanation": "Anomaly detection identifies deviations from baseline behavior - unusual network traffic, unexpected process values, abnormal command sequences - that may indicate attacks or system problems."
+    },
+    {
+      "id": "m7_q15",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What should be included in an ICS incident response plan?",
+      "options": ["Only IT contact information", "Roles/responsibilities, communication procedures, containment strategies, and recovery procedures specific to ICS", "Just a list of backup tapes", "Only vendor phone numbers"],
+      "correctIndex": 1,
+      "explanation": "ICS IR plans should include ICS-specific roles (operations, engineering, IT, management), communication procedures, safety considerations, containment strategies that account for process impact, and tested recovery procedures."
+    }
+  ]
+}

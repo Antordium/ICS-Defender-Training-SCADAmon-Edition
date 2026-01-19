@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICS Defender Training: SCADAmon Edition</title>
+  <link rel="stylesheet" href="css/pokemon-theme.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Course Header -->
+  <header class="course-header">
+    <h1>🛡️ ICS Defender Training</h1>
+    <p class="subtitle">SCADAmon Edition • Industrial Control System Cybersecurity</p>
+    <p style="font-size: 0.9rem; margin-top: 8px; opacity: 0.9;">
+      Aligned with SANS ICS410 • GICSP Certification Prep
+    </p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="content-container">
+    
+    <!-- Introduction Section -->
+    <section class="content-section fade-in">
+      <h2><span class="section-icon">📚</span> Welcome, Trainer!</h2>
+      <p>
+        Welcome to <strong>ICS Defender Training: SCADAmon Edition</strong> – your journey to becoming 
+        an Industrial Control System security expert begins here!
+      </p>
+      <p>
+        This course will teach you the essential skills needed to defend critical infrastructure 
+        including power plants, water treatment facilities, and manufacturing systems. Complete all 
+        8 modules to unlock the <strong>SCADAmon capstone game</strong> where you'll prove your mastery!
+      </p>
+      
+      <div class="info-box">
+        <p class="info-box-title">🎯 Course Objectives</p>
+        <p>Upon completion, you will be able to:</p>
+        <ul class="content-list">
+          <li>Identify ICS components, architectures, and security implications</li>
+          <li>Apply the Purdue Model to segment and defend industrial networks</li>
+          <li>Analyze ICS protocols for vulnerabilities and implement controls</li>
+          <li>Secure Windows and Linux systems in OT environments</li>
+          <li>Implement governance frameworks (NIST, NERC CIP, IEC 62443)</li>
+          <li>Detect, respond to, and recover from ICS security incidents</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Pokeball Divider -->
+    <div class="pokeball-divider">
+      <div class="pokeball-icon"></div>
+    </div>
+
+    <!-- Progress Tracker -->
+    <section class="content-section">
+      <h2><span class="section-icon">🏆</span> Your Gym Badges</h2>
+      <p>Earn badges by completing each module's quiz with 80% or higher!</p>
+      
+      <div class="progress-tracker" id="badge-tracker">
+        <div class="progress-badge" data-module="1" title="Module 1: Foundation Badge">⚡</div>
+        <div class="progress-badge" data-module="2" title="Module 2: Architecture Badge">🏗️</div>
+        <div class="progress-badge" data-module="3" title="Module 3: Protocol Badge">🌊</div>
+        <div class="progress-badge" data-module="4" title="Module 4: Windows Badge">❄️</div>
+        <div class="progress-badge" data-module="5" title="Module 5: Unix Badge">🌑</div>
+        <div class="progress-badge" data-module="6" title="Module 6: Governance Badge">📜</div>
+        <div class="progress-badge" data-module="7" title="Module 7: Response Badge">🔥</div>
+        <div class="progress-badge" data-module="8" title="Module 8: Champion Badge">👻</div>
+      </div>
+    </section>
+
+    <!-- Module Navigation -->
+    <nav class="module-nav">
+      <div class="module-nav-header">
+        <div class="indicator-lights">
+          <div class="indicator-light blue"></div>
+          <div class="indicator-light red"></div>
+          <div class="indicator-light yellow"></div>
+          <div class="indicator-light green"></div>
+        </div>
+        <h2 style="margin: 0; border: none; padding: 0;">Training Modules</h2>
+      </div>
+      
+      <div class="module-list">
+        <!-- Module 1 -->
+        <a href="modules/module1.html" class="module-card" data-module="1">
+          <span class="module-number">MODULE 1</span>
+          <h3 class="module-title">ICS Fundamentals</h3>
+          <p class="module-description">
+            Learn the basics of SCADA, PLCs, RTUs, HMIs, and the Purdue Model. 
+            Understand IT vs OT priorities.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 60 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+
+        <!-- Module 2 -->
+        <a href="modules/module2.html" class="module-card" data-module="2">
+          <span class="module-number">MODULE 2</span>
+          <h3 class="module-title">Network Architecture & Defense</h3>
+          <p class="module-description">
+            Master network segmentation, DMZs, defense in depth, and IEC 62443 
+            zone concepts.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 75 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+
+        <!-- Module 3 -->
+        <a href="modules/module3.html" class="module-card" data-module="3">
+          <span class="module-number">MODULE 3</span>
+          <h3 class="module-title">ICS Protocols & Communications</h3>
+          <p class="module-description">
+            Understand Modbus, DNP3, OPC UA - their security limitations 
+            and compensating controls.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 60 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+
+        <!-- Module 4 -->
+        <a href="modules/module4.html" class="module-card" data-module="4">
+          <span class="module-number">MODULE 4</span>
+          <h3 class="module-title">Windows in OT Environments</h3>
+          <p class="module-description">
+            Secure Windows HMIs, SCADA servers, and historians. Master 
+            patching and Active Directory security.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 60 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+
+        <!-- Module 5 -->
+        <a href="modules/module5.html" class="module-card" data-module="5">
+          <span class="module-number">MODULE 5</span>
+          <h3 class="module-title">Unix/Linux in OT Environments</h3>
+          <p class="module-description">
+            Harden Linux systems, manage privileges with sudo, configure 
+            logging and auditing.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 45 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+
+        <!-- Module 6 -->
+        <a href="modules/module6.html" class="module-card" data-module="6">
+          <span class="module-number">MODULE 6</span>
+          <h3 class="module-title">ICS Governance & Compliance</h3>
+          <p class="module-description">
+            Apply NIST CSF, NERC CIP, and IEC 62443. Conduct risk 
+            assessments for critical infrastructure.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 75 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+
+        <!-- Module 7 -->
+        <a href="modules/module7.html" class="module-card" data-module="7">
+          <span class="module-number">MODULE 7</span>
+          <h3 class="module-title">Incident Detection & Response</h3>
+          <p class="module-description">
+            Detect ICS threats, respond to incidents, conduct forensics, 
+            and plan for recovery.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 60 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+
+        <!-- Module 8 -->
+        <a href="modules/module8.html" class="module-card" data-module="8">
+          <span class="module-number">MODULE 8</span>
+          <h3 class="module-title">Synthesis & Capstone Prep</h3>
+          <p class="module-description">
+            Integrate all knowledge domains and prepare for the 
+            SCADAmon game assessment.
+          </p>
+          <div class="module-meta">
+            <span>⏱️ 45 min</span>
+            <span>📝 10 questions</span>
+          </div>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Capstone Preview -->
+    <section class="content-section">
+      <h2><span class="section-icon">🎮</span> Capstone: SCADAmon Game</h2>
+      <p>
+        After completing all modules, you'll face the ultimate test: <strong>SCADAmon</strong> – 
+        a Pokemon-inspired game where your ICS security knowledge determines your success!
+      </p>
+      
+      <div class="pokedex-entry">
+        <div class="pokedex-entry-header">
+          <span class="pokedex-entry-title">SCADAmon Challenge</span>
+          <span class="pokedex-entry-number">#CAPSTONE</span>
+        </div>
+        <div class="pokedex-entry-content">
+          <div class="pokedex-entry-image">
+            <span style="font-size: 4rem;">🎮</span>
+          </div>
+          <div class="pokedex-entry-details">
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Type:</span>
+              <span>Hands-On Assessment</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Gyms:</span>
+              <span>8 Gym Leaders to Defeat</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Objective:</span>
+              <span>Defeat Team Hack-It & Become Champion</span>
+            </div>
+            <div class="pokedex-stat">
+              <span class="pokedex-stat-label">Skills:</span>
+              <span>All 8 Module Domains Tested</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 24px;">
+        <button class="btn btn-primary" disabled id="capstone-btn">
+          🔒 Complete All Modules to Unlock
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="course-footer">
+    <p>ICS Defender Training: SCADAmon Edition v1.0</p>
+    <p>Aligned with SANS ICS410 • GICSP Certification Prep</p>
+    <p style="margin-top: 16px;">USCYBERCOM J74 Train the Force</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/cmi5-wrapper.js"></script>
+  <script>
+    // Check module completion status from localStorage/LRS
+    document.addEventListener('DOMContentLoaded', function() {
+      const badges = document.querySelectorAll('.progress-badge');
+      const moduleCards = document.querySelectorAll('.module-card');
+      
+      // Load completion status
+      const completedModules = JSON.parse(localStorage.getItem('ics_completed_modules') || '[]');
+      
+      badges.forEach(badge => {
+        const moduleId = badge.dataset.module;
+        if (completedModules.includes(moduleId)) {
+          badge.classList.add('completed');
+        }
+      });
+      
+      moduleCards.forEach(card => {
+        const moduleId = card.dataset.module;
+        if (completedModules.includes(moduleId)) {
+          card.classList.add('completed');
+        }
+      });
+      
+      // Check if all modules completed
+      if (completedModules.length >= 8) {
+        const capstoneBtn = document.getElementById('capstone-btn');
+        capstoneBtn.disabled = false;
+        capstoneBtn.textContent = '🎮 Launch SCADAmon Game!';
+        capstoneBtn.onclick = () => window.location.href = 'game/index.html';
+      }
+    });
+  </script>
+</body>
+</html>

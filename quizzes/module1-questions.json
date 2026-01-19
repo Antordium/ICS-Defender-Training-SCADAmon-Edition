@@ -1,0 +1,142 @@
+{
+  "moduleId": "1",
+  "moduleName": "ICS Fundamentals",
+  "domain": "ics_basics",
+  "questions": [
+    {
+      "id": "m1_q01",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What does SCADA stand for?",
+      "options": ["Supervisory Control and Data Acquisition", "System Control and Data Analysis", "Security Control and Data Acquisition", "Supervisory Computing and Data Architecture"],
+      "correctIndex": 0,
+      "explanation": "SCADA stands for Supervisory Control and Data Acquisition - a system that allows organizations to control industrial processes and gather real-time data."
+    },
+    {
+      "id": "m1_q02",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "Which device directly controls physical processes like opening valves or starting motors?",
+      "options": ["HMI", "Historian", "PLC (Programmable Logic Controller)", "SCADA Server"],
+      "correctIndex": 2,
+      "explanation": "PLCs are industrial computers that directly interface with sensors and actuators to control physical processes."
+    },
+    {
+      "id": "m1_q03",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "At which Purdue Model level would you find PLCs and RTUs?",
+      "options": ["Level 0 - Physical Process", "Level 1 - Basic Control", "Level 2 - Area Supervisory", "Level 3 - Site Operations"],
+      "correctIndex": 1,
+      "explanation": "Level 1 (Basic Control) contains PLCs, RTUs, and devices that directly control the physical process."
+    },
+    {
+      "id": "m1_q04",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the PRIMARY difference between IT and OT security priorities?",
+      "options": ["IT prioritizes availability while OT prioritizes confidentiality", "OT prioritizes safety and availability while IT prioritizes confidentiality", "There is no difference", "IT never needs 24/7 availability"],
+      "correctIndex": 1,
+      "explanation": "OT environments prioritize Safety first, then Availability, then Integrity, then Confidentiality (SAIC). IT typically follows CIA."
+    },
+    {
+      "id": "m1_q05",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "The Stuxnet malware targeted which type of equipment?",
+      "options": ["Water treatment SCADA", "Pipeline monitoring", "Siemens PLCs controlling uranium centrifuges", "Power grid systems"],
+      "correctIndex": 2,
+      "explanation": "Stuxnet targeted Siemens Step 7 PLCs controlling centrifuges at Iran's Natanz uranium enrichment facility."
+    },
+    {
+      "id": "m1_q06",
+      "type": "true_false",
+      "difficulty": 1,
+      "question": "An HMI allows operators to monitor and interact with industrial control systems.",
+      "options": ["True", "False"],
+      "correctIndex": 0,
+      "explanation": "True. HMI (Human-Machine Interface) is the dashboard that allows operators to monitor status and send commands."
+    },
+    {
+      "id": "m1_q07",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the primary function of a Historian in ICS?",
+      "options": ["Control physical processes", "Store and trend historical process data", "Provide network security", "Manage user authentication"],
+      "correctIndex": 1,
+      "explanation": "A Historian stores time-series data from industrial processes for analysis, troubleshooting, and compliance reporting."
+    },
+    {
+      "id": "m1_q08",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "What does RTU stand for?",
+      "options": ["Real-Time Unit", "Remote Terminal Unit", "Reliable Transfer Utility", "Runtime Task Utility"],
+      "correctIndex": 1,
+      "explanation": "RTU stands for Remote Terminal Unit - devices that interface sensors/actuators to SCADA in remote locations."
+    },
+    {
+      "id": "m1_q09",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "In the 2021 Oldsmar attack, what did the attacker attempt?",
+      "options": ["Shut down pumps", "Increase sodium hydroxide to dangerous levels", "Steal customer data", "Install ransomware"],
+      "correctIndex": 1,
+      "explanation": "The attacker tried to increase sodium hydroxide (lye) from 100 ppm to 11,100 ppm - a dangerous amount."
+    },
+    {
+      "id": "m1_q10",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Which Purdue level contains the corporate IT network?",
+      "options": ["Level 2", "Level 3", "Level 4", "Level 5 - Enterprise"],
+      "correctIndex": 3,
+      "explanation": "Level 5 (Enterprise) contains corporate IT, business systems, email, and internet connectivity."
+    },
+    {
+      "id": "m1_q11",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What distinguishes a DCS from a SCADA system?",
+      "options": ["DCS cannot use networks", "DCS is for localized continuous processes while SCADA covers geographically dispersed assets", "SCADA can only monitor", "DCS doesn't use PLCs"],
+      "correctIndex": 1,
+      "explanation": "DCS is for continuous processes within a plant; SCADA monitors/controls geographically dispersed assets."
+    },
+    {
+      "id": "m1_q12",
+      "type": "true_false",
+      "difficulty": 2,
+      "question": "In ICS, system availability is generally more important than data confidentiality.",
+      "options": ["True", "False"],
+      "correctIndex": 0,
+      "explanation": "True. In OT, safety and availability typically take priority over confidentiality due to critical operations."
+    },
+    {
+      "id": "m1_q13",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is ladder logic used for?",
+      "options": ["Creating network diagrams", "Programming PLCs using graphical relay-like diagrams", "Climbing Purdue levels", "Managing access permissions"],
+      "correctIndex": 1,
+      "explanation": "Ladder logic is a graphical programming language for PLCs that resembles electrical relay diagrams."
+    },
+    {
+      "id": "m1_q14",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "question": "Which sector does NOT typically use ICS/SCADA?",
+      "options": ["Water and wastewater", "Electric power", "Social media platforms", "Oil and gas"],
+      "correctIndex": 2,
+      "explanation": "Social media platforms are IT systems. Water, power, and oil/gas heavily rely on ICS/SCADA."
+    },
+    {
+      "id": "m1_q15",
+      "type": "true_false",
+      "difficulty": 2,
+      "question": "Legacy ICS systems were designed with cybersecurity as a primary concern.",
+      "options": ["True", "False"],
+      "correctIndex": 1,
+      "explanation": "False. Legacy ICS was designed for reliability and safety in isolated environments, before cybersecurity concerns existed."
+    }
+  ]
+}

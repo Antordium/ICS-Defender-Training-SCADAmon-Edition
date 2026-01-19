@@ -1,0 +1,142 @@
+{
+  "moduleId": "8",
+  "moduleName": "Synthesis & Capstone Preparation",
+  "domain": "synthesis",
+  "questions": [
+    {
+      "id": "m8_q01",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "A comprehensive ICS security program should address which layers?",
+      "options": ["Only network security", "Physical, network, host, application, and process security", "Only host security", "Only compliance requirements"],
+      "correctIndex": 1,
+      "explanation": "Defense-in-depth for ICS requires protection at all layers: physical security, network segmentation, host hardening, application security, and process-level monitoring."
+    },
+    {
+      "id": "m8_q02",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "When IT and OT teams disagree on security measures, what principle should guide decisions?",
+      "options": ["IT always wins because they understand security", "OT always wins because they understand operations", "Safety and operational continuity should be prioritized while implementing appropriate security", "Security should always override operations"],
+      "correctIndex": 2,
+      "explanation": "Security measures must balance protection with safety and operational requirements. IT and OT teams should collaborate to find solutions that improve security without compromising safety or critical operations."
+    },
+    {
+      "id": "m8_q03",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "An attacker has compromised a workstation in the corporate IT network. What Purdue Model concepts should limit their ability to reach PLCs?",
+      "options": ["Nothing can stop them", "Network segmentation, firewalls at zone boundaries, and the IDMZ", "Only antivirus software", "Employee training"],
+      "correctIndex": 1,
+      "explanation": "Proper Purdue Model implementation with network segmentation, firewalls between zones, IDMZ preventing direct IT-to-OT connections, and monitoring at boundaries should prevent or detect lateral movement to control systems."
+    },
+    {
+      "id": "m8_q04",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the relationship between the SCADAmon game and this training?",
+      "options": ["They are unrelated", "The game teaches all the content", "The training teaches concepts that the game tests through interactive assessment", "The game replaces this training"],
+      "correctIndex": 2,
+      "explanation": "This course provides the foundational knowledge (teach), while SCADAmon serves as a gamified capstone assessment that tests your understanding through interactive challenges (test)."
+    },
+    {
+      "id": "m8_q05",
+      "type": "true_false",
+      "difficulty": 2,
+      "question": "A single security control can adequately protect an ICS environment.",
+      "options": ["True", "False"],
+      "correctIndex": 1,
+      "explanation": "False. Defense-in-depth requires multiple layers of controls. No single control (firewall, antivirus, segmentation) is sufficient alone. Attackers can bypass individual controls, so layers must work together."
+    },
+    {
+      "id": "m8_q06",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Legacy ICS protocols like Modbus lack built-in security. What is the PRIMARY compensating control strategy?",
+      "options": ["Replace all legacy devices immediately", "Network segmentation and monitoring to protect and detect threats", "Ignore the risk since attacks are unlikely", "Only use the systems during business hours"],
+      "correctIndex": 1,
+      "explanation": "Since legacy protocols cannot be easily replaced, network segmentation limits exposure, protocol-aware firewalls control traffic, and monitoring detects anomalies. This compensates for protocol weaknesses."
+    },
+    {
+      "id": "m8_q07",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "An ICS security program should measure effectiveness using:",
+      "options": ["Only compliance audit results", "Multiple metrics including incidents, vulnerabilities, response times, and control effectiveness", "The number of firewalls installed", "Employee satisfaction surveys only"],
+      "correctIndex": 1,
+      "explanation": "Effective programs measure multiple dimensions: security incidents, time to detect/respond, vulnerability management, patch compliance, training completion, and control testing results."
+    },
+    {
+      "id": "m8_q08",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the GICSP certification?",
+      "options": ["A government security clearance", "Global Industrial Cyber Security Professional - validates ICS security expertise", "A network certification", "A project management credential"],
+      "correctIndex": 1,
+      "explanation": "GICSP (Global Industrial Cyber Security Professional) is a GIAC certification that validates knowledge and skills in ICS/SCADA security, aligned with SANS ICS410 training content."
+    },
+    {
+      "id": "m8_q09",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "Why is IT-OT collaboration important for ICS security?",
+      "options": ["It isn't important", "Neither team has complete knowledge - effective security requires both IT security expertise and OT operational knowledge", "IT should work independently", "OT should handle all security"],
+      "correctIndex": 1,
+      "explanation": "IT brings security expertise; OT brings process knowledge. Effective ICS security requires both - understanding threats AND understanding what security measures are operationally feasible."
+    },
+    {
+      "id": "m8_q10",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "A vendor requires remote access to diagnose issues with a PLC. What security controls should be implemented?",
+      "options": ["Give them direct internet access to the PLC", "Use a controlled jump server with MFA, session monitoring, and time-limited access", "No controls needed if they're a trusted vendor", "Disable all firewalls during maintenance"],
+      "correctIndex": 1,
+      "explanation": "Vendor remote access should use VPN with MFA, connect through a monitored jump server in the DMZ, have sessions recorded, be time-limited, and follow least-privilege principles."
+    },
+    {
+      "id": "m8_q11",
+      "type": "true_false",
+      "difficulty": 2,
+      "question": "ICS security is a one-time project that, once completed, doesn't need ongoing attention.",
+      "options": ["True", "False"],
+      "correctIndex": 1,
+      "explanation": "False. ICS security is an ongoing program requiring continuous monitoring, regular assessments, patch management, training updates, and adaptation to new threats. It's never 'done.'"
+    },
+    {
+      "id": "m8_q12",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What knowledge areas does an effective ICS security professional need?",
+      "options": ["Only IT security", "Only industrial operations", "IT security, OT operations, control system technology, and relevant regulations", "Only compliance requirements"],
+      "correctIndex": 2,
+      "explanation": "ICS security professionals need cross-functional knowledge: IT security practices, OT/ICS technology and operations, control system specifics, and industry regulations (NERC CIP, IEC 62443, etc.)."
+    },
+    {
+      "id": "m8_q13",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "When prioritizing ICS security improvements, what should be considered first?",
+      "options": ["The newest technology trends", "Systems and risks that could impact safety and critical operations", "Whatever is cheapest", "Systems with the oldest software"],
+      "correctIndex": 1,
+      "explanation": "Risk-based prioritization focuses on systems where compromise could cause safety incidents, environmental harm, or critical operational failures - the highest-consequence scenarios."
+    },
+    {
+      "id": "m8_q14",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "question": "The 8 gym badges in SCADAmon correspond to which ICS security knowledge domains?",
+      "options": ["Random game elements with no educational purpose", "ICS Basics, Architecture, Protocols, Windows, Unix, Governance, Response, and overall mastery", "Only network security topics", "Physical security concepts"],
+      "correctIndex": 1,
+      "explanation": "The 8 gyms map to course modules: Foundation (ICS Basics), Purdue City (Architecture), Protocol Port (Protocols), Windows Workshop, Unix Underground, Governance Gardens, Response Ridge, and Elite Four (synthesis)."
+    },
+    {
+      "id": "m8_q15",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "question": "What is the ultimate goal of ICS security?",
+      "options": ["To prevent all cyber attacks", "To achieve 100% compliance scores", "To enable safe, reliable operations while managing cyber risk to acceptable levels", "To have the most firewalls"],
+      "correctIndex": 2,
+      "explanation": "The goal is enabling the organization to operate safely and reliably while managing cyber risk. Perfect security is impossible; the goal is appropriate risk management that supports the mission."
+    }
+  ]
+}

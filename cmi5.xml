@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<courseStructure xmlns="https://w3id.org/xapi/profiles/cmi5/v1/CourseStructure.xsd">
+  <course id="https://pcte.mil/courses/ics-defender-scadamon-edition">
+    <title>
+      <langstring lang="en-US">ICS Defender Training: SCADAmon Edition</langstring>
+    </title>
+    <description>
+      <langstring lang="en-US">A comprehensive foundational course in Industrial Control System (ICS) and SCADA cybersecurity designed for Defensive Cyber Operations (DCO) personnel. Aligned with SANS ICS410 curriculum and GICSP certification objectives. Complete all 8 modules to unlock the SCADAmon capstone game assessment.</langstring>
+    </description>
+  </course>
+  
+  <block id="https://pcte.mil/courses/ics-defender-scadamon-edition/block/main">
+    <title>
+      <langstring lang="en-US">ICS Defender Training Modules</langstring>
+    </title>
+    
+    <!-- Module 1: ICS Fundamentals -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module1" 
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 1: ICS Fundamentals</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Learn the fundamentals of Industrial Control Systems including SCADA, PLCs, RTUs, HMIs, the Purdue Model, and key differences between IT and OT environments. Explore major ICS security incidents and their lessons.</langstring>
+      </description>
+      <url>modules/module1.html</url>
+      <launchParameters>module=1</launchParameters>
+    </au>
+    
+    <!-- Module 2: Network Architecture & Defense -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module2"
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 2: Network Architecture &amp; Defense</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Master ICS network architecture including the Purdue Model application, network segmentation, DMZ design, defense in depth strategies, and IEC 62443 zone and conduit concepts.</langstring>
+      </description>
+      <url>modules/module2.html</url>
+      <launchParameters>module=2</launchParameters>
+    </au>
+    
+    <!-- Module 3: ICS Protocols & Communications -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module3"
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 3: ICS Protocols &amp; Communications</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Understand ICS communication protocols including Modbus, DNP3, and OPC UA. Learn security limitations of legacy protocols and compensating controls to protect industrial communications.</langstring>
+      </description>
+      <url>modules/module3.html</url>
+      <launchParameters>module=3</launchParameters>
+    </au>
+    
+    <!-- Module 4: Windows in OT Environments -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module4"
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 4: Windows in OT Environments</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Learn to secure Windows systems in industrial environments including HMI workstations, SCADA servers, and historians. Master Windows hardening, patching strategies, and Active Directory security for OT.</langstring>
+      </description>
+      <url>modules/module4.html</url>
+      <launchParameters>module=4</launchParameters>
+    </au>
+    
+    <!-- Module 5: Unix/Linux in OT Environments -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module5"
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 5: Unix/Linux in OT Environments</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Secure Linux and Unix systems in ICS environments. Cover Linux hardening, privilege management with sudo, SELinux/AppArmor, and proper logging and auditing practices for industrial systems.</langstring>
+      </description>
+      <url>modules/module5.html</url>
+      <launchParameters>module=5</launchParameters>
+    </au>
+    
+    <!-- Module 6: ICS Governance & Compliance -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module6"
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 6: ICS Governance &amp; Compliance</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Understand ICS security governance including NIST Cybersecurity Framework, NERC CIP requirements, IEC 62443 standards, and risk assessment methodologies for critical infrastructure.</langstring>
+      </description>
+      <url>modules/module6.html</url>
+      <launchParameters>module=6</launchParameters>
+    </au>
+    
+    <!-- Module 7: Incident Detection & Response -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module7"
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 7: Incident Detection &amp; Response</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Master ICS threat detection and incident response. Learn about ICS-specific threats, detection strategies, incident response procedures, forensics considerations, and recovery planning for industrial environments.</langstring>
+      </description>
+      <url>modules/module7.html</url>
+      <launchParameters>module=7</launchParameters>
+    </au>
+    
+    <!-- Module 8: Synthesis & Capstone Preparation -->
+    <au id="https://pcte.mil/courses/ics-defender-scadamon-edition/au/module8"
+        activityType="http://adlnet.gov/expapi/activities/lesson"
+        launchMethod="AnyWindow"
+        moveOn="Passed"
+        masteryScore="0.8">
+      <title>
+        <langstring lang="en-US">Module 8: Synthesis &amp; Capstone Preparation</langstring>
+      </title>
+      <description>
+        <langstring lang="en-US">Integrate knowledge from all modules and prepare for the SCADAmon capstone game assessment. Review comprehensive security strategies and practice decision-making frameworks for ICS defense.</langstring>
+      </description>
+      <url>modules/module8.html</url>
+      <launchParameters>module=8</launchParameters>
+    </au>
+    
+  </block>
+</courseStructure>
