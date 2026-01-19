@@ -370,11 +370,12 @@ class StateManager {
   /**
    * Heal all team members
    */
-  healTeam() {
+  async healTeam() {
     for (const mon of this.state.team) {
       mon.currentHp = mon.maxHp;
+      console.log(`[StateManager] Healed ${mon.name} to ${mon.currentHp}/${mon.maxHp}`);
     }
-    this.saveState();
+    await this.forceSave();
   }
 
   /**

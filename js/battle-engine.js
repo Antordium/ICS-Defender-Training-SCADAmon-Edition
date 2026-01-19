@@ -69,10 +69,15 @@ class BattleEngine {
     }
 
     // Get player team
-    this.playerTeam = stateManager.getTeam().map(mon => ({
+    const team = stateManager.getTeam();
+    console.log('[BattleEngine] Raw team from state:', team.map(m => ({ name: m.name, currentHp: m.currentHp, maxHp: m.maxHp })));
+
+    this.playerTeam = team.map(mon => ({
       ...mon,
       currentHp: mon.currentHp
     }));
+
+    console.log('[BattleEngine] Player team HP:', this.playerTeam.map(m => `${m.name}: ${m.currentHp}/${m.maxHp}`));
 
     // Calculate average player level for scaling
     const avgPlayerLevel = Math.round(

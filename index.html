@@ -1629,13 +1629,13 @@
 
       document.body.appendChild(overlay);
 
-      overlay.querySelector('.result-button').onclick = () => {
+      overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
         if (victory) {
           navigateToSection(3); // Catch phase
         } else {
-          // Reset and retry
-          stateManager.healTeam();
+          // Reset and retry - ensure heal completes before allowing restart
+          await stateManager.healTeam();
           updateTeamDisplay();
           document.getElementById('gym1-battle-container').style.display = 'none';
           document.getElementById('start-gym1-btn').style.display = 'block';
@@ -1858,12 +1858,13 @@
 
       document.body.appendChild(overlay);
 
-      overlay.querySelector('.result-button').onclick = () => {
+      overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
         if (victory) {
           navigateToSection(nextSection);
         } else {
-          stateManager.healTeam();
+          // Reset and retry - ensure heal completes before allowing restart
+          await stateManager.healTeam();
           updateTeamDisplay();
           document.getElementById(`gym${gymId}-battle-container`).style.display = 'none';
           const btn = document.querySelector(`.gym-battle-btn[data-gym="${gymId}"]`);
@@ -1997,7 +1998,7 @@
 
       document.body.appendChild(overlay);
 
-      overlay.querySelector('.result-button').onclick = () => {
+      overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
         if (victory) {
           elite4Index++;
@@ -2009,8 +2010,8 @@
             setTimeout(() => startRivalBattle(), 500);
           }
         } else {
-          // Reset to Elite 4 intro
-          stateManager.healTeam();
+          // Reset to Elite 4 intro - ensure heal completes before allowing restart
+          await stateManager.healTeam();
           updateTeamDisplay();
           elite4Index = 0;
           navigateToSection(24); // Back to Elite 4 intro
@@ -2086,9 +2087,10 @@
 
       document.body.appendChild(overlay);
 
-      overlay.querySelector('.result-button').onclick = () => {
+      overlay.querySelector('.result-button').onclick = async () => {
         overlay.remove();
-        stateManager.healTeam();
+        // Ensure heal completes before allowing restart
+        await stateManager.healTeam();
         updateTeamDisplay();
         navigateToSection(24); // Back to Elite 4 intro
       };
