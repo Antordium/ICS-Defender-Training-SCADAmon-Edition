@@ -1,142 +1,527 @@
 {
-  "moduleId": "7",
-  "moduleName": "Incident Detection & Response",
-  "domain": "response",
+  "module": 7,
+  "domain": "Incident Response",
+  "totalQuestions": 40,
   "questions": [
     {
-      "id": "m7_q01",
-      "type": "multiple_choice",
-      "difficulty": 1,
-      "question": "What is an ICS-specific Indicator of Compromise (IOC)?",
-      "options": ["A financial indicator", "Observable evidence that an ICS system may have been compromised", "A performance metric", "A quality control measure"],
-      "correctIndex": 1,
-      "explanation": "ICS IOCs include unusual network traffic, unexpected program changes to PLCs, anomalous process values, unauthorized configuration changes, and other evidence of potential compromise."
+      "id": "ir_001",
+      "question": "What is the primary advantage of passive network monitoring in ICS environments?",
+      "options": [
+        "It actively blocks malicious traffic",
+        "It analyzes traffic without impacting operations",
+        "It replaces the need for firewalls",
+        "It encrypts all network communications"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "Passive network monitoring analyzes traffic non-intrusively without injecting packets or affecting operations. This is critical in ICS where active scanning might disrupt sensitive industrial protocols or cause process upsets."
     },
     {
-      "id": "m7_q02",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the ICS Cyber Kill Chain?",
-      "options": ["A physical destruction technique", "A model describing stages of ICS-specific cyber attacks from reconnaissance to impact", "A malware removal tool", "A network cable type"],
-      "correctIndex": 1,
-      "explanation": "The ICS Cyber Kill Chain (developed by SANS/Michael Assante) describes attack stages: reconnaissance, weaponization, delivery, exploitation, installation, command & control, actions on objectives, and ICS attack development/execution."
+      "id": "ir_002",
+      "question": "Which MITRE ATT&CK for ICS tactic involves preventing safety systems from responding to dangerous conditions?",
+      "options": [
+        "Collection",
+        "Discovery",
+        "Inhibit Response Function",
+        "Lateral Movement"
+      ],
+      "correct": 2,
+      "difficulty": "easy",
+      "explanation": "Inhibit Response Function is an ICS-specific tactic where attackers prevent safety or protection systems from responding to dangerous conditions—disabling alarms, blocking operator visibility, or suppressing safety system activation."
     },
     {
-      "id": "m7_q03",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "Why is passive network monitoring preferred for initial ICS security assessment?",
-      "options": ["It's faster", "It doesn't inject traffic that could disrupt sensitive ICS devices", "It's cheaper", "It provides better results"],
-      "correctIndex": 1,
-      "explanation": "Passive monitoring (like port mirroring/SPAN) observes traffic without sending packets. Active scanning can crash legacy ICS devices, cause process disruptions, or trigger safety systems."
+      "id": "ir_003",
+      "question": "Who should have authority to veto security response actions that would create process hazards?",
+      "options": [
+        "Security Lead",
+        "Operations Lead",
+        "External consultants",
+        "Legal counsel"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "The Operations Lead must have authority to veto security actions that would create process hazards. They understand operational implications that security staff may not anticipate. Safety always takes precedence over security response actions."
     },
     {
-      "id": "m7_q04",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "During an ICS incident, when should you prioritize safety over investigation?",
-      "options": ["Never, investigation is always priority", "Only if management approves", "Always - safety of people and processes takes priority over forensics", "Only during working hours"],
-      "correctIndex": 2,
-      "explanation": "In ICS incident response, safety is always the top priority. If there's a choice between preserving evidence and ensuring human safety or process safety, safety wins every time."
+      "id": "ir_004",
+      "question": "What was the attack vector in the Oldsmar water treatment plant incident?",
+      "options": [
+        "Phishing email",
+        "Physical intrusion",
+        "TeamViewer remote access with weak credentials",
+        "USB drive malware"
+      ],
+      "correct": 2,
+      "difficulty": "easy",
+      "explanation": "The Oldsmar attacker gained access through TeamViewer remote access software installed on an HMI, exploiting weak or shared credentials. This highlighted the critical importance of securing remote access to OT systems."
     },
     {
-      "id": "m7_q05",
-      "type": "true_false",
-      "difficulty": 2,
-      "question": "Antivirus software alone is sufficient to detect all ICS-specific malware.",
-      "options": ["True", "False"],
-      "correctIndex": 1,
-      "explanation": "False. ICS-specific malware like Stuxnet, Industroyer, and TRITON are highly sophisticated and may evade traditional AV. Defense-in-depth including behavioral analysis, network monitoring, and process anomaly detection is required."
+      "id": "ir_005",
+      "question": "Why is time synchronization of logs important for incident investigation?",
+      "options": [
+        "It improves log storage efficiency",
+        "It enables accurate correlation of events across multiple systems",
+        "It is required by all industrial protocols",
+        "It encrypts log data automatically"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "Time-synchronized logs enable accurate correlation of events across SCADA servers, firewalls, workstations, and other systems. Without consistent timestamps, reconstructing attack timelines and understanding attacker movements becomes extremely difficult."
     },
     {
-      "id": "m7_q06",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is 'baselining' in ICS security monitoring?",
-      "options": ["Drawing lines on network diagrams", "Establishing normal behavior patterns to detect anomalies", "Setting up network cables", "Configuring firewall rules"],
-      "correctIndex": 1,
-      "explanation": "Baselining involves documenting normal network traffic, process values, and system behavior. Deviations from baseline can indicate attacks, misconfigurations, or process problems."
+      "id": "ir_006",
+      "question": "What is the first priority in ICS incident response?",
+      "options": [
+        "Evidence collection",
+        "Safety",
+        "System restoration",
+        "Attacker attribution"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "Safety is always the first priority in ICS incident response. No response action should create a safety hazard. If security and safety conflict, safety wins—a compromised PLC controlling a dangerous process cannot simply be shut down without safe process shutdown."
     },
     {
-      "id": "m7_q07",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What should be the first action when an ICS intrusion is detected?",
-      "options": ["Immediately shut down all systems", "Assess the scope and impact while maintaining safety", "Delete all logs to prevent attacker access", "Announce the breach on social media"],
-      "correctIndex": 1,
-      "explanation": "Initial response should assess scope and impact, ensure safety systems are functional, and determine appropriate containment without causing additional harm. Hasty shutdowns can cause safety issues."
+      "id": "ir_007",
+      "question": "What type of exercise involves walking through incident scenarios with the response team to identify gaps?",
+      "options": [
+        "Full-scale exercise",
+        "Penetration test",
+        "Tabletop exercise",
+        "Red team engagement"
+      ],
+      "correct": 2,
+      "difficulty": "easy",
+      "explanation": "Tabletop exercises walk through incident scenarios with the response team discussing their actions and decisions. They identify gaps in procedures, coordination, and understanding without requiring technical execution."
     },
     {
-      "id": "m7_q08",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "What is 'living off the land' in the context of ICS attacks?",
-      "options": ["Farming techniques", "Attackers using legitimate system tools and protocols rather than custom malware", "Backup power systems", "Physical security measures"],
-      "correctIndex": 1,
-      "explanation": "Living off the land attacks use legitimate tools already present (like PowerShell, WMI, or native ICS protocols) to avoid detection. They don't require custom malware and blend in with normal activity."
+      "id": "ir_008",
+      "question": "What evidence source can reveal when process manipulation began during an ICS attack?",
+      "options": [
+        "Email server logs",
+        "Historian data showing process value anomalies",
+        "Physical access badge logs",
+        "Internet browsing history"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "Historian data records process values over time. Analyzing historian trends can reveal when manipulation began by identifying anomalies in process values that correlate with attack timelines, showing what was affected and when."
     },
     {
-      "id": "m7_q09",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the role of a SIEM in ICS security?",
-      "options": ["To control industrial processes", "To aggregate, correlate, and analyze security events from multiple sources", "To replace firewalls", "To manage user passwords"],
-      "correctIndex": 1,
-      "explanation": "A Security Information and Event Management (SIEM) system collects logs from multiple sources, correlates events, detects patterns, and alerts on potential security incidents."
+      "id": "ir_009",
+      "question": "During an active intrusion on an engineering workstation, what forensic data should be captured before reimaging?",
+      "options": [
+        "Only firewall logs",
+        "Memory capture, as it may contain malware that doesn't persist to disk",
+        "Only the Windows Event Log",
+        "Hardware serial numbers"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Memory captures preserve evidence of running processes, network connections, and malware that may only exist in RAM. Many advanced threats don't persist to disk, making memory forensics critical before systems are reimaged."
     },
     {
-      "id": "m7_q10",
-      "type": "multiple_choice",
-      "difficulty": 1,
-      "question": "What is digital forensics in an ICS context?",
-      "options": ["DNA analysis", "Systematic collection and analysis of digital evidence after a security incident", "Fingerprint scanning", "Facility design"],
-      "correctIndex": 1,
-      "explanation": "ICS digital forensics involves collecting, preserving, and analyzing evidence from affected systems including network captures, log files, memory dumps, and PLC project files."
+      "id": "ir_010",
+      "question": "Why can't traditional IT containment strategies (immediately isolating compromised systems) always be applied in ICS?",
+      "options": [
+        "ICS systems cannot be isolated technically",
+        "Abruptly isolating systems controlling physical processes may cause safety incidents or equipment damage",
+        "Network isolation is illegal in industrial settings",
+        "ICS systems are immune to compromise"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "ICS systems control physical processes. Abruptly isolating a system controlling a chemical reactor, pressure vessel, or power grid could cause uncontrolled process conditions, safety incidents, or equipment damage worse than the cyber attack itself."
     },
     {
-      "id": "m7_q11",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "Why are backups critical for ICS incident recovery?",
-      "options": ["For regulatory compliance only", "To restore systems to a known good state after compromise or ransomware", "To save storage space", "To improve network speed"],
-      "correctIndex": 1,
-      "explanation": "Backups enable recovery to a known-good state. For ICS, this includes PLC programs, configurations, historian data, and system images. Without backups, recovery from ransomware or destructive attacks may be impossible."
+      "id": "ir_011",
+      "question": "What detection method identified the Oldsmar water treatment attack?",
+      "options": [
+        "Automated SIEM alerts",
+        "Network intrusion detection system",
+        "Human observation—operator saw the cursor moving",
+        "Antivirus detection"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "The Oldsmar attack was detected entirely by human observation—an operator noticed the cursor moving on screen as the attacker changed settings. No automated system alerted on the unauthorized access or dangerous setpoint change."
     },
     {
-      "id": "m7_q12",
-      "type": "true_false",
-      "difficulty": 2,
-      "question": "An ICS incident response plan should be tested through tabletop exercises before a real incident occurs.",
-      "options": ["True", "False"],
-      "correctIndex": 0,
-      "explanation": "True. Tabletop exercises test the IR plan, identify gaps, build team coordination, and ensure everyone knows their roles - before the stress of a real incident."
+      "id": "ir_012",
+      "question": "What containment approach allows operations to continue while addressing compromised automation?",
+      "options": [
+        "Immediate full shutdown",
+        "Switch to manual operation mode",
+        "Ignore the compromise",
+        "Delete all logs"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Some processes can switch to manual control while compromised automation is investigated. This maintains production with increased operator workload, allowing security response without stopping critical operations."
     },
     {
-      "id": "m7_q13",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "What was unique about the TRITON/TRISIS malware?",
-      "options": ["It was the fastest malware ever", "It targeted Safety Instrumented Systems (SIS) designed to prevent catastrophic failures", "It was written in Python", "It only affected Linux systems"],
-      "correctIndex": 1,
-      "explanation": "TRITON (discovered 2017) targeted Schneider Triconex Safety Instrumented Systems. SIS are the last line of defense against dangerous conditions - compromising them could enable physical destruction."
+      "id": "ir_013",
+      "question": "Which MITRE ATT&CK for ICS tactic involves learning about the OT environment through scanning and device queries?",
+      "options": [
+        "Initial Access",
+        "Discovery",
+        "Impact",
+        "Execution"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "The Discovery tactic includes techniques for learning about the OT environment: network scanning, querying devices for information, analyzing engineering files, and mapping the control system architecture."
     },
     {
-      "id": "m7_q14",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is 'anomaly detection' in ICS monitoring?",
-      "options": ["Finding network cables", "Identifying behavior that deviates from established normal patterns", "Detecting physical intruders", "Monitoring weather anomalies"],
-      "correctIndex": 1,
-      "explanation": "Anomaly detection identifies deviations from baseline behavior - unusual network traffic, unexpected process values, abnormal command sequences - that may indicate attacks or system problems."
+      "id": "ir_014",
+      "question": "What critical step must occur before restoring ICS systems to production after an incident?",
+      "options": [
+        "Sending press releases",
+        "Verifying systems operate correctly and security controls are restored",
+        "Upgrading to the newest software version",
+        "Changing the company name"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Before returning to production, verify systems operate correctly (functional testing, loop checks), confirm security controls are restored (monitoring active, logs flowing), and ensure detection capabilities cover the exploited attack vector."
     },
     {
-      "id": "m7_q15",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What should be included in an ICS incident response plan?",
-      "options": ["Only IT contact information", "Roles/responsibilities, communication procedures, containment strategies, and recovery procedures specific to ICS", "Just a list of backup tapes", "Only vendor phone numbers"],
-      "correctIndex": 1,
-      "explanation": "ICS IR plans should include ICS-specific roles (operations, engineering, IT, management), communication procedures, safety considerations, containment strategies that account for process impact, and tested recovery procedures."
+      "id": "ir_015",
+      "question": "Why should recovery from ICS incidents use known-good backup images rather than attempting to clean compromised systems?",
+      "options": [
+        "Cleaning is not technically possible",
+        "Attackers may have established persistence that's difficult to fully remove",
+        "Backups are always faster to restore",
+        "Cleaning is more expensive"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Sophisticated attackers establish multiple persistence mechanisms that are difficult to fully identify and remove. Rebuilding from known-good backups that predate the compromise ensures systems are clean rather than hoping all malware was found."
+    },
+    {
+      "id": "ir_016",
+      "question": "What should be compared against secure backups during recovery to detect unauthorized modifications?",
+      "options": [
+        "Office documents",
+        "PLC programs and control logic",
+        "Employee phone numbers",
+        "Building floor plans"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "PLC programs and control logic should be compared against secure backups to detect any unauthorized modifications. Changes to control logic, especially safety system logic, could indicate attacker manipulation that would persist after network-level recovery."
+    },
+    {
+      "id": "ir_017",
+      "question": "What unique forensic challenge exists for legacy Windows systems (XP, 7) in OT environments?",
+      "options": [
+        "They have too many logs",
+        "Modern forensic tools may not support them",
+        "They automatically delete evidence",
+        "They cannot be connected to networks"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Legacy Windows versions like XP and Windows 7 may not support modern forensic tools designed for current operating systems. Investigators need alternative approaches and tools compatible with these older platforms."
+    },
+    {
+      "id": "ir_018",
+      "question": "What communication principle is important when the OT network may be compromised?",
+      "options": [
+        "Use the same network for response coordination",
+        "Establish out-of-band communication channels",
+        "Post updates to social media",
+        "Disable all communications"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "When the OT network is compromised, attackers may be monitoring communications. Out-of-band communication channels (cell phones, separate network, physical meeting) ensure response coordination remains confidential from the attacker."
+    },
+    {
+      "id": "ir_019",
+      "question": "Deep packet inspection of Modbus traffic provides what security advantage?",
+      "options": [
+        "Faster network speeds",
+        "Encryption of all traffic",
+        "Detection of suspicious commands like writes to safety-critical outputs",
+        "Automatic malware removal"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "Deep packet inspection that understands industrial protocols can detect suspicious operational commands—a write command to safety-critical outputs, unusual function codes, or configuration changes that generic IT tools seeing only TCP traffic would miss."
+    },
+    {
+      "id": "ir_020",
+      "question": "What is process anomaly detection in ICS security monitoring?",
+      "options": [
+        "Monitoring employee processes",
+        "Detecting deviations from expected physical process behavior",
+        "Analyzing business processes",
+        "Reviewing hiring procedures"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Process anomaly detection watches for deviations from expected physical behavior—unexpected tank levels, unusual motor speeds, abnormal temperatures. Attackers who manipulate processes must ultimately affect physical parameters that can be detected."
+    },
+    {
+      "id": "ir_021",
+      "question": "Why is involving operations staff in all response decisions affecting production systems critical?",
+      "options": [
+        "To satisfy union requirements",
+        "They understand process implications security staff may not anticipate",
+        "To slow down the response",
+        "Operations staff have no role in incident response"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Operations staff understand process dependencies, safety implications, and operational impacts that security staff may not anticipate. A security action that seems straightforward might cause cascading process failures without operations input."
+    },
+    {
+      "id": "ir_022",
+      "question": "How should ATT&CK for ICS be used to improve detection capabilities?",
+      "options": [
+        "Memorize all technique names",
+        "Map current detection capabilities to techniques and prioritize developing detections for coverage gaps",
+        "Only focus on IT techniques",
+        "ATT&CK is only for attackers"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Map existing detection capabilities to ATT&CK techniques to identify coverage gaps. Prioritize developing detections for high-impact ICS-specific techniques like 'Inhibit Response Function' and 'Impact' tactics that directly threaten physical processes."
+    },
+    {
+      "id": "ir_023",
+      "question": "After the Oldsmar incident, what defense-in-depth principle was highlighted regarding dangerous parameter changes?",
+      "options": [
+        "Remote access should never be used",
+        "Multiple control layers (treatment process, monitoring, testing) would detect dangerous levels even if prevention fails",
+        "Only use manual controls",
+        "Water treatment cannot be secured"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Defense in depth means multiple protective layers. Even if an attacker changes chemical setpoints, subsequent layers—process interlocks, monitoring systems, laboratory testing—should detect dangerous levels before affecting consumers."
+    },
+    {
+      "id": "ir_024",
+      "question": "What forensic challenge exists when investigating PLCs and RTUs?",
+      "options": [
+        "They have extensive logging",
+        "Proprietary formats require vendor-specific tools and expertise to analyze",
+        "They automatically report all events",
+        "They use standard IT forensic formats"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "PLC programs, HMI configurations, and historian databases use vendor-specific proprietary formats. Forensic analysis may require vendor tools, specialized expertise, or reverse engineering to understand and analyze these systems."
+    },
+    {
+      "id": "ir_025",
+      "question": "When should legal counsel be involved in ICS incident response?",
+      "options": [
+        "Only after the incident is resolved",
+        "Early in the response if legal action is possible, to ensure evidence is handled appropriately",
+        "Legal counsel has no role in incident response",
+        "Only for NERC CIP violations"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "If legal action is possible (prosecution, civil litigation, insurance claims), involve legal counsel early. They ensure evidence collection and handling meet legal standards for admissibility and advise on notification requirements."
+    },
+    {
+      "id": "ir_026",
+      "question": "What network-based containment approach can often be taken without disrupting legitimate ICS operations?",
+      "options": [
+        "Disconnecting all network cables",
+        "Carefully crafted firewall rules blocking attacker IPs while allowing legitimate traffic",
+        "Shutting down all switches",
+        "Removing all firewalls"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Carefully crafted firewall rules can block attacker IP addresses, close compromised ports, or increase segmentation without disrupting legitimate operational traffic—if rules are designed with understanding of required ICS communications."
+    },
+    {
+      "id": "ir_027",
+      "question": "What does 'absence of evidence is not evidence of absence' mean in ICS forensics?",
+      "options": [
+        "All evidence must be preserved",
+        "Attackers may have affected devices with no logging capability, so lack of evidence doesn't prove absence of compromise",
+        "Evidence always exists",
+        "Forensics is not useful for ICS"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Many ICS devices have minimal or no logging capabilities. An attacker who compromised a device without forensic visibility leaves no evidence trail—but the device may still be compromised. Don't assume systems are clean just because no evidence exists."
+    },
+    {
+      "id": "ir_028",
+      "question": "Why should credentials be reset even for systems not directly compromised during an incident?",
+      "options": [
+        "Credential reset is not necessary",
+        "Attackers may have harvested credentials that could be used for persistent access or future attacks",
+        "Systems not compromised are always safe",
+        "Only reset passwords monthly"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Attackers often harvest credentials from compromised systems that work elsewhere. Even if a system wasn't directly compromised, credentials used on compromised systems should be considered compromised—reset passwords, rotate certificates/keys, and change API keys."
+    },
+    {
+      "id": "ir_029",
+      "question": "What is the purpose of functional exercises in incident response planning?",
+      "options": [
+        "To replace tabletop exercises",
+        "To actually execute parts of the plan: test communications, validate contacts, practice procedures on test systems",
+        "To train new employees only",
+        "To satisfy audit requirements"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Functional exercises go beyond discussion to actually execute parts of the response plan: test communication channels work, validate contact information is current, and practice containment procedures on test systems to verify they work as documented."
+    },
+    {
+      "id": "ir_030",
+      "question": "How does EDR deployment in OT environments differ from IT environments?",
+      "options": [
+        "EDR cannot run in OT",
+        "EDR in OT must be configured less aggressively to avoid disrupting legitimate operations",
+        "OT requires more aggressive blocking",
+        "There is no difference"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "EDR in OT environments must be configured appropriately—aggressive blocking or quarantine actions that work in IT might disrupt legitimate industrial processes. Configuration should prioritize visibility and alerting over automatic blocking."
+    },
+    {
+      "id": "ir_031",
+      "question": "What recovery documentation is required to prove systems were properly restored and support future analysis?",
+      "options": [
+        "Only the final system state",
+        "What was rebuilt, from what source, by whom, and when",
+        "Documentation is not needed for recovery",
+        "Only firewall rules"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Document all recovery actions: what systems were rebuilt, from what backup source, who performed the work, and when. This proves proper restoration, supports post-incident analysis, and may be required for regulatory compliance."
+    },
+    {
+      "id": "ir_032",
+      "question": "A safety instrumented system (SIS) has been compromised. What critical concern exists beyond the cyber incident?",
+      "options": [
+        "SIS compromise is a minor issue",
+        "The compromised SIS may fail to protect against dangerous process conditions, creating potential for physical harm",
+        "SIS systems cannot be compromised",
+        "Only production is affected"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Safety instrumented systems are the last line of defense against dangerous process conditions. A compromised SIS might fail to activate when needed, allowing dangerous conditions to escalate to equipment damage, environmental release, or injury/death."
+    },
+    {
+      "id": "ir_033",
+      "question": "An attacker is actively manipulating a process through a compromised HMI. What immediate actions balance security response with process safety?",
+      "options": [
+        "Immediately disconnect all networks",
+        "Coordinate with operations to switch to manual control or backup systems while isolating the compromised HMI",
+        "Wait and observe the attacker",
+        "Contact law enforcement before any action"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Coordinate with operations to determine if the process can safely switch to manual control or backup systems. This maintains process safety while removing attacker access. Avoid abrupt disconnection that could cause uncontrolled process conditions."
+    },
+    {
+      "id": "ir_034",
+      "question": "How should an organization handle a situation where thorough forensic investigation would require taking critical production systems offline?",
+      "options": [
+        "Always prioritize forensics over production",
+        "Balance evidence needs with operational requirements: capture available evidence non-disruptively, document constraints, consider specialized techniques for live forensics",
+        "Skip forensics entirely",
+        "Production should never be affected"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Balance evidence collection with operational needs: capture what's possible without disruption (network captures, logs, memory from non-critical systems), document forensic limitations, use live forensic techniques where possible, and preserve evidence for later analysis when systems can be taken offline."
+    },
+    {
+      "id": "ir_035",
+      "question": "During recovery, you discover the compromise began before your oldest backup. How should you proceed?",
+      "options": [
+        "Restore from the compromised backup anyway",
+        "Rebuild systems from vendor images, manually reconfigure, and apply all changes made since backup with verification",
+        "Abandon the systems",
+        "Continue operating in compromised state"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "If all backups may be compromised, rebuild from clean vendor images or installation media. Manually reconfigure systems and re-apply documented changes with verification. This is time-consuming but ensures systems are truly clean."
+    },
+    {
+      "id": "ir_036",
+      "question": "What detection architecture provides visibility when industrial devices lack logging capabilities?",
+      "options": [
+        "Install agents on all PLCs",
+        "Implement network-based monitoring with deep protocol analysis at network boundaries and between zones",
+        "Logging cannot be achieved",
+        "Rely only on operator observation"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "When devices lack host-based logging, network monitoring becomes critical. Deploy passive monitoring with industrial protocol analysis at zone boundaries to detect anomalous commands, unauthorized communications, and policy violations."
+    },
+    {
+      "id": "ir_037",
+      "question": "How should incident response differ for an attack that has achieved the ATT&CK 'Impact' stage versus one still in 'Discovery'?",
+      "options": [
+        "Response is the same regardless of attack stage",
+        "Impact stage requires immediate focus on stopping ongoing damage and process safety; Discovery stage allows more measured containment to preserve evidence",
+        "Discovery stage is more serious",
+        "Only respond to Impact stage attacks"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Impact stage means active damage to processes or systems—response prioritizes stopping ongoing harm and ensuring safety. Discovery stage attacks are still reconnaissance—measured containment can preserve evidence while preventing escalation to impact."
+    },
+    {
+      "id": "ir_038",
+      "question": "An ICS incident response reveals the attacker accessed systems through a vendor remote access connection. What systemic improvements should follow?",
+      "options": [
+        "Ban all vendor access permanently",
+        "Implement vendor access controls: MFA, session recording, time-limited access, network segmentation, and enhanced monitoring of vendor connections",
+        "Trust vendors more",
+        "No changes needed if the vendor is reputable"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Vendor access is a common attack vector. Systemic improvements include: requiring MFA for all vendor access, recording sessions for audit, limiting access duration, segmenting vendor connectivity, and implementing enhanced monitoring on vendor connection points."
+    },
+    {
+      "id": "ir_039",
+      "question": "During a multi-site ICS incident, how should response activities be coordinated across facilities?",
+      "options": [
+        "Each site responds independently",
+        "Establish centralized coordination with consistent communication, share IOCs across sites, prioritize based on criticality, and maintain overall situational awareness",
+        "Only respond at the first compromised site",
+        "Shut down all sites immediately"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Multi-site incidents require centralized coordination: consistent communication channels, sharing indicators of compromise (IOCs) so all sites can detect the attacker, prioritizing response based on criticality, and maintaining situational awareness across the enterprise."
+    },
+    {
+      "id": "ir_040",
+      "question": "What post-incident activity is essential to improve future ICS security posture and response capabilities?",
+      "options": [
+        "Immediately forget the incident",
+        "Conduct thorough lessons learned analysis: identify root causes, document what worked and what failed, implement improvements, and update response procedures",
+        "Blame individuals for failures",
+        "Only document regulatory-required information"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Post-incident lessons learned identifies root causes, documents what worked and what failed, drives security improvements to prevent recurrence, and updates response procedures based on real-world experience. This continuous improvement cycle strengthens overall security posture."
     }
   ]
 }

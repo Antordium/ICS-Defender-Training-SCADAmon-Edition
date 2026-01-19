@@ -1,0 +1,1771 @@
+{
+  "exam": "Elite 4 Comprehensive ICS Security Exam",
+  "description": "Master-level assessment spanning all eight training domains. Questions integrate concepts across multiple modules and test advanced ICS security expertise.",
+  "totalQuestions": 125,
+  "difficultyDistribution": {
+    "hard": 75,
+    "expert": 50
+  },
+  "domains": [
+    "ICS Fundamentals",
+    "Network Architecture",
+    "Industrial Protocols",
+    "Windows Security",
+    "Unix/Linux Security",
+    "Governance & Compliance",
+    "Incident Response",
+    "Defense in Depth"
+  ],
+  "questions": [
+    {
+      "id": "elite_001",
+      "domain": "Network Architecture",
+      "question": "An attacker has compromised the corporate Active Directory and obtained domain admin credentials. In a properly architected ICS environment following the Purdue Model with an IDMZ, which statement BEST describes why these credentials should NOT provide direct access to Level 2 SCADA systems?",
+      "options": [
+        "Corporate AD credentials expire before reaching OT systems",
+        "OT systems should use a separate AD forest or local authentication with no trust relationship to corporate AD",
+        "Firewalls automatically strip AD credentials from packets crossing the IDMZ",
+        "Level 2 systems only accept credentials from Level 3 systems"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Proper ICS architecture implements separate authentication domains for IT and OT. Using a separate AD forest for OT (or local authentication on critical systems) with no trust relationship ensures that compromise of corporate AD doesn't automatically grant OT access. This is a key design principle for limiting credential-based lateral movement."
+    },
+    {
+      "id": "elite_002",
+      "domain": "Industrial Protocols",
+      "question": "A security analyst observes Modbus TCP traffic where a single master is sending Function Code 15 (Write Multiple Coils) commands to addresses 0-999 in rapid succession across 50 different slave devices. What does this pattern MOST likely indicate?",
+      "options": [
+        "Normal polling of discrete outputs for status updates",
+        "Legitimate batch configuration update during maintenance window",
+        "Potential attack attempting to manipulate multiple digital outputs across the process",
+        "Standard Modbus device discovery enumeration"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Function Code 15 writes to multiple coils (digital outputs). Rapid writes across many devices and addresses is highly anomalous - normal operations involve specific, targeted writes to known addresses. This pattern suggests an attacker attempting to manipulate process outputs, potentially causing widespread process disruption or safety incidents."
+    },
+    {
+      "id": "elite_003",
+      "domain": "Defense in Depth",
+      "question": "During the 2015 Ukraine power grid attack, attackers used legitimate remote access tools to open circuit breakers. Which defense-in-depth control would have been MOST effective at preventing the physical impact while still allowing legitimate remote access for operations?",
+      "options": [
+        "Network segmentation blocking all remote access to substations",
+        "Multi-factor authentication on remote access systems",
+        "Protocol-level validation ensuring commands match expected operational patterns and requiring out-of-band confirmation for critical actions",
+        "Application whitelisting on SCADA servers"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "Since attackers used legitimate credentials and tools, authentication controls alone wouldn't help. The most effective control would validate that commands match expected patterns and require out-of-band confirmation for critical actions like opening multiple breakers simultaneously. This addresses the attack at the process control layer rather than trying to distinguish legitimate from illegitimate users."
+    },
+    {
+      "id": "elite_004",
+      "domain": "Windows Security",
+      "question": "An ICS security assessment reveals that engineering workstations use local administrator accounts with the same password across all 15 workstations for vendor software installation. The vendor requires local admin rights. What is the MOST effective remediation that maintains vendor support capability?",
+      "options": [
+        "Implement LAPS (Local Administrator Password Solution) to randomize local admin passwords and store them in AD",
+        "Create a shared service account for vendor access with a complex password",
+        "Disable the local administrator account entirely and use domain admin for installations",
+        "Document the shared password as an accepted risk in the risk register"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "LAPS automatically randomizes local administrator passwords on each system and stores them securely in AD. This eliminates the credential reuse risk (if one workstation is compromised, the password doesn't work on others) while maintaining local admin access when needed. Vendor staff can retrieve the unique password for each system through controlled processes."
+    },
+    {
+      "id": "elite_005",
+      "domain": "Incident Response",
+      "question": "During an ICS incident, the response team discovers that an attacker has modified PLC ladder logic to change a safety interlock threshold. The physical process is currently running within normal parameters. Following ICS incident response principles, what should be the IMMEDIATE priority?",
+      "options": [
+        "Preserve forensic evidence by imaging the PLC memory before any changes",
+        "Immediately restore the original logic from a known-good backup",
+        "Coordinate with operations to safely transition the process to a known-safe state before making changes",
+        "Disconnect the PLC from the network to prevent further attacker access"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "Safety is the primary concern in ICS incidents. Even though the process appears normal, the compromised safety interlock means the system may not respond correctly to abnormal conditions. Before making any changes (which could themselves cause process upsets), operations must coordinate a safe process state. This might mean reducing throughput, switching to manual control, or controlled shutdown depending on the process."
+    },
+    {
+      "id": "elite_006",
+      "domain": "Governance & Compliance",
+      "question": "An organization subject to NERC CIP requirements is implementing IEC 62443 to improve their security program. When mapping NERC CIP-007-6 (System Security Management) to IEC 62443, which Security Level (SL) concept creates the MOST significant challenge for compliance alignment?",
+      "options": [
+        "IEC 62443's zone/conduit model doesn't align with NERC's Electronic Security Perimeter concept",
+        "NERC CIP specifies prescriptive controls while IEC 62443 SL-T allows organizations to choose their target security level",
+        "IEC 62443 doesn't address patch management requirements",
+        "NERC CIP applies only to high-impact BES Cyber Systems while IEC 62443 covers all levels"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "NERC CIP mandates specific, prescriptive security controls (you must do X), while IEC 62443 is risk-based, allowing organizations to set target Security Levels (SL-T) appropriate to their risk. An organization could be IEC 62443 compliant at SL-1 but fail NERC CIP requirements that expect higher control rigor. Aligning these frameworks requires mapping NERC's prescriptive requirements to appropriate IEC 62443 security levels."
+    },
+    {
+      "id": "elite_007",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based historian server in an ICS environment shows the following in /var/log/auth.log: repeated successful SSH connections from an engineering workstation IP, each session lasting less than 5 seconds, occurring every 60 seconds for the past 48 hours. The historian admin is unaware of any automated processes. What is the MOST likely explanation?",
+      "options": [
+        "A scheduled backup job running via SSH",
+        "Network monitoring tool performing availability checks",
+        "Attacker using SSH for command-and-control communication or data exfiltration",
+        "Legitimate heartbeat monitoring from the SCADA system"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "The pattern - successful authentication, very short sessions, regular intervals, and unknown origin - is consistent with SSH being used as a covert channel for C2 communication or periodic data exfiltration. Legitimate automated processes would be documented. This warrants immediate investigation of the engineering workstation and analysis of what data or commands are being transferred during these brief sessions."
+    },
+    {
+      "id": "elite_008",
+      "domain": "ICS Fundamentals",
+      "question": "A water treatment facility uses a SCADA system with PLCs controlling chemical dosing. The HMI displays a chlorine residual of 2.0 mg/L, but field operators report the water has a strong chlorine smell suggesting much higher levels. If this is an attack, which ICS component is MOST likely compromised?",
+      "options": [
+        "The PLC controlling the chemical dosing pumps",
+        "The chlorine analyzer providing the residual reading",
+        "The HMI displaying the value to operators",
+        "The historian storing the chlorine residual trends"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "The discrepancy between displayed value and physical reality suggests the HMI is showing falsified data while the actual process (high chlorine levels) continues. This is a classic attack pattern - manipulating operator displays to hide malicious process changes. Similar to the Oldsmar attack where the attacker manipulated setpoints, here the attacker may have increased dosing while spoofing the display. The sensor and PLC may be functioning correctly, but operators see false data."
+    },
+    {
+      "id": "elite_009",
+      "domain": "Network Architecture",
+      "question": "An organization is designing a secure remote access solution for vendor support of Level 2 SCADA systems. Which architecture BEST balances security with operational needs?",
+      "options": [
+        "VPN directly from vendor to Level 2 SCADA network with time-limited credentials",
+        "Jump server in IDMZ with MFA, session recording, and approval workflow; vendor connects to jump server, then to SCADA systems through monitored session",
+        "Air-gapped Level 2 network with physical presence required for all vendor support",
+        "Cloud-based remote access tool installed on SCADA servers with vendor-managed authentication"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The jump server in IDMZ approach provides multiple security layers: the vendor never connects directly to OT systems, MFA protects against credential theft, session recording enables forensics and accountability, and approval workflows ensure access is authorized. This balances operational need (vendor support) with security controls. Direct VPN bypasses the IDMZ, air-gap is operationally impractical, and vendor-managed cloud tools give too much control to external parties."
+    },
+    {
+      "id": "elite_010",
+      "domain": "Industrial Protocols",
+      "question": "An attacker with network access to a DNP3 outstation wants to cause the SCADA master to receive false data about breaker status without being detected by protocol-level monitoring. Which attack technique would be MOST difficult to detect?",
+      "options": [
+        "Man-in-the-middle attack modifying DNP3 response packets in transit",
+        "Spoofing the outstation IP and sending false unsolicited responses",
+        "Compromising the outstation itself and having it report false data through legitimate protocol communication",
+        "Replaying previously captured valid DNP3 responses"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "If the attacker compromises the outstation device itself, all DNP3 communication is technically legitimate - correct source, valid protocol structure, proper sequencing. Protocol-level monitoring would see normal DNP3 traffic. Detection would require either physical verification, process anomaly detection (comparing reported values against expected process behavior), or host-based monitoring on the outstation itself. This is why defense in depth requires multiple detection layers."
+    },
+    {
+      "id": "elite_011",
+      "domain": "Defense in Depth",
+      "question": "A manufacturing facility implements the following controls: network segmentation, endpoint protection on Windows systems, and centralized logging. An attacker gains access through a phishing email targeting an engineer. They move to a Linux-based historian and use it to pivot to PLCs. Which gap in defense-in-depth did the attacker exploit?",
+      "options": [
+        "Network segmentation failed to prevent lateral movement",
+        "Missing Linux endpoint protection created a visibility gap",
+        "Centralized logging wasn't configured for real-time alerting",
+        "Engineering workstation lacked email security controls"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The attacker exploited the gap in host-based security on Linux systems. While Windows endpoints had protection, the Linux historian did not, creating a blind spot. This is a common defense-in-depth failure - assuming all systems are equally protected when security tools are deployed inconsistently. The attacker found the weakest link (unprotected Linux) and used it as a pivot point to reach OT systems."
+    },
+    {
+      "id": "elite_012",
+      "domain": "Windows Security",
+      "question": "A SCADA server running Windows Server 2019 has AppLocker configured in Audit mode. Security logs show multiple blocked events for PowerShell scripts running from C:\\Users\\Public. The scripts have names matching legitimate vendor maintenance utilities. What is the MOST appropriate response?",
+      "options": [
+        "Add C:\\Users\\Public to the AppLocker whitelist to allow the vendor scripts",
+        "Investigate immediately - legitimate vendor utilities should not execute from user-writable locations",
+        "Switch AppLocker to Enforce mode to block the scripts",
+        "Contact the vendor to verify they require PowerShell execution from that location"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "This is a significant red flag. Legitimate vendor utilities would be installed in Program Files or another protected location, not user-writable directories like C:\\Users\\Public. Attackers commonly place malicious scripts in user-writable locations and name them to appear legitimate. This warrants immediate investigation of the scripts' content, origin, and what they're doing - not whitelisting or contacting the vendor, which delays response to a potential active compromise."
+    },
+    {
+      "id": "elite_013",
+      "domain": "Incident Response",
+      "question": "During ICS incident response, the team needs to collect forensic evidence from a running PLC. The PLC controls a continuous chemical process that cannot be stopped without a 72-hour restart sequence. Which approach BEST balances forensic needs with operational constraints?",
+      "options": [
+        "Shut down the PLC immediately - evidence preservation takes priority over operations",
+        "Capture network traffic to/from the PLC and download current logic and configuration without disrupting operation",
+        "Wait for the next scheduled maintenance window to perform forensic analysis",
+        "Replace the PLC with a spare unit and analyze the original offline"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "ICS forensics must often occur on live systems. Network captures show attacker communication and commands. Downloading PLC logic and configuration (which most PLCs support without operational impact) captures the current program state. This preserves key evidence while maintaining process operation. Immediate shutdown isn't justified without imminent safety risk, waiting loses volatile evidence, and hot-swapping PLCs is complex and risky for continuous processes."
+    },
+    {
+      "id": "elite_014",
+      "domain": "Governance & Compliance",
+      "question": "An ICS security program uses IEC 62443 zones and conduits. Zone A (DCS) requires SL-3, and Zone B (business systems) is SL-1. A data conduit between them carries historian data from Zone A to Zone B. What Security Level should the conduit achieve?",
+      "options": [
+        "SL-1, matching the lower-security destination",
+        "SL-2, the average of the two zones",
+        "SL-3, matching the higher-security source zone",
+        "SL-4, exceeding both zones to ensure data integrity"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Conduits should meet or exceed the security level of the highest-security zone they connect. The conduit protects Zone A (SL-3) from threats that might come through Zone B. If the conduit were only SL-1, an attacker in Zone B could exploit the conduit to attack Zone A, bypassing Zone A's SL-3 protections. The conduit is part of Zone A's boundary defense and must match its security requirements."
+    },
+    {
+      "id": "elite_015",
+      "domain": "Unix/Linux Security",
+      "question": "An embedded Linux PLC uses busybox and has a web interface for configuration. Security assessment reveals the web server runs as root, /etc/shadow is world-readable, and there's no firewall. The vendor says these are 'by design' and won't change. What compensating control provides the MOST protection?",
+      "options": [
+        "Network isolation ensuring only authorized engineering workstations can reach the device",
+        "Implementing a host-based firewall through custom busybox configuration",
+        "Regular credential rotation on the device's web interface",
+        "Installing a third-party security agent on the embedded system"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "When embedded devices have unfixable vulnerabilities, network isolation is the primary compensating control. By strictly limiting which systems can communicate with the vulnerable PLC (only authorized engineering workstations), you reduce the attack surface to those specific systems. Host-based controls aren't feasible on locked embedded systems, credential rotation doesn't address the fundamental vulnerabilities, and third-party agents typically can't run on embedded PLCs."
+    },
+    {
+      "id": "elite_016",
+      "domain": "ICS Fundamentals",
+      "question": "A pharmaceutical manufacturing process requires precise temperature control. The process historian shows temperature holding steady at exactly 98.6°F for the past 8 hours with zero deviation. From an ICS security perspective, what should this indicate?",
+      "options": [
+        "Excellent process control - the temperature is perfectly maintained",
+        "Normal historian data compression reducing data points for stable values",
+        "Potential sensor failure or data spoofing - real analog values always have some variation",
+        "PID controller in manual mode maintaining a fixed setpoint"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Physical analog values from real sensors always have some natural variation due to sensor noise, process dynamics, and environmental factors. A reading that shows zero deviation over hours is physically impossible for a real analog measurement. This could indicate a failed sensor stuck at a value, or an attacker spoofing the data. This abnormal steadiness should trigger investigation rather than confidence in good control."
+    },
+    {
+      "id": "elite_017",
+      "domain": "Network Architecture",
+      "question": "During a network architecture review, you discover that the data historian has two network interfaces: one in the Level 3 OT network and one in the corporate IT network, enabling direct data transfer without traversing the IDMZ. The configuration was approved by management for 'performance reasons.' What is the PRIMARY security concern?",
+      "options": [
+        "The historian creates a dual-homed bypass around all IDMZ security controls",
+        "Database performance will be impacted by the dual network configuration",
+        "IT network traffic could overwhelm the OT network interface",
+        "The historian will be difficult to manage from both networks"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "A dual-homed historian completely bypasses the IDMZ architecture. An attacker on the corporate network could compromise the historian and use its OT network connection to access Level 3 systems, bypassing firewalls, jump servers, and monitoring designed to protect that boundary. This is one of the most common and serious ICS architecture failures. The approved 'performance reasons' created an uncontrolled path around all boundary protections."
+    },
+    {
+      "id": "elite_018",
+      "domain": "Industrial Protocols",
+      "question": "A facility is migrating from Modbus TCP to OPC UA for improved security. During the migration, both protocols will run in parallel. Which security consideration is MOST important during this transition period?",
+      "options": [
+        "Ensuring OPC UA certificates are properly issued and managed",
+        "Preventing attackers from using the less-secure Modbus path to bypass OPC UA security controls",
+        "Training operators on both protocol interfaces",
+        "Monitoring bandwidth to ensure both protocols don't overload the network"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "During parallel operation, the security benefit of OPC UA is negated if attackers can simply use the Modbus path. The system's security is only as strong as its weakest component. Attackers will target Modbus (no authentication, no encryption) rather than trying to bypass OPC UA security. The transition plan must ensure Modbus paths are increasingly restricted and monitored, not left open as a convenient backdoor."
+    },
+    {
+      "id": "elite_019",
+      "domain": "Defense in Depth",
+      "question": "The TRITON/TRISIS malware targeted Triconex safety instrumented systems. Which defense-in-depth principle does this attack MOST clearly demonstrate the importance of?",
+      "options": [
+        "Network segmentation to prevent malware from reaching safety systems",
+        "Protection of safety systems as independent defense layer separate from process control systems",
+        "Application whitelisting to prevent unauthorized executables",
+        "Credential protection to prevent lateral movement"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "TRITON specifically targeted the safety system - the last line of defense designed to prevent dangerous conditions. The attack demonstrates that safety systems must be treated as an independent, protected layer, not just another device on the process network. If attackers can compromise both the DCS (to create dangerous conditions) and the SIS (to prevent safety response), defense in depth fails completely. Safety systems require their own hardening, monitoring, and protection beyond general OT security."
+    },
+    {
+      "id": "elite_020",
+      "domain": "Windows Security",
+      "question": "An attacker has compromised an engineering workstation and wants to extract credentials from memory to move laterally. Which Windows security control specifically prevents the attacker from extracting NTLM hashes and Kerberos tickets from LSASS memory?",
+      "options": [
+        "Windows Firewall",
+        "BitLocker Drive Encryption",
+        "Credential Guard",
+        "Windows Defender Antivirus"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Credential Guard uses virtualization-based security to isolate the LSASS process and secrets like NTLM hashes and Kerberos tickets. Even with administrator access to the OS, an attacker cannot access the isolated credentials because they're protected by the hypervisor. This directly prevents credential-dumping attacks using tools like Mimikatz. Firewall, BitLocker, and Defender don't address in-memory credential protection."
+    },
+    {
+      "id": "elite_021",
+      "domain": "Incident Response",
+      "question": "An ICS incident response team discovers that attacker-modified PLC logic includes a time-based trigger to cause a dangerous condition in 72 hours. The team can restore original logic now, but doing so will alert the attacker (who has persistent access) that they've been detected. What is the BEST course of action?",
+      "options": [
+        "Immediately restore the logic - safety is the absolute priority",
+        "Let the timer run while gathering more intelligence about the attacker",
+        "Restore the logic and simultaneously execute a coordinated response to eliminate all attacker access points",
+        "Disconnect the PLC from the network to prevent the attack and preserve access for continued investigation"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "With a known time-based trigger creating imminent danger, safety requires action. However, simply restoring the logic allows an attacker with persistent access to re-compromise the system. The best approach is coordinated response: simultaneously restore safe logic AND eliminate attacker access (cutting network access, credential resets, etc.). This achieves safety while preventing the attacker from simply trying again. Option B (let it run) is never acceptable when safety is at stake."
+    },
+    {
+      "id": "elite_022",
+      "domain": "Governance & Compliance",
+      "question": "A NERC CIP compliance audit finds that an organization's Low Impact BES Cyber Systems lack the physical security controls required for Medium Impact systems. The organization argues these are correctly classified as Low Impact. What should the auditor's focus be?",
+      "options": [
+        "Whether the physical security controls meet Low Impact requirements",
+        "Whether the impact classification methodology was properly applied",
+        "Whether the organization has documented the risk acceptance",
+        "Whether compensating controls justify the lower classification"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The correct focus is whether the classification itself is correct. Under NERC CIP-002, impact classification follows specific criteria based on the system's role in the Bulk Electric System. If a system was incorrectly classified as Low Impact when it should be Medium, all subsequent control gaps are classification errors, not just control deficiencies. The auditor should verify the classification methodology before evaluating control implementation."
+    },
+    {
+      "id": "elite_023",
+      "domain": "Unix/Linux Security",
+      "question": "A security analyst reviewing a Linux-based RTU discovers a cron job running as root: '*/5 * * * * /tmp/.hidden/update.sh'. What makes this configuration particularly suspicious for an ICS device?",
+      "options": [
+        "Cron jobs shouldn't run at 5-minute intervals",
+        "Root shouldn't use cron for automated tasks",
+        "The script runs from a hidden directory in a world-writable location, suggesting unauthorized persistence",
+        "Shell scripts are inefficient for scheduled tasks"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Multiple red flags: (1) /tmp is world-writable, allowing any user to modify the script, (2) the directory is hidden (dot prefix), (3) it's in a temporary location but running persistently. Legitimate administrative scripts are stored in protected locations like /usr/local/bin or /opt, not hidden in /tmp. This pattern is consistent with an attacker establishing persistence - a script that survives reboots and runs with root privileges while being hidden from casual observation."
+    },
+    {
+      "id": "elite_024",
+      "domain": "ICS Fundamentals",
+      "question": "An attacker wants to cause the greatest physical damage to a batch chemical process while minimizing their chances of detection. At which phase of the batch process would an attack be MOST effective and LEAST likely to be noticed until too late?",
+      "options": [
+        "Startup - when operators are actively monitoring and parameters are changing rapidly",
+        "Steady state - when the process is stable and operators may be less vigilant",
+        "Transition between batches - when some variation is expected",
+        "Shutdown - when the process is being safely secured"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "Transition phases (between batches, recipe changes, startups of different products) involve expected parameter changes, making malicious deviations harder to spot. Operators expect values to change during transitions and may not immediately recognize abnormal changes as attacks. Steady-state anomalies are more visible because baselines are well-known. Startup and shutdown have active operator attention. Sophisticated attackers time their actions to blend with expected operational changes."
+    },
+    {
+      "id": "elite_025",
+      "domain": "Network Architecture",
+      "question": "A data diode is installed between an OT network (high side) and a corporate historian (low side) for one-way data transfer. The security team wants to send security updates TO the OT network. Which approach maintains the data diode's security guarantee?",
+      "options": [
+        "Configure the data diode for bidirectional traffic during maintenance windows",
+        "Install a second data diode oriented in the opposite direction, with strict access controls",
+        "Use a separate, isolated network path with manual approval for each update transfer",
+        "Data diodes are incompatible with security updates - use a traditional firewall instead"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Data diodes provide hardware-enforced one-way flow - they physically cannot be 'configured' for bidirectional traffic. To maintain the diode's protection while allowing updates, use a completely separate path with manual controls: physical media transfer, isolated update network with human approval per transfer, etc. A second diode in reverse would create bidirectional capability overall. The separate, controlled path maintains one-way enforcement while enabling necessary updates through a deliberate, auditable process."
+    },
+    {
+      "id": "elite_026",
+      "domain": "Industrial Protocols",
+      "question": "EtherNet/IP uses CIP (Common Industrial Protocol) over standard Ethernet. An analyst observes CIP traffic with service code 0x4B (Get_Attribute_All) being sent to every device on the network from an unknown IP. What is the MOST concerning implication?",
+      "options": [
+        "An authorized asset discovery scan is running without proper notification",
+        "A misconfigured HMI is polling too many devices",
+        "An attacker is enumerating all devices, their attributes, and capabilities to plan an attack",
+        "Normal network broadcast traffic for device synchronization"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Get_Attribute_All across all devices is reconnaissance behavior - an attacker mapping the ICS environment to understand what devices exist, their configurations, and capabilities. While legitimate tools do this, an 'unknown IP' doing broad enumeration is a serious red flag. This information helps attackers identify targets, understand the process, and plan specific attacks. The source IP should be immediately investigated."
+    },
+    {
+      "id": "elite_027",
+      "domain": "Defense in Depth",
+      "question": "A security architecture review identifies that the facility relies primarily on network segmentation (firewalls, VLANs) for ICS protection, with minimal host-based security or monitoring. Which attack scenario does this architecture FAIL to address?",
+      "options": [
+        "External attackers attempting to breach the perimeter",
+        "Insider threats or compromised credentials providing access within the OT network",
+        "Denial of service attacks against network infrastructure",
+        "Physical attacks on network equipment"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Network segmentation controls traffic between zones but provides no protection once an attacker is inside a zone - whether through compromised credentials, insider threat, or any breach that places them within the OT network. Without host-based security and monitoring, an attacker operating within the network boundary has free access to all systems in that zone. This is why defense in depth requires both network controls AND host-based controls AND monitoring at multiple layers."
+    },
+    {
+      "id": "elite_028",
+      "domain": "Windows Security",
+      "question": "A Windows-based HMI needs to run a 15-year-old application that requires administrator privileges and won't run on anything newer than Windows 7. The vendor is defunct. What is the MOST secure approach to continue operating this system?",
+      "options": [
+        "Run Windows 7 with all available patches and hope for the best",
+        "Virtualize Windows 7, isolate the VM on a dedicated network segment, and implement strict access controls to the VM host",
+        "Upgrade to Windows 10 and use compatibility mode",
+        "Replace the HMI with a modern equivalent from a different vendor"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Virtualization provides multiple security benefits: the vulnerable Windows 7 system is contained within a VM, the hypervisor can provide additional isolation, the VM can be on a strictly isolated network segment, access controls on the host limit who can interact with the VM, and snapshots enable recovery. While replacement is ideal, it may not be immediately feasible. Virtualization with compensating controls is the best approach when legacy systems must continue operating."
+    },
+    {
+      "id": "elite_029",
+      "domain": "Incident Response",
+      "question": "During an ICS incident, an attacker's C2 channel is identified: DNS queries to a malicious domain. The IR team wants to cut the C2 without alerting the attacker. Which approach is MOST effective?",
+      "options": [
+        "Block the malicious domain at the perimeter firewall",
+        "Sinkhole the DNS queries to an internal server while monitoring traffic for intelligence",
+        "Shut down DNS services entirely to stop all C2 communication",
+        "Contact the malicious domain registrar to take down the domain"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "DNS sinkholing redirects queries to an internal server instead of blocking them. The attacker's malware continues to 'communicate' (to the sinkhole), so it doesn't detect loss of connectivity and trigger alternative behaviors. Meanwhile, the IR team can monitor these communications for intelligence about the malware's behavior, identify all infected systems, and prepare comprehensive response. Simple blocking might cause the malware to activate backup C2 channels or destructive payloads."
+    },
+    {
+      "id": "elite_030",
+      "domain": "Governance & Compliance",
+      "question": "An organization is implementing IEC 62443-3-3 and must determine the Security Level-Target (SL-T) for a zone containing PLCs that control a chemical reactor with potential for dangerous reactions. Which factor is MOST important in determining the appropriate SL-T?",
+      "options": [
+        "The cost of implementing security controls for each level",
+        "The consequence of a successful attack on the zone's assets and the physical process",
+        "What security controls are already in place (SL-C)",
+        "Industry benchmarks for similar facilities"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "SL-T (Target Security Level) is primarily determined by consequence analysis - what could happen if this zone is compromised? For a chemical reactor with dangerous reaction potential, consequences could include safety incidents, environmental damage, and loss of life. This drives a higher SL-T regardless of cost or current state. SL-C (Capability) describes what's currently achieved; SL-T describes what's needed. The gap between them drives security investment priorities."
+    },
+    {
+      "id": "elite_031",
+      "domain": "Unix/Linux Security",
+      "question": "An ICS environment uses a Linux server for protocol conversion between Modbus and OPC UA. The server has SELinux in enforcing mode. An attacker gains remote code execution through a vulnerability in the protocol converter application. What does SELinux prevent the attacker from doing?",
+      "options": [
+        "Executing any commands on the system",
+        "Taking actions outside the compromised application's defined security context",
+        "Communicating over the network",
+        "Reading the application's configuration files"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "SELinux enforces mandatory access controls based on security contexts (labels). Even if an attacker gains code execution in the protocol converter, they can only perform actions that the application's security policy allows. They cannot access files, processes, or network resources outside that policy. This contains the breach - the attacker controls the application but cannot escalate to control the system. This is the core value of MAC systems like SELinux in limiting breach impact."
+    },
+    {
+      "id": "elite_032",
+      "domain": "ICS Fundamentals",
+      "question": "An operator notices that a pump's motor current (amps) has increased by 15% over the past month while flow rate and pressure remain constant. From both an operational AND security perspective, what should this indicate?",
+      "options": [
+        "Normal pump wear requiring scheduled maintenance",
+        "Process changes requiring pump recalibration",
+        "Either mechanical degradation OR a manipulated sensor - physical inspection is required to differentiate",
+        "Electrical supply problems affecting motor efficiency"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "This illustrates why physical verification matters in ICS security. Increased motor current with constant output suggests either: (1) legitimate mechanical issue (bearing wear, impeller damage) requiring maintenance, or (2) a manipulated flow/pressure sensor showing false 'constant' values while actual process conditions have changed. The same symptom can indicate equipment failure OR attack. Physical inspection (checking the pump, using portable instruments to verify sensor readings) is needed to determine which. Cyber-physical systems require cyber-physical verification."
+    },
+    {
+      "id": "elite_033",
+      "domain": "Network Architecture",
+      "question": "A facility wants to enable secure remote access for engineers working from home to Level 3 SCADA systems. The design includes: VPN to corporate network, then jump server in IDMZ, then to SCADA systems. What CRITICAL security control is MISSING from this design?",
+      "options": [
+        "Antivirus on the jump server",
+        "Encryption of SCADA protocols",
+        "MFA at multiple points in the access chain",
+        "Logging of jump server sessions"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "The described design lacks Multi-Factor Authentication. VPN + jump server is a good architecture, but without MFA, a single credential compromise grants OT access. MFA should be required at least for: VPN connection, jump server access, and ideally SCADA system access. Each step should verify the user is legitimate. Single-factor authentication anywhere in the chain creates a weak point that attackers will target."
+    },
+    {
+      "id": "elite_034",
+      "domain": "Industrial Protocols",
+      "question": "A security researcher discovers that a specific brand of PLC allows firmware updates via Modbus write commands to reserved register addresses, with no authentication. The vendor acknowledges this is 'by design' for easy updates. What does this vulnerability enable?",
+      "options": [
+        "Denial of service by corrupting firmware",
+        "Complete device takeover by uploading malicious firmware from anywhere on the network",
+        "Reading of intellectual property from the PLC",
+        "Manipulation of current register values only"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Unauthenticated firmware updates via network-accessible protocols represent the most severe PLC vulnerability class. An attacker anywhere on the network segment can upload arbitrary firmware, gaining complete control of the device - not just current values but the entire device behavior. They could make the PLC report false data, execute arbitrary commands, brick the device, or use it as a persistent foothold. This 'feature' essentially means the device has no security boundary."
+    },
+    {
+      "id": "elite_035",
+      "domain": "Defense in Depth",
+      "question": "A security assessment identifies these gaps: no network monitoring, weak authentication, outdated Windows systems, and no incident response plan. Budget constraints allow addressing only TWO gaps immediately. Using risk-based prioritization, which TWO should be addressed FIRST?",
+      "options": [
+        "Network monitoring and incident response plan",
+        "Authentication and Windows updates",
+        "Network monitoring and authentication",
+        "Windows updates and incident response plan"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "Network monitoring provides detection capability - without it, you won't know when attacks occur. Strong authentication prevents unauthorized access - the starting point for most attacks. These two together provide a preventive control (authentication) and a detective control (monitoring). Windows updates and IR plans are important but secondary: updates address known vulnerabilities but take time to implement safely in OT, and IR plans are reactive. Prevention and detection capabilities should come before response planning."
+    },
+    {
+      "id": "elite_036",
+      "domain": "Windows Security",
+      "question": "A SCADA application requires a Windows service account with specific permissions. The vendor documentation says to add the account to the local Administrators group. What is the security risk of following this guidance, and what is a better approach?",
+      "options": [
+        "No risk - vendor guidance should always be followed for supportability",
+        "Administrator membership gives excessive permissions; determine minimum required permissions and grant only those through specific security policies",
+        "The service account should be a domain admin for better centralized management",
+        "Local administrator is fine but the password should be complex"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Vendor documentation often defaults to administrator for simplicity, not security. Administrator membership grants far more permissions than most applications actually need, expanding attack impact if the service is compromised. The proper approach: identify the specific resources the application needs (registry keys, files, services), grant only those permissions, test functionality, and document the minimum-privilege configuration. This limits blast radius if the service account is compromised."
+    },
+    {
+      "id": "elite_037",
+      "domain": "Incident Response",
+      "question": "An ICS incident response team needs to communicate during an active incident, but they suspect the attacker may have access to corporate email and Slack. What communication approach should they use?",
+      "options": [
+        "Continue using email/Slack but speak in code",
+        "Use personal cell phones and pre-established out-of-band communication channels",
+        "Write all communications on paper and hand-deliver them",
+        "Set up a new Slack workspace the attacker doesn't know about"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Pre-established out-of-band communication is essential for incident response. If attackers have compromised corporate communication systems, using those systems allows them to monitor response activities and stay ahead of defenders. Personal devices with pre-established contact information (phone trees, Signal groups, etc.) created before an incident provide a communication channel outside attacker visibility. This should be part of the IR plan, not improvised during the incident."
+    },
+    {
+      "id": "elite_038",
+      "domain": "Governance & Compliance",
+      "question": "During an ICS security assessment, you discover that operators regularly bypass a safety interlock by holding down a switch while performing certain operations. Operations management says this is 'normal procedure' and has been done for years. What governance issue does this reveal?",
+      "options": [
+        "Inadequate safety training for operators",
+        "A gap between formal safety policies and actual operational practices that creates undocumented risk",
+        "Equipment design flaw requiring vendor correction",
+        "Normal operational flexibility that doesn't require documentation"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "This reveals a governance gap - actual practices have diverged from designed safety systems. The interlock exists for safety reasons, but operators routinely bypass it, meaning the safety analysis that justified the interlock is incorrect. Either: (1) the interlock isn't needed and should be formally removed with updated safety analysis, or (2) the bypass creates real risk that isn't documented or mitigated. Governance requires that actual practices match documented procedures and safety assumptions."
+    },
+    {
+      "id": "elite_039",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based ICS gateway shows the following iptables rule: '-A INPUT -s 0.0.0.0/0 -p tcp --dport 22 -j ACCEPT'. The gateway sits between corporate IT and OT networks. What is the security issue?",
+      "options": [
+        "SSH should use a non-standard port",
+        "The rule allows SSH from any source address, not restricting access to authorized management systems",
+        "TCP should be changed to UDP for better performance",
+        "The rule should use DROP instead of ACCEPT"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The rule accepts SSH from 0.0.0.0/0 - any IP address in the world. On a gateway between IT and OT, this means anyone who can reach the gateway can attempt SSH access. The rule should restrict SSH to specific management IP addresses or ranges, such as '-s 10.1.1.0/24' for a management VLAN. Defense in depth requires limiting which systems can even attempt to authenticate, not relying solely on SSH authentication."
+    },
+    {
+      "id": "elite_040",
+      "domain": "ICS Fundamentals",
+      "question": "A PLC programmer notices that a controller's scan time has increased from a consistent 20ms to variable 20-35ms. No program changes were made. From a security perspective, what could this indicate?",
+      "options": [
+        "Normal controller aging requiring hardware replacement",
+        "Network congestion affecting I/O response times",
+        "Possible malicious code execution consuming controller resources during specific conditions",
+        "Power supply fluctuations affecting processor speed"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "Increased and variable scan times without program changes could indicate additional code executing on the controller. Stuxnet exhibited similar behavior - the malicious code executed in addition to legitimate logic, consuming resources. The variability suggests the extra processing occurs conditionally (not every scan). This warrants investigation: examine the program for unexpected code, compare to known-good backups, and check for any unauthorized changes. Scan time anomalies can be a subtle indicator of compromise."
+    },
+    {
+      "id": "elite_041",
+      "domain": "Network Architecture",
+      "question": "An ICS network assessment reveals that control system traffic and safety system traffic share the same network switches, though they use different VLANs. According to defense-in-depth principles for safety-critical systems, what is the concern?",
+      "options": [
+        "VLAN separation is sufficient for safety system isolation",
+        "Safety and control systems sharing infrastructure creates a common point of failure and potential attack path",
+        "VLANs should be replaced with physical subnets",
+        "Switch configuration should be documented but the design is acceptable"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Safety Instrumented Systems (SIS) should be independent from process control systems - this is a fundamental principle of ICS safety architecture. Sharing network infrastructure (even with VLANs) creates common failure modes: a switch failure or attack affects both control AND safety systems simultaneously. The TRITON attack specifically targeted this: if attackers can compromise shared infrastructure, they can potentially affect both the system creating dangerous conditions AND the safety system that should prevent harm."
+    },
+    {
+      "id": "elite_042",
+      "domain": "Industrial Protocols",
+      "question": "An analyst reviewing IEC 61850 GOOSE traffic notices that a message has a status number (StNum) that jumped from 145 to 1. All other fields appear normal. What does this indicate?",
+      "options": [
+        "Normal counter rollover after reaching maximum value",
+        "The IED was rebooted, resetting its sequence number",
+        "Potential replay attack or device spoofing - StNum should increment continuously",
+        "Configuration change on the publishing IED"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "GOOSE StNum (Status Number) increments with each state change and should never decrease or reset to 1 during normal operation. A jump from 145 to 1 suggests either: a device reboot (which should be investigated if unexpected), or an attacker replaying old GOOSE messages or spoofing the device starting from StNum 1. In substation automation, spoofed GOOSE messages could cause incorrect breaker operations. This anomaly warrants immediate investigation."
+    },
+    {
+      "id": "elite_043",
+      "domain": "Defense in Depth",
+      "question": "A facility implements the following: network segmentation, endpoint protection, 24/7 SOC monitoring, and incident response procedures. An attacker breaches the environment and dwells for 6 months before detection. Which defense-in-depth layer MOST likely failed?",
+      "options": [
+        "Network segmentation - the attacker moved between segments",
+        "Endpoint protection - malware wasn't detected",
+        "Monitoring and detection - the SOC should have identified abnormal behavior",
+        "Incident response - procedures weren't followed"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "A 6-month dwell time indicates detection failure. The attacker was inside (segmentation was breached), likely evaded endpoint protection, but the most significant gap is that 6 months of adversary activity wasn't detected. A functioning detection program with behavioral monitoring should identify reconnaissance, lateral movement, and staging activities over that timeframe. This suggests either monitoring gaps, alert fatigue causing missed alerts, or lack of threat hunting to proactively find advanced threats."
+    },
+    {
+      "id": "elite_044",
+      "domain": "Windows Security",
+      "question": "A Windows Server hosting SCADA applications has been running for 847 days without a reboot (according to system uptime). From a security perspective, what is the PRIMARY concern about this long uptime?",
+      "options": [
+        "System performance degrades over time and may affect SCADA operations",
+        "Critical security patches requiring reboot haven't been applied for over two years",
+        "Windows event logs may have wrapped and lost important data",
+        "Memory leaks may have accumulated affecting stability"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "847 days without reboot means no kernel-level patches requiring restart have been applied for over 2 years. Many critical Windows security patches require reboot to take effect. This system is vulnerable to exploits patched years ago. While operational stability concerns about rebooting are valid, they don't justify running unpatched systems indefinitely. A patch management strategy must include planned maintenance windows for reboots on even the most critical systems."
+    },
+    {
+      "id": "elite_045",
+      "domain": "Incident Response",
+      "question": "Post-incident analysis reveals that attackers used a previously unknown vulnerability (zero-day) in a vendor's HMI software. The IR team wants to determine if other facilities using the same HMI are at risk. What is the BEST approach?",
+      "options": [
+        "Wait for the vendor to release a patch and advisory",
+        "Share threat intelligence including IOCs and attack patterns with trusted industry peers and ISACs",
+        "Keep the vulnerability information confidential to prevent other attackers from learning about it",
+        "Immediately disclose the vulnerability publicly to force the vendor to act"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Responsible threat intelligence sharing through trusted channels (ISACs, peer networks, coordinated disclosure) helps protect the community while managing risk. Other facilities using the same HMI need IOCs and detection guidance to identify if they're compromised. Public disclosure could enable additional attacks. Waiting for vendor action leaves others exposed. Trusted sharing channels allow defensive information to reach those who need it without enabling broader exploitation."
+    },
+    {
+      "id": "elite_046",
+      "domain": "Governance & Compliance",
+      "question": "An organization's ICS security policy requires annual penetration testing of OT systems. The operations team refuses, citing safety risks. How should this conflict be resolved according to good governance practices?",
+      "options": [
+        "Security overrides operations - conduct the penetration test as required",
+        "Operations overrides security - waive the requirement",
+        "Develop a risk-based approach: tabletop exercises for critical systems, limited technical testing in maintenance windows, full testing only on isolated replicas",
+        "Escalate to executive leadership for a final decision"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Good governance balances security testing needs with operational safety. A blanket 'pen test everything' policy doesn't account for OT safety realities. A risk-based approach achieves the goal (validating security) through appropriate methods: tabletop exercises assess response without system risk, limited technical testing during safe conditions tests specific controls, and replica testing allows aggressive testing without production impact. This satisfies the security requirement while respecting operational constraints."
+    },
+    {
+      "id": "elite_047",
+      "domain": "Unix/Linux Security",
+      "question": "A security audit of a Linux-based data historian reveals that the root password is shared among 12 administrators for emergency access. What is the MOST effective way to maintain emergency access capability while eliminating the shared password risk?",
+      "options": [
+        "Change the root password more frequently",
+        "Implement privileged access management (PAM) with individual emergency accounts and audit trails",
+        "Disable root login entirely and require physical console access for emergencies",
+        "Use a password vault where any administrator can check out the root password"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Privileged Access Management solutions provide individual accountability even for shared accounts. Each admin authenticates as themselves, the PAM solution grants temporary elevated access, and all actions are logged to the individual. This maintains emergency access capability (admins can still get root-level access when needed) while providing accountability (you know WHO did what) and eliminating the shared credential (no static password to steal or share). Break-glass procedures ensure access during emergencies."
+    },
+    {
+      "id": "elite_048",
+      "domain": "ICS Fundamentals",
+      "question": "A facility uses redundant PLCs in a hot-standby configuration. An attacker wants to compromise both PLCs to ensure their malicious changes persist through failover. What timing would be MOST effective for the attacker?",
+      "options": [
+        "Compromise both simultaneously to ensure identical state",
+        "Compromise the primary, wait for changes to replicate to standby, then trigger failover to verify",
+        "Compromise the standby first since it's less monitored, wait, then compromise the primary",
+        "Compromise the primary during a maintenance window when operators are distracted"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "Sophisticated attackers understand redundancy schemes. Compromising the standby first is strategic: standby systems often have less monitoring focus, and changes there may not immediately affect operations (providing time to avoid detection). Once the standby is compromised, the attacker can then compromise the primary. If the primary fails over (naturally or triggered), the compromise persists. This also tests their ability to maintain presence before the higher-risk primary attack."
+    },
+    {
+      "id": "elite_049",
+      "domain": "Network Architecture",
+      "question": "During a network architecture review, you discover that the SCADA historian sends data directly to a cloud analytics platform via the internet. The connection uses TLS encryption. What is the PRIMARY security concern with this architecture?",
+      "options": [
+        "TLS encryption may be vulnerable to man-in-the-middle attacks",
+        "The direct internet connection bypasses all network perimeter controls and creates an egress path from the OT environment",
+        "Cloud analytics platforms may have higher latency than on-premises solutions",
+        "The historian should use VPN instead of direct TLS connections"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "A direct internet connection from a system with OT network access creates a bypass of all perimeter controls. If the historian is compromised, the attacker has a direct path to exfiltrate data or receive commands from the internet, bypassing firewalls and monitoring designed to protect the OT environment. The TLS encryption protects the legitimate traffic but does nothing to prevent misuse of the connection. Cloud integration should route through the IDMZ with proper controls."
+    },
+    {
+      "id": "elite_050",
+      "domain": "Industrial Protocols",
+      "question": "A facility uses BACnet for building automation systems (HVAC, lighting) in the same building as ICS-controlled manufacturing processes. An attacker with access to the BACnet network discovers the HVAC system controls the server room cooling. What attack could impact manufacturing?",
+      "options": [
+        "Manipulate lighting to distract operators",
+        "Disable server room cooling to cause thermal shutdown of ICS servers and historians",
+        "Change building access schedules to lock out personnel",
+        "Adjust HVAC setpoints to make workers uncomfortable"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Building automation and ICS often share infrastructure or physical spaces. Server room cooling is a critical dependency for ICS servers, historians, and networking equipment. An attacker who can disable cooling through BACnet can cause thermal shutdowns of critical ICS infrastructure without ever touching industrial protocols. This demonstrates why building automation security matters for ICS - it controls physical conditions that ICS equipment depends on. Convergence of OT systems creates unexpected attack paths."
+    },
+    {
+      "id": "elite_051",
+      "domain": "Defense in Depth",
+      "question": "A pharmaceutical company's defense-in-depth strategy focuses heavily on preventing unauthorized changes to validated systems (21 CFR Part 11 compliance). Which security control provides BOTH compliance evidence AND security detection?",
+      "options": [
+        "File integrity monitoring (FIM) with cryptographic hashing and centralized logging",
+        "Antivirus with automatic quarantine",
+        "Network segmentation preventing unauthorized access",
+        "Quarterly manual change audits"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "File Integrity Monitoring provides dual value: (1) Compliance - cryptographic hashes prove files haven't changed, meeting regulatory requirements for system validation and change control; (2) Security - real-time detection of unauthorized modifications indicates potential compromise. This control directly addresses the 'unauthorized changes' concern from both regulatory and security perspectives, with centralized logging providing the evidence trail required for both purposes."
+    },
+    {
+      "id": "elite_052",
+      "domain": "Windows Security",
+      "question": "An ICS environment uses Windows domain authentication with a single AD forest spanning both IT and OT. After a ransomware attack encrypts IT systems, investigators find the attackers used Kerberos golden ticket attacks to maintain persistence. What architectural change would MOST effectively prevent this scenario from impacting OT?",
+      "options": [
+        "Implement MFA for all domain accounts",
+        "Create a separate AD forest for OT with no trust relationship to IT",
+        "Rotate the KRBTGT password more frequently",
+        "Deploy additional domain controllers in the OT network"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "A golden ticket attack compromises the KRBTGT account, allowing attackers to forge any Kerberos ticket in that forest. With a single forest spanning IT and OT, golden ticket access grants unlimited OT access. A separate AD forest with no trust relationship means OT authentication is completely independent - compromising the IT KRBTGT has no effect on OT. This architectural separation is the strongest defense against credential-based attacks spreading from IT to OT."
+    },
+    {
+      "id": "elite_053",
+      "domain": "Incident Response",
+      "question": "During ICS incident response, the team must decide whether to isolate a compromised engineering workstation. The workstation is currently connected to PLCs controlling an active chemical process. The malware appears to be in a reconnaissance phase, not actively manipulating the process. What factors should MOST influence the isolation decision?",
+      "options": [
+        "Whether the workstation's connection is needed for current process operations",
+        "The potential for escalation to process manipulation versus the risk of process upset from sudden disconnection",
+        "How quickly the malware can be removed without isolation",
+        "Whether other detection controls are in place to monitor for process manipulation"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "The key trade-off is: (1) if the workstation is isolated, does the sudden disconnection cause process problems? (2) if it's not isolated, how likely is escalation to process manipulation? Reconnaissance phase suggests the attacker is planning, not executing - providing some time. But isolation delays increase risk of escalation. The decision requires understanding process dependencies (will isolation cause upset?) and attacker capability (how quickly could they escalate?). Option D matters but assumes monitoring is sufficient, which may not be true."
+    },
+    {
+      "id": "elite_054",
+      "domain": "Governance & Compliance",
+      "question": "An ICS security audit identifies 147 findings across multiple NERC CIP standards. The compliance team wants to remediate all findings before the next audit. The security team argues for risk-based prioritization focusing on the most critical findings first. Which approach better serves the organization?",
+      "options": [
+        "Compliance-focused: clear all findings to avoid penalties",
+        "Risk-focused: address critical security gaps that compliance may not fully capture",
+        "Hybrid: address all compliance findings but prioritize by both violation severity AND actual security risk",
+        "Request an audit extension to allow more time for comprehensive remediation"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "A hybrid approach recognizes that compliance findings require attention (penalties are real), but within that requirement, prioritization should consider actual security risk. Some minor compliance documentation findings pose little security risk, while some compliance gaps may represent serious vulnerabilities. Addressing compliance findings in risk-priority order ensures the most dangerous gaps are closed first while still achieving full compliance. Neither pure compliance nor pure risk-focused approaches optimally serve the organization."
+    },
+    {
+      "id": "elite_055",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based OPC server runs on a hardened system with auditd monitoring. The audit log shows: 'type=SYSCALL ... syscall=59 success=yes exe=\"/usr/bin/python3\" ... key=\"rootcmd\"'. This log entry was triggered by the rootcmd audit rule. What activity does this indicate?",
+      "options": [
+        "Python 3 was installed on the system",
+        "A process executed Python 3, and this execution was logged because it matched the rootcmd rule (likely root executing commands)",
+        "Python 3 crashed with an error code",
+        "The rootcmd audit rule was modified"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Syscall 59 is execve (execute program). The entry shows Python 3 was executed, with success=yes indicating successful execution. The key 'rootcmd' indicates this matched an audit rule monitoring root command execution (a common audit configuration). On an OPC server, unexpected Python execution by root warrants investigation - is this legitimate administrative activity or an attacker using Python for post-exploitation? The audit trail provides visibility into potentially suspicious activity."
+    },
+    {
+      "id": "elite_056",
+      "domain": "ICS Fundamentals",
+      "question": "During normal operations, a flow meter shows 100 GPM, and the corresponding pump draws 50 amps. After a suspected cyber incident, the flow meter shows 100 GPM but the pump draws 65 amps. Assuming no mechanical issues, what does this discrepancy suggest?",
+      "options": [
+        "The pump is operating normally with expected variation",
+        "The flow meter reading may be compromised - actual flow is likely higher than displayed",
+        "Electrical supply voltage has dropped, causing higher amperage",
+        "The pump needs routine maintenance"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Higher motor amperage with the same 'displayed' flow rate violates physics - if flow were truly constant, power consumption would be constant. The increased amperage indicates the pump is working harder, suggesting actual flow is higher than displayed. This could indicate a compromised flow sensor or spoofed reading hiding actual process changes. Cross-referencing independent measurements (power consumption vs. displayed flow) is a powerful technique for detecting manipulated sensor data in ICS environments."
+    },
+    {
+      "id": "elite_057",
+      "domain": "Network Architecture",
+      "question": "A utility is designing network monitoring for their ICS environment. They plan to deploy network taps and sensors at the IDMZ boundary and the Level 3 SCADA network. What visibility gap does this design create?",
+      "options": [
+        "No visibility into encrypted traffic",
+        "No visibility into east-west traffic within the Level 2 control network",
+        "Unable to detect attacks originating from physical access",
+        "No visibility into safety system network traffic"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Monitoring at IDMZ (boundary) and Level 3 (SCADA) provides north-south visibility (traffic crossing boundaries) but misses east-west traffic within Level 2 (direct controller-to-controller, HMI-to-PLC communication). Once an attacker reaches Level 2, lateral movement within that level is invisible to the described monitoring. Complete ICS monitoring requires visibility at each level, including the Level 2 control network where the most sensitive operations occur."
+    },
+    {
+      "id": "elite_058",
+      "domain": "Industrial Protocols",
+      "question": "An ICS security assessment reveals that S7comm (Siemens Step 7 protocol) traffic is traversing the IDMZ to allow remote programming from the corporate network. What is the CRITICAL security risk of this configuration?",
+      "options": [
+        "S7comm is bandwidth-intensive and may affect network performance",
+        "S7comm has no built-in authentication, allowing any system on the corporate network to download or modify PLC programs",
+        "S7comm is a proprietary protocol that standard firewalls cannot filter",
+        "Remote programming is against Siemens licensing terms"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Classic S7comm lacks authentication - any system that can reach the PLC can read its program, modify logic, stop/start the CPU, or download new programs. Allowing this through the IDMZ means anyone on the corporate network with knowledge of the PLC's address can fully compromise it. This is how Stuxnet propagated to Iranian PLCs. S7comm+ adds security features, but many legacy Siemens PLCs only support the insecure original protocol."
+    },
+    {
+      "id": "elite_059",
+      "domain": "Defense in Depth",
+      "question": "An organization's ICS security program has implemented controls at every layer of defense in depth. A red team exercise still achieves full compromise. What does this reveal about the organization's security posture?",
+      "options": [
+        "Defense in depth doesn't work against sophisticated attackers",
+        "The individual controls are properly implemented but likely lack independence, integration, or effective monitoring",
+        "The red team used techniques outside the organization's threat model",
+        "Additional layers of defense are needed"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Having controls at every layer isn't sufficient - they must be properly implemented, truly independent (not sharing credentials, infrastructure, or failure modes), and integrated for detection. A successful red team despite layered controls suggests: controls may share dependencies the attacker exploited, monitoring may not have detected compromise, or controls weren't properly tuned for actual threats. The red team results should drive analysis of HOW they succeeded to identify these integration and independence gaps."
+    },
+    {
+      "id": "elite_060",
+      "domain": "Windows Security",
+      "question": "A SCADA server running Windows Server 2019 needs to be hardened. The vendor's support agreement requires that their software run exactly as installed without OS modifications. What hardening approach should be taken?",
+      "options": [
+        "Accept the vendor requirement and don't harden the server",
+        "Harden the server anyway - security takes priority over vendor support",
+        "Implement network and perimeter controls to compensate for unhardened host, document the risk, and negotiate with the vendor for acceptable hardening measures",
+        "Virtualize the vendor application to isolate it from a hardened host OS"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "This is a common ICS dilemma requiring a balanced approach. Accepting no hardening creates unnecessary risk. Violating vendor requirements can void support during critical incidents. The proper approach: implement compensating network controls to reduce exposure of the unhardened server, formally document the risk and vendor restriction, and engage with the vendor to negotiate which hardening measures they will support. Many vendors will accept specific hardening measures if tested - the blanket 'no changes' is often negotiable."
+    },
+    {
+      "id": "elite_061",
+      "domain": "Incident Response",
+      "question": "During an ICS incident, responders need to analyze a running PLC to determine if its logic has been modified. The PLC is actively controlling a process. What is the SAFEST approach to compare current logic against known-good backups?",
+      "options": [
+        "Download the running program to an engineering workstation for comparison",
+        "Upload the known-good backup to the PLC to overwrite any malicious changes",
+        "Use read-only monitoring tools to view the current program structure without downloading",
+        "Stop the PLC temporarily to create a safe state for analysis"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "Downloading the current program (read operation) is generally safe and doesn't affect PLC operation. Once downloaded to an engineering workstation, it can be compared offline to known-good backups. Uploading (writing to PLC) could cause process disruption if programs differ. Read-only monitoring may not provide complete program comparison. Stopping the PLC affects the process. The safest forensic approach is to extract data without modifying the running system."
+    },
+    {
+      "id": "elite_062",
+      "domain": "Governance & Compliance",
+      "question": "An organization's ICS security metrics dashboard shows: 100% endpoint protection coverage, 95% patch compliance, 0 security incidents in the past year. Leadership cites these metrics as evidence of excellent security. What is the fundamental problem with these metrics?",
+      "options": [
+        "The metrics should be compared against industry benchmarks",
+        "The metrics measure security activity but not security effectiveness or outcomes",
+        "Patch compliance should be 100%, not 95%",
+        "Zero incidents suggests under-reporting, not good security"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "These are activity metrics (we did things) not outcome metrics (things are actually secure). 100% coverage doesn't mean the endpoint protection detects threats. 95% patch compliance doesn't indicate vulnerability exposure or if the unpatched 5% includes critical systems. 0 incidents could mean no attacks, no detection, or no reporting. Meaningful security metrics measure: detection effectiveness, response time, vulnerability exposure, and actual security posture - not just tool deployment numbers."
+    },
+    {
+      "id": "elite_063",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based SCADA server uses sudo for privilege escalation. The sudoers file contains: 'scada_user ALL=(ALL) NOPASSWD: ALL'. What security principle does this configuration violate, and what is the risk?",
+      "options": [
+        "Violates least privilege - user has unlimited root access without authentication",
+        "Violates defense in depth - only one layer of security",
+        "Violates network segmentation - sudo allows network access",
+        "Violates change management - sudoers changes weren't documented"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "This sudoers entry grants 'scada_user' the ability to run any command as any user (including root) without entering a password. This violates least privilege entirely - the user has unlimited access. It also eliminates the authentication checkpoint that sudo normally provides. If the scada_user account is compromised, the attacker immediately has full root access. Sudo should be configured with specific allowed commands, not ALL, and should require password authentication."
+    },
+    {
+      "id": "elite_064",
+      "domain": "ICS Fundamentals",
+      "question": "A batch chemical process has a setpoint of 150°C. The HMI shows the temperature rising: 148, 149, 150, 150, 150, 150... with no overshoot or oscillation. From an operations AND security perspective, what is unusual about this temperature profile?",
+      "options": [
+        "Nothing unusual - the PID controller achieved perfect setpoint tracking",
+        "The lack of any overshoot or settling behavior is unrealistic for physical systems, suggesting data may be falsified",
+        "The process heater may be undersized",
+        "The temperature sensor has insufficient resolution"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Real physical systems exhibit dynamic behavior - some overshoot, oscillation, or settling when approaching a setpoint. A temperature that rises smoothly and immediately locks exactly on setpoint with zero dynamic behavior doesn't match physical reality. This could indicate: falsified data hiding the real temperature, a stuck sensor, or a simulation instead of real process. Security personnel should understand enough process physics to recognize when 'too perfect' data suggests manipulation."
+    },
+    {
+      "id": "elite_065",
+      "domain": "Network Architecture",
+      "question": "A manufacturing facility is implementing IEC 62443 zones. The proposal places the MES (Manufacturing Execution System) server in the same zone as the PLCs because the MES directly sends production schedules to PLCs. What is wrong with this zone design?",
+      "options": [
+        "MES should be in its own zone - it's a different system type than PLCs",
+        "MES represents a different security level (higher IT connectivity) and should be in a separate zone with controlled conduit to the PLC zone",
+        "MES and PLCs should both be in the IDMZ for accessibility",
+        "The zone design is acceptable if proper firewall rules are implemented within the zone"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "IEC 62443 zones should group assets with similar security requirements. MES systems typically have higher connectivity to IT systems (ERP, databases, etc.) creating different security requirements and threat exposure compared to PLCs. Placing them in the same zone means the zone's security level must accommodate MES's IT connectivity, potentially exposing PLCs to threats through the MES. A separate MES zone with a controlled conduit to the PLC zone allows appropriate security levels for each."
+    },
+    {
+      "id": "elite_066",
+      "domain": "Industrial Protocols",
+      "question": "A security analyst is reviewing OPC UA traffic and notices a session using SecurityPolicy 'None' and MessageSecurityMode 'None'. What does this indicate?",
+      "options": [
+        "Normal OPC UA discovery traffic before secure session establishment",
+        "An OPC UA client and server communicating without any authentication or encryption",
+        "OPC UA traffic using custom security instead of built-in options",
+        "Legacy OPC Classic traffic misidentified as OPC UA"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "OPC UA supports security modes from None to high security. SecurityPolicy 'None' with MessageSecurityMode 'None' means absolutely no security - no authentication (anyone can connect), no encryption (traffic is readable), no integrity (messages can be modified). This configuration negates OPC UA's security advantages over legacy protocols. It might indicate misconfiguration, troubleshooting mode left enabled, or intentional bypass. In production ICS, this should never be acceptable."
+    },
+    {
+      "id": "elite_067",
+      "domain": "Defense in Depth",
+      "question": "A security team argues that their ICS environment is protected because they have 'seven layers of defense.' A consultant points out that all seven layers use the same authentication system. Why does this undermine the defense-in-depth strategy?",
+      "options": [
+        "Seven layers is too many - it creates operational inefficiency",
+        "The shared authentication creates a single point of failure - compromise of that system bypasses all layers",
+        "Authentication should only be at the perimeter, not at each layer",
+        "The layers should be numbered rather than described as 'seven'"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Defense in depth requires layer independence. If an attacker compromises the shared authentication system (steals credentials, exploits a vulnerability, or gains admin access to the authentication server), they can traverse all seven 'layers' with a single set of credentials. The layers aren't truly independent - they share a critical dependency. True defense in depth would use different authentication mechanisms at different layers, so compromising one doesn't grant access to all."
+    },
+    {
+      "id": "elite_068",
+      "domain": "Windows Security",
+      "question": "An engineering workstation has Windows Defender Antivirus enabled with cloud-based protection. The workstation is in an isolated OT network with no internet access. What is the practical impact of this configuration?",
+      "options": [
+        "Windows Defender provides full protection through local signatures",
+        "Cloud-based protection features are non-functional, significantly reducing detection capability for new threats",
+        "The workstation should be exempted from antivirus requirements due to isolation",
+        "Windows Defender will automatically switch to an alternative protection mode"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Modern endpoint protection relies heavily on cloud intelligence for detecting new threats, behavioral analysis, and rapid signature updates. Without internet connectivity, these cloud features are non-functional. The local signature database will become increasingly outdated. This creates a security gap where the workstation appears protected (Defender is running) but actually has significantly reduced capability. Air-gapped environments need alternative approaches: frequent manual signature updates, different AV products with better offline capability, or compensating controls."
+    },
+    {
+      "id": "elite_069",
+      "domain": "Incident Response",
+      "question": "An ICS incident response retainer agreement specifies 2-hour response time for critical incidents. During an actual incident affecting a remote water treatment facility, the IR team is 6 hours away by travel. How should this gap be addressed?",
+      "options": [
+        "Send the IR team immediately and accept delayed response",
+        "Establish remote response capabilities including remote forensic tools, pre-positioned equipment, and trained local personnel who can perform initial response under IR team guidance",
+        "Reduce the SLA to realistic 8-hour response for remote facilities",
+        "Contract with a local IR firm for faster physical response"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The 2-hour response can be met remotely if properly prepared. Remote forensic tools allow evidence collection without physical presence. Pre-positioned equipment (network taps, forensic workstations) enables immediate response actions. Trained local personnel (operators, IT staff) can execute specific procedures under IR team guidance via phone/video. This hybrid approach - remote expert guidance with local hands - enables meeting response SLAs for geographically distributed ICS environments."
+    },
+    {
+      "id": "elite_070",
+      "domain": "Governance & Compliance",
+      "question": "During an ICS security program review, you discover that the risk register lists 'cyber attack' as a risk with impact of 'High' and likelihood of 'Medium'. What is fundamentally wrong with this risk assessment?",
+      "options": [
+        "The impact should be 'Critical' for cyber attacks on ICS",
+        "Cyber attack is not a specific enough risk - it should be broken down into specific threat scenarios with individual assessments",
+        "Likelihood cannot be assessed for cyber risks",
+        "The risk register format doesn't apply to ICS environments"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "'Cyber attack' is a category, not a risk. Different attack scenarios have vastly different impacts and likelihoods: ransomware vs. nation-state sabotage vs. insider threat vs. opportunistic compromise. Proper risk assessment breaks down 'cyber attack' into specific scenarios: 'Ransomware encrypts historian data' (impact: Medium, likelihood: High) vs. 'Sophisticated attack manipulates safety systems' (impact: Critical, likelihood: Low). Only specific scenarios can be meaningfully assessed and addressed."
+    },
+    {
+      "id": "elite_071",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based RTU is discovered to have SSH enabled on port 22 accessible from the OT network. Investigation reveals the root account uses password 'admin123' and key-based authentication is disabled. Besides the obvious weak password, what SSH configuration changes would MOST improve security?",
+      "options": [
+        "Change to a non-standard port and update password complexity",
+        "Disable password authentication entirely, enable key-based auth, disable root login, restrict SSH to specific source IPs via firewall",
+        "Install fail2ban to block brute force attempts",
+        "Upgrade to SSH version 2"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Comprehensive SSH hardening: (1) Disable password authentication (PasswordAuthentication no) to prevent brute force and eliminate password-based risks entirely; (2) Enable key-based authentication for strong cryptographic authentication; (3) Disable root login (PermitRootLogin no) to require privilege escalation even with valid keys; (4) Network restriction via firewall limits who can even attempt connection. These layered changes dramatically reduce the attack surface compared to just changing the password."
+    },
+    {
+      "id": "elite_072",
+      "domain": "ICS Fundamentals",
+      "question": "A safety instrumented system (SIS) is configured to shut down a reactor if temperature exceeds 200°C OR if pressure exceeds 500 PSI. An attacker wants to prevent the SIS from triggering during a dangerous condition. What is the MINIMUM manipulation required?",
+      "options": [
+        "Compromise only the temperature sensor",
+        "Compromise only the pressure sensor",
+        "Compromise both sensors to show values below thresholds",
+        "Compromise the SIS logic solver to ignore inputs"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "The SIS uses OR logic - it triggers if EITHER threshold is exceeded. To prevent triggering during a dangerous condition where both temperature and pressure are high, the attacker must manipulate BOTH sensors to show safe values. Manipulating only one would cause the other to trigger the shutdown. This is why voting schemes (2oo3 - two out of three) are used in critical SIS designs: an attacker would need to compromise multiple independent sensors to defeat the safety function."
+    },
+    {
+      "id": "elite_073",
+      "domain": "Network Architecture",
+      "question": "A control system vendor requires 'cloud connectivity' for predictive maintenance analytics. The proposed architecture sends sensor data from Level 1 directly to a cloud service via cellular modem, bypassing the IDMZ. What is the MOST significant architectural issue?",
+      "options": [
+        "Cellular bandwidth may be insufficient for analytics data",
+        "The cellular modem creates an air-gap bypass, allowing potential attack path from cloud directly to Level 1",
+        "Predictive maintenance data should be sent from Level 3, not Level 1",
+        "Cloud services are not suitable for ICS data storage"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "A cellular modem directly connected to Level 1 creates an uncontrolled path from the internet directly into the most sensitive network level, completely bypassing all network security controls in the IDMZ. If the cloud service is compromised, or the cellular connection is hijacked, attackers have direct access to Level 1 controllers. Proper architecture would: route data through higher levels, enforce one-way data transfer (outbound only), and maintain network boundary controls. The vendor convenience doesn't justify this security bypass."
+    },
+    {
+      "id": "elite_074",
+      "domain": "Industrial Protocols",
+      "question": "An ICS environment uses PROFINET for real-time I/O communication. A security assessment reveals that PROFINET is unencrypted. The vendor says encryption would add unacceptable latency. What compensating control is MOST appropriate?",
+      "options": [
+        "Accept the risk - real-time requirements justify the lack of encryption",
+        "Strict network isolation ensuring only authorized devices can communicate on the PROFINET segment",
+        "Implement application-level encryption on top of PROFINET",
+        "Migrate to a different protocol that supports encryption"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "When real-time protocols cannot support encryption due to latency requirements, network isolation becomes the primary control. Strict isolation means: dedicated network segments (physical or highly-controlled virtual), no routing to/from other networks, strong access control for any device added to the segment, and monitoring for unauthorized devices. This compensates for lack of protocol-level security by controlling what can access the network at all. The traffic is unencrypted, but only authorized, controlled devices can see it."
+    },
+    {
+      "id": "elite_075",
+      "domain": "Defense in Depth",
+      "question": "An organization implements NIST Cybersecurity Framework and achieves Tier 3 (Repeatable) for all five functions. However, a serious breach still occurs and causes significant damage. What does this suggest about the relationship between framework implementation and actual security?",
+      "options": [
+        "NIST CSF is not appropriate for ICS environments",
+        "Tier 3 is insufficient - organizations should aim for Tier 4",
+        "Framework compliance provides structure but doesn't guarantee security outcomes; implementation quality and continuous adaptation matter",
+        "The assessment that rated them Tier 3 was inaccurate"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "Frameworks provide structure and guidance but are not security guarantees. An organization can have documented, repeatable processes (Tier 3) that are poorly implemented, outdated against current threats, or have gaps the framework doesn't explicitly address. Security requires not just process maturity but effectiveness: Are controls actually stopping threats? Is monitoring detecting intrusions? Is response rapid enough? Framework implementation is necessary but not sufficient - actual security outcomes require quality implementation and continuous adaptation to evolving threats."
+    },
+    {
+      "id": "elite_076",
+      "domain": "Windows Security",
+      "question": "A critical SCADA application requires SMBv1 to communicate with legacy Windows XP-based HMIs. Modern Windows systems have SMBv1 disabled by default due to vulnerabilities (EternalBlue/WannaCry). What is the BEST approach to maintain this legacy communication while managing risk?",
+      "options": [
+        "Enable SMBv1 across the SCADA network to restore functionality",
+        "Isolate SMBv1 traffic to a dedicated VLAN with strict access controls, enable SMBv1 only on systems that require it, and implement intensive monitoring",
+        "Replace all Windows XP HMIs immediately regardless of cost",
+        "Use a third-party SMB proxy to translate between SMBv1 and SMBv2"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The balanced approach: (1) Isolate - create a dedicated network segment for SMBv1 traffic, minimizing exposure; (2) Minimize - enable SMBv1 only on specific systems that absolutely require it, not network-wide; (3) Control - strict ACLs limiting which systems can communicate via SMBv1; (4) Monitor - intensive monitoring for exploitation attempts or anomalous SMBv1 traffic. This allows legacy functionality while containing the risk. Long-term, plan HMI replacement, but immediate isolation manages the vulnerability."
+    },
+    {
+      "id": "elite_077",
+      "domain": "Incident Response",
+      "question": "During post-incident analysis of an ICS breach, the team discovers that attackers had access for 8 months before detection. The root cause was lack of behavioral baseline for ICS network traffic. What capability would have enabled earlier detection?",
+      "options": [
+        "Antivirus with updated signatures",
+        "Network-based ICS protocol monitoring with anomaly detection",
+        "More frequent vulnerability scanning",
+        "User awareness training"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "8 months of undetected activity suggests attackers avoided signature-based detection (likely using legitimate tools and credentials). Behavioral/anomaly detection that understands normal ICS network patterns (which devices communicate, what protocols, what command patterns) would identify deviations: new communication pairs, unusual command sequences, abnormal data volumes, or reconnaissance activity. This detection method doesn't require knowing the specific attack - it identifies behavior outside normal operational patterns."
+    },
+    {
+      "id": "elite_078",
+      "domain": "Governance & Compliance",
+      "question": "An ICS security team presents a request to leadership for a $500,000 network monitoring solution. Leadership asks, 'What is the return on security investment?' How should the security team BEST justify this expenditure?",
+      "options": [
+        "Compare to industry average spending on security monitoring",
+        "Explain that security spending doesn't have traditional ROI",
+        "Quantify the expected reduction in incident impact through faster detection, using industry breach data and organizational risk assessment",
+        "Reference compliance requirements that mandate monitoring"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Security ROI can be articulated through risk reduction. Using industry data (average breach cost, detection time impact on damages) combined with organizational risk assessment (probability of incidents, potential impact to operations), the team can show: 'Based on our risk profile and industry data, we expect N incidents over Y years with average impact of $X. Network monitoring reduces detection time, which reduces average impact by Z%. The risk-adjusted value of faster detection exceeds the monitoring investment.' This frames security in business terms leadership understands."
+    },
+    {
+      "id": "elite_079",
+      "domain": "Unix/Linux Security",
+      "question": "An embedded Linux device in an ICS environment has no available security patches because the vendor is out of business. The device performs a critical function and cannot be replaced for 18 months. What is the MOST important compensating control?",
+      "options": [
+        "Intensive network isolation limiting all traffic to only specifically required communication paths",
+        "Deploy an IDS to alert on exploitation attempts",
+        "Document the risk and accept it until replacement",
+        "Attempt to develop patches independently"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "For an unpatched, unfixable system, network isolation is the strongest compensating control. Limit connectivity to only specific, required communication: which systems can communicate with it, which ports, which protocols, which directions. If the device only needs to send data to a historian, it should only be able to communicate with that historian on that specific port. This dramatically reduces attack surface. IDS helps but doesn't prevent exploitation. Accepting risk without controls is negligent. Independent patching of embedded systems is usually impractical."
+    },
+    {
+      "id": "elite_080",
+      "domain": "ICS Fundamentals",
+      "question": "A water utility uses SCADA to control multiple pump stations. During a suspected cyber incident, operators need to verify that the physical water pressure matches what SCADA displays. What is the MOST reliable verification method?",
+      "options": [
+        "Compare SCADA readings against historian data trends",
+        "Check readings on local HMIs at each pump station",
+        "Use portable calibrated pressure gauges at physical measurement points",
+        "Query the RTU directly using engineering software"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "During a suspected incident, any component of the SCADA system could be compromised - historians, HMIs, RTUs could all show falsified data. The only trustworthy verification is physical measurement using calibrated instruments that are independent of the control system. A portable pressure gauge physically connected to the pipe provides a reading that an attacker cannot manipulate. This principle - physical verification independent of the control system - is essential during ICS incident response."
+    },
+    {
+      "id": "elite_081",
+      "domain": "Network Architecture",
+      "question": "A phased ICS network segmentation project is underway. Phase 1 established the IDMZ. Phase 2 will segment Level 3 from Level 2. During Phase 2, the team discovers numerous undocumented connections between systems that will break if segmentation is enforced. What should be done?",
+      "options": [
+        "Delay segmentation until all connections are documented",
+        "Implement segmentation and address broken functionality as it's discovered",
+        "Document discovered connections, analyze their legitimacy and security implications, then implement segmentation with appropriate firewall rules or architectural changes",
+        "Abandon segmentation due to complexity"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Discovery of undocumented connections is common and valuable - you're finding your actual architecture. The correct approach: (1) Document what you find - this improves asset management; (2) Analyze each connection - is it legitimate? Can it be eliminated? What security risk does it represent? (3) Implement segmentation with appropriate rules for legitimate traffic; (4) Eliminate or restrict unnecessary connections. This turns the segmentation project into an opportunity for architectural improvement, not just access control."
+    },
+    {
+      "id": "elite_082",
+      "domain": "Industrial Protocols",
+      "question": "During a protocol security assessment, you observe that a facility's DNP3 Secure Authentication (SA) is configured but the outstation is accepting both authenticated and unauthenticated messages. What is the security implication?",
+      "options": [
+        "Normal fallback behavior for compatibility with older masters",
+        "The authentication provides no security benefit - attackers can simply send unauthenticated commands",
+        "Only critical commands require authentication",
+        "The configuration allows monitoring of both authenticated and legacy traffic"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "If a DNP3 Secure Authentication implementation accepts both authenticated AND unauthenticated messages, the authentication provides no security value. An attacker will simply send unauthenticated commands. Proper DNP3-SA configuration must REJECT unauthenticated messages (except perhaps for specific broadcast messages by design). This 'accepting both' configuration often results from gradual deployment or troubleshooting left in production - it creates a false sense of security while providing none."
+    },
+    {
+      "id": "elite_083",
+      "domain": "Defense in Depth",
+      "question": "An ICS security architecture includes these controls: firewall, IDS, SIEM, antivirus, and 24/7 SOC monitoring. An attacker uses a zero-day exploit and living-off-the-land techniques to compromise the environment. Which control has the BEST chance of detecting this attack?",
+      "options": [
+        "Firewall - will block the initial exploit",
+        "IDS - will detect the exploit signature",
+        "Antivirus - will detect the malware",
+        "SIEM with behavioral analytics - will detect anomalous activity patterns"
+      ],
+      "correct": 3,
+      "difficulty": "expert",
+      "explanation": "Zero-day exploits have no signatures, so IDS signature matching fails. Living-off-the-land techniques use legitimate tools, so antivirus doesn't flag malware. Firewalls pass traffic that matches allowed rules. A SIEM with behavioral analytics can detect anomalous patterns: unusual process execution, abnormal authentication patterns, unexpected data transfers - even when individual actions appear legitimate. Behavioral detection is the last line of defense against sophisticated attacks that evade signature-based controls."
+    },
+    {
+      "id": "elite_084",
+      "domain": "Windows Security",
+      "question": "An engineering workstation requires local administrator rights for a user to install vendor-approved software updates. The user is also a domain user. What security risk does this create beyond the local workstation?",
+      "options": [
+        "The user might accidentally break system configurations",
+        "Local admin cached credentials can be extracted and used for lateral movement if the user has domain privileges on other systems",
+        "Software updates might conflict with enterprise applications",
+        "Local admin rights don't create domain-level risks"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "When a domain user with local admin rights logs into a workstation, their credentials are cached locally. If an attacker compromises the workstation (perhaps through the engineering software itself), they can extract these cached credentials. If the user has privileges on other systems (other workstations, servers, OT systems), the attacker can use those credentials for lateral movement. This is why privileged access workstations (PAWs) and tiered administration exist - to prevent credential exposure during routine tasks."
+    },
+    {
+      "id": "elite_085",
+      "domain": "Incident Response",
+      "question": "During an ICS incident, the response team identifies that attackers have obtained the master key for a SCADA system's encryption. All traffic protected by this key must be considered compromised. What immediate action is required?",
+      "options": [
+        "Generate new encryption keys and rotate across all affected systems",
+        "Disable encryption temporarily while investigating",
+        "Monitor for misuse of the compromised key",
+        "Document the compromise for the post-incident report"
+      ],
+      "correct": 0,
+      "difficulty": "hard",
+      "explanation": "Compromised encryption keys require immediate rotation. With the master key, attackers can decrypt all traffic (past and future) protected by that key and potentially impersonate any system. Key rotation eliminates the attacker's cryptographic access. This is operationally complex in SCADA systems but essential - every moment of delay allows continued access. The rotation should be coordinated but rapid, with new keys distributed through a secure channel the attacker doesn't control."
+    },
+    {
+      "id": "elite_086",
+      "domain": "Governance & Compliance",
+      "question": "A multinational energy company must comply with NERC CIP in the US and the EU's NIS Directive in Europe. A single SCADA system spans both jurisdictions. How should compliance be approached?",
+      "options": [
+        "Apply the stricter of the two standards across the entire system",
+        "Segment the system by jurisdiction and apply respective regulations",
+        "Apply only the regulation of the country where the majority of assets are located",
+        "Map controls to both frameworks and implement the superset that satisfies both"
+      ],
+      "correct": 3,
+      "difficulty": "hard",
+      "explanation": "For systems spanning multiple regulatory jurisdictions, the practical approach is mapping controls to both frameworks and implementing the superset. This ensures compliance with both regulations without the complexity (and security risks) of segmenting a unified system. Some controls will overlap, some will be stricter in one framework. Implementing controls that satisfy both (plus any unique requirements from each) provides a defensible compliance posture and avoids regulatory gaps at jurisdiction boundaries."
+    },
+    {
+      "id": "elite_087",
+      "domain": "Unix/Linux Security",
+      "question": "A security audit reveals that a Linux-based OPC server runs with the process owner as 'root'. The vendor states root is required because the OPC software needs to bind to ports below 1024. What is the BEST way to address this while maintaining functionality?",
+      "options": [
+        "Accept the vendor's guidance - root is required",
+        "Use setcap to grant CAP_NET_BIND_SERVICE capability to the OPC binary, allowing low-port binding without full root privileges",
+        "Configure iptables to redirect traffic from low ports to high ports where a non-root process listens",
+        "Use sudo to start the application as root, then drop privileges"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Linux capabilities allow granting specific privileges without full root access. CAP_NET_BIND_SERVICE allows binding to ports below 1024 without requiring root for everything else. This follows least privilege - the process only gets the specific capability it needs (low port binding) rather than all root privileges. If the OPC server is compromised, the attacker gets limited capabilities rather than full root access. This is a key technique for securing Linux services that vendors incorrectly require root for."
+    },
+    {
+      "id": "elite_088",
+      "domain": "ICS Fundamentals",
+      "question": "An operator reports that a valve 'takes longer to respond' than it used to. The SCADA system shows the valve responding within 2 seconds of command - within spec. Security is called to investigate. What ICS security principle does this demonstrate?",
+      "options": [
+        "Operators should trust SCADA displays over physical observation",
+        "Operator intuition about process behavior changes can indicate compromise even when measurements appear normal",
+        "Valve response times are not security-relevant",
+        "Physical equipment degradation is an operations issue, not security"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Experienced operators develop intuition about normal process behavior. 'Something feels different' can be an early indicator of compromise, even when displayed values appear normal. An attacker might manipulate displayed response times while actual valve behavior changes. Or the valve's mechanical response is changing due to sabotage while position feedback is spoofed. Security should take operator observations seriously - they have baseline knowledge of physical process behavior that automated systems may not capture."
+    },
+    {
+      "id": "elite_089",
+      "domain": "Network Architecture",
+      "question": "During ICS network architecture design, the team debates whether to use a single IDMZ or separate IDMZs for different business functions (engineering, operations, vendor support). What is the PRIMARY advantage of separate IDMZs?",
+      "options": [
+        "Better network performance through traffic separation",
+        "Isolation of risk - compromise of one IDMZ function doesn't automatically grant access to others",
+        "Easier compliance documentation",
+        "Lower hardware costs through specialized equipment"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Separate IDMZs provide functional isolation. If an engineering jump server in the engineering IDMZ is compromised, the attacker doesn't automatically have access to vendor support systems or operational data services in their separate IDMZs. Each function has its own boundary, requiring the attacker to breach multiple DMZs for comprehensive access. This applies defense in depth to the IDMZ itself, rather than treating it as a single monolithic boundary."
+    },
+    {
+      "id": "elite_090",
+      "domain": "Industrial Protocols",
+      "question": "A facility is implementing CIP Security for their EtherNet/IP network. During testing, they find that encrypted CIP traffic causes a 5ms increase in communication latency. For which application would this latency increase be MOST problematic?",
+      "options": [
+        "HMI data display updates",
+        "Historian data collection",
+        "Motion control synchronization between multiple axes",
+        "Configuration downloads to PLCs"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Motion control synchronization is extremely time-sensitive - coordinated motion across multiple axes requires microsecond-level precision. A 5ms delay could cause motion errors, product defects, or equipment damage. HMI updates, historian collection, and configuration downloads operate on much longer time scales where 5ms is negligible. This is why real-time motion applications often cannot use encryption and require compensating network controls instead. Understanding latency requirements by application is essential for security architecture decisions."
+    },
+    {
+      "id": "elite_091",
+      "domain": "Defense in Depth",
+      "question": "A defense-in-depth assessment reveals that while multiple security layers exist, they all generate alerts that go to the same SIEM, monitored by the same SOC team. What single point of failure does this create?",
+      "options": [
+        "SIEM storage capacity limitations",
+        "SOC team overwhelm or compromise defeats detection across all layers",
+        "Network bandwidth to the SIEM",
+        "SIEM licensing costs"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Centralized monitoring creates a single point of failure for detection. If the SOC team is overwhelmed (alert fatigue, understaffing, distracted by false positives), alerts from ALL layers are missed. If an attacker can compromise the SIEM or manipulate SOC processes, they can blind detection across all layers. Defense in depth should include monitoring diversity: different alert channels, escalation paths, automated response for critical alerts, and potentially separate monitoring for the most critical OT systems that doesn't depend solely on the enterprise SOC."
+    },
+    {
+      "id": "elite_092",
+      "domain": "Windows Security",
+      "question": "A Windows-based SCADA server needs to be accessed by three different vendor support teams, each requiring different levels of access. The organization wants to maintain accountability while enabling support. What is the BEST approach?",
+      "options": [
+        "Create shared accounts for each vendor with their specific access rights",
+        "Create individual named accounts for each vendor employee with appropriate group memberships and access logging",
+        "Use a single vendor support account with session recording",
+        "Require vendors to use their own corporate accounts via federation"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Individual named accounts provide accountability - actions can be traced to specific people. Group memberships control access levels (Vendor A's employees get different permissions than Vendor B's). Access logging tracks what each person does. Shared accounts lose individual accountability. Single account with recording still obscures who did what within sessions. Federation may not be practical and still needs appropriate authorization. Named accounts with role-based access and logging is the gold standard for vendor management."
+    },
+    {
+      "id": "elite_093",
+      "domain": "Incident Response",
+      "question": "An ICS incident response team is practicing their response plan through tabletop exercises. The scenario involves a compromised vendor software update. During the exercise, they discover their plan has no procedure for validating vendor update integrity. What type of gap has the exercise revealed?",
+      "options": [
+        "Detection gap",
+        "Prevention gap",
+        "Response procedure gap",
+        "Recovery gap"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "The tabletop exercise revealed a response procedure gap - when faced with a specific scenario (compromised vendor update), the team had no documented procedure for how to validate whether updates are legitimate. Tabletop exercises are valuable precisely because they reveal these gaps in a low-risk environment. The gap should be addressed by developing procedures for vendor update validation: integrity checks, staged deployment, behavioral monitoring post-update, and rollback procedures."
+    },
+    {
+      "id": "elite_094",
+      "domain": "Governance & Compliance",
+      "question": "An organization is developing an ICS security policy. The draft policy states: 'All software must be patched within 30 days of vendor release.' Why is this policy statement problematic for ICS environments?",
+      "options": [
+        "30 days is too long - patches should be applied within 7 days",
+        "The policy doesn't account for ICS constraints: vendor testing requirements, maintenance window availability, and criticality-based prioritization",
+        "Patching timelines shouldn't be specified in policy",
+        "The policy should specify automatic patching"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Blanket patching requirements ignore ICS operational realities. Some systems require vendor approval before patching. Critical process systems may only have maintenance windows quarterly. Different systems have different risk profiles. Better policy: 'Patches shall be assessed for applicability and risk within 30 days. Critical patches for high-risk systems shall be applied at the next available maintenance window. Systems with vendor testing requirements shall follow vendor-approved patching schedules. Compensating controls shall be documented for systems that cannot be patched within standard timeframes.'"
+    },
+    {
+      "id": "elite_095",
+      "domain": "Unix/Linux Security",
+      "question": "A hardened Linux system uses AppArmor profiles for containment. The OPC UA server profile is in 'complain' mode rather than 'enforce' mode. What is the security implication?",
+      "options": [
+        "The system is more secure because violations are logged without blocking",
+        "The profile provides no access control - violations are logged but allowed, providing visibility without protection",
+        "AppArmor is disabled for that application",
+        "The application cannot start without enforce mode"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "AppArmor 'complain' mode logs policy violations but doesn't block them - the application can perform any action, violations are just recorded. This is useful during profile development to discover what the application needs, but provides zero security protection in production. An attacker exploiting the OPC UA server faces no AppArmor restrictions. Profiles must be in 'enforce' mode to provide actual containment. Finding production systems in complain mode is a significant security gap."
+    },
+    {
+      "id": "elite_096",
+      "domain": "ICS Fundamentals",
+      "question": "An attacker wants to cause a tank overflow at a water treatment plant. The tank has a level sensor, a high-level alarm, and an overflow prevention interlock. The SCADA system displays tank level. To cause an overflow WITHOUT triggering the alarm or interlock, what must the attacker manipulate?",
+      "options": [
+        "Only the SCADA display",
+        "The level sensor signal before it reaches both the alarm/interlock and SCADA",
+        "The PLC logic controlling the interlock",
+        "The high-level alarm configuration"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "To cause physical overflow while avoiding alarm and interlock, the attacker must manipulate the source data that all systems rely on. If the level sensor signal is falsified before it reaches the alarm system, interlock, and SCADA, all will show the false (low) level while actual water rises. Manipulating only SCADA display would trigger the alarm/interlock. Manipulating only the interlock would still trigger the alarm. The most efficient attack point is the sensor signal common to all monitoring and protection systems."
+    },
+    {
+      "id": "elite_097",
+      "domain": "Network Architecture",
+      "question": "A utility is implementing a Historian replication architecture where the primary historian is in the OT network (Level 3) and a replica is in the IDMZ for corporate access. What security control is ESSENTIAL for this design?",
+      "options": [
+        "Encryption of replication traffic",
+        "Unidirectional replication - data flows only from OT to IDMZ, never the reverse direction",
+        "Load balancing between primary and replica",
+        "Real-time synchronization to minimize data latency"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The critical security control is unidirectional data flow from OT to IDMZ. The IDMZ historian receives data from OT but cannot send data or queries into the OT network. This prevents the IDMZ historian (which is more exposed to corporate/external access) from being used as an attack path into OT. Encryption helps but doesn't address direction. Load balancing and real-time sync might create bidirectional requirements. Hardware-enforced unidirectional gateways (data diodes) can provide this guarantee."
+    },
+    {
+      "id": "elite_098",
+      "domain": "Industrial Protocols",
+      "question": "During ICS protocol security training, a new analyst asks why ICS protocols are insecure when they were designed by engineers for critical infrastructure. What is the accurate historical explanation?",
+      "options": [
+        "Engineers didn't care about security",
+        "These protocols were designed for isolated, air-gapped networks where security came from physical and network isolation, not protocol features",
+        "Adding security would have made protocols too expensive",
+        "Security features were removed for performance reasons"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Industrial protocols like Modbus, DNP3, and early Ethernet/IP were designed when ICS networks were truly isolated - air-gapped from corporate IT and the internet. Security came from physical access controls and network isolation, not from protocol features. Protocol designers reasonably assumed that if you could send a command, you were authorized to (you had physical access). The security gap emerged when ICS networks became connected to corporate networks and the internet, eliminating the isolation that was the original security model."
+    },
+    {
+      "id": "elite_099",
+      "domain": "Defense in Depth",
+      "question": "The Colonial Pipeline attack in 2021 resulted in pipeline shutdown even though the OT systems were not directly compromised. What defense-in-depth principle does this incident illustrate?",
+      "options": [
+        "Network segmentation failed to protect OT systems",
+        "IT and OT interdependencies mean IT compromise can operationally impact OT even without direct OT system compromise",
+        "Ransomware attacks are unstoppable",
+        "Critical infrastructure should not use IT systems"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Colonial Pipeline shut down OT operations not because OT was compromised, but because IT systems needed for billing and logistics were affected. This illustrates that operational dependencies between IT and OT can make OT operations impossible even when OT systems are secure. Defense in depth must consider these interdependencies. If OT operations depend on IT systems for business processes, those IT systems become critical to OT operations and require appropriate protection."
+    },
+    {
+      "id": "elite_100",
+      "domain": "Windows Security",
+      "question": "A SCADA environment has 50 Windows-based HMIs across multiple facilities. A vulnerability scan reveals they all have the same local administrator password set during initial deployment. What is the MOST efficient remediation that prevents password reuse across HMIs?",
+      "options": [
+        "Manually change each password to a unique value",
+        "Deploy Microsoft LAPS to automatically randomize and manage local administrator passwords",
+        "Disable the local administrator account on all HMIs",
+        "Implement Group Policy to enforce password complexity"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Microsoft LAPS (Local Administrator Password Solution) automatically randomizes local administrator passwords on each computer and stores them securely in Active Directory. This solves the password reuse problem at scale - each of the 50 HMIs gets a unique, randomly-generated password that rotates regularly. Authorized administrators can retrieve passwords when needed. Manual changes don't scale and passwords often end up reused anyway. Disabling the account loses emergency access. Complexity requirements don't prevent reuse."
+    },
+    {
+      "id": "elite_101",
+      "domain": "Incident Response",
+      "question": "An organization's ICS incident response plan specifies that during a cyber incident affecting the control system, the Incident Commander role should be filled by whom?",
+      "options": [
+        "The CISO or senior IT security leader",
+        "The plant manager or operations leader with authority over physical process decisions",
+        "The most senior responder on scene",
+        "A designated IR team lead from the security team"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "For ICS incidents affecting physical processes, the Incident Commander must have authority over operational decisions - typically the plant manager or senior operations leader. They must make decisions that balance cyber response with process safety, production, and environmental considerations. A CISO may not have authority to shut down production or modify safety procedures. The IC coordinates all response activities, with security, operations, and other specialists providing expertise within their domains."
+    },
+    {
+      "id": "elite_102",
+      "domain": "Governance & Compliance",
+      "question": "During an IEC 62443 assessment, the assessor finds that the organization has defined zones but has not documented conduits between zones. What is the compliance and security impact?",
+      "options": [
+        "Minor documentation gap with no security impact",
+        "Zones without defined conduits cannot have verified security levels, and uncontrolled communication paths may exist between zones",
+        "Conduits are optional in IEC 62443",
+        "The assessor should define the conduits during the assessment"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "IEC 62443 requires both zones AND conduits to be defined. Zones group assets with similar security requirements; conduits control and protect communication between zones. Without documented conduits, you don't know what communication paths exist between zones, whether those paths are controlled and monitored, or whether they meet the security level requirements of the zones they connect. The security boundary is incomplete - zones may appear isolated but actually have uncontrolled connections."
+    },
+    {
+      "id": "elite_103",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based protocol converter has been in production for 5 years. A security assessment reveals it runs kernel 3.10 with many known vulnerabilities. The vendor is out of business. Before implementing compensating controls, what analysis should be performed?",
+      "options": [
+        "Calculate the likelihood of exploitation to determine if controls are needed",
+        "Assess which vulnerabilities are actually exploitable given the device's network position, exposed services, and required functionality",
+        "List all CVEs affecting the kernel version for the risk register",
+        "Determine if the device can be moved to a less critical function"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Not all vulnerabilities are exploitable in every context. Before implementing controls, assess: Which services does this device expose? (A kernel privilege escalation CVE doesn't matter if remote attackers can't get initial access.) What network position is it in? (Isolated devices face fewer threats.) What does the device actually need to do? (This determines minimum required connectivity.) This analysis focuses compensating control efforts on actually exploitable attack paths rather than theoretical vulnerabilities that the deployment context may already mitigate."
+    },
+    {
+      "id": "elite_104",
+      "domain": "ICS Fundamentals",
+      "question": "A sophisticated attacker with access to engineering workstations wants to modify PLC logic in a way that will not be detected during routine program comparisons between the running program and stored backups. What technique could achieve this?",
+      "options": [
+        "Modify the backup files to match the malicious changes",
+        "Disable program comparison tools on engineering workstations",
+        "Make changes only during maintenance windows when comparisons aren't run",
+        "Use PLC rootkit techniques that hide malicious code from upload queries while executing it on the controller"
+      ],
+      "correct": 3,
+      "difficulty": "expert",
+      "explanation": "Advanced PLC attacks can involve rootkit-like techniques where malicious code executes on the controller but is hidden from upload queries. When engineering software uploads the 'running program' for comparison, the compromised PLC returns clean code, while the malicious code continues executing separately. This was demonstrated in research and makes simple program comparison insufficient as a detection control. Detection requires additional measures: behavioral monitoring, physical verification, and trusted build processes."
+    },
+    {
+      "id": "elite_105",
+      "domain": "Network Architecture",
+      "question": "An organization discovers shadow IT: an engineer installed a commercial IoT gateway to monitor equipment and send data to a personal cloud dashboard, bypassing all network security controls. Beyond removing the device, what systemic issue should be addressed?",
+      "options": [
+        "Block all IoT devices at the firewall",
+        "Discipline the engineer for policy violation",
+        "Understand the legitimate need that drove the behavior and provide a secure, supported solution",
+        "Implement network access control to prevent unauthorized devices"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "Shadow IT usually indicates an unmet legitimate need. The engineer wanted equipment monitoring data and found no approved way to get it. Simply removing the device and adding restrictions will lead to another workaround. The systemic fix: understand what the engineer needed, then provide a secure, supported way to accomplish it - perhaps a sanctioned monitoring solution with proper architecture. NAC and firewall blocks help but don't address the underlying need that drove the behavior."
+    },
+    {
+      "id": "elite_106",
+      "domain": "Industrial Protocols",
+      "question": "A facility uses OPC Classic (DCOM-based) for communication between the SCADA server and historians. A security assessment recommends migrating to OPC UA. Besides protocol security features, what Windows security benefit does this migration provide?",
+      "options": [
+        "Reduced CPU usage on the SCADA server",
+        "Elimination of DCOM, which requires complex firewall rules and has a history of remote code execution vulnerabilities",
+        "Better integration with Active Directory",
+        "Improved data compression"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "OPC Classic uses DCOM, which is notorious for security issues: complex firewall rules (dynamic port ranges), multiple RCE vulnerabilities over the years, and attack surface that's difficult to minimize. OPC UA uses standard TCP/HTTPS, is easier to firewall, and doesn't carry DCOM's vulnerability history. The migration reduces Windows attack surface by eliminating DCOM dependency, independent of OPC UA's own security features like authentication and encryption."
+    },
+    {
+      "id": "elite_107",
+      "domain": "Defense in Depth",
+      "question": "A security consultant recommends implementing process anomaly detection as 'the final layer of defense' in an ICS environment. What makes process anomaly detection particularly valuable as a last line of defense?",
+      "options": [
+        "It's the cheapest control to implement",
+        "It detects attacks based on their physical impact rather than cyber indicators, catching attacks that bypass all cyber controls",
+        "It requires no integration with other systems",
+        "It can automatically stop attacks in progress"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Process anomaly detection monitors the physical process itself - flows, temperatures, pressures, timing, product quality. It can detect when the process behaves abnormally regardless of HOW the abnormality was caused. An attacker who evades all cyber controls and uses legitimate credentials to manipulate process values will still cause abnormal process behavior that physical monitoring can detect. This cyber-physical approach provides detection capability independent of cyber-layer controls, making it a true final line of defense."
+    },
+    {
+      "id": "elite_108",
+      "domain": "Windows Security",
+      "question": "An ICS environment uses Group Policy for Windows system configuration. During an incident, the attackers were found to have modified GPO settings to weaken security across all Windows systems. What control would have detected or prevented this attack?",
+      "options": [
+        "Disable Group Policy in ICS environments",
+        "Monitoring and alerting on GPO modifications, with restricted access to GPO editing capabilities",
+        "Use local security policies instead of GPO",
+        "Implement GPO backup and restore procedures"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Group Policy modification should be tightly controlled and monitored as it's a powerful mechanism for domain-wide changes. Controls should include: restricting who can modify GPOs (minimum necessary administrators), alerting on GPO changes (especially security-related settings), auditing of GPO modifications with required approvals, and comparison of active GPOs against documented baselines. Disabling GPO loses valuable centralized management. Local policies don't scale. Backup/restore is recovery, not detection."
+    },
+    {
+      "id": "elite_109",
+      "domain": "Incident Response",
+      "question": "During recovery from an ICS incident, the team needs to restore a compromised engineering workstation. They have a 6-month-old full backup and daily incremental backups since then. The compromise was detected yesterday but may have started 3 months ago. What is the SAFEST restoration approach?",
+      "options": [
+        "Restore from the most recent backup for minimal data loss",
+        "Restore from the 6-month-old backup predating the compromise and reconfigure the system, accepting the work of recreating recent changes",
+        "Restore from a backup from 4 months ago (1 month before suspected compromise)",
+        "Rebuild the system from scratch using installation media"
+      ],
+      "correct": 3,
+      "difficulty": "expert",
+      "explanation": "With an uncertain compromise timeline, no backup can be fully trusted - the attacker may have established persistence before any available backup. The safest approach is rebuilding from scratch using known-good installation media, then carefully restoring only necessary data files (documents, projects) after scanning them. This is more work than backup restoration but ensures no attacker persistence mechanisms survive in the restored system. For high-security environments, accepting this effort is warranted when compromise timeline is uncertain."
+    },
+    {
+      "id": "elite_110",
+      "domain": "Governance & Compliance",
+      "question": "An organization wants to use the NIST Cybersecurity Framework to improve their ICS security program. They currently have no formal cybersecurity framework in place. What is the FIRST step in CSF implementation?",
+      "options": [
+        "Implement controls for all five CSF functions",
+        "Create a Current Profile documenting the organization's current cybersecurity activities and outcomes",
+        "Achieve Tier 4 (Adaptive) maturity",
+        "Hire a CSF consultant to perform a gap analysis"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "CSF implementation begins with understanding your current state - creating a Current Profile that documents existing cybersecurity activities mapped to the Framework's categories and subcategories. This provides the baseline for improvement. Without knowing where you are, you can't effectively plan how to improve. After the Current Profile, you create a Target Profile (desired state), then develop a prioritized action plan to close gaps. Jumping to implementation without baselining leads to unfocused effort."
+    },
+    {
+      "id": "elite_111",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based HMI system uses X11 forwarding over SSH for remote display access. What security concern does X11 forwarding introduce that trusted X11 forwarding (ForwardX11Trusted) makes worse?",
+      "options": [
+        "X11 traffic is unencrypted",
+        "Remote X11 applications gain full access to the local X server, allowing potential keystroke capture and screen reading",
+        "X11 uses excessive bandwidth",
+        "X11 requires root privileges"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "X11 forwarding allows remote applications to display locally, but trusted X11 forwarding (ForwardX11Trusted) gives those remote applications full access to the local X server. This means a compromised remote application could: capture keystrokes from all local applications, read content from other windows, inject keystrokes or mouse clicks. This is a significant risk if the remote system is compromised. Untrusted X11 forwarding (default) restricts this access but may break some applications. For security, avoid X11 forwarding to untrusted systems or use alternatives like VNC with proper security."
+    },
+    {
+      "id": "elite_112",
+      "domain": "ICS Fundamentals",
+      "question": "A manufacturing process uses multiple redundant sensors to measure a critical parameter. The control system uses sensor voting (2-out-of-3) to determine the actual value. How does this design principle relate to ICS security?",
+      "options": [
+        "It doesn't relate to security - it's purely a safety/reliability mechanism",
+        "Voting increases the difficulty of sensor manipulation attacks - an attacker must compromise multiple independent sensors to affect the perceived value",
+        "Voting reduces the number of sensors an attacker needs to target",
+        "Voting is only used in safety systems, not regular control"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Sensor voting provides security benefits beyond reliability. To manipulate the 'voted' value, an attacker must compromise at least 2 of 3 sensors (to outvote the legitimate one). If sensors are diverse (different types, different network paths), this significantly increases attack complexity. One compromised sensor is detected as disagreement with the other two. This demonstrates how safety engineering practices (redundancy, voting) also provide security benefits by raising the bar for successful attacks on process measurements."
+    },
+    {
+      "id": "elite_113",
+      "domain": "Network Architecture",
+      "question": "During ICS network security monitoring, which traffic patterns would MOST strongly indicate active attacker reconnaissance of the control network?",
+      "options": [
+        "Increased traffic volume during business hours",
+        "Sequential scanning of IP addresses or ports, protocol enumeration queries, or requests to device identification services across multiple devices",
+        "Failed authentication attempts to HMI systems",
+        "Large data transfers between historian and corporate systems"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Active reconnaissance involves systematically discovering the network: IP/port scanning identifies live hosts and services, protocol enumeration (like CIP service requests to many devices) maps capabilities, device identification queries gather detailed information about each device. These patterns - especially breadth across many targets and systematic coverage - indicate an attacker mapping the environment before exploitation. Failed auth and large transfers might indicate attacks but are single-point events; reconnaissance is characterized by broad, systematic information gathering."
+    },
+    {
+      "id": "elite_114",
+      "domain": "Industrial Protocols",
+      "question": "A power utility is implementing IEC 62351 security for their IEC 61850 substation automation. During testing, they find that enabling authentication causes 50ms delays that exceed protection relay coordination requirements. What should they do?",
+      "options": [
+        "Accept the increased delay as the cost of security",
+        "Disable IEC 62351 authentication - protection coordination is more important",
+        "Work with vendors to optimize implementation, consider security at different protocol layers, or implement compensating network controls while using faster message types",
+        "Replace IEC 61850 with a different protocol"
+      ],
+      "correct": 2,
+      "difficulty": "expert",
+      "explanation": "This is a real-world challenge in substation automation. Options include: working with vendors on optimized implementations (authentication overhead can often be reduced), applying authentication selectively (critical commands vs. routine data), using different security approaches at different layers (network-level encryption vs. message-level authentication), and implementing strong network isolation as a compensating control while using faster unauthenticated messages within the isolated network. The goal is finding an approach that meets both security and operational requirements."
+    },
+    {
+      "id": "elite_115",
+      "domain": "Defense in Depth",
+      "question": "An organization's defense-in-depth strategy relies heavily on preventive controls (firewalls, access controls, hardening) with minimal detective controls (monitoring, logging, alerting). What is the strategic weakness of this approach?",
+      "options": [
+        "Preventive controls are expensive to maintain",
+        "When preventive controls fail (and they eventually will), there's minimal capability to detect breaches, resulting in extended dwell times and greater damage",
+        "Detective controls are more important than preventive controls",
+        "Compliance frameworks require detective controls"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "No preventive control is 100% effective. Zero-day exploits, credential theft, insider threats, and misconfigurations will eventually allow attackers past preventive controls. Without detective capability, breaches go unnoticed - attackers have unlimited time to achieve objectives. The result: incidents discovered months later with extensive damage. Defense in depth requires both prevention (raise the bar) AND detection (find what gets past). Industry data shows detection capability is the biggest factor in reducing breach impact."
+    },
+    {
+      "id": "elite_116",
+      "domain": "Windows Security",
+      "question": "A Windows Server running SCADA applications shows Event ID 4625 (failed logon) from the anonymous logon account occurring thousands of times per day. The source is internal network. What does this indicate and what action should be taken?",
+      "options": [
+        "Normal Windows behavior - no action needed",
+        "Possible lateral movement attempt or misconfigured application; investigate the source IP, determine if it's a compromised system or legitimate application, and address the root cause",
+        "Enable anonymous logon to stop the errors",
+        "Block the source IP at the firewall"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Thousands of anonymous logon failures indicate something is repeatedly trying to access the server without valid credentials. This could be: (1) misconfigured application trying to connect, (2) attacker probing for access, (3) malware attempting lateral movement. Investigation should identify the source IP, determine what's running there, and why it's making these requests. Don't just block without understanding - it might be a critical application misconfiguration. Don't enable anonymous logon to 'fix' security events."
+    },
+    {
+      "id": "elite_117",
+      "domain": "Incident Response",
+      "question": "After resolving an ICS incident, the organization conducts a lessons learned meeting. The meeting focuses heavily on blaming the engineer who clicked the phishing email that started the attack. What is wrong with this approach?",
+      "options": [
+        "The engineer should be terminated, not just blamed in a meeting",
+        "Blame-focused reviews discourage honest reporting and miss systemic issues; the focus should be on what controls failed and how to prevent similar incidents",
+        "Lessons learned meetings should only include senior management",
+        "The meeting should focus on the attackers, not internal personnel"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Blame-focused incident reviews are counterproductive. They: (1) discourage future incident reporting (people hide mistakes if punishment follows), (2) miss systemic issues (why did the email get through? why did clicking enable such access?), (3) don't improve defenses (blaming humans doesn't fix missing controls). Effective lessons learned ask: What controls should have caught this? Why didn't they? What can we add to prevent/detect similar attacks? Humans will always make mistakes - the question is why the system allowed a single mistake to cause the incident."
+    },
+    {
+      "id": "elite_118",
+      "domain": "Governance & Compliance",
+      "question": "An ICS security manager needs to report security status to the board of directors. Technical metrics (patch rates, vulnerability counts, firewall rules) don't resonate with the board. What type of metrics would be MORE effective for board-level communication?",
+      "options": [
+        "More detailed technical metrics with explanations",
+        "Business-aligned metrics: risk exposure in business terms, potential operational/financial impact of security gaps, comparison to industry incidents, and investment effectiveness",
+        "Compliance status only - boards understand pass/fail",
+        "Avoid metrics and provide narrative explanations"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Board members understand business risk, not technical details. Effective metrics translate security into business terms: 'Our manufacturing facilities face ransomware risk that could cause $X million per day in downtime - here's our mitigation status.' Comparison to peer incidents (Colonial Pipeline, Norsk Hydro) provides relevant context. Investment effectiveness ('$Y spent reduced this risk by Z%') shows value. This enables informed board decisions about security investment and risk acceptance."
+    },
+    {
+      "id": "elite_119",
+      "domain": "Unix/Linux Security",
+      "question": "A Linux-based SCADA server's /var/log directory is on a partition that has filled to 100%. What is the SECURITY implication of this condition?",
+      "options": [
+        "No security implication - only performance is affected",
+        "Security events and audit logs cannot be written, allowing attacker activity to go unrecorded",
+        "The system will automatically delete old logs to make space",
+        "Only application logs are affected, not security logs"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "A full log partition prevents new log entries from being written. Security and audit logs (auth.log, audit.log, syslog) cannot record events. This creates a window where attacker activity goes unlogged - no record of authentication attempts, privilege escalation, or suspicious activity. Sophisticated attackers may intentionally fill log partitions (log exhaustion attack) before conducting their primary attack. Proper log management includes alerting on partition utilization and log rotation to prevent this condition."
+    },
+    {
+      "id": "elite_120",
+      "domain": "ICS Fundamentals",
+      "question": "An attacker wants to cause maximum damage to a petroleum refinery while minimizing the chance of detection before physical damage occurs. Which attack approach would be MOST effective?",
+      "options": [
+        "Immediately shut down all systems to cause maximum disruption",
+        "Make gradual, subtle changes to process parameters over weeks, drifting toward dangerous conditions while staying within normal alarm thresholds",
+        "Target the safety system first to disable protections",
+        "Attack the business network to cause financial impact"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Gradual, subtle manipulation is hardest to detect and can cause the most physical damage. By making slow changes that individually stay within normal ranges, the attacker avoids triggering alarms. Over time, the process drifts toward dangerous conditions - equipment stress, process degradation, or setup for a catastrophic failure. This 'low and slow' approach evades threshold-based monitoring and may not be detected until physical damage occurs. It requires deep process knowledge but causes maximum harm with minimum detection risk."
+    },
+    {
+      "id": "elite_121",
+      "domain": "Network Architecture",
+      "question": "A defense contractor's ICS environment processes classified information and requires air-gap from all external networks. During assessment, you find maintenance laptops are regularly connected to both air-gapped ICS systems and corporate IT network (at different times). What attack vector does this create?",
+      "options": [
+        "No vulnerability - the laptop is not simultaneously connected",
+        "The laptop serves as a potential sneakernet/bridge attack vector, allowing malware or data to cross the air gap",
+        "This only creates a data exfiltration risk, not an attack vector",
+        "Air-gapped systems are immune to external attack"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Laptops that connect to both networks (even at different times) are 'bridge' devices that can carry malware across the air gap. An attacker who compromises the laptop while it's on the IT network can implant malware that activates when connected to the air-gapped ICS. This is exactly how Stuxnet crossed air gaps to reach Iranian centrifuges. Data exfiltration can also occur in reverse. True air-gap security requires either dedicated equipment that never connects elsewhere, or extremely rigorous scanning/verification procedures when equipment crosses the gap."
+    },
+    {
+      "id": "elite_122",
+      "domain": "Industrial Protocols",
+      "question": "A security analyst reviewing Modbus traffic notices that a new master device (previously unseen IP address) is sending valid commands to slave devices. The commands are legitimate (normal function codes, valid registers) and appear to be proper control operations. Should this be considered suspicious?",
+      "options": [
+        "No - the commands are valid and functioning correctly",
+        "Yes - the appearance of a new master is a significant anomaly that warrants investigation regardless of command validity",
+        "Only if the commands cause process abnormalities",
+        "No - Modbus doesn't have authentication, so any device can be a master"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "A new Modbus master is a critical anomaly. In properly configured ICS environments, the set of devices that issue commands is well-defined. A new master appearing - even sending valid commands - indicates either: unauthorized device added to network, compromised device now acting as master, or attacker system issuing commands. The lack of Modbus authentication makes this detection more important: since we can't authenticate at the protocol level, we must detect at the network level. New masters should trigger investigation."
+    },
+    {
+      "id": "elite_123",
+      "domain": "Defense in Depth",
+      "question": "An ICS security assessment rates each defense layer from 1-10. Results: Physical=8, Network=7, Host=5, Application=4, Data=6, Procedural=7. What does this tell you about where security investment should be prioritized?",
+      "options": [
+        "Focus on Physical to raise it to 10",
+        "Balance all layers to the same level (6 or 7)",
+        "Prioritize Host and Application layers as the weakest points that attackers will exploit",
+        "Prioritize Data layer as it protects the most valuable assets"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "In a layered defense, attackers seek the weakest points. Host (5) and Application (4) are well below other layers - they represent the path of least resistance. An attacker who gets past the strong perimeter (network=7) will face weak host and application security. Priority should be raising these weak layers to at least match others. The goal isn't necessarily maximum scores everywhere, but eliminating significant weak points that create obvious attack paths through the layered defense."
+    },
+    {
+      "id": "elite_124",
+      "domain": "Windows Security",
+      "question": "An ICS environment includes Windows systems that require offline operation during network outages. Domain-joined systems fail to authenticate local users when the domain controller is unreachable. What Windows configuration addresses this while maintaining domain security?",
+      "options": [
+        "Remove the systems from the domain",
+        "Configure appropriate cached credentials policy to allow a defined number of previous logons to be cached locally",
+        "Create local accounts that mirror domain accounts",
+        "Install a local domain controller at each facility"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Windows cached credentials allow domain users to log in using previously cached authentication data when domain controllers are unreachable. Group Policy controls how many previous logons are cached. For ICS environments requiring offline operation, this should be configured to cache sufficient logons for expected offline duration. This maintains domain security during normal operation while enabling local authentication during outages. The risk (cached credentials can be extracted) should be weighed against operational need for offline access."
+    },
+    {
+      "id": "elite_125",
+      "domain": "Incident Response",
+      "question": "An organization successfully contains and recovers from an ICS incident. The board asks: 'What's the likelihood of this happening again?' How should the security team respond?",
+      "options": [
+        "Provide a specific probability based on industry statistics",
+        "Explain that improvements from lessons learned reduce likelihood, but new threats emerge continuously; focus on detection and response capability improvement alongside prevention",
+        "State that with implemented improvements, another incident is extremely unlikely",
+        "Recommend purchasing cyber insurance as the primary mitigation"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Honest answer: we can't predict with certainty, and claiming we can is false confidence. The response should explain: (1) specific vulnerabilities exploited have been addressed, reducing that specific attack's likelihood; (2) however, new attack techniques emerge continuously; (3) our strategy includes both improving prevention (harder to breach) AND improving detection/response (minimize damage when breached). The goal is resilience - the ability to withstand and recover from incidents - not an impossible promise of perfect prevention."
+    }
+  ]
+}

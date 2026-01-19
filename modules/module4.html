@@ -1,62 +1,204 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 4: Windows in OT Environments | ICS Defender Training</title>
-  <link rel="stylesheet" href="../css/pokemon-theme.css">
-</head>
-<body>
-  <header class="course-header" style="background: linear-gradient(135deg, var(--type-ice) 0%, #333 100%);">
-    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 4</div>
-    <h1>❄️ Windows in OT Environments</h1>
-    <p class="subtitle">Windows Workshop • Gym Leader: PATCHMASTER</p>
-  </header>
+<div class="content-section">
+  <h2><span class="section-icon">🪟</span> Module 4: Windows Security in OT Environments</h2>
+  
+  <p>Welcome to Module 4, Cyber Defender! You've learned about network architecture and protocols—now it's time to tackle one of the most challenging aspects of ICS security: <strong>Windows systems in operational technology environments</strong>. From HMI workstations to engineering stations, historians to SCADA servers, Windows is deeply embedded in industrial control systems.</p>
 
-  <main class="content-container">
-    <section class="content-section fade-in">
-      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
-      <p>Content for Module 4 will be displayed here once media assets are generated.</p>
-      
-      <div class="info-box">
-        <p class="info-box-title">📝 Module Status</p>
-        <p>This module's content structure is defined in the Course Design Document. 
-        Video and infographic placeholders will be replaced with generated media assets.</p>
-      </div>
-    </section>
+  <p>The challenge? OT Windows systems often run <strong>legacy operating systems</strong>, can't be patched on IT schedules, and must remain available 24/7/365. In this module, you'll learn strategies to secure these systems despite their constraints.</p>
 
-    <!-- Quiz Section -->
-    <section class="content-section">
-      <h2><span class="section-icon">📝</span> Module 4 Quiz</h2>
-      <div id="quiz-container"></div>
-    </section>
+  <div class="info-box">
+    <p class="info-box-title">🎯 Learning Objectives</p>
+    <p>By the end of this module, you will be able to: understand Active Directory risks in ICS environments, implement Group Policy for OT workstations, develop OT-appropriate patch management strategies, configure AppLocker for application whitelisting, harden Windows Firewall for industrial protocols, manage service accounts securely, and mitigate risks from legacy operating systems.</p>
+  </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
-      <a href="module3.html" class="btn btn-secondary">← Previous Module</a>
-      <a href="module5.html" class="btn btn-primary">Next Module →</a>
-    </div>
-  </main>
+  <h3>🏢 Active Directory in ICS Environments</h3>
+  
+  <p><strong>Active Directory (AD)</strong> provides centralized authentication and authorization for Windows environments. In ICS, AD is often used to manage user access to HMIs, engineering workstations, and SCADA servers. However, integrating AD with OT networks introduces significant security considerations.</p>
 
-  <footer class="course-footer">
-    <p>ICS Defender Training: SCADAmon Edition</p>
-    <p>Module 4: Windows in OT Environments</p>
-  </footer>
+  <h4>The AD Dependency Problem</h4>
+  <p>When OT systems are domain-joined, they depend on AD for authentication. If the domain controller becomes unavailable—due to network issues, attacks, or maintenance—operators may be unable to log into critical systems. Consider a scenario where a ransomware attack takes down AD: suddenly your operators can't authenticate to HMIs during a process emergency.</p>
+  
+  <p>Mitigations include: <strong>cached credentials</strong> allowing recent logins to work offline, <strong>local administrator accounts</strong> for emergency access, <strong>dedicated OT domain controllers</strong> isolated from enterprise AD, and <strong>one-way trusts</strong> that allow OT users to authenticate without exposing OT AD to enterprise threats.</p>
 
-  <script src="../js/cmi5-wrapper.js"></script>
-  <script src="../js/quiz-engine.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      await window.cmi5.initialize();
-      window.quiz = new QuizEngine('quiz-container', {
-        questionsPerQuiz: 10,
-        passingScore: 80,
-        moduleId: '4',
-        moduleName: 'Windows in OT Environments',
-        badgeName: 'Windows Workshop Badge'
-      });
-      await quiz.loadQuestions('../quizzes/module4-questions.json');
-      quiz.renderQuiz();
-    });
-  </script>
-</body>
-</html>
+  <h4>Credential Theft and Lateral Movement</h4>
+  <p>AD credentials are prime targets for attackers. Techniques like <strong>Pass-the-Hash</strong>, <strong>Kerberoasting</strong>, and <strong>credential dumping</strong> allow attackers to move laterally once they compromise a single system. In the Ukraine 2015 attack, stolen credentials enabled attackers to move from IT to OT networks.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🔐 Credential Protection Strategies</p>
+    <p><strong>Tiered administration:</strong> Separate admin accounts for enterprise, OT, and domain controller access. <strong>Privileged Access Workstations (PAWs):</strong> Dedicated, hardened systems for administrative tasks. <strong>Credential Guard:</strong> Windows feature that isolates credentials using virtualization. <strong>LAPS:</strong> Local Administrator Password Solution for unique local admin passwords.</p>
+  </div>
+
+  <h4>OT-Specific AD Architecture</h4>
+  <p>Best practice for critical ICS environments is a <strong>separate Active Directory forest</strong> for OT systems. This provides complete isolation from enterprise AD attacks. If a separate forest isn't feasible, a dedicated OT domain with one-way trust (OT trusts enterprise, not vice versa) limits exposure.</p>
+  
+  <p>Domain controllers for OT should be located in the IDMZ or OT network, not in the enterprise network. This ensures authentication continues even if IT/OT connectivity is lost.</p>
+
+  <h3>📋 Group Policy for OT Environments</h3>
+  
+  <p><strong>Group Policy Objects (GPOs)</strong> provide centralized configuration management for Windows systems. In OT, GPOs can enforce security baselines, configure firewalls, deploy application whitelisting rules, and control USB device access.</p>
+
+  <h4>OT-Specific GPO Considerations</h4>
+  <p>Standard IT security GPOs often break ICS applications. Before deploying GPOs to OT systems, thoroughly test in a non-production environment. Common issues include: security software blocking vendor applications, restrictive policies preventing legitimate process operations, audit logging consuming disk space on resource-constrained systems, and password policies that lock out service accounts.</p>
+
+  <h4>Recommended OT GPO Settings</h4>
+  <p><strong>Password Policy:</strong> Balance security with operational needs. Long, complex passwords on HMIs used in emergencies may delay critical responses. Consider smart cards or biometrics for routine access with simple break-glass passwords.</p>
+  
+  <p><strong>Account Lockout:</strong> Be cautious with lockout policies on systems that authenticate automated processes. A locked service account could stop production.</p>
+  
+  <p><strong>Audit Policy:</strong> Enable security auditing but ensure adequate disk space and log forwarding. Failed logon attempts, privilege use, and process creation events are particularly valuable.</p>
+  
+  <p><strong>User Rights Assignment:</strong> Follow least privilege. Remove unnecessary rights like "Debug programs" or "Act as part of the operating system" from standard users.</p>
+
+  <h3>🔄 Patch Management in OT</h3>
+  
+  <p>Patch management is one of the most contentious areas of ICS security. IT security demands rapid patching, while OT operations require stability and vendor certification. The reality is that <strong>OT patch cycles are measured in months or years, not days</strong>.</p>
+
+  <h4>Why OT Patching Is Different</h4>
+  <p><strong>Vendor certification:</strong> ICS vendors often certify their software only on specific OS versions and patch levels. Installing unapproved patches may void support agreements or cause application failures.</p>
+  
+  <p><strong>Availability requirements:</strong> OT systems often run 24/7 with no maintenance windows. A patch that requires a reboot may need to wait for a planned shutdown—sometimes months away.</p>
+  
+  <p><strong>Testing requirements:</strong> Patches must be tested in an environment that mirrors production. This takes time, especially when the patch might affect real-time control behavior.</p>
+  
+  <p><strong>Legacy systems:</strong> Systems running Windows XP or Windows 7 can no longer receive patches, yet may run critical applications with no upgrade path.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">⚠️ The Patching Paradox</p>
+    <p>In 2017, the WannaCry ransomware exploited an SMB vulnerability that Microsoft had patched two months earlier. Many ICS systems were affected because they hadn't been patched. Yet, aggressive patching has also caused ICS outages when updates broke vendor software. Both approaches carry risk.</p>
+  </div>
+
+  <h4>OT Patch Management Strategy</h4>
+  <p><strong>Risk-based prioritization:</strong> Not all patches are equal. Focus on patches for actively exploited vulnerabilities, especially those affecting OT-specific components. Use CVSS scores and threat intelligence to prioritize.</p>
+  
+  <p><strong>Compensating controls:</strong> When patches can't be applied quickly, implement compensating controls: network segmentation to limit exposure, application whitelisting to prevent exploit payload execution, and increased monitoring to detect exploitation attempts.</p>
+  
+  <p><strong>Staged deployment:</strong> Deploy patches first to non-critical systems, then to test environments that mirror critical systems, and finally to production after validation.</p>
+  
+  <p><strong>Vendor coordination:</strong> Work with ICS vendors on patch certification. Some vendors provide tested patch bundles specifically for their systems. Document vendor guidance for audit purposes.</p>
+
+  <h3>🛡️ Application Whitelisting with AppLocker</h3>
+  
+  <p><strong>Application whitelisting</strong> allows only approved applications to execute, blocking everything else—including malware. This is particularly effective in OT environments where workstations run a fixed set of applications.</p>
+
+  <h4>Why Whitelisting Beats Antivirus in OT</h4>
+  <p><strong>No signature updates needed:</strong> Antivirus requires constant signature updates, problematic in air-gapped environments. Whitelisting works without updates.</p>
+  
+  <p><strong>Stops zero-day attacks:</strong> Antivirus can't detect unknown malware. Whitelisting blocks anything not explicitly approved, including zero-days.</p>
+  
+  <p><strong>Lower performance impact:</strong> Antivirus scanning consumes CPU and memory. Whitelisting has minimal overhead since it only checks at execution time.</p>
+  
+  <p><strong>Stable environments:</strong> OT workstations rarely change software. Once the whitelist is configured, it requires minimal maintenance.</p>
+
+  <h4>AppLocker Configuration</h4>
+  <p><strong>AppLocker</strong> is Microsoft's built-in application whitelisting feature available in Windows Enterprise and Education editions. AppLocker can control: <strong>Executable rules</strong> (.exe, .com), <strong>Windows Installer rules</strong> (.msi, .msp), <strong>Script rules</strong> (.ps1, .bat, .cmd, .vbs, .js), <strong>Packaged app rules</strong> (Windows Store apps), and <strong>DLL rules</strong> (optional, high performance impact).</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📝 AppLocker Best Practices</p>
+    <p>Start in <strong>Audit Only</strong> mode to identify what would be blocked. Create rules based on <strong>publisher</strong> (digital signatures) when possible for easier maintenance. Use <strong>path rules</strong> only for trusted, protected locations like C:\Program Files. Never whitelist entire user-writable directories. Test thoroughly before enforcing—a misconfigured whitelist can disable critical applications.</p>
+  </div>
+
+  <h4>AppLocker Bypass Considerations</h4>
+  <p>Sophisticated attackers know AppLocker bypass techniques: living-off-the-land binaries (LOLBins) like mshta.exe, regsvr32.exe, or InstallUtil.exe that are whitelisted by default. Review and restrict these binaries. Also consider <strong>Windows Defender Application Control (WDAC)</strong> for stronger protection, though it's more complex to configure.</p>
+
+  <h3>🧱 Windows Firewall for ICS</h3>
+  
+  <p>The <strong>Windows Firewall</strong> provides host-based network filtering that can significantly reduce attack surface, especially on HMIs and engineering workstations.</p>
+
+  <h4>OT Firewall Configuration</h4>
+  <p>Default-deny approach: Block all inbound connections except those explicitly required. For an HMI, this might include: Modbus TCP (port 502) from specific PLC addresses, OPC UA (port 4840) from the historian, RDP (port 3389) from the IDMZ jump server only, and Windows Remote Management if used for administration.</p>
+  
+  <p>Outbound filtering: Also consider restricting outbound connections. An HMI typically doesn't need to initiate connections to the Internet. Blocking unnecessary outbound traffic limits data exfiltration and command-and-control channels.</p>
+
+  <h4>Industrial Protocol Considerations</h4>
+  <p>Some ICS applications use dynamic ports or require specific firewall exceptions. Common requirements include: OPC Classic (DCOM) requiring complex RPC port ranges, vendor remote support tools, and backup software agents. Document all required exceptions and the business justification for each.</p>
+
+  <h3>👤 Service Account Management</h3>
+  
+  <p><strong>Service accounts</strong> are Windows accounts used by applications and services rather than human users. In ICS environments, service accounts often have elevated privileges and their credentials may be stored insecurely.</p>
+
+  <h4>Service Account Risks</h4>
+  <p><strong>Shared passwords:</strong> The same service account and password used across multiple systems. Compromising one system compromises them all.</p>
+  
+  <p><strong>Excessive privileges:</strong> Service accounts configured as Domain Admins "because it works." This violates least privilege and enables lateral movement.</p>
+  
+  <p><strong>Password never expires:</strong> Service accounts often have non-expiring passwords for operational stability, but this means compromised credentials remain valid indefinitely.</p>
+  
+  <p><strong>Credentials in files:</strong> Some ICS applications store service account credentials in configuration files, scripts, or scheduled tasks.</p>
+
+  <h4>Service Account Best Practices</h4>
+  <p><strong>Managed Service Accounts (MSAs) or Group Managed Service Accounts (gMSAs):</strong> These account types automatically manage password rotation with cryptographically strong passwords. Use them whenever the application supports it.</p>
+  
+  <p><strong>Least privilege:</strong> Grant only the specific permissions required. If a service only needs to read from a database, don't grant write access.</p>
+  
+  <p><strong>Inventory and monitor:</strong> Maintain an inventory of all service accounts, their purposes, and their privilege levels. Alert on service account authentication from unexpected systems.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🔍 Service Account Discovery</p>
+    <p>To find service accounts in your environment: review services on each system (services.msc), check scheduled tasks (Task Scheduler), examine IIS application pools, review SQL Server configurations, and audit accounts with 'Password Never Expires' flag. Document findings and remediate excessive privileges.</p>
+  </div>
+
+  <h3>⏳ Legacy Operating System Risks</h3>
+  
+  <p>Many ICS environments still run <strong>Windows XP</strong>, <strong>Windows 7</strong>, or <strong>Windows Server 2008</strong>—operating systems that Microsoft no longer supports with security updates. These systems present significant risk but often cannot be immediately replaced due to vendor dependencies.</p>
+
+  <h4>Why Legacy Systems Persist</h4>
+  <p><strong>Vendor support:</strong> ICS software may only be certified on specific OS versions. Upgrading the OS without vendor approval risks support contract violations or application failures.</p>
+  
+  <p><strong>Hardware dependencies:</strong> Legacy systems may have specialized hardware (ISA cards, custom drivers) that don't work on modern operating systems.</p>
+  
+  <p><strong>Cost and complexity:</strong> Upgrading may require replacing entire control systems, requalifying processes, and retraining operators—potentially costing millions.</p>
+  
+  <p><strong>Stability priority:</strong> "If it ain't broke, don't fix it" is a common OT philosophy. Systems running reliably for 20 years face resistance to change.</p>
+
+  <h4>Legacy System Mitigation Strategies</h4>
+  <p><strong>Network isolation:</strong> Place legacy systems on isolated network segments with strict firewall rules. Limit communication to only what's necessary for operation.</p>
+  
+  <p><strong>Application whitelisting:</strong> Deploy whitelisting to prevent unauthorized executables, partially compensating for missing security patches.</p>
+  
+  <p><strong>Disable unnecessary services:</strong> Remove or disable services that aren't required. Each service is potential attack surface.</p>
+  
+  <p><strong>USB restrictions:</strong> Legacy systems are often infected via USB drives. Use Group Policy or third-party tools to control USB device access.</p>
+  
+  <p><strong>Enhanced monitoring:</strong> Deploy additional monitoring around legacy systems. Network-based IDS can detect exploitation attempts even when host-based defenses are limited.</p>
+
+  <h3>🔥 Real-World Incident: NotPetya and Windows in OT</h3>
+  
+  <p>The <strong>NotPetya</strong> attack in June 2017 devastated organizations worldwide, including major industrial companies like Maersk (shipping), Merck (pharmaceuticals), and Mondelez (food manufacturing). NotPetya spread through compromised Ukrainian accounting software updates and then laterally through networks using EternalBlue (SMB vulnerability) and credential theft.</p>
+
+  <h4>OT Impact</h4>
+  <p>NotPetya didn't specifically target OT, but it caused massive OT disruption. At Maersk, the attack destroyed nearly all Windows systems company-wide, including those controlling shipping logistics. Manufacturing facilities were forced to halt production when their Windows-based HMIs and historians were encrypted.</p>
+
+  <h4>Lessons Learned</h4>
+  <p><strong>Patch management:</strong> The EternalBlue vulnerability had been patched months earlier. Organizations that had applied the patch were protected from that spread vector.</p>
+  
+  <p><strong>Network segmentation:</strong> Flat networks allowed NotPetya to spread rapidly. Proper IT/OT segmentation would have contained the damage.</p>
+  
+  <p><strong>Backup and recovery:</strong> Organizations with good backups recovered faster. Maersk famously recovered their entire AD infrastructure from a single domain controller that happened to be offline during the attack.</p>
+  
+  <p><strong>Third-party risk:</strong> The initial infection came through a trusted software update. Supply chain attacks bypass many perimeter defenses.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">💰 NotPetya Cost Impact</p>
+    <p>Maersk estimated NotPetya cost them $300 million. Merck reported $870 million in damages. Total global impact exceeded $10 billion. These costs demonstrate why OT Windows security deserves serious investment.</p>
+  </div>
+
+  <h3>🛠️ Practical Hardening Checklist</h3>
+  
+  <p>Use this checklist when securing Windows systems in OT environments:</p>
+
+  <h4>Account Security</h4>
+  <p>Implement tiered administration separating OT from enterprise credentials. Deploy LAPS for local administrator passwords. Use MSAs/gMSAs for service accounts where supported. Enable Credential Guard on compatible systems. Document all service accounts and their purposes.</p>
+
+  <h4>System Hardening</h4>
+  <p>Deploy AppLocker or WDAC for application whitelisting. Configure Windows Firewall with default-deny rules. Disable unnecessary services and features. Remove or restrict administrative tools (PowerShell, cmd.exe) for standard users. Enable Windows Security Auditing for key events.</p>
+
+  <h4>Network Protection</h4>
+  <p>Disable SMBv1 on all systems that don't require it. Enable SMB signing to prevent relay attacks. Configure IPsec for sensitive communications where supported. Restrict network access to known, required communications.</p>
+
+  <h4>Patch Management</h4>
+  <p>Establish a risk-based patching prioritization process. Implement compensating controls for systems that can't be patched. Coordinate with vendors on patch certification. Maintain a test environment mirroring production.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🎮 Module Complete!</p>
+    <p>Outstanding work, Cyber Defender! You now understand the unique challenges of securing Windows in OT environments and have practical strategies to address them. In Module 5, you'll explore Unix and Linux security in OT—the embedded systems running PLCs, RTUs, and network devices. The Unix Security Gym awaits!</p>
+  </div>
+</div>

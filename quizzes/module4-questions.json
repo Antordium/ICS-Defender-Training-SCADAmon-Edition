@@ -1,22 +1,579 @@
 {
-  "moduleId": "4",
-  "moduleName": "Windows in OT Environments",
+  "module": 4,
   "domain": "windows",
+  "totalQuestions": 40,
   "questions": [
-    {"id": "m4_q01", "type": "multiple_choice", "difficulty": 1, "question": "Which Windows system provides the operator interface in ICS?", "options": ["Domain Controller", "HMI", "File Server", "Print Server"], "correctIndex": 1, "explanation": "HMI workstations on Windows provide graphical interface for operators."},
-    {"id": "m4_q02", "type": "multiple_choice", "difficulty": 2, "question": "Why is ICS Windows patching complex?", "options": ["Patches cost more", "May break vendor-certified configurations", "Cannot receive patches", "Automatically applied"], "correctIndex": 1, "explanation": "Patches can break certified configs, void support, and require testing."},
-    {"id": "m4_q03", "type": "multiple_choice", "difficulty": 2, "question": "What is application whitelisting?", "options": ["Color list for apps", "Allow only pre-approved applications, block all others", "Password database", "Backup method"], "correctIndex": 1, "explanation": "Only approved executables can run - very effective for fixed ICS environments."},
-    {"id": "m4_q04", "type": "multiple_choice", "difficulty": 3, "question": "Security concern with AD in ICS?", "options": ["Uses too much space", "Compromised credentials give access across OT network", "Cannot work with ICS", "Too slow"], "correctIndex": 1, "explanation": "Compromised AD (especially domain admin) can access all domain-joined ICS systems."},
-    {"id": "m4_q05", "type": "multiple_choice", "difficulty": 2, "question": "How to handle legacy Windows (XP) in ICS?", "options": ["Direct internet", "Isolate with strict segmentation and compensating controls", "Ignore them", "Remove security software"], "correctIndex": 1, "explanation": "Isolate legacy systems, add compensating controls, and plan migration."},
-    {"id": "m4_q06", "type": "true_false", "difficulty": 1, "question": "Group Policy can enforce security settings across ICS Windows systems.", "options": ["True", "False"], "correctIndex": 0, "explanation": "True. GPOs centrally manage security settings on domain-joined systems."},
-    {"id": "m4_q07", "type": "multiple_choice", "difficulty": 2, "question": "What should be disabled to reduce attack surface?", "options": ["Windows kernel", "Unnecessary services and features", "File system", "Network"], "correctIndex": 1, "explanation": "Disable unused services, PowerShell (if not needed), Remote Desktop, etc."},
-    {"id": "m4_q08", "type": "multiple_choice", "difficulty": 2, "question": "Windows Event ID for successful logon?", "options": ["4624", "4625", "1001", "7001"], "correctIndex": 0, "explanation": "Event 4624 = successful logon; 4625 = failed attempt."},
-    {"id": "m4_q09", "type": "multiple_choice", "difficulty": 1, "question": "Purpose of Historian server?", "options": ["Document company history", "Collect and store time-series process data", "Manage accounts", "Internet access"], "correctIndex": 1, "explanation": "Historians store process data for trending, analysis, and compliance."},
-    {"id": "m4_q10", "type": "multiple_choice", "difficulty": 2, "question": "Why is USB control important in ICS?", "options": ["Uses too much power", "Can introduce malware and exfiltrate data", "Too slow", "Too expensive"], "correctIndex": 1, "explanation": "USB was Stuxnet's vector; controls prevent malware and data theft."},
-    {"id": "m4_q11", "type": "multiple_choice", "difficulty": 3, "question": "What is a golden ticket attack?", "options": ["Prize from Microsoft", "Forged Kerberos ticket for persistent domain access", "Drive encryption", "Backup technique"], "correctIndex": 1, "explanation": "Forging Kerberos tickets using stolen KRBTGT hash grants persistent access."},
-    {"id": "m4_q12", "type": "true_false", "difficulty": 2, "question": "Windows Defender can be part of ICS defense-in-depth.", "options": ["True", "False"], "correctIndex": 0, "explanation": "True, when tested for compatibility and combined with other controls."},
-    {"id": "m4_q13", "type": "multiple_choice", "difficulty": 2, "question": "Best practice for admin accounts in ICS?", "options": ["Share one account", "Separate accounts for IT/OT with minimal privileges", "Disable all", "Use default Administrator"], "correctIndex": 1, "explanation": "Separate IT/OT admin accounts, least privilege, tiered administration."},
-    {"id": "m4_q14", "type": "multiple_choice", "difficulty": 1, "question": "What does WSUS stand for?", "options": ["Windows Security Update Service", "Windows Server Update Services", "Windows System Upgrade Software", "Windows Standard Update System"], "correctIndex": 1, "explanation": "WSUS enables internal management and testing of Windows updates."},
-    {"id": "m4_q15", "type": "multiple_choice", "difficulty": 2, "question": "Why minimize ICS internet connectivity?", "options": ["Too slow", "Reduces exposure to internet threats and unauthorized access", "Voids license", "Apps don't need it"], "correctIndex": 1, "explanation": "No direct internet reduces web attacks, phishing, and unauthorized remote access."}
+    {
+      "id": "win_001",
+      "question": "What Windows feature allows only approved applications to run, blocking everything else?",
+      "options": [
+        "Windows Firewall",
+        "AppLocker / Application Whitelisting",
+        "BitLocker",
+        "Windows Update"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "AppLocker provides application whitelisting, allowing only explicitly approved applications to execute and blocking everything else, including unknown malware."
+    },
+    {
+      "id": "win_002",
+      "question": "Why is patching OT systems more challenging than IT systems?",
+      "options": [
+        "OT patches are more expensive",
+        "OT systems require vendor certification and have strict availability requirements",
+        "OT systems don't support Windows Update",
+        "Patches are not available for industrial software"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "ICS vendors often certify software only on specific OS versions. Additionally, OT systems often run 24/7 with no maintenance windows, making patching logistically challenging."
+    },
+    {
+      "id": "win_003",
+      "question": "What is LAPS (Local Administrator Password Solution)?",
+      "options": [
+        "A VPN solution for remote access",
+        "A tool that provides unique local admin passwords for each computer",
+        "A firewall configuration utility",
+        "A backup and recovery solution"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "LAPS automatically manages and rotates local administrator passwords, ensuring each computer has a unique password stored securely in Active Directory."
+    },
+    {
+      "id": "win_004",
+      "question": "Which legacy operating system is commonly found in ICS environments but no longer receives security updates?",
+      "options": [
+        "Windows 11",
+        "Windows Server 2019",
+        "Windows XP",
+        "Windows 10"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "Windows XP reached end of life in 2014 and no longer receives security updates, yet remains common in ICS due to vendor dependencies and upgrade costs."
+    },
+    {
+      "id": "win_005",
+      "question": "What is the primary purpose of Group Policy Objects (GPOs) in Windows?",
+      "options": [
+        "To create user accounts",
+        "To centrally manage and enforce configuration settings",
+        "To install hardware drivers",
+        "To defragment hard drives"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "Group Policy Objects provide centralized configuration management, allowing administrators to enforce security baselines, firewall rules, and other settings across multiple Windows systems."
+    },
+    {
+      "id": "win_006",
+      "question": "What type of Windows account is used by applications and services rather than human users?",
+      "options": [
+        "Guest account",
+        "Administrator account",
+        "Service account",
+        "Power user account"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "Service accounts are Windows accounts used by applications and services to run processes and access resources. They often have elevated privileges and their credentials require careful protection."
+    },
+    {
+      "id": "win_007",
+      "question": "In the NotPetya attack, approximately how much did Maersk estimate their damages?",
+      "options": [
+        "$3 million",
+        "$30 million",
+        "$300 million",
+        "$3 billion"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "Maersk estimated NotPetya cost them approximately $300 million. The attack destroyed nearly all their Windows systems, including those controlling shipping logistics."
+    },
+    {
+      "id": "win_008",
+      "question": "What advantage does application whitelisting have over antivirus in air-gapped OT environments?",
+      "options": [
+        "It's cheaper to license",
+        "It doesn't require signature updates to detect threats",
+        "It uses less disk space",
+        "It runs faster during boot"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "Application whitelisting blocks any unapproved executable without needing signature updates. Antivirus requires constant updates, which is problematic in air-gapped environments."
+    },
+    {
+      "id": "win_009",
+      "question": "An HMI workstation needs to communicate with PLCs using Modbus TCP. Which Windows Firewall rule is appropriate?",
+      "options": [
+        "Allow all inbound traffic",
+        "Allow inbound TCP port 502 from specific PLC IP addresses",
+        "Block all network traffic",
+        "Allow all outbound traffic only"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "A principle of least privilege approach allows only the required Modbus TCP traffic (port 502) from specific, known PLC addresses, blocking everything else."
+    },
+    {
+      "id": "win_010",
+      "question": "What credential theft technique allows attackers to authenticate using a password hash without knowing the actual password?",
+      "options": [
+        "SQL injection",
+        "Pass-the-Hash",
+        "Cross-site scripting",
+        "Buffer overflow"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Pass-the-Hash allows attackers to authenticate to systems using the NTLM hash without knowing the cleartext password. This enables lateral movement after compromising a single system."
+    },
+    {
+      "id": "win_011",
+      "question": "What is the recommended Active Directory architecture for critical ICS environments?",
+      "options": [
+        "Join all OT systems to the enterprise domain",
+        "A separate Active Directory forest for OT systems",
+        "No Active Directory for OT systems",
+        "Use cloud-based Azure AD only"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "A separate AD forest provides complete isolation from enterprise AD attacks. If the enterprise domain is compromised, the OT forest remains protected."
+    },
+    {
+      "id": "win_012",
+      "question": "Which Windows feature uses virtualization to isolate credentials from the operating system?",
+      "options": [
+        "BitLocker",
+        "Credential Guard",
+        "Windows Defender",
+        "AppLocker"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Credential Guard uses virtualization-based security to isolate credentials in a protected container, preventing credential theft attacks like Pass-the-Hash even if the OS is compromised."
+    },
+    {
+      "id": "win_013",
+      "question": "Before deploying AppLocker in enforcement mode, what should you do first?",
+      "options": [
+        "Disable antivirus",
+        "Run in Audit Only mode to identify what would be blocked",
+        "Uninstall all applications",
+        "Disconnect from the network"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Audit Only mode logs what would be blocked without actually blocking it. This allows you to identify legitimate applications that need whitelist rules before enforcement could break operations."
+    },
+    {
+      "id": "win_014",
+      "question": "What is a Managed Service Account (MSA)?",
+      "options": [
+        "An account for human administrators",
+        "An account type that automatically manages password rotation for services",
+        "A guest account with limited access",
+        "An account for email access only"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Managed Service Accounts automatically handle password management with cryptographically strong passwords, eliminating manual password rotation and reducing the risk of credential compromise."
+    },
+    {
+      "id": "win_015",
+      "question": "In tiered administration, why should OT administrators use different accounts than enterprise IT administrators?",
+      "options": [
+        "To simplify password management",
+        "To prevent credential theft from compromising both environments",
+        "To reduce licensing costs",
+        "To enable remote work"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Tiered administration prevents attackers who compromise enterprise credentials from using them to access OT systems. Each tier has separate accounts, limiting lateral movement between environments."
+    },
+    {
+      "id": "win_016",
+      "question": "What compensating control can partially protect legacy Windows XP systems that cannot be patched?",
+      "options": [
+        "Upgrading to Windows 11",
+        "Network isolation with strict firewall rules and application whitelisting",
+        "Removing the systems from the network entirely",
+        "Installing more RAM"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Network isolation limits exposure to network-based attacks, while application whitelisting prevents unauthorized code execution. Together they partially compensate for missing security patches."
+    },
+    {
+      "id": "win_017",
+      "question": "Which SMB version should be disabled on OT systems to prevent attacks like WannaCry and NotPetya?",
+      "options": [
+        "SMBv3",
+        "SMBv2",
+        "SMBv1",
+        "All SMB versions"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "SMBv1 has numerous security vulnerabilities exploited by WannaCry, NotPetya, and other malware. It should be disabled on all systems that don't require it for legacy compatibility."
+    },
+    {
+      "id": "win_018",
+      "question": "What is the primary risk of using the same service account across multiple ICS systems?",
+      "options": [
+        "Increased licensing costs",
+        "Compromising one system compromises all systems using that account",
+        "Slower network performance",
+        "More frequent password changes required"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "If a shared service account is compromised on any system, attackers can use those credentials to access all other systems using the same account, enabling rapid lateral movement."
+    },
+    {
+      "id": "win_019",
+      "question": "An ICS vendor requires their software to run with 'Domain Admin' privileges. What should you do?",
+      "options": [
+        "Grant Domain Admin as requested",
+        "Document the business risk and work with the vendor to identify minimum required permissions",
+        "Refuse to install the software",
+        "Create a hidden admin account"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Vendors sometimes request excessive privileges because it's easier to implement. Work with them to identify actual required permissions. Document the risk if they insist on elevated access."
+    },
+    {
+      "id": "win_020",
+      "question": "What attack technique exploits weak service account passwords by requesting Kerberos service tickets?",
+      "options": [
+        "Pass-the-Hash",
+        "Kerberoasting",
+        "Golden Ticket",
+        "Silver Ticket"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Kerberoasting allows attackers to request service tickets for any SPN-associated account, then crack those tickets offline to obtain the service account password."
+    },
+    {
+      "id": "win_021",
+      "question": "When NotPetya encrypted systems at Maersk, how were they able to recover their Active Directory infrastructure?",
+      "options": [
+        "Microsoft provided special recovery keys",
+        "A single domain controller in Ghana happened to be offline during the attack",
+        "They paid the ransom to the attackers",
+        "Cloud backups automatically restored everything"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Maersk's AD recovery was possible because a domain controller in Ghana was offline due to a power outage during the attack. This fortunate accident provided the data needed to rebuild their environment."
+    },
+    {
+      "id": "win_022",
+      "question": "What is the security concern with configuring OT systems to depend on enterprise Active Directory for authentication?",
+      "options": [
+        "Enterprise AD is more expensive",
+        "If enterprise AD is compromised or unavailable, operators may be locked out of critical systems",
+        "Enterprise AD doesn't support industrial protocols",
+        "It requires additional licensing"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "OT systems depending on enterprise AD create operational risk. If ransomware takes down AD, operators can't authenticate to HMIs during emergencies. Separate OT AD or cached credentials help mitigate this."
+    },
+    {
+      "id": "win_023",
+      "question": "What are 'LOLBins' in the context of AppLocker bypass?",
+      "options": [
+        "Low-overhead logging binaries",
+        "Living-off-the-land binaries—legitimate Windows tools that can be abused for attacks",
+        "Local operating system libraries",
+        "Legacy OT loader binaries"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Living-off-the-land binaries (LOLBins) are legitimate Windows tools like mshta.exe, regsvr32.exe, or PowerShell that are typically whitelisted but can be abused by attackers to execute malicious code."
+    },
+    {
+      "id": "win_024",
+      "question": "A security assessment finds that scheduled tasks on HMIs contain cleartext passwords for service accounts. What is the BEST remediation?",
+      "options": [
+        "Encrypt the hard drives with BitLocker",
+        "Migrate to Managed Service Accounts or Group Managed Service Accounts",
+        "Change the passwords monthly",
+        "Hide the task scheduler from standard users"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "MSAs and gMSAs eliminate the need to store credentials in tasks—Windows handles authentication automatically with cryptographically strong passwords that rotate regularly."
+    },
+    {
+      "id": "win_025",
+      "question": "Which Group Policy setting can help prevent credential theft through memory scraping tools like Mimikatz?",
+      "options": [
+        "Disable guest account",
+        "Enable Credential Guard / restrict WDigest authentication",
+        "Enable Remote Desktop",
+        "Configure screen saver timeout"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Credential Guard isolates credentials from the OS. Additionally, disabling WDigest authentication prevents cleartext credentials from being stored in memory where tools like Mimikatz can extract them."
+    },
+    {
+      "id": "win_026",
+      "question": "An HMI running Windows 7 cannot be upgraded because the ICS application doesn't support newer Windows versions. What is the MOST effective compensating control?",
+      "options": [
+        "Install additional antivirus software",
+        "Implement strict network segmentation, application whitelisting, and enhanced monitoring",
+        "Cover the monitor when not in use",
+        "Run the HMI in safe mode"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "A defense-in-depth approach combining network isolation (limiting exposure), whitelisting (preventing unauthorized execution), and enhanced monitoring (detecting attacks) provides the best protection for legacy systems."
+    },
+    {
+      "id": "win_027",
+      "question": "When configuring Windows Firewall for an engineering workstation, why should outbound filtering also be considered?",
+      "options": [
+        "To improve network performance",
+        "To limit data exfiltration and command-and-control communications",
+        "To reduce power consumption",
+        "To simplify the rule configuration"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Outbound filtering can prevent malware from exfiltrating data or communicating with command-and-control servers. An engineering workstation typically doesn't need arbitrary Internet access."
+    },
+    {
+      "id": "win_028",
+      "question": "What Windows security auditing category should be enabled to detect potential credential theft attempts?",
+      "options": [
+        "Object access only",
+        "Logon events, privilege use, and process creation",
+        "System events only",
+        "No auditing to improve performance"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Logon events detect authentication attempts. Privilege use detects when sensitive privileges are exercised. Process creation (with command line logging) reveals suspicious tool execution."
+    },
+    {
+      "id": "win_029",
+      "question": "A penetration tester demonstrates they can use PowerShell to download and execute malware on an HMI despite AppLocker being enabled. What additional control should be implemented?",
+      "options": [
+        "Disable networking",
+        "Constrained Language Mode for PowerShell and/or Windows Defender Application Control",
+        "Install a faster antivirus",
+        "Add more RAM to the system"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "AppLocker doesn't fully control PowerShell script execution. Constrained Language Mode limits PowerShell capabilities, and WDAC provides stronger code integrity enforcement than AppLocker."
+    },
+    {
+      "id": "win_030",
+      "question": "During incident response, you discover that domain admin credentials were used to access an HMI from the engineering workstation. Both systems are in the OT network. What architectural flaw does this indicate?",
+      "options": [
+        "The firewall isn't configured properly",
+        "Tiered administration wasn't implemented—domain admin credentials shouldn't be used on workstations",
+        "The HMI software is outdated",
+        "Network segmentation is too strict"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Domain admin credentials should only be used on domain controllers. Using them on workstations exposes them to credential theft. Tiered administration with separate accounts for each tier prevents this."
+    },
+    {
+      "id": "win_031",
+      "question": "An ICS vendor releases a critical security patch but hasn't certified it for their control system software. What is the BEST approach?",
+      "options": [
+        "Apply the patch immediately to all production systems",
+        "Test the patch in a non-production environment while implementing compensating controls in production",
+        "Ignore the patch since it's not certified",
+        "Wait indefinitely for vendor certification"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Risk-based approach: test the patch for compatibility while protecting production with compensating controls (segmentation, monitoring, whitelisting). Document decisions for compliance purposes."
+    },
+    {
+      "id": "win_032",
+      "question": "A SCADA historian requires OPC Classic connectivity to HMIs across a firewall. What makes this challenging to secure?",
+      "options": [
+        "OPC Classic is too old to work with modern firewalls",
+        "OPC Classic uses DCOM which requires dynamic port ranges and complex firewall rules",
+        "OPC Classic doesn't support TCP/IP",
+        "Historians don't support firewalled connections"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "OPC Classic relies on DCOM, which uses dynamic ports making firewall configuration difficult. Many organizations resort to overly permissive rules or OPC tunneling/gateway solutions."
+    },
+    {
+      "id": "win_033",
+      "question": "After enabling Windows security auditing, you notice that failed logon events (Event ID 4625) are occurring every few seconds on a historian. What does this likely indicate?",
+      "options": [
+        "Normal Windows behavior",
+        "A brute force attack or misconfigured service attempting to authenticate with wrong credentials",
+        "The historian needs more memory",
+        "Security auditing is misconfigured"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Frequent failed logons could indicate a brute force attack or a service/application with stale credentials repeatedly failing to authenticate. Investigate the source and reason immediately."
+    },
+    {
+      "id": "win_034",
+      "question": "An organization wants to implement a 'break-glass' process for emergency HMI access when Active Directory is unavailable. What is the security concern with using a shared local admin password documented in a safe?",
+      "options": [
+        "It's too complex to implement",
+        "Anyone who accesses the safe can use the password, and it may never be changed after use",
+        "Local accounts can't log into Windows",
+        "Safes aren't secure enough"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Shared passwords lack accountability (multiple people know them) and often aren't changed after use. LAPS with a secure retrieval process provides individual accountability and automatic rotation."
+    },
+    {
+      "id": "win_035",
+      "question": "The NotPetya malware used both EternalBlue (SMB vulnerability) and credential theft for propagation. Why did organizations with patched systems still get infected?",
+      "options": [
+        "The patches were ineffective",
+        "NotPetya could spread using stolen credentials even if SMB was patched",
+        "NotPetya disabled patch protections",
+        "EternalBlue bypasses all patches"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "NotPetya had multiple propagation methods. Even if SMB was patched, it could spread using Mimikatz-style credential theft. Defense-in-depth requires addressing multiple attack vectors."
+    },
+    {
+      "id": "win_036",
+      "question": "You're implementing Windows Defender Application Control (WDAC) on critical ICS workstations. What makes WDAC stronger than AppLocker for preventing sophisticated attacks?",
+      "options": [
+        "WDAC is free while AppLocker requires licensing",
+        "WDAC enforces code integrity at the kernel level before execution, not just at user mode",
+        "WDAC is easier to configure",
+        "WDAC includes built-in antivirus"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "WDAC enforces code integrity policies at the kernel level using virtualization-based security. It's more resistant to bypass than AppLocker, which runs in user mode."
+    },
+    {
+      "id": "win_037",
+      "question": "An attacker compromises a contractor's laptop that has cached credentials from both the enterprise domain and the OT domain. What architectural failure enabled this scenario?",
+      "options": [
+        "The laptop wasn't encrypted",
+        "The same device was used to access both environments, violating tiered access principles",
+        "The contractor had too many permissions",
+        "Remote access was enabled"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Privileged Access Workstations (PAWs) should be used for OT administration, separate from devices used for enterprise access. A compromised dual-use device compromises both environments."
+    },
+    {
+      "id": "win_038",
+      "question": "A security audit finds that an HMI has Windows Remote Management (WinRM) enabled with default settings. What is the PRIMARY risk in an ICS environment?",
+      "options": [
+        "Increased CPU usage",
+        "Attackers could execute commands remotely if they obtain valid credentials",
+        "WinRM is incompatible with industrial applications",
+        "It violates software licensing"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "WinRM allows remote command execution. Combined with credential theft, attackers could remotely control HMIs. If WinRM is needed, restrict it to specific source IPs and require strong authentication."
+    },
+    {
+      "id": "win_039",
+      "question": "An APT group is targeting your industrial facility. They've compromised an enterprise domain controller but your OT forest has a one-way trust (OT trusts enterprise). What attack path remains available to them?",
+      "options": [
+        "None—one-way trust provides complete protection",
+        "They can compromise users who authenticate to both environments, or exploit the trust relationship to access OT resources that trust enterprise accounts",
+        "They can directly access OT domain controllers",
+        "They can reset OT domain admin passwords"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "One-way trusts aren't complete isolation. Users with accounts in both environments remain targets. Resources in OT that trust enterprise accounts (for service accounts or administrators) could be accessed."
+    },
+    {
+      "id": "win_040",
+      "question": "You discover that a safety system HMI was infected with ransomware, but the ransomware failed to encrypt files because it couldn't connect to its command server. What does this tell you about your network architecture?",
+      "options": [
+        "Ransomware doesn't work on safety systems",
+        "Network segmentation blocked the C2 connection, but malware still reached the safety system—investigate the initial infection vector",
+        "The ransomware was poorly designed",
+        "Antivirus blocked the attack"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "The failed C2 connection shows segmentation working, but malware presence on a safety system is critical. Investigate how it got there (USB? lateral movement? supply chain?) and strengthen those defenses."
+    },
+    {
+      "id": "win_041",
+      "question": "During a tabletop exercise, the scenario involves ransomware encrypting all Windows systems including SCADA servers and historians. Operations asks if PLCs will continue running. What is the correct answer?",
+      "options": [
+        "PLCs will immediately shut down without SCADA",
+        "PLCs will continue their last programmed state, but operators lose visibility and cannot make changes",
+        "PLCs automatically switch to backup SCADA systems",
+        "Ransomware also encrypts PLC logic"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "PLCs operate independently with their programmed logic. They'll continue running, but without HMIs and historians, operators can't see process status or make adjustments. This 'blind flying' is extremely dangerous."
+    },
+    {
+      "id": "win_042",
+      "question": "An ICS vendor requires their engineering software to run with administrative privileges and store database credentials in a registry key readable by administrators. The software is critical for operations. What is the BEST security approach?",
+      "options": [
+        "Accept the configuration since it's vendor-required",
+        "Document the risk, isolate the engineering workstation, implement compensating controls, and work with vendor on long-term fixes",
+        "Refuse to use the software",
+        "Hide the registry key"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Pragmatic ICS security accepts some risks when operationally necessary, but implements compensating controls (isolation, monitoring, access restrictions) and documents findings for vendor pressure and audit purposes."
+    },
+    {
+      "id": "win_043",
+      "question": "Your organization completed a major Windows security hardening project for OT systems. Six months later, a compromise occurs through an engineering workstation. Investigation reveals the hardening GPOs were never actually applied to that system. What process failure does this indicate?",
+      "options": [
+        "Group Policy doesn't work",
+        "Lack of verification/validation that security controls are actually applied and maintained over time",
+        "The workstation had special requirements",
+        "GPO processing is too slow"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Security controls must be verified, not just deployed. Regular compliance checking, security configuration auditing, and continuous monitoring should confirm that controls remain effective over time."
+    },
+    {
+      "id": "win_044",
+      "question": "A sophisticated attacker has gained code execution on an HMI with WDAC enabled in enforcement mode. The attacker cannot run traditional malware. What technique might they attempt next?",
+      "options": [
+        "Give up since WDAC blocks everything",
+        "Use signed Windows utilities, reflective DLL injection, or find WDAC policy weaknesses to operate within allowed code",
+        "Physically access the HMI",
+        "Attack a different company"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Advanced attackers adapt to controls. They might abuse trusted signed binaries, inject code into allowed processes, or exploit policy gaps. Defense-in-depth with monitoring is essential even with strong controls."
+    }
   ]
 }

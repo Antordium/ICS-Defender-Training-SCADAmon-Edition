@@ -1,142 +1,527 @@
 {
-  "moduleId": "5",
-  "moduleName": "Unix/Linux in OT Environments",
-  "domain": "unix",
+  "module": 5,
+  "domain": "Unix/Linux Security in OT",
+  "totalQuestions": 40,
   "questions": [
     {
-      "id": "m5_q01",
-      "type": "multiple_choice",
-      "difficulty": 1,
-      "question": "Where are Linux/Unix systems commonly found in ICS environments?",
-      "options": ["Only in corporate IT networks", "Embedded in PLCs/RTUs, network appliances, and some SCADA servers", "Linux is never used in ICS", "Only for gaming systems"],
-      "correctIndex": 1,
-      "explanation": "Linux is widely used in ICS: embedded in PLCs and RTUs, running on network security appliances, powering some SCADA/HMI applications, and in historians."
+      "id": "linux_001",
+      "question": "Which SSH configuration directive prevents the root account from logging in directly?",
+      "options": [
+        "DenyRoot yes",
+        "PermitRootLogin no",
+        "RootAccess disabled",
+        "BlockRoot true"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "The sshd_config directive 'PermitRootLogin no' prevents direct root login via SSH. Administrators should log in with personal accounts and use sudo for privilege escalation to maintain accountability."
     },
     {
-      "id": "m5_q02",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the purpose of the 'sudo' command in Linux?",
-      "options": ["To shut down the system", "To execute commands with elevated (root) privileges", "To delete files permanently", "To connect to the internet"],
-      "correctIndex": 1,
-      "explanation": "sudo allows authorized users to execute commands with root privileges without logging in as root, supporting the principle of least privilege."
+      "id": "linux_002",
+      "question": "What does the file permission mode 754 mean?",
+      "options": [
+        "Owner: read/write, Group: read, Others: execute",
+        "Owner: read/write/execute, Group: read/execute, Others: read",
+        "Owner: full access, Group: write/execute, Others: read",
+        "Owner: read/execute, Group: write, Others: read/write"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "Permission mode 754 breaks down as: 7 (4+2+1) = owner has read, write, execute; 5 (4+1) = group has read and execute; 4 = others have read only. This follows the r=4, w=2, x=1 calculation."
     },
     {
-      "id": "m5_q03",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is SELinux?",
-      "options": ["A Linux distribution for science", "Security-Enhanced Linux - a mandatory access control system", "A text editor", "A network protocol"],
-      "correctIndex": 1,
-      "explanation": "SELinux implements mandatory access controls that restrict processes to only the resources they need, limiting damage from successful exploits."
+      "id": "linux_003",
+      "question": "Which log file on Debian/Ubuntu systems contains SSH login attempts and sudo usage?",
+      "options": [
+        "/var/log/messages",
+        "/var/log/auth.log",
+        "/var/log/secure",
+        "/var/log/syslog"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "On Debian/Ubuntu systems, /var/log/auth.log contains authentication events including SSH logins, sudo usage, and failed authentication attempts. RHEL/CentOS uses /var/log/secure for this purpose."
     },
     {
-      "id": "m5_q04",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the purpose of the /etc/sudoers file?",
-      "options": ["To store user passwords", "To define which users can use sudo and what commands they can run", "To configure network settings", "To log system events"],
-      "correctIndex": 1,
-      "explanation": "The /etc/sudoers file controls sudo access - defining which users/groups can use sudo, what commands they can execute, and on which hosts."
+      "id": "linux_004",
+      "question": "What is the primary function of a bastion host (jump server) in OT network architecture?",
+      "options": [
+        "To run industrial applications directly",
+        "To provide a single audited entry point for SSH access to internal systems",
+        "To store backup copies of PLC programs",
+        "To translate between different industrial protocols"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "A bastion host (jump server) provides a single, audited entry point for SSH access to internal OT systems. Users SSH to the bastion first, then SSH from there to internal systems, enabling session recording and centralized access control."
     },
     {
-      "id": "m5_q05",
-      "type": "true_false",
-      "difficulty": 1,
-      "question": "The root account in Linux has unrestricted access to all system resources.",
-      "options": ["True", "False"],
-      "correctIndex": 0,
-      "explanation": "True. The root account (UID 0) has complete control over a Linux system and can bypass most security checks."
+      "id": "linux_005",
+      "question": "Which command generates an SSH key using the Ed25519 algorithm?",
+      "options": [
+        "ssh-keygen -t dsa",
+        "ssh-keygen -t ed25519",
+        "ssh-create -a ed25519",
+        "openssl genkey ed25519"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "The command 'ssh-keygen -t ed25519' generates an SSH key pair using the Ed25519 algorithm, which provides strong security with shorter keys than RSA. Alternative strong option is 'ssh-keygen -t rsa -b 4096'."
     },
     {
-      "id": "m5_q06",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the recommended way to disable direct root login via SSH?",
-      "options": ["Delete the root account", "Set 'PermitRootLogin no' in /etc/ssh/sshd_config", "Uninstall SSH", "Set root password to blank"],
-      "correctIndex": 1,
-      "explanation": "Setting 'PermitRootLogin no' prevents direct root login over SSH. Users must login with their own account and use sudo."
+      "id": "linux_006",
+      "question": "What is the purpose of the /etc/cron.allow file?",
+      "options": [
+        "Lists all scheduled cron jobs",
+        "Whitelists users who can create cron jobs",
+        "Defines system-wide cron environment variables",
+        "Specifies directories where cron scripts are stored"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "The /etc/cron.allow file whitelists users who are permitted to create cron jobs. If this file exists, only users listed in it can use cron. This is a key control for restricting who can schedule automated tasks."
     },
     {
-      "id": "m5_q07",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is auditd in Linux?",
-      "options": ["Financial audit software", "The Linux audit daemon for security logging", "Audio player", "Update manager"],
-      "correctIndex": 1,
-      "explanation": "auditd records security-relevant events like file access, system calls, and user actions - essential for security monitoring in ICS."
+      "id": "linux_007",
+      "question": "Which Linux distributions are commonly used for embedded devices in ICS environments?",
+      "options": [
+        "Fedora and Arch Linux",
+        "Yocto and OpenWRT",
+        "Linux Mint and Elementary OS",
+        "Manjaro and Pop!_OS"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "Yocto and OpenWRT are commonly used for embedded devices in ICS environments. These distributions are designed for resource-constrained systems and can be customized for specific industrial applications like PLCs and network devices."
     },
     {
-      "id": "m5_q08",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What does 'chmod 600 file.txt' do?",
-      "options": ["Deletes the file", "Sets read/write for owner only, no access for others", "Makes file executable", "Changes file owner"],
-      "correctIndex": 1,
-      "explanation": "chmod 600 sets permissions to rw------- (read/write for owner, no permissions for group or others)."
+      "id": "linux_008",
+      "question": "What special permission bit allows a program to run with the file owner's privileges?",
+      "options": [
+        "Sticky bit",
+        "SetUID",
+        "SetGID",
+        "Execute bit"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "The SetUID (Set User ID) bit (numeric value 4000) allows a program to run with the privileges of the file's owner rather than the user executing it. SetUID root binaries are potential privilege escalation vectors and should be minimized."
     },
     {
-      "id": "m5_q09",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is iptables used for?",
-      "options": ["Managing database tables", "Configuring the Linux firewall", "Creating spreadsheets", "Managing users"],
-      "correctIndex": 1,
-      "explanation": "iptables is the Linux kernel's packet filtering framework, providing host-based firewall capabilities."
+      "id": "linux_009",
+      "question": "An ICS administrator wants to limit SSH access to only members of the operations team. Which sshd_config directive should they use?",
+      "options": [
+        "RestrictSSH ops-team",
+        "AllowGroups ops-team",
+        "SSHAccess ops-team",
+        "PermitGroup ops-team"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "The 'AllowGroups' directive in sshd_config limits SSH access to members of specified groups. Using 'AllowGroups ops-team' ensures only users in the ops-team group can SSH to the system, regardless of other authentication success."
     },
     {
-      "id": "m5_q10",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "What is the security risk of SUID binaries?",
-      "options": ["They run slowly", "They execute with owner's privileges, allowing potential privilege escalation", "They cannot execute", "They use too much disk"],
-      "correctIndex": 1,
-      "explanation": "SUID binaries run with the file owner's permissions. If vulnerable, attackers can exploit them for privilege escalation."
+      "id": "linux_010",
+      "question": "Why should cron jobs use absolute paths instead of relative paths?",
+      "options": [
+        "Cron doesn't support relative paths syntactically",
+        "Absolute paths execute faster",
+        "To prevent PATH manipulation attacks that could execute malicious binaries",
+        "Relative paths cause cron jobs to fail silently"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "Cron runs with a minimal environment, and using relative paths allows attackers to manipulate the PATH variable to execute malicious binaries instead of intended ones. Always use full paths like '/usr/bin/python3' rather than 'python3'."
     },
     {
-      "id": "m5_q11",
-      "type": "true_false",
-      "difficulty": 2,
-      "question": "AppArmor and SELinux both provide mandatory access control on Linux.",
-      "options": ["True", "False"],
-      "correctIndex": 0,
-      "explanation": "True. Both implement MAC that restricts what processes can do beyond traditional Unix permissions."
+      "id": "linux_011",
+      "question": "A security analyst discovers a script in /etc/cron.daily/ with permissions -rwxrwxrwx (777). What is the primary security concern?",
+      "options": [
+        "The script will fail to execute",
+        "Any user can modify the script, potentially gaining root privileges when it runs",
+        "The script cannot be read by the cron daemon",
+        "Cron ignores scripts with these permissions"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Scripts in cron.daily typically run as root. If any user can modify the script (777 permissions), they can insert malicious commands that execute with root privileges. Cron scripts should be owned by root with mode 700 or 750."
     },
     {
-      "id": "m5_q12",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "Why should SSH keys be preferred over passwords?",
-      "options": ["Keys are faster to type", "Keys are much harder to brute-force and not vulnerable to credential theft", "Keys don't need security", "Passwords aren't supported"],
-      "correctIndex": 1,
-      "explanation": "SSH keys are cryptographically strong, practically impossible to brute-force, and not vulnerable to phishing."
+      "id": "linux_012",
+      "question": "What is the correct approach when an ICS application doesn't work properly with SELinux enabled?",
+      "options": [
+        "Permanently disable SELinux system-wide",
+        "Troubleshoot specific denials and create appropriate policy exceptions",
+        "Run the application as root to bypass restrictions",
+        "Switch to a Linux distribution without SELinux"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Instead of disabling SELinux entirely, administrators should troubleshoot specific denials using audit logs and create targeted policy exceptions. A properly configured SELinux system can prevent exploitation even when applications are compromised."
     },
     {
-      "id": "m5_q13",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "What is the risk of using Telnet instead of SSH?",
-      "options": ["Telnet is too fast", "Telnet transmits passwords in plaintext", "Telnet is too modern", "No difference"],
-      "correctIndex": 1,
-      "explanation": "Telnet sends all data including passwords unencrypted. SSH encrypts all communications, protecting against eavesdropping."
+      "id": "linux_013",
+      "question": "Which command would you use to view another user's crontab for security auditing?",
+      "options": [
+        "cat /etc/crontab",
+        "crontab -l -u username",
+        "systemctl show cron",
+        "cronctl --list username"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "The command 'crontab -l -u username' displays the crontab for a specified user. Regular auditing of user crontabs, along with /etc/crontab and /etc/cron.d/*, is essential for detecting unauthorized scheduled tasks."
     },
     {
-      "id": "m5_q14",
-      "type": "multiple_choice",
-      "difficulty": 1,
-      "question": "What is syslog used for?",
-      "options": ["System backup", "Centralized logging of system messages", "System updates", "Network configuration"],
-      "correctIndex": 1,
-      "explanation": "syslog collects log messages from the kernel, services, and applications for centralized monitoring and analysis."
+      "id": "linux_014",
+      "question": "Why is key-based SSH authentication preferred over password authentication in OT environments?",
+      "options": [
+        "Keys are easier to remember than passwords",
+        "Keys can't be brute-forced remotely and provide stronger authentication",
+        "Password authentication is not supported on industrial Linux systems",
+        "Keys are automatically rotated by the SSH daemon"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "SSH keys provide much stronger authentication than passwords and cannot be brute-forced remotely. After deploying SSH keys, setting 'PasswordAuthentication no' eliminates password guessing attacks against SSH services."
     },
     {
-      "id": "m5_q15",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the security benefit of disabling unnecessary services?",
-      "options": ["Faster boot", "Reduces attack surface and potential vulnerabilities", "Frees disk space", "Better graphics"],
-      "correctIndex": 1,
-      "explanation": "Every running service is a potential attack vector. Fewer services means fewer vulnerabilities to exploit or patch."
+      "id": "linux_015",
+      "question": "What is the security benefit of configuring internal OT systems to only accept SSH from the bastion host's IP?",
+      "options": [
+        "It improves SSH connection speed",
+        "It limits exposure even if credentials are compromised since attackers must also compromise the bastion",
+        "It automatically encrypts traffic with stronger algorithms",
+        "It enables two-factor authentication on all systems"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Restricting SSH to the bastion host's IP means even if an attacker obtains valid credentials, they cannot connect directly to internal systems. They must first compromise the bastion, which should have strong security controls and monitoring."
+    },
+    {
+      "id": "linux_016",
+      "question": "Which auditd capability allows monitoring of specific file access in Linux?",
+      "options": [
+        "File watches configured via auditctl or audit.rules",
+        "Automatic inode tracking by the kernel",
+        "The audit-files service",
+        "SELinux file context labeling"
+      ],
+      "correct": 0,
+      "difficulty": "medium",
+      "explanation": "The auditctl command or /etc/audit/audit.rules file can define file watches to monitor access to sensitive files. This allows detection of unauthorized access to configuration files, credentials, or other sensitive data."
+    },
+    {
+      "id": "linux_017",
+      "question": "What permissions should /etc/shadow have for proper security?",
+      "options": [
+        "Mode 644 (readable by all)",
+        "Mode 000 or 400 (readable only by root)",
+        "Mode 755 (executable by all)",
+        "Mode 666 (writable by all)"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "The /etc/shadow file contains password hashes and should be readable only by root (mode 000 or 400). Allowing other users to read shadow enables offline password cracking attacks against all system accounts."
+    },
+    {
+      "id": "linux_018",
+      "question": "Why is log forwarding to a central SIEM particularly important in OT environments?",
+      "options": [
+        "Local logging is not supported on embedded Linux systems",
+        "SIEM systems provide better log compression",
+        "Logs survive if the source system is compromised and enable correlation across systems",
+        "Central logging is required by all industrial protocols"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "Centralized log forwarding ensures logs survive if the source system is compromised (attackers often delete local logs), enables correlation across multiple systems for attack detection, and supports compliance requirements for long-term retention."
+    },
+    {
+      "id": "linux_019",
+      "question": "What is a key security challenge with embedded Linux PLCs compared to enterprise servers?",
+      "options": [
+        "Embedded PLCs cannot run Linux",
+        "Limited storage and memory constrain what security tools can run",
+        "Embedded systems don't support user accounts",
+        "Linux PLCs cannot be networked"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Embedded Linux PLCs have limited storage and memory, constraining what security tools can be installed. Additionally, vendors may not provide regular security updates, and root access may be required for legitimate engineering tasks."
+    },
+    {
+      "id": "linux_020",
+      "question": "The Mirai botnet demonstrated what critical security lesson for embedded ICS devices?",
+      "options": [
+        "Embedded devices don't need firewalls",
+        "Factory default SSH passwords must be changed, and SSH should be disabled if not needed",
+        "Only Windows devices are vulnerable to botnets",
+        "Network segmentation is unnecessary for IoT devices"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "The Mirai botnet exploited IoT devices with factory default SSH passwords. This demonstrates the critical need to change default credentials on embedded devices and disable SSH on devices that don't require remote access."
+    },
+    {
+      "id": "linux_021",
+      "question": "A Linux system's /etc/passwd shows a user with UID 0 other than root. What does this indicate?",
+      "options": [
+        "A normal system configuration for backup administrators",
+        "A potential backdoor account with root-equivalent privileges",
+        "An error in the passwd file that will prevent login",
+        "A service account required for system operation"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "UID 0 is reserved for root. Any other account with UID 0 has full root privileges and is often a sign of a backdoor created by an attacker. Regular audits should check for unauthorized UID 0 accounts."
+    },
+    {
+      "id": "linux_022",
+      "question": "How does SELinux's 'Enforcing' mode differ from 'Permissive' mode in protecting ICS applications?",
+      "options": [
+        "Enforcing mode logs violations while Permissive mode blocks them",
+        "Enforcing mode actively blocks policy violations while Permissive only logs them",
+        "There is no functional difference between the modes",
+        "Permissive mode provides stronger protection than Enforcing"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "In Enforcing mode, SELinux actively blocks actions that violate the security policy. In Permissive mode, violations are logged but allowed. For production ICS systems, Enforcing mode provides actual protection rather than just monitoring."
+    },
+    {
+      "id": "linux_023",
+      "question": "An attacker compromises a monitoring server in the IDMZ that runs Linux. How might they leverage this position?",
+      "options": [
+        "They cannot cause any harm from a monitoring server",
+        "They could blind defenders by manipulating alerts, gather intelligence about the OT network, and use it as a pivot point",
+        "Monitoring servers have no access to OT network traffic",
+        "Linux monitoring servers are immune to lateral movement"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "A compromised monitoring server could allow attackers to suppress or manipulate security alerts, gather valuable intelligence about OT network traffic and configurations, and potentially pivot to other systems the monitoring server connects to."
+    },
+    {
+      "id": "linux_024",
+      "question": "What command sequence would you use to find all SetUID binaries on a system for security review?",
+      "options": [
+        "ls -la /sbin",
+        "find / -perm -4000 -type f",
+        "grep setuid /etc/passwd",
+        "setuid --list-all"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "The command 'find / -perm -4000 -type f' searches the entire filesystem for files with the SetUID bit set. Each SetUID root binary is a potential privilege escalation path and should be reviewed for necessity."
+    },
+    {
+      "id": "linux_025",
+      "question": "Why might aggressive log rotation be necessary on embedded OT systems, and what compensating control should be implemented?",
+      "options": [
+        "To improve system performance; implement faster processors",
+        "Limited storage requires rotation, but logs should be forwarded to central storage before local deletion",
+        "Regulations require daily log deletion; no compensation needed",
+        "Rotation prevents attackers from reading logs; implement encryption"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Embedded systems have limited storage requiring aggressive log rotation. The compensating control is forwarding logs to centralized storage before local rotation deletes them, preserving the audit trail while managing storage constraints."
+    },
+    {
+      "id": "linux_026",
+      "question": "A cron job runs every hour as root: '/usr/local/bin/collect_data.sh'. The script file has mode 755. What privilege escalation risk exists?",
+      "options": [
+        "No risk exists since only root can run the job",
+        "Any user who can write to /usr/local/bin/ could replace the script and gain root access",
+        "Mode 755 prevents execution by root",
+        "Hourly jobs cannot run with root privileges"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "If any user can write to the /usr/local/bin/ directory, they could replace collect_data.sh with a malicious script that executes with root privileges when the cron job runs. Both the script and its parent directory need proper permissions."
+    },
+    {
+      "id": "linux_027",
+      "question": "What is the security implication of using 'PermitRootLogin prohibit-password' instead of 'PermitRootLogin no'?",
+      "options": [
+        "Both settings are identical in function",
+        "Prohibit-password allows root login with SSH keys but not passwords, which may be acceptable for emergency access",
+        "Prohibit-password is more secure than 'no'",
+        "Prohibit-password disables root access entirely"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "'PermitRootLogin prohibit-password' allows root login via SSH keys but not passwords. This might be acceptable for emergency/break-glass scenarios where key-based root access is needed, but 'no' is more secure as it requires sudo for all privilege escalation."
+    },
+    {
+      "id": "linux_028",
+      "question": "How can AppArmor profiles be used to limit damage from a compromised ICS application?",
+      "options": [
+        "AppArmor prevents all applications from running",
+        "Profiles confine applications to only the files, capabilities, and network access they need for normal operation",
+        "AppArmor only works with web applications",
+        "Profiles encrypt all application data automatically"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "AppArmor profiles define what files an application can access, what capabilities it can use, and what network connections it can make. Even if the application is compromised, the attacker is confined to the profile's allowed actions."
+    },
+    {
+      "id": "linux_029",
+      "question": "What kernel parameter should be disabled via sysctl on Linux systems that don't need to forward network traffic?",
+      "options": [
+        "net.ipv4.tcp_syncookies",
+        "net.ipv4.ip_forward",
+        "kernel.randomize_va_space",
+        "net.ipv4.tcp_timestamps"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Setting net.ipv4.ip_forward=0 disables IP forwarding, preventing the system from routing packets between networks. Unless the system is explicitly a router, this should be disabled to prevent it being used for lateral movement."
+    },
+    {
+      "id": "linux_030",
+      "question": "During incident response, you find that /var/log/audit/audit.log was recently truncated to zero bytes. What does this suggest?",
+      "options": [
+        "Normal log rotation occurred",
+        "An attacker likely cleared audit logs to cover their tracks",
+        "The auditd service crashed",
+        "The system ran out of disk space"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Truncating audit logs to zero (rather than normal rotation which creates archives) is a strong indicator of an attacker attempting to cover their tracks. This is why forwarding logs to central storage is critical - remote copies would survive this tampering."
+    },
+    {
+      "id": "linux_031",
+      "question": "The TRITON attack compromised safety systems. What Linux security lesson applies to protecting similar embedded control systems?",
+      "options": [
+        "Linux systems are immune to such attacks",
+        "Engineering workstation security, integrity monitoring, and network traffic analysis are critical for protecting embedded controllers",
+        "Safety systems don't require security measures",
+        "Only air-gapped systems are at risk"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "TRITON attackers compromised Windows engineering workstations to reach safety controllers. For Linux-based embedded systems, this highlights the need for engineering workstation security, integrity monitoring on embedded devices, and network monitoring for unusual traffic patterns."
+    },
+    {
+      "id": "linux_032",
+      "question": "Why should rsyslog or syslog-ng be configured to forward logs over TLS in OT environments?",
+      "options": [
+        "TLS compression reduces bandwidth usage",
+        "TLS prevents attackers from reading, modifying, or injecting false log entries in transit",
+        "Unencrypted syslog is not supported by SIEM systems",
+        "TLS is required by the syslog protocol specification"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "TLS encryption for log forwarding prevents attackers who have network access from reading sensitive log data, modifying logs in transit to hide their activities, or injecting false entries to mislead incident responders."
+    },
+    {
+      "id": "linux_033",
+      "question": "An OT environment uses both SELinux on RHEL servers and AppArmor on Ubuntu systems. What challenge does this create for security management?",
+      "options": [
+        "The systems cannot communicate with each other",
+        "Different policy languages and management tools require dual expertise and separate policy development",
+        "SELinux and AppArmor use identical configurations",
+        "One MAC system will automatically disable the other"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "SELinux uses type enforcement with labels while AppArmor uses path-based access control. Managing both requires expertise in two different policy languages, separate tooling, and independent policy development and testing processes."
+    },
+    {
+      "id": "linux_034",
+      "question": "How would you design SSH access for a multi-tier OT architecture spanning Levels 1-4 of the Purdue Model?",
+      "options": [
+        "Allow direct SSH from Level 4 to all lower levels",
+        "Use a tiered bastion approach with separate jump servers at each level boundary, with no direct connections skipping levels",
+        "Disable SSH entirely and use telnet instead",
+        "Grant all administrators root access to all systems"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "A tiered bastion approach places jump servers at level boundaries (e.g., in the IDMZ between IT and OT). Administrators must traverse each tier sequentially, providing defense in depth and ensuring compromise of one level doesn't grant access to all levels."
+    },
+    {
+      "id": "linux_035",
+      "question": "A vendor-supplied embedded Linux PLC requires root SSH access for maintenance. How should this be secured while maintaining vendor support?",
+      "options": [
+        "Accept the risk since vendor support is more important",
+        "Implement compensating controls: restrict SSH source IPs, use key authentication, enable session recording, place behind a jump server with MFA",
+        "Refuse to use the PLC",
+        "Give the vendor permanent VPN access"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "When vendor requirements conflict with security best practices, implement compensating controls: restrict SSH to specific IPs (vendor or bastion), require key authentication, enable session recording for accountability, and place access behind a properly secured jump server with MFA."
+    },
+    {
+      "id": "linux_036",
+      "question": "You need to create an SELinux policy for a custom ICS data collection daemon. What approach minimizes security risk while ensuring functionality?",
+      "options": [
+        "Run the daemon as unconfined_t to avoid policy issues",
+        "Create a custom confined domain using audit2allow on permissive mode logs, then review and minimize the generated policy",
+        "Disable SELinux during daemon operation",
+        "Run the daemon as root without any SELinux context"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "The proper approach is: run the daemon in permissive mode to collect audit logs of required access, use audit2allow to generate initial policy, review and minimize the policy to only necessary permissions, test in enforcing mode, and iterate. Never run production systems as unconfined."
+    },
+    {
+      "id": "linux_037",
+      "question": "An attacker achieves code execution in an ICS application running with reduced capabilities via systemd. What technique might they use to escalate privileges?",
+      "options": [
+        "Capabilities make privilege escalation impossible",
+        "Search for SetUID binaries, exploit kernel vulnerabilities, abuse writable cron jobs, or leverage misconfigurations in sudoers",
+        "Simply request root access from the application",
+        "Restart the system to gain root"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Even with reduced capabilities, attackers can escalate privileges through: SetUID binaries with vulnerabilities, kernel exploits, writable files executed by root (cron jobs, systemd services), sudo misconfigurations, or vulnerable services running as root."
+    },
+    {
+      "id": "linux_038",
+      "question": "How should file integrity monitoring (FIM) be deployed differently for embedded Linux PLCs versus full Linux servers?",
+      "options": [
+        "FIM cannot work on embedded systems",
+        "Embedded systems need lightweight agents or agentless network-based approaches due to resource constraints, with baselines stored externally",
+        "Both should use identical heavy-weight monitoring agents",
+        "Embedded systems don't need integrity monitoring"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Embedded systems' limited resources preclude full FIM agents. Solutions include lightweight agents, agentless approaches that pull and compare files remotely, or network-based monitoring. Baselines must be stored externally since local storage is limited and could be manipulated."
+    },
+    {
+      "id": "linux_039",
+      "question": "An OT security assessment reveals that a critical historian server has 47 SetUID root binaries. What systematic approach should be taken?",
+      "options": [
+        "Remove all SetUID binaries immediately",
+        "Inventory each binary, document business need, remove unnecessary ones, implement monitoring for the remainder, and consider capability-based alternatives",
+        "SetUID binaries are always safe on production systems",
+        "Add more SetUID binaries for easier administration"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Systematic remediation includes: inventory all SetUID binaries and their functions, document which are required for operations, remove those without business justification, implement monitoring for necessary ones, and consider replacing SetUID with capabilities where possible."
+    },
+    {
+      "id": "linux_040",
+      "question": "During a security architecture review, you discover that the IDMZ security monitoring stack (SIEM forwarders, IDS) all share a single Linux administrative account. What risks does this create and how should it be remediated?",
+      "options": [
+        "Shared accounts are standard practice for security tools",
+        "This eliminates accountability, enables insider threats, and if compromised gives access to all monitoring. Remediate with individual accounts, role-based sudo, and centralized authentication",
+        "Security tools don't need individual accounts",
+        "Shared accounts are more secure than individual accounts"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Shared accounts eliminate individual accountability (who did what), enable undetected insider threats, and give attackers broad access if compromised. Remediate by creating individual accounts, implementing role-based sudo access, using centralized authentication (LDAP/AD), and enabling session recording."
     }
   ]
 }

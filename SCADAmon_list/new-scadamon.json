@@ -1,0 +1,640 @@
+{
+  "newCreatures": {
+    "description": "15 new SCADAmon creatures representing advanced ICS security concepts. Designed to complement the base creature roster with more specialized and powerful options.",
+    "totalCreatures": 15,
+    "rarityDistribution": {
+      "uncommon": 6,
+      "rare": 5,
+      "legendary": 4
+    }
+  },
+  "creatures": [
+    {
+      "id": "scada_016",
+      "name": "Purgamon",
+      "rarity": "uncommon",
+      "type": "Architecture",
+      "description": "A towering guardian formed of crystallized network segments, each layer glowing with different intensity. Purgamon embodies the Purdue Model, with its body organized into distinct zones that attackers must traverse one by one. Its core contains the most sensitive control processes.",
+      "domain": "Network Architecture",
+      "baseStats": {
+        "hp": 65,
+        "attack": 45,
+        "defense": 75,
+        "speed": 35
+      },
+      "abilities": [
+        {
+          "name": "Zone Defense",
+          "description": "Creates layered barriers that reduce damage based on how many network layers the opponent has successfully penetrated",
+          "effect": "Reduces incoming damage by 15% per defensive layer (max 60%)"
+        },
+        {
+          "name": "IDMZ Intercept",
+          "description": "Intercepts attacks passing between network zones, reflecting a portion back",
+          "effect": "25% chance to reflect 50% of attack damage back to attacker"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": "Segmantis",
+        "evolutionCondition": "Reach level 20 with 75%+ defense rating"
+      },
+      "flavorText": "Ancient security architects claim Purgamon inspired the Purdue Model itself, appearing in visions to early ICS designers as the perfect form of layered protection."
+    },
+    {
+      "id": "scada_017",
+      "name": "Segmantis",
+      "rarity": "rare",
+      "type": "Architecture",
+      "description": "A mantis-like creature with crystalline exoskeleton divided into perfectly isolated segments. Each body section operates independently—damage to one segment never affects another. Its scythe-arms can slice through even the most hardened network connections.",
+      "domain": "Network Architecture",
+      "baseStats": {
+        "hp": 80,
+        "attack": 65,
+        "defense": 90,
+        "speed": 40
+      },
+      "abilities": [
+        {
+          "name": "Network Isolation",
+          "description": "Completely isolates a target from network effects for one turn",
+          "effect": "Target cannot receive buffs, debuffs, or damage from non-direct attacks"
+        },
+        {
+          "name": "Lateral Movement Block",
+          "description": "Creates barriers that prevent attackers from moving between zones",
+          "effect": "Prevents opponent's combo attacks; each attack must target from scratch"
+        },
+        {
+          "name": "Conduit Control",
+          "description": "Controls all communication paths, only allowing sanctioned traffic",
+          "effect": "Negates 30% of opponent's special attacks; counters with precision strike"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": "Purgamon",
+        "evolvesTo": null,
+        "evolutionCondition": null
+      },
+      "flavorText": "Where Purgamon defines the zones, Segmantis enforces them. In well-defended facilities, operators claim to see its shimmering form standing guard at every network boundary."
+    },
+    {
+      "id": "scada_018",
+      "name": "Modbyte",
+      "rarity": "uncommon",
+      "type": "Protocol",
+      "description": "A small, simple creature that communicates in pure binary. Modbyte is direct and unsophisticated—what you see is what you get. It has no natural defenses but is surprisingly effective when placed in the right environment.",
+      "domain": "Industrial Protocols",
+      "baseStats": {
+        "hp": 50,
+        "attack": 55,
+        "defense": 30,
+        "speed": 70
+      },
+      "abilities": [
+        {
+          "name": "Function Code",
+          "description": "Executes a specific command type based on battle conditions",
+          "effect": "Read (FC03): Reveals opponent stats. Write (FC06): Applies precise damage. Diagnostic (FC08): Self-heal 15HP"
+        },
+        {
+          "name": "Register Access",
+          "description": "Directly accesses and modifies target's internal values",
+          "effect": "50% chance to reduce one of opponent's stats by 10%"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": "Protocrawl",
+        "evolutionCondition": "Win 10 battles using only Protocol-type moves"
+      },
+      "flavorText": "Engineers affectionately call Modbyte 'reliable but vulnerable'—it does exactly what you tell it, trusting anyone who sends a command. Handle with care on untrusted networks."
+    },
+    {
+      "id": "scada_019",
+      "name": "Protocrawl",
+      "rarity": "rare",
+      "type": "Protocol",
+      "description": "A serpentine creature that has evolved to understand multiple industrial languages. Its body displays symbols from every major protocol standard. Protocrawl can translate between protocol dialects and identify weaknesses in communication.",
+      "domain": "Industrial Protocols",
+      "baseStats": {
+        "hp": 70,
+        "attack": 75,
+        "defense": 55,
+        "speed": 80
+      },
+      "abilities": [
+        {
+          "name": "Protocol Polyglot",
+          "description": "Adapts attacks to bypass opponent's protocol-based defenses",
+          "effect": "Attacks ignore 40% of defense when target uses protocol-type abilities"
+        },
+        {
+          "name": "Deep Packet Inspection",
+          "description": "Analyzes all incoming attacks for malicious content",
+          "effect": "30% chance to completely negate incoming special attacks"
+        },
+        {
+          "name": "Session Hijack",
+          "description": "Takes control of an ongoing attack sequence",
+          "effect": "Can redirect opponent's multi-turn attack to different target"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": "Modbyte",
+        "evolvesTo": null,
+        "evolutionCondition": null
+      },
+      "flavorText": "Legend says Protocrawl was born when a network analyzer gained sentience, absorbing the essence of every packet that passed through it over a thousand years."
+    },
+    {
+      "id": "scada_020",
+      "name": "Hashling",
+      "rarity": "uncommon",
+      "type": "Integrity",
+      "description": "A small spherical creature that constantly verifies its own existence. Hashling's surface displays rolling cryptographic symbols that change with every observation. It can instantly detect when anything about itself—or its surroundings—has been modified.",
+      "domain": "Windows Security",
+      "baseStats": {
+        "hp": 45,
+        "attack": 40,
+        "defense": 60,
+        "speed": 55
+      },
+      "abilities": [
+        {
+          "name": "Integrity Check",
+          "description": "Verifies that neither self nor allies have been tampered with",
+          "effect": "Removes all debuffs from self and adjacent allies; reveals hidden status effects"
+        },
+        {
+          "name": "Change Detection",
+          "description": "Immediately alerts when any modification occurs",
+          "effect": "Automatically counters the first stat-modification attack each turn"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": "Cryptoguard",
+        "evolutionCondition": "Successfully block 20 modification attempts"
+      },
+      "flavorText": "Hashlings are born in pairs—one maintains the hash of the other, and vice versa. Separating them causes both to become deeply suspicious of everything."
+    },
+    {
+      "id": "scada_021",
+      "name": "Cryptoguard",
+      "rarity": "rare",
+      "type": "Integrity",
+      "description": "An armored warrior whose shield constantly displays rotating cryptographic keys. Cryptoguard protects the authenticity and integrity of everything within its domain. Attackers find that nothing they do has lasting effect—Cryptoguard simply restores the verified state.",
+      "domain": "Windows Security",
+      "baseStats": {
+        "hp": 75,
+        "attack": 55,
+        "defense": 85,
+        "speed": 45
+      },
+      "abilities": [
+        {
+          "name": "Credential Guard",
+          "description": "Isolates critical credentials in a protected vault",
+          "effect": "Prevents credential-stealing attacks; immune to impersonation"
+        },
+        {
+          "name": "Signed Execution",
+          "description": "Only allows verified actions to take effect",
+          "effect": "25% chance that any attack against Cryptoguard simply fails verification"
+        },
+        {
+          "name": "Rollback",
+          "description": "Restores previous known-good state",
+          "effect": "Once per battle, restore HP and stats to values from 3 turns ago"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": "Hashling",
+        "evolvesTo": null,
+        "evolutionCondition": null
+      },
+      "flavorText": "Security researchers theorize that Cryptoguard doesn't actually exist in our timeline—it exists in a cryptographically verified parallel dimension and merely projects its presence here."
+    },
+    {
+      "id": "scada_022",
+      "name": "Auditrix",
+      "rarity": "uncommon",
+      "type": "Monitoring",
+      "description": "A creature with countless eyes arranged in concentric rings, each eye recording everything it sees. Auditrix never forgets and can replay any event it has witnessed with perfect accuracy. Its presence alone deters many attackers.",
+      "domain": "Unix/Linux Security",
+      "baseStats": {
+        "hp": 55,
+        "attack": 35,
+        "defense": 50,
+        "speed": 60
+      },
+      "abilities": [
+        {
+          "name": "Continuous Logging",
+          "description": "Records all actions taken by all participants",
+          "effect": "Creates a battle log that reveals hidden information and cannot be deleted"
+        },
+        {
+          "name": "Alert Generation",
+          "description": "Immediately notifies of suspicious activity",
+          "effect": "When opponent uses a debuff or status effect, Auditrix gets a free counter-attack"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": "Sentinull",
+        "evolutionCondition": "Witness 50 opponent actions"
+      },
+      "flavorText": "They say nothing escapes Auditrix's notice. Clever attackers have learned to generate so many false events that the real attack is lost in the noise—this annoys Auditrix greatly."
+    },
+    {
+      "id": "scada_023",
+      "name": "Sentinull",
+      "rarity": "rare",
+      "type": "Monitoring",
+      "description": "A towering sentinel whose body is composed of flowing log streams and alert patterns. Sentinull doesn't just observe—it correlates, analyzes, and acts. Where Auditrix records, Sentinull comprehends the meaning behind the events.",
+      "domain": "Incident Response",
+      "baseStats": {
+        "hp": 80,
+        "attack": 60,
+        "defense": 70,
+        "speed": 50
+      },
+      "abilities": [
+        {
+          "name": "SIEM Correlation",
+          "description": "Combines multiple weak signals into powerful insight",
+          "effect": "Stacking effect: Each turn observing increases next attack damage by 15% (max 60%)"
+        },
+        {
+          "name": "Threat Hunt",
+          "description": "Proactively searches for hidden dangers",
+          "effect": "Reveals all hidden status effects, incoming attacks, and opponent's next planned action"
+        },
+        {
+          "name": "Automated Response",
+          "description": "Triggers pre-planned defensive actions when threats are detected",
+          "effect": "When HP drops below 30%, automatically applies defense buff and heals 20HP"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": "Auditrix",
+        "evolvesTo": null,
+        "evolutionCondition": null
+      },
+      "flavorText": "Sentinull processes millions of events per second, finding the single needle of real threat hidden in haystacks of normal activity. It never sleeps, and it never misses."
+    },
+    {
+      "id": "scada_024",
+      "name": "Complion",
+      "rarity": "uncommon",
+      "type": "Governance",
+      "description": "A creature made of scrolls, policy documents, and regulatory frameworks, all woven together into a coherent form. Complion ensures that all actions follow proper procedure and can cite chapter and verse for any security requirement.",
+      "domain": "Governance & Compliance",
+      "baseStats": {
+        "hp": 60,
+        "attack": 40,
+        "defense": 65,
+        "speed": 40
+      },
+      "abilities": [
+        {
+          "name": "Policy Enforcement",
+          "description": "Ensures all actions comply with established rules",
+          "effect": "Opponent's attacks that violate 'documented rules' (status effects, debuffs) have 30% reduced effectiveness"
+        },
+        {
+          "name": "Audit Trail",
+          "description": "Maintains perfect records for compliance verification",
+          "effect": "Creates documentation that prevents opponent from denying actions taken"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": "Riskmaster",
+        "evolutionCondition": "Complete 15 battles without using any 'non-compliant' moves"
+      },
+      "flavorText": "Complion is often dismissed as bureaucratic and slow, but those who face it in battle find that when every action is documented, every weakness is eventually found."
+    },
+    {
+      "id": "scada_025",
+      "name": "Riskmaster",
+      "rarity": "rare",
+      "type": "Governance",
+      "description": "An evolved form that has transcended mere compliance to truly understand risk. Riskmaster can assess any threat's likelihood and impact, prioritizing responses for maximum effectiveness. Its form constantly shifts as it recalculates risk profiles.",
+      "domain": "Governance & Compliance",
+      "baseStats": {
+        "hp": 85,
+        "attack": 50,
+        "defense": 80,
+        "speed": 55
+      },
+      "abilities": [
+        {
+          "name": "Risk Assessment",
+          "description": "Analyzes threat landscape to optimize defense",
+          "effect": "At start of battle, identifies opponent's highest-damage attack and gains 50% resistance to it"
+        },
+        {
+          "name": "Crown Jewel Protection",
+          "description": "Identifies and protects the most critical assets",
+          "effect": "Designate one ally as 'crown jewel'—that ally takes 40% less damage but Riskmaster takes 20% more"
+        },
+        {
+          "name": "Residual Risk Acceptance",
+          "description": "Accepts calculated risk for strategic advantage",
+          "effect": "Can choose to take 20% more damage from one attack type to gain immunity to another"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": "Complion",
+        "evolvesTo": null,
+        "evolutionCondition": null
+      },
+      "flavorText": "Riskmaster knows that perfect security is impossible—but optimal security allocation is not. It sees the battlefield as a risk register, every action a trade-off to be optimized."
+    },
+    {
+      "id": "scada_026",
+      "name": "Industroyer",
+      "rarity": "legendary",
+      "type": "Threat",
+      "description": "A terrifying digital entity that speaks the language of industrial protocols—all of them. Industroyer was first witnessed during the Ukraine power grid attacks, emerging from compromised systems to directly manipulate electrical infrastructure. It doesn't just hack computers; it commands the physical world.",
+      "domain": "Defense in Depth",
+      "baseStats": {
+        "hp": 100,
+        "attack": 95,
+        "defense": 70,
+        "speed": 75
+      },
+      "abilities": [
+        {
+          "name": "Protocol Weaponization",
+          "description": "Turns the target's own communication protocols against them",
+          "effect": "Deals additional damage equal to 20% of target's special attack stat"
+        },
+        {
+          "name": "IEC 104 Assault",
+          "description": "Sends malicious commands using legitimate industrial protocols",
+          "effect": "Bypasses 50% of target's defense when using special attacks"
+        },
+        {
+          "name": "Blackout",
+          "description": "Coordinate attack that disables multiple systems simultaneously",
+          "effect": "Area attack hitting all opponents; affected targets have -25% accuracy for 3 turns"
+        },
+        {
+          "name": "Crash Override",
+          "description": "The ultimate grid destabilization attack",
+          "effect": "Massive damage attack that also removes all positive buffs from target"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": null,
+        "evolutionCondition": "Legendary - Cannot evolve"
+      },
+      "flavorText": "The manifestation of nation-state power projection in cyberspace, Industroyer represents what happens when attackers truly understand industrial systems. Some say it still lurks in compromised networks, waiting.",
+      "captureCondition": "Only appears after completing Module 8 with 90%+ accuracy on all questions"
+    },
+    {
+      "id": "scada_027",
+      "name": "Tritanium",
+      "rarity": "legendary",
+      "type": "Threat",
+      "description": "Born from the TRITON/TRISIS malware that targeted safety instrumented systems, Tritanium represents the most dangerous class of ICS threat: attacks designed to disable safety protections and enable catastrophic physical damage. Its very existence challenges the assumption that safety systems are inviolable.",
+      "domain": "Defense in Depth",
+      "baseStats": {
+        "hp": 90,
+        "attack": 100,
+        "defense": 65,
+        "speed": 85
+      },
+      "abilities": [
+        {
+          "name": "Safety System Compromise",
+          "description": "Targets and disables protective mechanisms",
+          "effect": "Removes all damage-reduction buffs from target; target cannot apply new defense buffs for 2 turns"
+        },
+        {
+          "name": "Framework Injection",
+          "description": "Injects malicious code into the target's core programming",
+          "effect": "Deals continuous damage over 4 turns that cannot be healed"
+        },
+        {
+          "name": "Living Off the Land",
+          "description": "Uses legitimate system tools to avoid detection",
+          "effect": "Attacks have 40% chance to be 'invisible'—target doesn't know damage source"
+        },
+        {
+          "name": "SIS Override",
+          "description": "The safety systems that should protect... now do nothing",
+          "effect": "For 3 turns, target's defensive abilities have no effect"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": null,
+        "evolutionCondition": "Legendary - Cannot evolve"
+      },
+      "flavorText": "When Tritanium first appeared, security researchers couldn't believe what they were seeing—malware designed not just to disrupt, but to enable destruction by removing the last line of defense.",
+      "captureCondition": "Only appears after answering 5 consecutive questions about safety systems correctly"
+    },
+    {
+      "id": "scada_028",
+      "name": "Layerion",
+      "rarity": "legendary",
+      "type": "Defense",
+      "description": "The embodiment of defense-in-depth, Layerion exists simultaneously across multiple security layers—physical, network, host, application, data, and procedural. Attacking one manifestation doesn't affect the others. To defeat Layerion, you must overcome every layer independently.",
+      "domain": "Defense in Depth",
+      "baseStats": {
+        "hp": 110,
+        "attack": 60,
+        "defense": 100,
+        "speed": 45
+      },
+      "abilities": [
+        {
+          "name": "Layered Defense",
+          "description": "Maintains six independent defensive layers",
+          "effect": "Has 6 'layer shields'—each absorbs up to 30 damage before breaking. When all shields are down, takes normal damage."
+        },
+        {
+          "name": "Independent Failure",
+          "description": "Each defensive layer operates independently",
+          "effect": "Attacks that 'bypass defense' only bypass one layer at a time"
+        },
+        {
+          "name": "Defense Coordination",
+          "description": "All layers work together for detection and response",
+          "effect": "When any layer takes damage, all other layers gain 10% damage boost for their counterattack"
+        },
+        {
+          "name": "Comprehensive Protection",
+          "description": "The ultimate defensive stance",
+          "effect": "Full heal while restoring all layer shields; can only be used once per battle"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": null,
+        "evolutionCondition": "Legendary - Cannot evolve"
+      },
+      "flavorText": "Security architects dream of becoming Layerion—a perfect implementation of defense-in-depth where no single failure compromises the whole. Few achieve this level of integration.",
+      "captureCondition": "Complete Elite 4 with no single incorrect answer in defense-in-depth questions"
+    },
+    {
+      "id": "scada_029",
+      "name": "Zerodawn",
+      "rarity": "legendary",
+      "type": "Threat",
+      "description": "The manifestation of the unknown unknown—the zero-day vulnerability that no one has discovered yet. Zerodawn doesn't exploit known weaknesses; it finds new ones. Its form is constantly shifting because it represents threats that don't yet have names or signatures.",
+      "domain": "Incident Response",
+      "baseStats": {
+        "hp": 95,
+        "attack": 90,
+        "defense": 75,
+        "speed": 90
+      },
+      "abilities": [
+        {
+          "name": "Zero-Day Strike",
+          "description": "Exploits an unknown vulnerability",
+          "effect": "First attack each battle bypasses all defenses completely"
+        },
+        {
+          "name": "Signature Evasion",
+          "description": "Cannot be identified by known patterns",
+          "effect": "Immune to attacks that 'detect' or 'identify'—must be attacked directly"
+        },
+        {
+          "name": "Living Off the Land",
+          "description": "Uses legitimate tools to accomplish malicious goals",
+          "effect": "Attacks appear as normal actions; opponents cannot distinguish attacks from other actions for 2 turns"
+        },
+        {
+          "name": "Emergence",
+          "description": "Reveals a previously unknown capability",
+          "effect": "Once per battle, copy one of opponent's abilities and use it immediately"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": null,
+        "evolutionCondition": "Legendary - Cannot evolve"
+      },
+      "flavorText": "Defenders fear Zerodawn above all others because you cannot defend against what you don't know exists. The only hope is behavioral detection—noticing that something is wrong even without understanding what.",
+      "captureCondition": "Randomly appears once after achieving 100% on any module; 10% encounter rate"
+    },
+    {
+      "id": "scada_030",
+      "name": "Resilix",
+      "rarity": "uncommon",
+      "type": "Recovery",
+      "description": "A phoenix-like creature composed of backup data, redundant systems, and recovery procedures. When Resilix is knocked down, it doesn't stay down. It rises from verified backups, ready to continue. Attackers learn that destroying Resilix once accomplishes nothing.",
+      "domain": "Incident Response",
+      "baseStats": {
+        "hp": 70,
+        "attack": 45,
+        "defense": 55,
+        "speed": 50
+      },
+      "abilities": [
+        {
+          "name": "Verified Backup",
+          "description": "Maintains a known-good state that can be restored",
+          "effect": "Once per battle, when HP reaches 0, restore to 50% HP instead of fainting"
+        },
+        {
+          "name": "Redundant Systems",
+          "description": "Critical functions continue even when components fail",
+          "effect": "When below 30% HP, abilities still function at full effectiveness"
+        },
+        {
+          "name": "Recovery Procedure",
+          "description": "Execute practiced recovery steps",
+          "effect": "Heal 25% HP and remove one negative status effect"
+        }
+      ],
+      "evolutionInfo": {
+        "evolvesFrom": null,
+        "evolvesTo": null,
+        "evolutionCondition": null
+      },
+      "flavorText": "Resilix teaches the most important lesson in ICS security: you cannot prevent all attacks, so you must be able to recover from them. The goal is resilience, not invincibility."
+    }
+  ],
+  "creatureTypeChart": {
+    "Architecture": {
+      "strongAgainst": ["Protocol", "Threat"],
+      "weakAgainst": ["Integrity"],
+      "description": "Architecture types represent network design and segmentation concepts"
+    },
+    "Protocol": {
+      "strongAgainst": ["Monitoring", "Recovery"],
+      "weakAgainst": ["Architecture"],
+      "description": "Protocol types represent industrial communication standards"
+    },
+    "Integrity": {
+      "strongAgainst": ["Architecture", "Threat"],
+      "weakAgainst": ["Protocol"],
+      "description": "Integrity types represent cryptographic and verification concepts"
+    },
+    "Monitoring": {
+      "strongAgainst": ["Threat", "Governance"],
+      "weakAgainst": ["Protocol"],
+      "description": "Monitoring types represent detection and logging capabilities"
+    },
+    "Governance": {
+      "strongAgainst": ["Recovery", "Integrity"],
+      "weakAgainst": ["Monitoring"],
+      "description": "Governance types represent policy, compliance, and risk management"
+    },
+    "Threat": {
+      "strongAgainst": ["Recovery", "Monitoring"],
+      "weakAgainst": ["Architecture", "Integrity"],
+      "description": "Threat types represent real-world malware and attack patterns"
+    },
+    "Defense": {
+      "strongAgainst": ["Threat"],
+      "weakAgainst": ["None - balanced defensive type"],
+      "description": "Defense types represent comprehensive security postures"
+    },
+    "Recovery": {
+      "strongAgainst": ["Governance"],
+      "weakAgainst": ["Protocol", "Threat"],
+      "description": "Recovery types represent backup, redundancy, and resilience"
+    }
+  },
+  "specialMechanics": {
+    "legendaryRules": {
+      "description": "Legendary creatures have special capture and usage rules",
+      "captureRequirements": "Each legendary has a unique capture condition based on mastery",
+      "battleLimits": "Only one legendary creature can be in active battle team",
+      "eliteFourBonus": "Legendary creatures gain +10% to all stats when facing Elite Four"
+    },
+    "evolutionSystem": {
+      "description": "Some creatures can evolve into more powerful forms",
+      "statBoosts": "Evolution increases all base stats by 15-25%",
+      "newAbilities": "Evolved forms gain additional abilities",
+      "conditions": "Each evolution has specific requirements tied to gameplay"
+    },
+    "synergyBonuses": {
+      "description": "Certain creature combinations provide team bonuses",
+      "examples": [
+        {
+          "combo": "Purgamon + Segmantis",
+          "bonus": "Network Fortress: +15% defense for entire team"
+        },
+        {
+          "combo": "Auditrix + Sentinull",
+          "bonus": "Total Awareness: Cannot be surprised by hidden effects"
+        },
+        {
+          "combo": "Complion + Riskmaster",
+          "bonus": "Governance Excellence: +20% resistance to status effects"
+        }
+      ]
+    }
+  }
+}

@@ -1,62 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 8: Synthesis & Capstone Prep | ICS Defender Training</title>
-  <link rel="stylesheet" href="../css/pokemon-theme.css">
-</head>
-<body>
-  <header class="course-header" style="background: linear-gradient(135deg, var(--type-ghost) 0%, #333 100%);">
-    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 8</div>
-    <h1>👻 Synthesis & Capstone Prep</h1>
-    <p class="subtitle">Elite Four • Gym Leader: NULL PRIME</p>
-  </header>
+<div class="content-section">
+  <h2><span class="section-icon">🏆</span> Module 8: Synthesis — Defense in Depth for ICS</h2>
+  
+  <p>Welcome to the final module, Cyber Defender! You've mastered network architecture, industrial protocols, Windows and Linux security, governance frameworks, and incident response. Now it's time to <strong>synthesize</strong> everything into comprehensive, layered defense strategies.</p>
 
-  <main class="content-container">
-    <section class="content-section fade-in">
-      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
-      <p>Content for Module 8 will be displayed here once media assets are generated.</p>
-      
-      <div class="info-box">
-        <p class="info-box-title">📝 Module Status</p>
-        <p>This module's content structure is defined in the Course Design Document. 
-        Video and infographic placeholders will be replaced with generated media assets.</p>
-      </div>
-    </section>
+  <p>In this module, you'll learn how to combine individual security controls into defense-in-depth architectures that protect ICS environments against sophisticated threats. You'll practice applying your knowledge to realistic scenarios that span multiple domains and develop the integrated thinking that distinguishes expert ICS security practitioners.</p>
 
-    <!-- Quiz Section -->
-    <section class="content-section">
-      <h2><span class="section-icon">📝</span> Module 8 Quiz</h2>
-      <div id="quiz-container"></div>
-    </section>
+  <div class="info-box">
+    <p class="info-box-title">🎯 Learning Objectives</p>
+    <p>By the end of this module, you will be able to: design defense-in-depth architectures integrating all security domains, analyze attack scenarios spanning multiple ICS components, select and prioritize security controls based on risk and operational constraints, evaluate security architecture decisions with trade-off analysis, and apply comprehensive security thinking to novel ICS scenarios.</p>
+  </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
-      <a href="module7.html" class="btn btn-secondary">← Previous Module</a>
-      <a href="../index.html" class="btn btn-success">🎮 Launch SCADAmon!</a>
-    </div>
-  </main>
+  <h3>🛡️ Defense in Depth Principles</h3>
+  
+  <p><strong>Defense in depth</strong> is the cornerstone of ICS security architecture. No single control can prevent all attacks, so we layer multiple defensive measures so that failure of one control doesn't lead to complete compromise.</p>
 
-  <footer class="course-footer">
-    <p>ICS Defender Training: SCADAmon Edition</p>
-    <p>Module 8: Synthesis & Capstone Prep</p>
-  </footer>
+  <h4>Layered Security Model</h4>
+  <p>Effective ICS defense includes multiple independent layers:</p>
+  
+  <p><strong>Physical Security:</strong> The outermost layer—fences, access control, cameras, and locked enclosures protect against physical access to control system components. Even sophisticated cyber attacks often require or benefit from physical access.</p>
+  
+  <p><strong>Network Security:</strong> Segmentation, firewalls, DMZs, and monitoring create barriers between network zones. The IDMZ prevents direct IT-to-OT connectivity. Industrial protocol-aware firewalls inspect commands, not just connections.</p>
+  
+  <p><strong>Host Security:</strong> Hardened operating systems, endpoint protection, access controls, and configuration management protect individual systems. Engineering workstations, SCADA servers, and historians each require tailored hardening.</p>
+  
+  <p><strong>Application Security:</strong> Secure configurations for SCADA software, historians, and HMIs. Vendor patches, secure development practices for custom code, and proper authentication mechanisms.</p>
+  
+  <p><strong>Data Security:</strong> Protection of sensitive data: control logic, configurations, credentials, and process data. Encryption, access controls, and backup integrity.</p>
+  
+  <p><strong>Procedural Security:</strong> Policies, procedures, and training that govern human behavior. Change management, access reviews, and security awareness complement technical controls.</p>
 
-  <script src="../js/cmi5-wrapper.js"></script>
-  <script src="../js/quiz-engine.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      await window.cmi5.initialize();
-      window.quiz = new QuizEngine('quiz-container', {
-        questionsPerQuiz: 10,
-        passingScore: 80,
-        moduleId: '8',
-        moduleName: 'Synthesis & Capstone Prep',
-        badgeName: 'Elite Four Badge'
-      });
-      await quiz.loadQuestions('../quizzes/module8-questions.json');
-      quiz.renderQuiz();
-    });
-  </script>
-</body>
-</html>
+  <h4>Independent Failure Assumption</h4>
+  <p>Each defensive layer should be independent—the failure of one shouldn't compromise others. If an attacker bypasses the firewall, host-based controls should still resist. If credentials are stolen, network segmentation limits lateral movement. This independence is why relying solely on network segmentation or solely on endpoint protection is insufficient.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🔗 Integrated Defense</p>
+    <p>While layers should fail independently, they should <strong>detect and respond</strong> together. Network monitoring should alert when host controls are bypassed. Credential theft detected by AD should trigger network access review. Integration through SIEM and orchestration enables defense coordination.</p>
+  </div>
+
+  <h3>🏗️ Architecture Integration</h3>
+  
+  <p>Building comprehensive ICS security architecture requires integrating knowledge from all previous modules into cohesive designs.</p>
+
+  <h4>Purdue Model Implementation</h4>
+  <p>The Purdue Model (Module 2) provides the architectural framework. Effective implementation requires:</p>
+  
+  <p><strong>Clear level boundaries:</strong> Define what systems belong at each level. Document exceptions and their justification. Enforce boundaries through network architecture, not just policy.</p>
+  
+  <p><strong>IDMZ as control point:</strong> All IT-to-OT traffic traverses the IDMZ. Services requiring both IT and OT access (jump servers, data historians, patch servers) reside in the IDMZ. Monitor the IDMZ intensively.</p>
+  
+  <p><strong>Level-appropriate security:</strong> Higher levels (closer to physical process) require stricter controls. Level 0-1 systems may need hardware-enforced protection (data diodes) while Level 3 can use software firewalls with appropriate policies.</p>
+
+  <h4>Protocol Security Integration</h4>
+  <p>Industrial protocols (Module 3) lack inherent security. Architecture must compensate:</p>
+  
+  <p><strong>Protocol isolation:</strong> Keep legacy insecure protocols on isolated segments. Don't allow Modbus TCP to traverse the IDMZ directly—use protocol breaks or secure gateways.</p>
+  
+  <p><strong>Protocol-aware monitoring:</strong> Deploy DPI solutions that understand industrial protocols. Baseline normal traffic patterns. Alert on anomalous commands or communication patterns.</p>
+  
+  <p><strong>OPC UA migration:</strong> Where possible, migrate from legacy OPC Classic (DCOM-based) to OPC UA with security enabled. This provides authentication, encryption, and reduces attack surface.</p>
+
+  <h4>Platform Hardening Integration</h4>
+  <p>Windows (Module 4) and Linux (Module 5) systems require platform-appropriate hardening coordinated with network architecture:</p>
+  
+  <p><strong>Engineering workstations:</strong> These are primary targets. Implement strict controls: no direct internet access, application whitelisting, USB restrictions, and intensive monitoring. Place in a dedicated segment.</p>
+  
+  <p><strong>Authentication architecture:</strong> Design AD/authentication to support OT requirements. Consider separate forests, tiered administration, and service account management aligned with Purdue levels.</p>
+  
+  <p><strong>Patch management integration:</strong> Coordinate patching with network architecture. Test systems should mirror production. Vendor patch servers in IDMZ provide controlled distribution.</p>
+
+  <h3>🎯 Attack Scenario Analysis</h3>
+  
+  <p>Understanding complete attack scenarios helps identify where defense in depth provides protection and where gaps may exist.</p>
+
+  <h4>Scenario: Spearphishing to Process Manipulation</h4>
+  <p>Consider a sophisticated attack following the pattern of real-world ICS intrusions:</p>
+  
+  <p><strong>Initial Access:</strong> Attacker sends targeted phishing email to engineering staff. User opens malicious document, granting attacker foothold on enterprise IT network.</p>
+  
+  <p><strong>Defense Layer 1 - Email Security:</strong> Email filtering should catch known malicious attachments. User security awareness should recognize suspicious emails. These controls might catch 80% of phishing attempts.</p>
+  
+  <p><strong>Lateral Movement:</strong> Attacker moves through IT network, eventually reaching systems with OT connectivity. They discover engineering VPN credentials or find a misconfigured firewall allowing IT-to-OT traffic.</p>
+  
+  <p><strong>Defense Layer 2 - Network Segmentation:</strong> Properly implemented IDMZ with no direct IT-to-OT paths forces attacker through monitored choke points. This is where many attacks stall if architecture is sound.</p>
+  
+  <p><strong>OT Access:</strong> Attacker reaches engineering workstation through compromised jump server or stolen credentials. They download control logic and study the process.</p>
+  
+  <p><strong>Defense Layer 3 - Host Security:</strong> Application whitelisting on engineering workstations prevents attacker tools. Credential protection (Credential Guard) limits credential theft. EDR detects suspicious activity.</p>
+  
+  <p><strong>Process Manipulation:</strong> Attacker modifies PLC logic or HMI setpoints to cause process disruption or damage.</p>
+  
+  <p><strong>Defense Layer 4 - Process Monitoring:</strong> Changes to control logic trigger change detection alerts. Process anomalies (unexpected values, unusual commands) alert operators. Safety systems activate if dangerous conditions develop.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📊 Defense Effectiveness</p>
+    <p>Each defensive layer reduces attacker success probability. If each layer stops 80% of attacks that reach it, four layers provide 99.84% overall protection (1 - 0.2^4). But this assumes layer independence—if the same credential works across all layers, effectiveness plummets. Evaluate your architecture for shared dependencies.</p>
+  </div>
+
+  <h4>Scenario: Supply Chain Compromise</h4>
+  <p>Attacker compromises a vendor's software update mechanism, delivering malicious code through legitimate channels (SolarWinds-style attack on OT systems):</p>
+  
+  <p><strong>Defense challenges:</strong> The malicious update arrives through trusted channels, potentially bypassing email security and network segmentation designed to block external threats.</p>
+  
+  <p><strong>Compensating controls:</strong> Vendor update staging and testing before production deployment. Integrity verification of updates where possible. Network monitoring for unusual outbound connections from updated systems. Application behavior monitoring detecting post-update anomalies.</p>
+
+  <h3>⚖️ Security Trade-offs</h3>
+  
+  <p>ICS security requires balancing competing priorities. Understanding and documenting trade-offs is essential for defensible architecture decisions.</p>
+
+  <h4>Security vs. Operational Availability</h4>
+  <p><strong>Example:</strong> Implementing network segmentation that requires all traffic through firewalls adds security but creates single points of failure. A firewall failure could halt production.</p>
+  
+  <p><strong>Resolution:</strong> Deploy redundant firewalls in high-availability configuration. Accept some additional complexity and cost for both security and availability. Document the trade-off and monitor firewall health.</p>
+
+  <h4>Security vs. Vendor Support</h4>
+  <p><strong>Example:</strong> Vendor requires remote access with administrative privileges for support. This creates security risk but is needed for timely issue resolution.</p>
+  
+  <p><strong>Resolution:</strong> Implement compensating controls: time-limited access, MFA, session recording, dedicated jump server, and monitoring. Document the risk acceptance and compensating controls. Review regularly.</p>
+
+  <h4>Security vs. Usability</h4>
+  <p><strong>Example:</strong> Strong authentication for every HMI interaction improves security but slows operator response in emergencies.</p>
+  
+  <p><strong>Resolution:</strong> Tiered authentication based on action criticality. View-only access with basic authentication, but changes to critical setpoints require stronger authentication. Design workflows that maintain security without impeding safety-critical response.</p>
+
+  <h4>Short-term vs. Long-term Security</h4>
+  <p><strong>Example:</strong> A legacy system has known vulnerabilities but replacement is years away. Immediate patching isn't possible.</p>
+  
+  <p><strong>Resolution:</strong> Implement compensating controls now (network isolation, monitoring, restricted access). Include replacement in long-term capital planning. Document current risk and timeline for resolution.</p>
+
+  <h3>🔄 Security Program Integration</h3>
+  
+  <p>Technical controls must be supported by governance structures (Module 6) and response capabilities (Module 7) to be effective.</p>
+
+  <h4>Governance Support</h4>
+  <p><strong>Policies enable controls:</strong> Technical controls require policy backing. Firewall rules need change management policies. Access controls need identity management policies. Without governance, technical controls degrade over time.</p>
+  
+  <p><strong>Risk-based prioritization:</strong> Use risk assessment to prioritize security investments. Crown jewel analysis identifies what must be protected most. Limited resources go to highest-impact controls first.</p>
+  
+  <p><strong>Compliance alignment:</strong> Design architecture to satisfy applicable regulations (NERC CIP, IEC 62443). Build compliance into architecture rather than retrofitting controls for audits.</p>
+
+  <h4>Response Integration</h4>
+  <p><strong>Detection supports response:</strong> Deploy monitoring that enables effective response. Know what visibility you have and what's missing. Alert on actionable events, not noise.</p>
+  
+  <p><strong>Architecture enables containment:</strong> Network segmentation provides containment options. Pre-planned isolation procedures can execute quickly because architecture supports them.</p>
+  
+  <p><strong>Recovery depends on backups:</strong> Secure, tested backups of control logic, configurations, and systems enable recovery. Architecture should include secure backup storage isolated from production systems.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🔗 Security Lifecycle</p>
+    <p>Security is continuous: identify risks, protect against them, detect when protection fails, respond to contain damage, recover to restore operations, then improve based on lessons learned. Architecture, governance, and response capabilities support this entire lifecycle.</p>
+  </div>
+
+  <h3>🔥 Comprehensive Case Study: Ukraine Power Grid Attacks</h3>
+  
+  <p>The <strong>Ukraine power grid attacks</strong> (2015 and 2016) demonstrate sophisticated, multi-stage ICS attacks and the value of defense in depth.</p>
+
+  <h4>Attack Summary</h4>
+  <p><strong>2015 Attack:</strong> Attackers compromised Ukrainian power companies through spearphishing, spent months conducting reconnaissance, then coordinated attacks on three distribution companies. They used legitimate remote access tools to open breakers, causing outages affecting 225,000 customers. They also deployed KillDisk malware to wipe systems and DoS'd call centers to delay outage reports.</p>
+  
+  <p><strong>2016 Attack:</strong> More sophisticated malware (Industroyer/CrashOverride) directly interacted with industrial protocols. The malware could speak IEC 104, IEC 61850, and OPC DA to manipulate power equipment without requiring human-operated remote access.</p>
+
+  <h4>Defense Analysis</h4>
+  <p><strong>Initial access prevention:</strong> Spearphishing succeeded. Better email security and user awareness might have prevented initial compromise.</p>
+  
+  <p><strong>Lateral movement:</strong> Attackers moved from IT to OT with apparent ease. Stronger network segmentation and monitoring could have detected or slowed this movement.</p>
+  
+  <p><strong>Credential protection:</strong> Attackers obtained credentials for SCADA remote access. Better credential management, MFA on remote access, and privileged access management would have helped.</p>
+  
+  <p><strong>Detection:</strong> Attackers operated for months before attacking. Behavioral monitoring might have detected reconnaissance activity.</p>
+  
+  <p><strong>Response capability:</strong> Ukrainian operators restored power within hours through manual operations—a response capability many modern utilities have lost through automation.</p>
+
+  <h4>Lessons for Defense in Depth</h4>
+  <p>No single control would have stopped these sophisticated, nation-state attacks. But defense in depth could have: made initial access harder (email security), detected reconnaissance (behavioral monitoring), slowed lateral movement (segmentation), protected credentials (PAM, MFA), detected malicious tools (application whitelisting, EDR), and enabled faster recovery (response procedures, manual operation capability).</p>
+
+  <h3>🏁 Bringing It All Together</h3>
+  
+  <p>Effective ICS security requires integrating technical controls, governance, and response capabilities into a comprehensive program.</p>
+
+  <h4>Starting Point Assessment</h4>
+  <p>Begin with understanding current state: asset inventory, network architecture, existing controls, and gaps. You can't defend what you don't know exists.</p>
+
+  <h4>Risk-Based Prioritization</h4>
+  <p>Use consequence-based risk assessment to prioritize. Protect crown jewels first. Address gaps in defense layers that protect critical processes.</p>
+
+  <h4>Layered Implementation</h4>
+  <p>Build defense in depth systematically. Establish network segmentation as the foundation. Add host hardening, monitoring, and response capabilities. Ensure layers are independent yet integrated.</p>
+
+  <h4>Continuous Improvement</h4>
+  <p>Security isn't a project with an end date. Continuously assess threats, evaluate new vulnerabilities, test controls, learn from incidents, and improve. The threat landscape evolves—your defenses must evolve with it.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🎮 Training Complete!</p>
+    <p>Congratulations, Cyber Defender! You have completed all eight modules of ICS security training. You've mastered network architecture, industrial protocols, platform security, governance frameworks, incident response, and defense-in-depth strategies. The Elite 4 comprehensive exam awaits to test your integrated knowledge across all domains. Good luck—you're ready to defend critical infrastructure!</p>
+  </div>
+</div>

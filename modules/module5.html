@@ -1,62 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 5: Unix/Linux in OT Environments | ICS Defender Training</title>
-  <link rel="stylesheet" href="../css/pokemon-theme.css">
-</head>
-<body>
-  <header class="course-header" style="background: linear-gradient(135deg, var(--type-dark) 0%, #333 100%);">
-    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 5</div>
-    <h1>🌑 Unix/Linux in OT Environments</h1>
-    <p class="subtitle">Unix Underground • Gym Leader: ROOTGUARD</p>
-  </header>
+<div class="content-section">
+  <h2><span class="section-icon">🐧</span> Module 5: Unix/Linux Security in OT Environments</h2>
+  
+  <p>Welcome to Module 5, Cyber Defender! While Windows dominates HMIs and SCADA servers, <strong>Linux and Unix</strong> systems are quietly running much of the critical infrastructure you're protecting. Modern PLCs often run embedded Linux, network devices rely on Unix-like operating systems, and many security tools you'll deploy are Linux-based.</p>
 
-  <main class="content-container">
-    <section class="content-section fade-in">
-      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
-      <p>Content for Module 5 will be displayed here once media assets are generated.</p>
-      
-      <div class="info-box">
-        <p class="info-box-title">📝 Module Status</p>
-        <p>This module's content structure is defined in the Course Design Document. 
-        Video and infographic placeholders will be replaced with generated media assets.</p>
-      </div>
-    </section>
+  <p>In this module, you'll learn how to secure Linux systems in OT environments—from hardening SSH access to managing file permissions, configuring mandatory access controls, and understanding the unique challenges of embedded systems with limited resources.</p>
 
-    <!-- Quiz Section -->
-    <section class="content-section">
-      <h2><span class="section-icon">📝</span> Module 5 Quiz</h2>
-      <div id="quiz-container"></div>
-    </section>
+  <div class="info-box">
+    <p class="info-box-title">🎯 Learning Objectives</p>
+    <p>By the end of this module, you will be able to: identify Linux's role in ICS components, harden SSH for secure remote access, configure appropriate file permissions, implement SELinux or AppArmor for mandatory access control, secure cron jobs and scheduled tasks, and manage logs effectively for security monitoring.</p>
+  </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
-      <a href="module4.html" class="btn btn-secondary">← Previous Module</a>
-      <a href="module6.html" class="btn btn-primary">Next Module →</a>
-    </div>
-  </main>
+  <h3>🔧 Linux in Industrial Control Systems</h3>
+  
+  <p>Linux has become increasingly common in ICS environments due to its flexibility, low licensing costs, and suitability for embedded systems. Understanding where Linux appears helps you know where to focus your hardening efforts.</p>
 
-  <footer class="course-footer">
-    <p>ICS Defender Training: SCADAmon Edition</p>
-    <p>Module 5: Unix/Linux in OT Environments</p>
-  </footer>
+  <h4>Embedded Linux in PLCs and RTUs</h4>
+  <p>Modern <strong>Programmable Logic Controllers</strong> and <strong>Remote Terminal Units</strong> increasingly run on embedded Linux rather than proprietary real-time operating systems. Vendors like Schneider Electric, Phoenix Contact, and WAGO use Linux in their controllers. These systems typically run custom Linux distributions stripped down to essential components.</p>
+  
+  <p>Embedded Linux PLCs present unique security challenges: limited storage and memory constrain what security tools can run, vendors may not provide regular security updates, and root access may be required for legitimate engineering tasks. Always check vendor documentation for supported security configurations.</p>
 
-  <script src="../js/cmi5-wrapper.js"></script>
-  <script src="../js/quiz-engine.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      await window.cmi5.initialize();
-      window.quiz = new QuizEngine('quiz-container', {
-        questionsPerQuiz: 10,
-        passingScore: 80,
-        moduleId: '5',
-        moduleName: 'Unix/Linux in OT Environments',
-        badgeName: 'Unix Underground Badge'
-      });
-      await quiz.loadQuestions('../quizzes/module5-questions.json');
-      quiz.renderQuiz();
-    });
-  </script>
-</body>
-</html>
+  <h4>Network Infrastructure</h4>
+  <p>Industrial Ethernet switches, firewalls, routers, and VPN concentrators often run Linux or BSD variants. Cisco IOS-XE, for example, is Linux-based. These devices are critical security controls—if an attacker compromises your industrial firewall, all the segmentation it provides becomes meaningless.</p>
+
+  <h4>Security and Monitoring Systems</h4>
+  <p>Many ICS security tools run on Linux: passive network monitoring solutions (like those from Claroty, Dragos, and Nozomi), log collectors and SIEM forwarders, IDS/IPS appliances, and jump servers. These systems need hardening themselves—a compromised security monitoring system could blind defenders or provide attackers with valuable intelligence.</p>
+
+  <h4>Historians and Data Servers</h4>
+  <p>Some historian platforms (like OSIsoft PI on Linux) and database servers supporting OT applications run on Linux. These systems aggregate sensitive process data, making them valuable targets for both operational intelligence and as pivot points for attacks.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📊 Linux Distribution Landscape in ICS</p>
+    <p>Common distributions in OT include: <strong>RHEL/CentOS</strong> for enterprise servers, <strong>Ubuntu Server</strong> for modern deployments, <strong>Debian</strong> for stable long-term systems, <strong>Yocto/OpenWRT</strong> for embedded devices, and vendor-specific distributions for appliances. Security practices vary by distribution—know which one you're working with.</p>
+  </div>
+
+  <h3>🔐 SSH Hardening</h3>
+  
+  <p><strong>Secure Shell (SSH)</strong> is the primary method for remote administration of Linux systems. In OT environments, SSH access to critical systems must be carefully controlled and hardened.</p>
+
+  <h4>SSH Configuration Best Practices</h4>
+  <p>Edit <strong>/etc/ssh/sshd_config</strong> to implement these hardening measures:</p>
+  
+  <p><strong>Disable root login:</strong> Set <code>PermitRootLogin no</code>. Administrators should log in with personal accounts and use sudo for privilege escalation, providing accountability.</p>
+  
+  <p><strong>Use key-based authentication:</strong> Set <code>PasswordAuthentication no</code> after deploying SSH keys. Keys are more secure than passwords and can't be brute-forced remotely.</p>
+  
+  <p><strong>Restrict users:</strong> Use <code>AllowUsers</code> or <code>AllowGroups</code> directives to limit who can SSH. Example: <code>AllowGroups ot-admins</code>.</p>
+  
+  <p><strong>Change default port:</strong> While security through obscurity isn't a complete solution, changing from port 22 reduces automated scanning noise. Use <code>Port 2222</code> (or another non-standard port).</p>
+  
+  <p><strong>Limit authentication attempts:</strong> <code>MaxAuthTries 3</code> limits brute force attempts per connection.</p>
+  
+  <p><strong>Disable empty passwords:</strong> <code>PermitEmptyPasswords no</code> prevents accounts without passwords from SSH access.</p>
+
+  <h4>SSH Key Management</h4>
+  <p>SSH keys provide strong authentication but require proper management: generate keys with strong algorithms (<code>ssh-keygen -t ed25519</code> or <code>ssh-keygen -t rsa -b 4096</code>), protect private keys with passphrases, store authorized_keys files securely, regularly audit and rotate keys, and revoke keys when personnel change roles.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">⚠️ SSH in Embedded PLCs</p>
+    <p>Some embedded PLCs with SSH enabled use default or weak credentials. The Mirai botnet famously exploited IoT devices with factory default SSH passwords. Always change default credentials, and if possible, disable SSH on devices that don't require remote access.</p>
+  </div>
+
+  <h4>SSH Bastion Hosts (Jump Servers)</h4>
+  <p>In properly segmented OT networks, SSH access to internal systems should route through a <strong>bastion host</strong> (jump server) in the IDMZ. The bastion host provides a single, audited entry point with session recording. Users SSH to the bastion, then SSH from there to internal systems.</p>
+  
+  <p>Configure internal systems to only accept SSH from the bastion host's IP address, not from arbitrary sources. This limits exposure even if credentials are compromised.</p>
+
+  <h3>📁 File Permissions and Ownership</h3>
+  
+  <p>Linux file permissions are a fundamental security control. In OT environments, improper permissions can allow unauthorized modification of configuration files, scripts, or control logic.</p>
+
+  <h4>Understanding Unix Permissions</h4>
+  <p>Every file and directory has three permission sets: <strong>owner</strong>, <strong>group</strong>, and <strong>others</strong>. Each set has three permissions: <strong>read (r/4)</strong>, <strong>write (w/2)</strong>, and <strong>execute (x/1)</strong>.</p>
+  
+  <p>Example: <code>-rwxr-xr--</code> (754) means owner has full access, group can read and execute, others can only read.</p>
+
+  <h4>Critical Files to Protect</h4>
+  <p><strong>Configuration files:</strong> Sensitive files like <code>/etc/passwd</code>, <code>/etc/shadow</code>, <code>/etc/ssh/sshd_config</code> should have restrictive permissions. Shadow should be readable only by root (mode 000 or 400).</p>
+  
+  <p><strong>Application configurations:</strong> ICS application config files often contain connection strings, credentials, or sensitive parameters. Restrict access to necessary service accounts only.</p>
+  
+  <p><strong>Scripts and executables:</strong> Ensure only authorized users can modify scripts that run as services or cron jobs. An attacker who can modify a root cron script can achieve privilege escalation.</p>
+  
+  <p><strong>Log files:</strong> Logs should be writable only by syslog or application processes, but readable by administrators for review.</p>
+
+  <h4>Special Permissions</h4>
+  <p><strong>SetUID (4000):</strong> Allows a program to run with the owner's privileges regardless of who executes it. Minimize SetUID root binaries—each is a potential privilege escalation path.</p>
+  
+  <p><strong>SetGID (2000):</strong> Similar to SetUID but for group privileges. Also presents security risk.</p>
+  
+  <p><strong>Sticky bit (1000):</strong> On directories, prevents users from deleting files they don't own. Applied to /tmp.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🔍 Finding Permission Issues</p>
+    <p>Use <code>find / -perm -4000 2>/dev/null</code> to locate SetUID files. Use <code>find / -perm -2 -type f 2>/dev/null</code> to find world-writable files. Review results for unnecessary exposure. These commands are useful for both hardening and incident response.</p>
+  </div>
+
+  <h3>🛡️ Mandatory Access Control: SELinux and AppArmor</h3>
+  
+  <p>Traditional Unix permissions (Discretionary Access Control) only restrict based on user/group ownership. <strong>Mandatory Access Control (MAC)</strong> systems add another layer by enforcing policies that even root cannot override.</p>
+
+  <h4>SELinux (Security-Enhanced Linux)</h4>
+  <p><strong>SELinux</strong> was developed by the NSA and provides fine-grained access control through security policies. It's the default MAC system on RHEL, CentOS, and Fedora.</p>
+  
+  <p>SELinux operates in three modes: <strong>Enforcing</strong> (policies are enforced and violations blocked), <strong>Permissive</strong> (violations are logged but not blocked—useful for policy development), and <strong>Disabled</strong> (SELinux is off entirely).</p>
+  
+  <p>Check current mode with <code>getenforce</code>. Set mode with <code>setenforce 1</code> (enforcing) or <code>setenforce 0</code> (permissive). Permanent changes require editing <code>/etc/selinux/config</code>.</p>
+  
+  <p>SELinux uses <strong>contexts</strong> (labels) to determine access. Use <code>ls -Z</code> to view file contexts and <code>ps -Z</code> for process contexts. If an application doesn't work with SELinux, check <code>/var/log/audit/audit.log</code> for denials before disabling SELinux.</p>
+
+  <h4>AppArmor</h4>
+  <p><strong>AppArmor</strong> is the default MAC system on Ubuntu and SUSE. It's generally considered easier to configure than SELinux, using path-based policies rather than labels.</p>
+  
+  <p>AppArmor profiles define what files, capabilities, and network access applications can use. Check status with <code>aa-status</code>. Profiles can be in <strong>enforce</strong> or <strong>complain</strong> (log only) mode.</p>
+  
+  <p>Create or modify profiles in <code>/etc/apparmor.d/</code>. The <code>aa-genprof</code> tool can help generate profiles by monitoring application behavior.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🏭 MAC in OT Considerations</p>
+    <p>Many ICS administrators disable SELinux/AppArmor when applications don't work correctly. This eliminates an important security layer. Instead, troubleshoot the specific denials and create appropriate policy exceptions. A properly configured MAC system can prevent exploitation even when applications are compromised.</p>
+  </div>
+
+  <h3>⏰ Cron Security</h3>
+  
+  <p><strong>Cron</strong> schedules automated tasks on Linux systems. In OT environments, cron jobs might run data collection scripts, backup procedures, or maintenance tasks. Improperly secured cron jobs are attractive targets for attackers.</p>
+
+  <h4>Cron Security Risks</h4>
+  <p><strong>Privilege escalation:</strong> A cron job running as root that executes a script an attacker can modify provides instant root access.</p>
+  
+  <p><strong>Persistence:</strong> Attackers can add malicious cron jobs to maintain access after initial compromise.</p>
+  
+  <p><strong>Environment manipulation:</strong> Cron runs with a minimal environment. Scripts that rely on PATH without absolute paths might execute attacker-controlled binaries.</p>
+
+  <h4>Cron Hardening</h4>
+  <p><strong>Restrict cron access:</strong> Use <code>/etc/cron.allow</code> to whitelist users who can create cron jobs. If this file exists, only listed users can use cron. Alternatively, <code>/etc/cron.deny</code> blacklists specific users.</p>
+  
+  <p><strong>Use absolute paths:</strong> Always use full paths in cron jobs (e.g., <code>/usr/bin/python3</code> not just <code>python3</code>) to prevent PATH manipulation attacks.</p>
+  
+  <p><strong>Protect script files:</strong> Scripts executed by cron should be owned by root with mode 700 or 750—not writable by others.</p>
+  
+  <p><strong>Audit cron regularly:</strong> Review <code>/etc/crontab</code>, <code>/etc/cron.d/*</code>, <code>/etc/cron.hourly/*</code> (and daily/weekly/monthly), and user crontabs (<code>crontab -l -u username</code>) for unexpected entries.</p>
+  
+  <p><strong>Log cron execution:</strong> Ensure cron logging is enabled. Review <code>/var/log/cron</code> or journalctl for cron-related entries.</p>
+
+  <h3>📋 Log Management</h3>
+  
+  <p>Effective logging is essential for security monitoring, incident detection, and forensic analysis. Linux systems generate extensive logs—the challenge is collecting, storing, and analyzing them effectively.</p>
+
+  <h4>Key Log Files for Security</h4>
+  <p><strong>/var/log/auth.log</strong> (Debian/Ubuntu) or <strong>/var/log/secure</strong> (RHEL/CentOS): Authentication events including SSH logins, sudo usage, and failed authentication attempts.</p>
+  
+  <p><strong>/var/log/syslog</strong> or <strong>/var/log/messages</strong>: General system messages from various services and the kernel.</p>
+  
+  <p><strong>/var/log/audit/audit.log</strong>: Detailed audit records if auditd is running, including SELinux denials and watched file access.</p>
+  
+  <p><strong>/var/log/cron</strong>: Cron job execution records.</p>
+  
+  <p><strong>Application-specific logs:</strong> ICS applications may log to custom locations—identify and monitor these as well.</p>
+
+  <h4>Centralized Logging</h4>
+  <p>In OT environments, logs should be forwarded to a central log collector (SIEM) in the IDMZ or security monitoring network. This provides several benefits: logs survive if the source system is compromised, centralized analysis and correlation across multiple systems, alerting on suspicious patterns, and long-term retention for compliance and forensics.</p>
+  
+  <p>Configure rsyslog or syslog-ng to forward logs over TLS to your central collector. Ensure the logging infrastructure is reliable—missing logs during an incident is a significant problem.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📊 Essential Linux Audit Events</p>
+    <p>Configure auditd to monitor: authentication events (logins, sudo), file access to sensitive configurations, execution of administrative commands, network connection attempts, and modifications to startup scripts. The <code>auditctl</code> command or <code>/etc/audit/audit.rules</code> defines what to monitor.</p>
+  </div>
+
+  <h4>Log Rotation and Retention</h4>
+  <p>Embedded systems with limited storage need aggressive log rotation. Configure <code>logrotate</code> to compress and archive logs. However, ensure security-relevant logs are forwarded to centralized storage before rotation deletes them locally.</p>
+  
+  <p>Balance storage constraints with retention requirements. Compliance frameworks may require specific retention periods (often 1-7 years for security logs).</p>
+
+  <h3>🔥 Real-World Incident: Triton and Embedded Linux</h3>
+  
+  <p>While the <strong>TRITON/TRISIS</strong> malware (2017) primarily targeted the Triconex safety controller's proprietary operating system, the attack demonstrated the sophistication of threats facing embedded systems in critical infrastructure.</p>
+
+  <h4>Attack Analysis</h4>
+  <p>Attackers first compromised Windows engineering workstations, then used those workstations to deploy malicious code to the Triconex Safety Instrumented System controllers. The malware was designed to run alongside the legitimate safety logic, potentially allowing attackers to disable safety systems during a physical attack.</p>
+
+  <h4>Linux Lessons</h4>
+  <p>While Triconex runs a proprietary OS, many similar safety and control systems now run embedded Linux. The attack highlights: the critical importance of engineering workstation security (covered in Module 4), the need for integrity monitoring on embedded systems, the value of network monitoring to detect unusual traffic to embedded devices, and the challenge of deploying security on resource-constrained systems.</p>
+
+  <h3>🛠️ Practical Hardening Checklist</h3>
+  
+  <p>Use this checklist when securing Linux systems in OT environments:</p>
+
+  <h4>Access Control</h4>
+  <p>Harden SSH configuration (disable root login, use keys). Implement MAC (SELinux/AppArmor) in enforcing mode. Review and restrict file permissions on sensitive files. Remove or disable unnecessary user accounts. Configure sudo with appropriate restrictions.</p>
+
+  <h4>System Hardening</h4>
+  <p>Disable unnecessary services (<code>systemctl disable servicename</code>). Remove or don't install unnecessary packages. Configure host-based firewall (iptables/nftables/firewalld). Disable IPv6 if not used. Harden kernel parameters via sysctl (disable IP forwarding if not needed, enable SYN cookies, etc.).</p>
+
+  <h4>Monitoring and Logging</h4>
+  <p>Enable and configure auditd for security events. Forward logs to central SIEM. Monitor for failed authentication attempts. Alert on unexpected cron job changes. Implement file integrity monitoring (AIDE, OSSEC, Tripwire).</p>
+
+  <h4>Maintenance</h4>
+  <p>Establish patch management process for Linux systems. Coordinate with vendors on embedded system updates. Document baseline configurations. Perform regular security assessments.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🎮 Module Complete!</p>
+    <p>Excellent work, Cyber Defender! You've mastered the essentials of securing Linux in OT environments. From embedded PLCs to security appliances, you now know how to harden these systems against attack. In Module 6, you'll dive into Governance and Compliance—understanding the frameworks and standards that guide ICS security programs. The Governance Gym awaits!</p>
+  </div>
+</div>

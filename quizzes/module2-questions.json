@@ -1,22 +1,605 @@
 {
-  "moduleId": "2",
-  "moduleName": "Network Architecture & Defense",
+  "module": 2,
   "domain": "architecture",
+  "totalQuestions": 40,
   "questions": [
-    {"id": "m2_q01", "type": "multiple_choice", "difficulty": 1, "question": "What is the primary purpose of network segmentation in ICS?", "options": ["Increase speed", "Isolate security zones and limit lateral movement", "Reduce costs", "Eliminate firewalls"], "correctIndex": 1, "explanation": "Segmentation divides networks into zones to limit attacker movement and contain breaches."},
-    {"id": "m2_q02", "type": "multiple_choice", "difficulty": 2, "question": "What is the IDMZ's purpose?", "options": ["House control devices", "Buffer zone between IT and OT networks", "Store backups", "Connect remote sites"], "correctIndex": 1, "explanation": "The IDMZ sits between Level 3 and 4, preventing direct IT-to-OT connections."},
-    {"id": "m2_q03", "type": "multiple_choice", "difficulty": 2, "question": "Which device enforces one-way data transfer?", "options": ["Firewall", "Router", "Data Diode", "Switch"], "correctIndex": 2, "explanation": "Data diodes physically enforce one-way communication, providing hardware-enforced isolation."},
-    {"id": "m2_q04", "type": "multiple_choice", "difficulty": 3, "question": "In defense-in-depth, if one control fails:", "options": ["System shuts down", "Multiple layers continue protecting", "Users stop working", "Network restores from backup"], "correctIndex": 1, "explanation": "Defense-in-depth uses multiple layers so others protect if one fails."},
-    {"id": "m2_q05", "type": "multiple_choice", "difficulty": 2, "question": "What is a jump server used for?", "options": ["Backing up data", "Controlled access point for admin connections to secure zones", "Monitoring traffic", "Speeding transfers"], "correctIndex": 1, "explanation": "Jump servers provide monitored, controlled gateway for administrative access."},
-    {"id": "m2_q06", "type": "true_false", "difficulty": 1, "question": "An air gap provides 100% guaranteed protection.", "options": ["True", "False"], "correctIndex": 1, "explanation": "False. Air gaps can be crossed via USB, supply chain, or insider threats (Stuxnet)."},
-    {"id": "m2_q07", "type": "multiple_choice", "difficulty": 2, "question": "In IEC 62443, what connects security zones?", "options": ["Tunnel", "Bridge", "Conduit", "Gateway"], "correctIndex": 2, "explanation": "Conduits are communication channels connecting security zones in IEC 62443."},
-    {"id": "m2_q08", "type": "multiple_choice", "difficulty": 3, "question": "Best approach for secure ICS remote access?", "options": ["Direct RDP from internet", "MFA through VPN to jump server", "Shared credentials", "Disable logging"], "correctIndex": 1, "explanation": "Use VPN with MFA to reach a jump server, then controlled access to ICS."},
-    {"id": "m2_q09", "type": "multiple_choice", "difficulty": 2, "question": "What is east-west traffic?", "options": ["Geographic traffic", "Traffic within the same network zone", "Inside-to-outside traffic", "User-to-server traffic"], "correctIndex": 1, "explanation": "East-west is lateral traffic within a zone; north-south is between internal and external."},
-    {"id": "m2_q10", "type": "multiple_choice", "difficulty": 1, "question": "What is a firewall's main function in ICS?", "options": ["Speed up traffic", "Control/filter traffic based on security rules", "Store logs", "Convert protocols"], "correctIndex": 1, "explanation": "Firewalls enforce rules about allowed communications, including ICS-specific filtering."},
-    {"id": "m2_q11", "type": "multiple_choice", "difficulty": 2, "question": "Where should the IDMZ be placed?", "options": ["Between Level 0-1", "Between Level 1-2", "Between Level 3-4 (Level 3.5)", "Above Level 5"], "correctIndex": 2, "explanation": "IDMZ sits at Level 3.5, the critical IT-OT boundary."},
-    {"id": "m2_q12", "type": "true_false", "difficulty": 2, "question": "VLANs alone provide sufficient ICS segmentation.", "options": ["True", "False"], "correctIndex": 1, "explanation": "False. VLANs can be bypassed; proper security requires VLANs plus firewalls and ACLs."},
-    {"id": "m2_q13", "type": "multiple_choice", "difficulty": 2, "question": "What is 'deny by default' policy?", "options": ["Block all traffic including legitimate", "Allow only explicitly permitted traffic", "Deny specific users", "Disable firewall"], "correctIndex": 1, "explanation": "Deny by default blocks everything unless explicitly allowed - recommended for ICS."},
-    {"id": "m2_q14", "type": "multiple_choice", "difficulty": 2, "question": "Risk of dual-homed systems in ICS?", "options": ["High electricity use", "Creates bridge between separated networks", "Can't connect to internet", "Requires special licensing"], "correctIndex": 1, "explanation": "Dual-homed systems can bypass security boundaries between networks."},
-    {"id": "m2_q15", "type": "multiple_choice", "difficulty": 1, "question": "What is defense in depth?", "options": ["All defenses at perimeter", "Multiple layers of security throughout environment", "Defending deep parts only", "Hidden controls"], "correctIndex": 1, "explanation": "Defense in depth employs multiple control layers throughout IT/OT environment."}
+    {
+      "id": "arch_001",
+      "question": "In the Purdue Model, which level contains PLCs and RTUs?",
+      "options": [
+        "Level 0 - Process",
+        "Level 1 - Basic Control",
+        "Level 2 - Area Supervisory",
+        "Level 3 - Site Operations"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "Level 1 (Basic Control) contains PLCs, RTUs, and IEDs that directly control Level 0 field devices. Level 0 is the physical process itself."
+    },
+    {
+      "id": "arch_002",
+      "question": "What is the primary purpose of the Industrial DMZ (IDMZ)?",
+      "options": [
+        "To host enterprise email servers",
+        "To provide a buffer zone between IT and OT networks",
+        "To store historical process data permanently",
+        "To connect directly to the Internet"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "The IDMZ provides a controlled buffer zone between IT (Level 4-5) and OT (Level 0-3) networks, preventing direct communication and allowing security inspection of all traffic."
+    },
+    {
+      "id": "arch_003",
+      "question": "Which device provides hardware-enforced one-way data transfer?",
+      "options": [
+        "Managed switch",
+        "Data diode",
+        "Stateful firewall",
+        "VPN concentrator"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "Data diodes physically enforce one-way data flow using hardware, making reverse communication impossible regardless of software attacks or misconfigurations."
+    },
+    {
+      "id": "arch_004",
+      "question": "What does the acronym VLAN stand for?",
+      "options": [
+        "Virtual Local Access Node",
+        "Virtual Local Area Network",
+        "Verified Layered Access Network",
+        "Variable Length Address Notation"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "VLAN stands for Virtual Local Area Network. VLANs create separate broadcast domains on the same physical switch infrastructure for Layer 2 segmentation."
+    },
+    {
+      "id": "arch_005",
+      "question": "In the Purdue Model, where are Human-Machine Interfaces (HMIs) typically located?",
+      "options": [
+        "Level 0 - Process",
+        "Level 1 - Basic Control",
+        "Level 2 - Area Supervisory",
+        "Level 4 - Enterprise"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "HMIs are located at Level 2 (Area Supervisory Control), where operators monitor process graphics, view alarms, and issue commands to Level 1 controllers."
+    },
+    {
+      "id": "arch_006",
+      "question": "What type of devices are found at Purdue Model Level 0?",
+      "options": [
+        "PLCs and RTUs",
+        "Sensors, actuators, and valves",
+        "HMIs and engineering workstations",
+        "Historians and SCADA servers"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "Level 0 represents the physical process with sensors, actuators, valves, motors, and other field devices that directly interact with the physical world."
+    },
+    {
+      "id": "arch_007",
+      "question": "Which international standard defines the zones and conduits security model for ICS?",
+      "options": [
+        "ISO 27001",
+        "NIST 800-53",
+        "IEC 62443",
+        "PCI-DSS"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "IEC 62443 (formerly ISA/IEC 62443) is the international standard for industrial automation security that introduces zones and conduits as a systematic architecture approach."
+    },
+    {
+      "id": "arch_008",
+      "question": "What is the primary function of a historian in an ICS environment?",
+      "options": [
+        "Programming PLCs and RTUs",
+        "Collecting and storing process data over time",
+        "Providing real-time control of field devices",
+        "Managing user authentication"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "A historian collects and stores process data for trend analysis, regulatory compliance, and operational optimization. It can store millions of data points and retain data for years."
+    },
+    {
+      "id": "arch_009",
+      "question": "A manufacturing plant wants to send production data to their cloud analytics platform. Which technology best protects the OT network while allowing this data transfer?",
+      "options": [
+        "Bidirectional VPN tunnel",
+        "Data diode with protocol break",
+        "Open firewall rule from cloud to OT",
+        "Direct database replication"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "A data diode with protocol break allows one-way data transfer to the cloud while physically preventing any inbound traffic, protecting the OT network from cloud-based threats."
+    },
+    {
+      "id": "arch_010",
+      "question": "According to defense-in-depth principles, why should VLANs be combined with Layer 3 controls?",
+      "options": [
+        "VLANs are too expensive to implement alone",
+        "VLANs can be bypassed through attacks like VLAN hopping",
+        "VLANs don't support industrial protocols",
+        "VLANs require Internet connectivity"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "VLANs provide Layer 2 segmentation but can be bypassed through VLAN-hopping attacks or misconfigured trunk ports. Layer 3 firewalls or ACLs provide additional protection."
+    },
+    {
+      "id": "arch_011",
+      "question": "In the Ukraine 2015 power grid attack, which architectural weakness allowed attackers to reach the OT network from compromised IT systems?",
+      "options": [
+        "Unpatched PLCs",
+        "Direct VPN connections from IT to OT without an IDMZ",
+        "Weak encryption on Modbus traffic",
+        "Missing antivirus on field devices"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "The attackers exploited direct VPN access from IT to OT networks. An IDMZ with proper controls would have provided a chokepoint for monitoring and access control."
+    },
+    {
+      "id": "arch_012",
+      "question": "What is the recommended placement for remote access VPN termination in an ICS network?",
+      "options": [
+        "Directly on Level 1 PLC networks",
+        "On the enterprise firewall at Level 5",
+        "In the IDMZ with jump servers",
+        "On each individual HMI workstation"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "Remote access should terminate in the IDMZ, never directly in OT networks. Jump servers in the IDMZ provide controlled access points with logging and session management."
+    },
+    {
+      "id": "arch_013",
+      "question": "Which Purdue Model level typically hosts ERP and business intelligence systems?",
+      "options": [
+        "Level 2 - Area Supervisory",
+        "Level 3 - Site Operations",
+        "Level 4 - Enterprise Business",
+        "Level 5 - Enterprise Network"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "Level 4 (Enterprise Business) hosts traditional IT systems like ERP, email servers, and business intelligence systems that need operational data but shouldn't directly access control systems."
+    },
+    {
+      "id": "arch_014",
+      "question": "A security architect needs to allow historian data to flow from OT to IT while preventing any return traffic. Which solution is MOST appropriate?",
+      "options": [
+        "Firewall with outbound-only rules",
+        "Hardware data diode",
+        "Intrusion prevention system",
+        "Network address translation"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "A hardware data diode physically prevents return traffic at the hardware level, providing stronger guarantees than software-based firewall rules that could be misconfigured or bypassed."
+    },
+    {
+      "id": "arch_015",
+      "question": "In IEC 62443, what determines the security requirements for a conduit between two zones?",
+      "options": [
+        "The physical distance between zones",
+        "The number of devices in each zone",
+        "The Security Level Targets of the connected zones",
+        "The bandwidth requirements of the connection"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "Conduits must provide security controls appropriate to the Security Level Targets (SL-T) of connected zones. Higher SL-T zones require stronger conduit protections."
+    },
+    {
+      "id": "arch_016",
+      "question": "Why is application whitelisting often preferred over traditional antivirus in OT environments?",
+      "options": [
+        "It's cheaper to implement",
+        "It has lower performance impact and doesn't require signature updates",
+        "It protects against physical attacks",
+        "It's required by all ICS vendors"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Application whitelisting has lower performance impact on resource-constrained OT systems and doesn't require constant signature updates, which can be problematic in air-gapped environments."
+    },
+    {
+      "id": "arch_017",
+      "question": "What is the primary security concern with engineering workstations at Level 2?",
+      "options": [
+        "They consume too much bandwidth",
+        "They often run legacy operating systems for vendor software compatibility",
+        "They generate excessive log data",
+        "They require frequent rebooting"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Engineering workstations often run legacy operating systems like Windows 7 or XP to maintain compatibility with vendor software, making them vulnerable to unpatched security flaws."
+    },
+    {
+      "id": "arch_018",
+      "question": "In a properly segmented ICS network, traffic between Level 4 (Enterprise) and Level 3 (Site Operations) should:",
+      "options": [
+        "Flow freely without restrictions",
+        "Be blocked entirely with no exceptions",
+        "Pass through the IDMZ for inspection and control",
+        "Use only encrypted tunnels directly between levels"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "The IDMZ golden rule states that no direct communication should flow between Level 4 and Level 3. All traffic must pass through the IDMZ for inspection, logging, and control."
+    },
+    {
+      "id": "arch_019",
+      "question": "Which component would you deploy in the IDMZ to allow IT users to access OT systems for maintenance?",
+      "options": [
+        "Domain controller",
+        "Jump server",
+        "Historian primary server",
+        "PLC programming station"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Jump servers in the IDMZ provide controlled access points for users needing to reach OT systems. They enable session logging, access control, and serve as a security checkpoint."
+    },
+    {
+      "id": "arch_020",
+      "question": "What is the significance of Purdue Model Levels 0 and 1 being called the 'Safety Zone'?",
+      "options": [
+        "These levels are always physically safe to access",
+        "Compromise at these levels can cause physical damage or loss of life",
+        "Safety systems are prohibited at these levels",
+        "No security controls are needed at these levels"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Levels 0-1 are called the Safety Zone because compromise can directly affect physical processes, potentially causing equipment damage, environmental disasters, or harm to human life."
+    },
+    {
+      "id": "arch_021",
+      "question": "A utility company discovers that a contractor's laptop connected to both the corporate guest WiFi and an HMI on the control network simultaneously. This violates which security principle?",
+      "options": [
+        "Principle of least privilege",
+        "Network segmentation and air gap integrity",
+        "Defense in depth",
+        "Security through obscurity"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Dual-homed devices that bridge IT and OT networks violate network segmentation by creating unauthorized paths around security controls like firewalls and the IDMZ."
+    },
+    {
+      "id": "arch_022",
+      "question": "In IEC 62443, Security Level 4 (SL-4) is designed to protect against which type of threat actor?",
+      "options": [
+        "Script kiddies and opportunistic hackers",
+        "Insider threats and disgruntled employees",
+        "Organized cybercriminals",
+        "Nation-state actors with extensive resources"
+      ],
+      "correct": 3,
+      "difficulty": 3,
+      "explanation": "IEC 62443 SL-4 provides protection against sophisticated attackers with nation-state-level resources and capabilities, including extensive funding and advanced persistent threat techniques."
+    },
+    {
+      "id": "arch_023",
+      "question": "During a network architecture review, you find that a vendor uses TeamViewer installed directly on HMIs for remote support. What is the PRIMARY security concern?",
+      "options": [
+        "TeamViewer uses too much bandwidth",
+        "It creates an uncontrolled Internet connection bypassing the IDMZ",
+        "TeamViewer is not compatible with Windows",
+        "Remote support should never be allowed"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Direct Internet connectivity from HMIs bypasses IDMZ controls, firewall inspection, and network monitoring. Remote access should always terminate in the IDMZ with proper controls."
+    },
+    {
+      "id": "arch_024",
+      "question": "An ICS network uses a 'flat' architecture with all devices on the same subnet. Which attack technique is MOST facilitated by this design?",
+      "options": [
+        "SQL injection",
+        "Lateral movement between systems",
+        "DNS tunneling",
+        "Password spraying"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Flat networks with no segmentation allow attackers to move freely between systems once they gain initial access. Proper segmentation creates barriers that limit lateral movement."
+    },
+    {
+      "id": "arch_025",
+      "question": "When implementing a data diode for historian replication, what challenge must be addressed for TCP-based protocols?",
+      "options": [
+        "TCP packets are too large for data diodes",
+        "TCP requires bidirectional acknowledgments that data diodes prevent",
+        "TCP is not supported in OT environments",
+        "TCP headers contain sensitive information"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "TCP requires acknowledgment packets (ACKs) for reliable delivery, but data diodes prevent any return traffic. Protocol-break technology terminates TCP on each side and reconstructs data."
+    },
+    {
+      "id": "arch_026",
+      "question": "In the TRITON/TRISIS attack, what specific type of Level 1 device did the attackers target?",
+      "options": [
+        "Programmable Logic Controllers",
+        "Safety Instrumented System controllers",
+        "Variable frequency drives",
+        "Remote terminal units"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "TRITON targeted Triconex Safety Instrumented System (SIS) controllers, which are designed to safely shut down processes when dangerous conditions are detected."
+    },
+    {
+      "id": "arch_027",
+      "question": "A zone and conduit assessment identifies a Level 3 historian that needs to send data to Level 4 business systems and also receive commands from Level 2 HMIs. What is the BEST architectural approach?",
+      "options": [
+        "Allow direct connections in both directions through a single firewall",
+        "Deploy a replica historian in the IDMZ that receives OT data and serves IT requests",
+        "Move the historian entirely to Level 4",
+        "Eliminate the need for business analytics"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "A replica historian in the IDMZ receives data from the OT historian and serves read requests from IT systems. This maintains segmentation while meeting both operational and business needs."
+    },
+    {
+      "id": "arch_028",
+      "question": "Why should safety systems (SIS) be on a separate network segment from basic process control systems (BPCS)?",
+      "options": [
+        "Safety systems use different voltages",
+        "Compromise of BPCS should not affect the ability to safely shut down",
+        "Safety systems don't need network connectivity",
+        "It's required by insurance companies only"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Safety systems must remain functional even if the basic process control system is compromised. Separate segmentation ensures attackers controlling BPCS cannot disable safety shutdowns."
+    },
+    {
+      "id": "arch_029",
+      "question": "In defense-in-depth, which layer would host-based intrusion detection systems (HIDS) belong to?",
+      "options": [
+        "Physical layer",
+        "Network layer",
+        "Host layer",
+        "Data layer"
+      ],
+      "correct": 2,
+      "difficulty": 3,
+      "explanation": "Host-based security controls including HIDS, application whitelisting, and endpoint detection run on individual systems, making them part of the host layer in defense-in-depth."
+    },
+    {
+      "id": "arch_030",
+      "question": "What is the PRIMARY difference between a 'fail-open' and 'fail-closed' firewall configuration in OT environments?",
+      "options": [
+        "Fail-open firewalls are more expensive",
+        "Fail-open allows traffic during failure, fail-closed blocks all traffic",
+        "Fail-closed firewalls cannot be managed remotely",
+        "Fail-open is required by IEC 62443"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Fail-open allows traffic to pass if the firewall fails, prioritizing availability. Fail-closed blocks all traffic during failure, prioritizing security. The choice depends on criticality analysis."
+    },
+    {
+      "id": "arch_031",
+      "question": "A water utility wants to implement the Purdue Model but has limited budget. Which segmentation boundary should they prioritize FIRST?",
+      "options": [
+        "Between Level 4 and Level 5",
+        "Between Level 0 and Level 1",
+        "Between OT (Level 3) and IT (Level 4) with an IDMZ",
+        "Between different vendor systems at Level 2"
+      ],
+      "correct": 2,
+      "difficulty": 4,
+      "explanation": "The IT/OT boundary is the most critical segmentation point. The IDMZ prevents direct access from compromised IT systems to control networks, addressing the most common attack path."
+    },
+    {
+      "id": "arch_032",
+      "question": "An attacker has compromised an engineering workstation at Level 2. What architectural control would BEST prevent them from directly reprogramming PLCs at Level 1?",
+      "options": [
+        "Antivirus on the PLCs",
+        "Firewall rules requiring engineering traffic to pass through a protocol-aware gateway",
+        "Encrypting all Modbus traffic",
+        "Adding more VLANs between Level 1 and Level 2"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "A protocol-aware gateway (or industrial firewall) can inspect engineering commands and enforce policies about which devices can program PLCs, even if a workstation is compromised."
+    },
+    {
+      "id": "arch_033",
+      "question": "During a risk assessment, you identify that a single switch failure could disconnect all PLCs from their controlling HMIs. Which network architecture principle should you apply?",
+      "options": [
+        "Network address translation",
+        "Redundancy and high availability at critical network points",
+        "More restrictive firewall rules",
+        "Additional intrusion detection sensors"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Single points of failure in critical communication paths violate availability requirements. Redundant switches, ring topologies, or dual-homing provide resilience against hardware failures."
+    },
+    {
+      "id": "arch_034",
+      "question": "In IEC 62443, you're conducting a zone and conduit assessment. Zone A has SL-T of 3, and Zone B has SL-T of 1. The conduit between them must achieve at least what Security Level?",
+      "options": [
+        "SL-1 (match the lowest zone)",
+        "SL-2 (average of both zones)",
+        "SL-3 (protect the higher-security zone)",
+        "SL-4 (exceed both zones)"
+      ],
+      "correct": 2,
+      "difficulty": 4,
+      "explanation": "Conduits must protect higher-security zones from threats originating in lower-security zones. The conduit must achieve SL-3 to prevent Zone B from being an attack vector into Zone A."
+    },
+    {
+      "id": "arch_035",
+      "question": "A penetration tester demonstrates they can send Modbus commands to PLCs by injecting traffic on a trunk port between switches. Which TWO controls would BEST address this?",
+      "options": [
+        "Enable 802.1Q VLAN tagging and disable DTP on access ports",
+        "Install antivirus on all PLCs",
+        "Add more VLANs to the network",
+        "Implement stronger Wi-Fi passwords"
+      ],
+      "correct": 0,
+      "difficulty": 4,
+      "explanation": "VLAN hopping attacks exploit Dynamic Trunking Protocol (DTP) and untagged traffic. Disabling DTP, using explicit VLAN tagging, and hardening trunk ports prevents this attack."
+    },
+    {
+      "id": "arch_036",
+      "question": "Your organization wants to share real-time process data with a cloud-based AI analytics platform for predictive maintenance. Which architecture BEST balances security and functionality?",
+      "options": [
+        "Direct OPC UA connection from Level 1 to the cloud",
+        "VPN tunnel from Level 2 HMI to the cloud provider",
+        "Data diode from Level 3 historian through IDMZ to a cloud gateway",
+        "Allow the cloud platform to pull data directly from Level 3"
+      ],
+      "correct": 2,
+      "difficulty": 4,
+      "explanation": "A data diode ensures one-way data flow to the cloud while physically preventing any inbound traffic that could compromise OT systems. The IDMZ provides additional security controls."
+    },
+    {
+      "id": "arch_037",
+      "question": "An ICS security audit finds that vendor maintenance laptops connect directly to PLCs without any network controls. The vendor claims this is necessary for troubleshooting. What compensating control provides the BEST security improvement?",
+      "options": [
+        "Require vendors to use only the plant's laptops",
+        "Implement a temporary network access control (NAC) solution with isolated maintenance VLAN",
+        "Ban all vendor maintenance",
+        "Install antivirus on vendor laptops"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "NAC can validate vendor devices before granting limited access to an isolated maintenance VLAN. This allows necessary maintenance while preventing unauthorized network access."
+    },
+    {
+      "id": "arch_038",
+      "question": "In the 2015 Ukraine attack, attackers used KillDisk malware to wipe systems after the main attack. How does proper architecture help in such scenarios?",
+      "options": [
+        "Preventing the initial phishing attack",
+        "Having segmented backups and recovery systems isolated from attack paths",
+        "Encrypting all data at rest",
+        "Using stronger passwords on all systems"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Proper architecture includes isolated backup systems and documented recovery procedures. Even if attackers wipe systems, isolated backups allow recovery without re-infection."
+    },
+    {
+      "id": "arch_039",
+      "question": "A chemical plant has a Safety Instrumented System (SIS) connected to the same network switch as the basic process control system (BPCS). An attacker with control of an engineering workstation could potentially disable both. According to defense-in-depth principles, what is the MINIMUM corrective action?",
+      "options": [
+        "Add antivirus to the engineering workstation",
+        "Air-gap the SIS network with separate physical infrastructure",
+        "Implement TLS encryption between all systems",
+        "Add intrusion detection to the shared switch"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Safety systems must have complete independence from control systems. A physically separate air-gapped network ensures SIS functionality even if BPCS is fully compromised."
+    },
+    {
+      "id": "arch_040",
+      "question": "You're designing an ICS network for a new power generation facility. The control system vendor requires direct Internet access for software updates and license validation. How do you address this requirement while maintaining security?",
+      "options": [
+        "Allow the direct connection since the vendor requires it",
+        "Refuse the vendor requirement entirely",
+        "Implement a proxy server in the IDMZ with strict URL filtering, authentication, and time-limited access windows",
+        "Create a VPN directly from Level 2 to the vendor's update server"
+      ],
+      "correct": 2,
+      "difficulty": 5,
+      "explanation": "A proxy server in the IDMZ provides controlled, monitored Internet access without exposing OT systems. URL filtering limits access to approved update sources, and time-limited windows reduce attack surface."
+    },
+    {
+      "id": "arch_041",
+      "question": "An advanced persistent threat (APT) actor has established presence in your enterprise network and is probing the IDMZ. Your jump servers use multi-factor authentication and session recording. What additional architectural control would BEST delay the attacker's progress into OT networks?",
+      "options": [
+        "Additional antivirus on IDMZ systems",
+        "Privileged access management (PAM) with just-in-time access and behavioral analytics",
+        "Stronger Wi-Fi encryption",
+        "Additional network address translation"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "PAM with just-in-time access ensures credentials only work during approved maintenance windows. Behavioral analytics can detect unusual access patterns indicating compromised credentials."
+    },
+    {
+      "id": "arch_042",
+      "question": "A nation-state attacker wants to cause physical damage to a target facility. Based on known ICS attacks, which architectural weakness represents their MOST likely initial target?",
+      "options": [
+        "Unpatched PLCs at Level 1",
+        "VPN or remote access systems providing IT-to-OT connectivity",
+        "Physical security at the facility",
+        "Encrypted communications between HMIs"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Major ICS attacks (Ukraine, TRITON) exploited remote access paths from IT to OT. Remote access systems are internet-reachable and provide direct paths to control systems when compromised."
+    },
+    {
+      "id": "arch_043",
+      "question": "You're implementing IEC 62443 zones and conduits for a facility with 200+ control system devices. Many legacy PLCs don't support authentication. What zone design approach BEST addresses this limitation?",
+      "options": [
+        "Create one large zone containing all legacy devices",
+        "Create micro-zones around individual PLCs with protocol-aware firewalls compensating for device limitations",
+        "Exclude legacy devices from the security assessment",
+        "Replace all legacy devices immediately"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Micro-segmentation with protocol-aware firewalls can provide compensating controls where devices lack native security. The firewall enforces authentication and access control on behalf of legacy devices."
+    },
+    {
+      "id": "arch_044",
+      "question": "During architecture design, you must choose between a fail-open or fail-closed firewall between Level 2 and Level 1 for a nuclear power plant's reactor control system. Which consideration is MOST critical?",
+      "options": [
+        "Cost of the firewall hardware",
+        "Nuclear safety regulations require fail-safe designs that prioritize safe reactor shutdown",
+        "Network performance requirements",
+        "The vendor's default configuration"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Nuclear safety is paramount. Fail-closed might block safety commands during firewall failure. However, fail-open could allow malicious commands. This requires careful analysis with safety engineers and regulators."
+    },
+    {
+      "id": "arch_045",
+      "question": "A manufacturing company completed Purdue Model implementation with proper IDMZ. Six months later, security monitoring detects Level 1 PLC traffic appearing on the enterprise network. Investigation reveals a plant manager installed a cellular modem on an HMI for 'emergency access.' This scenario illustrates which security challenge?",
+      "options": [
+        "Technical controls alone cannot prevent insider circumvention",
+        "Cellular modems are inherently insecure",
+        "The IDMZ was improperly configured",
+        "Level 1 PLCs should not communicate"
+      ],
+      "correct": 0,
+      "difficulty": 5,
+      "explanation": "Technical architecture can be circumvented by well-meaning insiders. Defense-in-depth must include policies, training, monitoring, and periodic architecture validation to detect unauthorized changes."
+    },
+    {
+      "id": "arch_046",
+      "question": "After a successful breach, incident responders need to determine what PLC logic changes the attacker made. The facility lacks a historian that logs PLC program changes. What architectural improvement would enable this forensic capability?",
+      "options": [
+        "Install more firewalls",
+        "Deploy industrial protocol monitoring with logic capture and baseline comparison capabilities",
+        "Add antivirus to all PLCs",
+        "Implement network address translation"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Industrial protocol monitoring tools can capture PLC programming traffic, maintain logic baselines, and alert on unauthorized changes—providing critical forensic evidence for incident response."
+    }
   ]
 }

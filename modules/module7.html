@@ -1,62 +1,229 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 7: Incident Detection & Response | ICS Defender Training</title>
-  <link rel="stylesheet" href="../css/pokemon-theme.css">
-</head>
-<body>
-  <header class="course-header" style="background: linear-gradient(135deg, var(--type-fire) 0%, #333 100%);">
-    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 7</div>
-    <h1>🔥 Incident Detection & Response</h1>
-    <p class="subtitle">Response Ridge • Gym Leader: RESPONDER</p>
-  </header>
+<div class="content-section">
+  <h2><span class="section-icon">🚨</span> Module 7: Incident Response in ICS Environments</h2>
+  
+  <p>Welcome to Module 7, Cyber Defender! When prevention fails, response matters. ICS incident response requires balancing cybersecurity objectives with <strong>operational safety and continuity</strong>. You can't simply "pull the plug" on a chemical reactor or power grid the way you might isolate a compromised laptop.</p>
 
-  <main class="content-container">
-    <section class="content-section fade-in">
-      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
-      <p>Content for Module 7 will be displayed here once media assets are generated.</p>
-      
-      <div class="info-box">
-        <p class="info-box-title">📝 Module Status</p>
-        <p>This module's content structure is defined in the Course Design Document. 
-        Video and infographic placeholders will be replaced with generated media assets.</p>
-      </div>
-    </section>
+  <p>In this module, you'll learn how to detect security incidents in industrial environments, respond effectively while maintaining safe operations, conduct forensics on OT systems, and recover from attacks. The MITRE ATT&CK framework for ICS will help you understand adversary behaviors and anticipate attacker actions.</p>
 
-    <!-- Quiz Section -->
-    <section class="content-section">
-      <h2><span class="section-icon">📝</span> Module 7 Quiz</h2>
-      <div id="quiz-container"></div>
-    </section>
+  <div class="info-box">
+    <p class="info-box-title">🎯 Learning Objectives</p>
+    <p>By the end of this module, you will be able to: detect anomalies in ICS environments using multiple data sources, coordinate incident response between security and operations teams, apply the MITRE ATT&CK for ICS framework, conduct forensics while preserving evidence and maintaining operations, develop and test ICS-specific incident response plans, and execute safe recovery procedures.</p>
+  </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
-      <a href="module6.html" class="btn btn-secondary">← Previous Module</a>
-      <a href="module8.html" class="btn btn-primary">Next Module →</a>
-    </div>
-  </main>
+  <h3>🔍 Detection in ICS Environments</h3>
+  
+  <p>Detecting threats in OT environments requires different approaches than IT security monitoring. Industrial protocols, legacy systems, and operational constraints shape what visibility is possible.</p>
 
-  <footer class="course-footer">
-    <p>ICS Defender Training: SCADAmon Edition</p>
-    <p>Module 7: Incident Detection & Response</p>
-  </footer>
+  <h4>Network-Based Detection</h4>
+  <p><strong>Passive Network Monitoring:</strong> Non-intrusive monitoring of industrial network traffic is the foundation of ICS threat detection. Solutions from vendors like Dragos, Claroty, and Nozomi Networks passively analyze traffic to identify assets, detect anomalies, and alert on suspicious activity without impacting operations.</p>
+  
+  <p>Network monitoring can detect: unauthorized devices on industrial networks, unusual protocol commands (writes to safety systems, configuration changes), communication pattern anomalies (new connections, unusual volumes), known ICS malware signatures, and policy violations (IT-to-OT traffic bypassing the IDMZ).</p>
 
-  <script src="../js/cmi5-wrapper.js"></script>
-  <script src="../js/quiz-engine.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      await window.cmi5.initialize();
-      window.quiz = new QuizEngine('quiz-container', {
-        questionsPerQuiz: 10,
-        passingScore: 80,
-        moduleId: '7',
-        moduleName: 'Incident Detection & Response',
-        badgeName: 'Response Ridge Badge'
-      });
-      await quiz.loadQuestions('../quizzes/module7-questions.json');
-      quiz.renderQuiz();
-    });
-  </script>
-</body>
-</html>
+  <p><strong>Industrial Protocol Analysis:</strong> Deep packet inspection of protocols like Modbus, DNP3, and EtherNet/IP reveals operational context that generic IT tools miss. A security tool that understands Modbus can alert on a "write single coil" command to a safety-critical output, while a generic IDS sees only TCP traffic.</p>
+
+  <h4>Host-Based Detection</h4>
+  <p><strong>Engineering Workstation Monitoring:</strong> Engineering workstations are prime targets for ICS attackers. Monitor for: suspicious process execution, connections to unusual destinations, changes to project files, and execution of engineering software outside normal hours.</p>
+  
+  <p><strong>Server and Historian Logs:</strong> SCADA servers, historians, and HMI servers generate logs that reveal security events: failed authentications, configuration changes, user activity, and application errors that might indicate exploitation attempts.</p>
+
+  <p><strong>Endpoint Detection and Response (EDR):</strong> Where supported, EDR tools on Windows-based OT systems provide visibility into process execution, file changes, and network connections. Ensure EDR is configured appropriately for OT—aggressive blocking might disrupt legitimate operations.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">⚠️ Detection Challenges in OT</p>
+    <p>Many ICS systems lack logging capabilities or run operating systems too old for modern security tools. Legacy PLCs may communicate without encryption or authentication, making it impossible to distinguish legitimate from malicious commands at the device level. Network monitoring becomes even more critical when host-based detection isn't possible.</p>
+  </div>
+
+  <h4>Process-Based Detection</h4>
+  <p>The ultimate detection layer watches for <strong>process anomalies</strong>—deviations from expected physical behavior. If a tank level drops unexpectedly, a motor runs at unusual speed, or temperature exceeds normal ranges, something is wrong—whether cyber attack or equipment failure.</p>
+  
+  <p>Process anomaly detection correlates cyber and physical data: SCADA data points, historian trends, and safety system status. Attackers who manipulate processes to cause damage must ultimately affect physical parameters that can be detected.</p>
+
+  <h3>🎯 MITRE ATT&CK for ICS</h3>
+  
+  <p>The <strong>MITRE ATT&CK for ICS</strong> framework documents adversary tactics and techniques specifically targeting industrial control systems. Understanding these helps defenders anticipate attacker behavior and develop targeted detections.</p>
+
+  <h4>ICS-Specific Tactics</h4>
+  <p>ATT&CK for ICS includes tactics common to enterprise attacks plus ICS-specific additions:</p>
+  
+  <p><strong>Initial Access:</strong> How attackers first enter the OT environment. Techniques include spearphishing (TRITON), exploiting internet-facing applications, and compromising supply chain (vendor connections).</p>
+  
+  <p><strong>Execution:</strong> Running malicious code on ICS systems. Includes scripting, native API calls, and leveraging engineering software functionality.</p>
+  
+  <p><strong>Persistence:</strong> Maintaining access across reboots. Techniques include modifying project files, installing backdoors, and manipulating firmware.</p>
+  
+  <p><strong>Evasion:</strong> Avoiding detection. Attackers may masquerade as legitimate protocols, operate during maintenance windows, or disable logging.</p>
+  
+  <p><strong>Discovery:</strong> Learning about the OT environment. Includes network scanning, querying devices for information, and analyzing engineering files.</p>
+  
+  <p><strong>Lateral Movement:</strong> Moving through the OT network. Exploiting trust relationships, using valid accounts, and leveraging remote services.</p>
+  
+  <p><strong>Collection:</strong> Gathering data of interest. Point and tag enumeration, historian data collection, and capturing engineering files.</p>
+  
+  <p><strong>Command and Control:</strong> Maintaining communication with compromised systems. May use standard IT C2 techniques or leverage industrial protocols.</p>
+  
+  <p><strong>Inhibit Response Function:</strong> ICS-specific tactic for preventing safety or protection systems from responding to dangerous conditions. Disabling alarms, blocking operator visibility, or suppressing safety instrumented system activation.</p>
+  
+  <p><strong>Impair Process Control:</strong> Degrading but not completely disrupting the process. Unauthorized parameter changes, denial of control, or manipulating setpoints.</p>
+  
+  <p><strong>Impact:</strong> The attacker's ultimate objective. Damage to equipment, denial of control, manipulation of control, theft of operational information, or loss of safety.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📊 Using ATT&CK for Detection</p>
+    <p>Map your detection capabilities to ATT&CK techniques. Identify gaps where you have no visibility into attacker techniques. Prioritize developing detections for high-impact techniques like "Inhibit Response Function" and "Impact" tactics. ATT&CK also informs threat hunting: search for evidence of specific techniques in your environment.</p>
+  </div>
+
+  <h3>📞 Incident Response Coordination</h3>
+  
+  <p>ICS incident response requires coordination between groups that don't typically work together: IT security, OT operations, process engineering, and plant management. Clear roles and communication are essential.</p>
+
+  <h4>Response Team Structure</h4>
+  <p><strong>Incident Commander:</strong> Overall authority for response decisions. In ICS incidents affecting operations, this often requires someone who understands both security and process implications.</p>
+  
+  <p><strong>Security Lead:</strong> Directs technical security response: containment, investigation, and remediation from a cyber perspective.</p>
+  
+  <p><strong>Operations Lead:</strong> Ensures response actions don't compromise safety or cause operational damage. Has authority to veto security actions that would create process hazards.</p>
+  
+  <p><strong>Engineering Support:</strong> Provides expertise on control system configuration, process dependencies, and safe procedures for isolating or recovering systems.</p>
+  
+  <p><strong>Communications:</strong> Manages internal and external communications, including regulatory notifications if required.</p>
+
+  <h4>Critical Coordination Principles</h4>
+  <p><strong>Safety first:</strong> No response action should create a safety hazard. If security and safety conflict, safety wins. A compromised PLC controlling a dangerous process cannot simply be shut down without safe process shutdown.</p>
+  
+  <p><strong>Operations involvement:</strong> Operations staff must be involved in all response decisions affecting production systems. They understand process implications security staff may not anticipate.</p>
+  
+  <p><strong>Communication channels:</strong> Establish out-of-band communication if the OT network is compromised. Attackers monitoring the network shouldn't see response coordination.</p>
+  
+  <p><strong>Documentation:</strong> Document all actions taken, decisions made, and their rationale. This supports post-incident analysis and may be required for regulatory or legal purposes.</p>
+
+  <h3>🔬 OT Forensics</h3>
+  
+  <p>Forensic investigation in ICS environments faces unique challenges: systems can't be taken offline for imaging, evidence may be volatile, and industrial devices often lack forensic tool support.</p>
+
+  <h4>Evidence Sources</h4>
+  <p><strong>Network captures:</strong> Packet captures from network monitoring solutions provide evidence of attacker communications and malicious commands. Ensure you have adequate storage and retention for network data.</p>
+  
+  <p><strong>Log files:</strong> Collect logs from SCADA servers, historians, engineering workstations, firewalls, and domain controllers. Time-synchronize logs for correlation.</p>
+  
+  <p><strong>Memory captures:</strong> Where possible, capture memory from compromised Windows systems before reimaging. Memory may contain malware that doesn't persist to disk.</p>
+  
+  <p><strong>PLC project files:</strong> Compare running PLC programs against known-good backups to identify unauthorized modifications. Changes to safety logic are particularly significant.</p>
+  
+  <p><strong>Historian data:</strong> Process data from historians can reveal when manipulation began and what was affected. Look for anomalies in process values that correlate with attack timelines.</p>
+  
+  <p><strong>Physical evidence:</strong> Don't overlook physical evidence: damaged equipment, access logs to facilities, and observations from operators who noticed unusual behavior.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">⚠️ Evidence Preservation</p>
+    <p>Preserve evidence before taking containment actions that might destroy it. Document the chain of custody for all evidence. If legal action is possible, involve legal counsel early to ensure evidence is handled appropriately. Consider engaging ICS-specialized forensic firms for major incidents.</p>
+  </div>
+
+  <h4>Forensic Challenges</h4>
+  <p><strong>Live system analysis:</strong> You often cannot image OT systems without disrupting operations. Forensic analysis must happen on live systems with minimal performance impact.</p>
+  
+  <p><strong>Legacy systems:</strong> Old Windows versions (XP, 7) and proprietary RTOSs may not support modern forensic tools. Have alternative approaches ready.</p>
+  
+  <p><strong>Limited logging:</strong> Many ICS devices have minimal or no logging. Absence of evidence is not evidence of absence—attackers may have affected devices with no forensic capability.</p>
+  
+  <p><strong>Proprietary formats:</strong> PLC programs, HMI configurations, and historian databases use vendor-specific formats. You may need vendor tools or expertise to analyze them.</p>
+
+  <h3>🛡️ Containment Strategies</h3>
+  
+  <p>Containing ICS incidents requires balancing the need to stop attacker activity against operational requirements. Aggressive containment that stops production may cause more damage than the attack itself.</p>
+
+  <h4>Network-Based Containment</h4>
+  <p><strong>Firewall rule changes:</strong> Block attacker IP addresses, close compromised ports, or increase segmentation. These actions can often be taken without disrupting legitimate operations if rules are carefully crafted.</p>
+  
+  <p><strong>VLAN isolation:</strong> Isolate compromised segments by modifying switch configurations. Ensure isolation doesn't break critical process communications.</p>
+  
+  <p><strong>Block C2 communications:</strong> If command and control channels are identified, blocking them prevents attacker coordination while potentially leaving compromised systems operational until proper remediation.</p>
+
+  <h4>Host-Based Containment</h4>
+  <p><strong>Disable compromised accounts:</strong> If attacker is using stolen credentials, disable affected accounts—but ensure you don't lock out legitimate operations staff during a crisis.</p>
+  
+  <p><strong>Isolate workstations:</strong> Compromised engineering workstations can be isolated or reimaged relatively easily compared to production systems.</p>
+  
+  <p><strong>Run in degraded mode:</strong> Some systems can operate in manual or degraded mode while compromised automation is addressed. Coordinate with operations to determine feasibility.</p>
+
+  <h4>Process Considerations</h4>
+  <p><strong>Safe shutdown:</strong> If the process must be stopped, follow established safe shutdown procedures. An uncontrolled shutdown may cause equipment damage or safety incidents.</p>
+  
+  <p><strong>Manual operation:</strong> Some processes can switch to manual control while automated systems are investigated. This maintains production with increased operator workload.</p>
+  
+  <p><strong>Partial isolation:</strong> Isolate compromised components while maintaining automation for unaffected areas. Requires detailed understanding of system dependencies.</p>
+
+  <h3>🔄 Recovery Procedures</h3>
+  
+  <p>Recovery from ICS incidents must ensure systems are fully clean before returning to operation. Rushing recovery can allow attackers to maintain persistence.</p>
+
+  <h4>System Restoration</h4>
+  <p><strong>Rebuild from known-good images:</strong> Rather than trying to clean compromised systems, rebuild from verified backups. Ensure backups predate the compromise.</p>
+  
+  <p><strong>Verify PLC programs:</strong> Compare running control logic against secure backups. Re-download programs if any discrepancies exist. Pay special attention to safety system logic.</p>
+  
+  <p><strong>Reset credentials:</strong> Change all passwords and rotate all certificates/keys that may have been compromised. This includes service accounts, shared credentials, and API keys.</p>
+  
+  <p><strong>Patch vulnerabilities:</strong> The incident identified how attackers got in. Patch those vulnerabilities before restoring systems to production.</p>
+
+  <h4>Validation Before Return to Service</h4>
+  <p><strong>Process validation:</strong> Before returning systems to automatic control, verify they operate correctly. This may include functional testing, loop checks, and validation by process engineers.</p>
+  
+  <p><strong>Security validation:</strong> Confirm security controls are restored: monitoring is active, logs are flowing, and detection capabilities cover the attack vector.</p>
+  
+  <p><strong>Gradual return:</strong> Consider phased return to normal operations rather than immediate full restoration. Start with less critical systems and progress to critical ones.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📋 Recovery Documentation</p>
+    <p>Document all recovery actions: what was rebuilt, from what source, by whom, and when. This documentation proves systems were properly restored and supports future incident analysis. It may also be required for regulatory compliance.</p>
+  </div>
+
+  <h3>🔥 Real-World Incident: Oldsmar Water Treatment</h3>
+  
+  <p>In February 2021, an attacker remotely accessed the water treatment plant in <strong>Oldsmar, Florida</strong> and attempted to increase sodium hydroxide (lye) levels to dangerous concentrations.</p>
+
+  <h4>Attack Details</h4>
+  <p>The attacker gained access through TeamViewer remote access software installed on an HMI. They briefly increased the sodium hydroxide setpoint from 100 ppm to 11,100 ppm—potentially lethal levels. An alert operator noticed the cursor moving on screen and immediately reversed the change.</p>
+
+  <h4>Detection and Response</h4>
+  <p>Detection was entirely human: the operator saw the attack happening in real-time. No automated alerting detected the unauthorized access or configuration change. The rapid response prevented any harm to the water supply.</p>
+
+  <h4>Lessons Learned</h4>
+  <p><strong>Remote access security:</strong> TeamViewer with weak/shared credentials provided the attack path. Remote access to OT systems requires strong authentication, preferably MFA, and monitoring.</p>
+  
+  <p><strong>Human detection:</strong> The operator's situational awareness caught what technology missed. Train operators to recognize and respond to suspicious system behavior.</p>
+  
+  <p><strong>Defense in depth:</strong> Multiple control layers (treatment process, monitoring, testing) would have detected dangerous chemical levels before reaching consumers. Don't rely solely on preventing unauthorized access.</p>
+  
+  <p><strong>Monitoring gaps:</strong> No alerts fired for the unauthorized access or setpoint change. Monitoring must cover authentication events and critical parameter modifications.</p>
+
+  <h3>📝 IR Plan Development</h3>
+  
+  <p>An ICS incident response plan must be developed, documented, and tested before incidents occur. During a crisis is too late to figure out who does what.</p>
+
+  <h4>Plan Elements</h4>
+  <p><strong>Scope and definitions:</strong> Define what constitutes an ICS security incident and the plan's applicability.</p>
+  
+  <p><strong>Roles and responsibilities:</strong> Clearly assign who does what during response. Include alternates for key roles.</p>
+  
+  <p><strong>Contact information:</strong> Maintain current contact lists for response team members, management, vendors, regulators, and law enforcement.</p>
+  
+  <p><strong>Detection and analysis:</strong> Procedures for identifying and analyzing potential incidents.</p>
+  
+  <p><strong>Containment procedures:</strong> Pre-approved containment actions and their authorization requirements.</p>
+  
+  <p><strong>Communication plan:</strong> How information flows during response, including external notifications.</p>
+  
+  <p><strong>Recovery procedures:</strong> Steps for restoring systems to normal operation.</p>
+
+  <h4>Testing the Plan</h4>
+  <p><strong>Tabletop exercises:</strong> Walk through incident scenarios with the response team. Identify gaps in procedures and coordination.</p>
+  
+  <p><strong>Functional exercises:</strong> Actually execute parts of the plan: test communication channels, validate contact information, practice containment procedures on test systems.</p>
+  
+  <p><strong>Full-scale exercises:</strong> Comprehensive tests that simulate real incidents. These are resource-intensive but provide the best validation.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🎮 Module Complete!</p>
+    <p>Exceptional work, Cyber Defender! You now understand how to detect, respond to, and recover from security incidents in industrial environments. In Module 8, you'll synthesize everything you've learned—applying defense-in-depth principles across all domains to build comprehensive ICS security architectures. The Final Synthesis Arena awaits!</p>
+  </div>
+</div>

@@ -1,142 +1,527 @@
 {
-  "moduleId": "6",
-  "moduleName": "ICS Governance & Compliance",
-  "domain": "governance",
+  "module": 6,
+  "domain": "Governance and Compliance",
+  "totalQuestions": 40,
   "questions": [
     {
-      "id": "m6_q01",
-      "type": "multiple_choice",
-      "difficulty": 1,
-      "question": "What are the five functions of the NIST Cybersecurity Framework?",
-      "options": ["Plan, Do, Check, Act, Review", "Identify, Protect, Detect, Respond, Recover", "Prevent, Monitor, Alert, Contain, Restore", "Assess, Implement, Monitor, Review, Improve"],
-      "correctIndex": 1,
-      "explanation": "The NIST CSF has five core functions: Identify (understand your environment), Protect (implement safeguards), Detect (discover incidents), Respond (take action), Recover (restore capabilities)."
+      "id": "gov_001",
+      "question": "Which NIST CSF function focuses on developing organizational understanding of cybersecurity risks to systems, assets, and capabilities?",
+      "options": [
+        "Protect",
+        "Identify",
+        "Detect",
+        "Respond"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "The Identify function develops organizational understanding of cybersecurity risks to systems, assets, data, and capabilities. For ICS, this includes asset inventories, process dependencies, and identifying critical systems."
     },
     {
-      "id": "m6_q02",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What does NERC CIP stand for?",
-      "options": ["Network Emergency Response Coordination - Critical Infrastructure Plan", "North American Electric Reliability Corporation - Critical Infrastructure Protection", "National Energy Regulatory Commission - Cyber Incident Protocol", "Network Energy Resource Control - Critical Information Protection"],
-      "correctIndex": 1,
-      "explanation": "NERC CIP refers to Critical Infrastructure Protection standards developed by the North American Electric Reliability Corporation for the bulk electric system."
+      "id": "gov_002",
+      "question": "How many Security Levels does IEC 62443 define for protecting against different threat actors?",
+      "options": [
+        "Two",
+        "Three",
+        "Four",
+        "Five"
+      ],
+      "correct": 2,
+      "difficulty": "easy",
+      "explanation": "IEC 62443 defines four Security Levels (SL 1-4), ranging from protection against casual violations (SL 1) to protection against state-sponsored attackers with extensive resources (SL 4)."
     },
     {
-      "id": "m6_q03",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is a BES Cyber System under NERC CIP?",
-      "options": ["Any computer connected to the internet", "Cyber systems that, if compromised, could affect reliable operation of the bulk electric system", "All computers at an electric utility", "Personal devices of utility employees"],
-      "correctIndex": 1,
-      "explanation": "BES (Bulk Electric System) Cyber Systems are those cyber assets that could impact the reliable operation of the bulk electric system if compromised. They are subject to NERC CIP requirements."
+      "id": "gov_003",
+      "question": "Which NERC CIP standard covers requirements for Electronic Security Perimeters?",
+      "options": [
+        "CIP-003",
+        "CIP-004",
+        "CIP-005",
+        "CIP-007"
+      ],
+      "correct": 2,
+      "difficulty": "easy",
+      "explanation": "NERC CIP-005 (Electronic Security Perimeter) requires identifying and protecting Electronic Security Perimeters, controlling interactive remote access, and managing vendor remote access to BES Cyber Systems."
     },
     {
-      "id": "m6_q04",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "In IEC 62443, what does Security Level 3 (SL3) protect against?",
-      "options": ["Accidental actions by authorized users", "Intentional violation using simple means", "Sophisticated attacks with moderate resources and ICS-specific knowledge", "State-sponsored attacks with extensive resources"],
-      "correctIndex": 2,
-      "explanation": "IEC 62443 SL3 targets protection against sophisticated attacks by adversaries with moderate resources, funding, and specific knowledge of ICS systems. SL4 addresses state-sponsored threats."
+      "id": "gov_004",
+      "question": "What are the five core functions of the NIST Cybersecurity Framework?",
+      "options": [
+        "Plan, Design, Build, Test, Deploy",
+        "Identify, Protect, Detect, Respond, Recover",
+        "Prevent, Detect, Analyze, Contain, Eradicate",
+        "Assess, Implement, Monitor, Review, Improve"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "The NIST CSF organizes security activities into five concurrent, continuous functions: Identify, Protect, Detect, Respond, and Recover. These apply to both IT and OT environments."
     },
     {
-      "id": "m6_q05",
-      "type": "true_false",
-      "difficulty": 1,
-      "question": "NIST SP 800-82 provides guidance specific to Industrial Control System security.",
-      "options": ["True", "False"],
-      "correctIndex": 0,
-      "explanation": "True. NIST Special Publication 800-82, 'Guide to Industrial Control Systems Security,' provides specific guidance for securing SCADA, DCS, and other ICS environments."
+      "id": "gov_005",
+      "question": "In IEC 62443 terminology, what is a 'Zone'?",
+      "options": [
+        "A network firewall rule",
+        "A grouping of assets that share common security requirements",
+        "A type of malware containment",
+        "A vendor certification level"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "In IEC 62443, a Zone is a grouping of logical or physical assets that share common security requirements. Each zone has a defined security level, such as the Safety Zone or Process Control Zone."
     },
     {
-      "id": "m6_q06",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the purpose of a risk assessment in ICS security?",
-      "options": ["To eliminate all risks completely", "To identify, analyze, and prioritize security risks to guide resource allocation", "To document that risks exist and accept them all", "To avoid regulatory requirements"],
-      "correctIndex": 1,
-      "explanation": "Risk assessments help organizations understand their vulnerabilities, threats, and potential impacts so they can prioritize security investments and apply appropriate controls."
+      "id": "gov_006",
+      "question": "What entities must comply with NERC CIP standards?",
+      "options": [
+        "All power generators regardless of size",
+        "Entities that own or operate portions of the Bulk Electric System",
+        "Only nuclear power facilities",
+        "Residential energy consumers"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "NERC CIP applies to entities that own or operate portions of the Bulk Electric System (BES), including transmission operators, generation operators, balancing authorities, and reliability coordinators."
     },
     {
-      "id": "m6_q07",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is a 'zone' in IEC 62443 terminology?",
-      "options": ["A physical location in the building", "A grouping of assets with the same security requirements", "A time period for maintenance", "A network speed rating"],
-      "correctIndex": 1,
-      "explanation": "In IEC 62443, a zone is a logical or physical grouping of assets that share common security requirements. Security controls are applied at zone boundaries."
+      "id": "gov_007",
+      "question": "What is the purpose of creating NIST CSF 'Current' and 'Target' Profiles?",
+      "options": [
+        "To document employee training records",
+        "To identify gaps between current state and desired security posture",
+        "To assign network IP addresses",
+        "To schedule maintenance windows"
+      ],
+      "correct": 1,
+      "difficulty": "easy",
+      "explanation": "Creating a Current Profile (existing posture) and Target Profile (desired state) helps identify gaps and prioritize security improvements. For ICS, profiles should consider operational constraints like uptime requirements."
     },
     {
-      "id": "m6_q08",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "NERC CIP-007 primarily addresses:",
-      "options": ["Physical security of facilities", "System security management including ports, services, and patching", "Personnel training requirements", "Incident reporting procedures"],
-      "correctIndex": 1,
-      "explanation": "CIP-007 covers system security management including managing ports/services, security patch management, malware prevention, security event monitoring, and system access controls."
+      "id": "gov_008",
+      "question": "Which IEC 62443 Security Level protects against state-sponsored attackers with extensive resources?",
+      "options": [
+        "SL 1",
+        "SL 2",
+        "SL 3",
+        "SL 4"
+      ],
+      "correct": 3,
+      "difficulty": "easy",
+      "explanation": "Security Level 4 (SL 4) provides protection against intentional violation using sophisticated means with extended resources—essentially state-sponsored attackers with high motivation, advanced ICS expertise, and extensive resources."
     },
     {
-      "id": "m6_q09",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "What is a 'crosswalk' in the context of compliance frameworks?",
-      "options": ["A pedestrian crossing near the facility", "A mapping between different standards showing equivalent requirements", "A method of walking through facility zones", "A network connection between zones"],
-      "correctIndex": 1,
-      "explanation": "A crosswalk maps requirements between different frameworks (e.g., NIST CSF to NERC CIP) to help organizations demonstrate compliance with multiple standards efficiently."
+      "id": "gov_009",
+      "question": "A NERC CIP audit discovers that a generating facility has undocumented BES Cyber Systems. Which CIP standard is most directly violated?",
+      "options": [
+        "CIP-002: BES Cyber System Categorization",
+        "CIP-006: Physical Security",
+        "CIP-008: Incident Response",
+        "CIP-011: Information Protection"
+      ],
+      "correct": 0,
+      "difficulty": "medium",
+      "explanation": "CIP-002 requires identifying and categorizing all BES Cyber Systems. Undocumented systems indicate a failure to properly inventory and categorize assets according to their impact on bulk electric system reliability."
     },
     {
-      "id": "m6_q10",
-      "type": "multiple_choice",
-      "difficulty": 1,
-      "question": "What is the 'Identify' function in the NIST Cybersecurity Framework?",
-      "options": ["Identifying attackers", "Understanding your organization's systems, assets, data, and risks", "Identifying employees", "Identifying software licenses"],
-      "correctIndex": 1,
-      "explanation": "The Identify function involves understanding your business context, assets, resources, and risks - creating an asset inventory, understanding data flows, and assessing risk."
+      "id": "gov_010",
+      "question": "How does ICS risk assessment differ from traditional IT risk assessment?",
+      "options": [
+        "ICS risk assessment is simpler because systems are isolated",
+        "ICS risk must consider safety implications and potential physical consequences",
+        "IT risk assessment is the only valid approach",
+        "ICS systems don't require risk assessment"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "ICS risk assessment must account for factors beyond IT's CIA triad: safety implications (injury, death), environmental releases, process dependencies, and the potential for physical consequences from cyber incidents."
     },
     {
-      "id": "m6_q11",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is consequence-based risk assessment?",
-      "options": ["Assessing risk based on past incidents only", "Focusing on potential impact/consequences rather than just threat probability", "Ignoring unlikely scenarios", "Only considering financial consequences"],
-      "correctIndex": 1,
-      "explanation": "Consequence-based assessment prioritizes risks based on potential impact to safety, operations, and business. In ICS, a low-probability event with catastrophic consequences may warrant significant controls."
+      "id": "gov_011",
+      "question": "What is the consequence of failing a NERC CIP compliance audit?",
+      "options": [
+        "A warning letter with no further action",
+        "Monetary penalties that can reach millions of dollars",
+        "Automatic suspension of operations",
+        "Criminal charges against employees"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "NERC CIP violations result in monetary penalties that can reach millions of dollars. Penalties consider violation severity, compliance history, and whether violations were self-reported. Severe violations can impact operating authority."
     },
     {
-      "id": "m6_q12",
-      "type": "true_false",
-      "difficulty": 2,
-      "question": "IEC 62443 applies only to the electric power sector.",
-      "options": ["True", "False"],
-      "correctIndex": 1,
-      "explanation": "False. IEC 62443 is a comprehensive standard applicable to all industrial sectors including manufacturing, chemical, oil/gas, water, and any environment with industrial automation and control systems."
+      "id": "gov_012",
+      "question": "According to IEC 62443, how should a conduit between an SL 3 zone and SL 2 zone be protected?",
+      "options": [
+        "To the lower zone's security level (SL 2)",
+        "To at least the higher zone's security level (SL 3)",
+        "Security level is not required for conduits",
+        "Conduits between different SL zones are prohibited"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "A conduit connecting zones of different security levels must be protected to at least the higher zone's standards. A conduit between SL 3 and SL 2 zones needs SL 3 protection to prevent the conduit from becoming a weak point."
     },
     {
-      "id": "m6_q13",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is a security policy in the context of ICS governance?",
-      "options": ["A software firewall", "A documented set of rules and requirements for protecting ICS assets", "A physical security guard", "A type of encryption"],
-      "correctIndex": 1,
-      "explanation": "A security policy is a formal document that defines security objectives, responsibilities, acceptable use, and requirements for protecting ICS assets and operations."
+      "id": "gov_013",
+      "question": "What NIST CSF implementation tier represents formal, organization-wide risk management policies with regular updates?",
+      "options": [
+        "Tier 1 - Partial",
+        "Tier 2 - Risk Informed",
+        "Tier 3 - Repeatable",
+        "Tier 4 - Adaptive"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "Tier 3 (Repeatable) represents formal, organization-wide risk management policies with regular updates based on lessons learned. This is the target tier for most ICS operators seeking mature security practices."
     },
     {
-      "id": "m6_q14",
-      "type": "multiple_choice",
-      "difficulty": 3,
-      "question": "Under NERC CIP, what happens if a utility fails to comply with requirements?",
-      "options": ["Nothing, compliance is voluntary", "They may face monetary penalties and mandatory corrective actions", "Their employees go to jail", "They must shut down operations"],
-      "correctIndex": 1,
-      "explanation": "NERC CIP violations can result in significant monetary penalties (up to $1 million per violation per day), mandatory mitigation plans, and increased regulatory scrutiny."
+      "id": "gov_014",
+      "question": "What approach does ICS security prioritize when assessing risk?",
+      "options": [
+        "Vulnerability-based: fixing all vulnerabilities equally",
+        "Asset-based: protecting expensive equipment first",
+        "Consequence-based: identifying worst-case outcomes first",
+        "Threat-based: focusing only on known attackers"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "ICS security prioritizes consequence-based risk: identifying worst-case outcomes first, determining which systems could enable those outcomes, then assessing threats and vulnerabilities. This approach ensures critical risks aren't overlooked."
     },
     {
-      "id": "m6_q15",
-      "type": "multiple_choice",
-      "difficulty": 2,
-      "question": "What is the purpose of a Business Impact Analysis (BIA) for ICS?",
-      "options": ["To analyze business profits", "To identify critical systems and determine the impact of their loss or degradation", "To analyze competitor businesses", "To calculate employee salaries"],
-      "correctIndex": 1,
-      "explanation": "A BIA identifies critical systems and processes, determines the impact of their unavailability, and helps prioritize recovery efforts and security investments."
+      "id": "gov_015",
+      "question": "Which IEC 62443 series covers security requirements at the system level, including zones and conduits?",
+      "options": [
+        "Series 1 - General",
+        "Series 2 - Policies & Procedures",
+        "Series 3 - System",
+        "Series 4 - Component"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "IEC 62443 Series 3 covers security requirements at the system level, including security levels and system design requirements. IEC 62443-3-2 specifically defines the zones and conduits model for network segmentation."
+    },
+    {
+      "id": "gov_016",
+      "question": "What is 'Crown Jewel Analysis' in ICS security programs?",
+      "options": [
+        "Identifying the most expensive assets to insure",
+        "Identifying critical assets whose compromise would cause unacceptable consequences",
+        "Analyzing vendor contracts for hidden costs",
+        "Evaluating executive compensation packages"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Crown Jewel Analysis identifies the most critical assets whose compromise would cause unacceptable consequences. For a water utility, this might be chemical dosing systems. Protecting these crown jewels gets highest priority."
+    },
+    {
+      "id": "gov_017",
+      "question": "NERC CIP-007 covers which of the following requirements?",
+      "options": [
+        "Personnel background checks",
+        "Physical access control and logging",
+        "Ports and services management, patch management, and malicious code prevention",
+        "Incident reporting timelines"
+      ],
+      "correct": 2,
+      "difficulty": "medium",
+      "explanation": "CIP-007 (System Security Management) covers ports and services management, patch management processes, malicious code prevention, security event monitoring, and system access controls for BES Cyber Systems."
+    },
+    {
+      "id": "gov_018",
+      "question": "Why must OT security policies consider 24/7 operations and emergency access needs?",
+      "options": [
+        "To simplify audit documentation",
+        "Because operations staff may need access during off-hours and emergencies without delays that impact safety",
+        "To reduce the number of accounts needed",
+        "Regulations prohibit access controls during emergencies"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "ICS environments operate continuously, and emergencies don't wait for business hours. Access control policies must balance security with the need for authorized personnel to respond quickly to operational emergencies that could impact safety."
+    },
+    {
+      "id": "gov_019",
+      "question": "What common audit finding indicates weak asset management in ICS environments?",
+      "options": [
+        "Too many documented assets",
+        "Undocumented systems discovered during audits",
+        "Asset inventory updated too frequently",
+        "Network diagrams that are too detailed"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Undocumented systems discovered during audits indicate weak asset management. Complete asset inventories are fundamental to ICS security—you cannot protect what you don't know exists. Continuous asset discovery is essential."
+    },
+    {
+      "id": "gov_020",
+      "question": "The Colonial Pipeline attack revealed what governance lesson about IT/OT interdependencies?",
+      "options": [
+        "IT and OT systems are completely independent",
+        "Organizations must understand and document dependencies between IT and OT systems",
+        "OT systems are immune to ransomware",
+        "Billing systems have no impact on operations"
+      ],
+      "correct": 1,
+      "difficulty": "medium",
+      "explanation": "Colonial Pipeline shut down OT operations because they couldn't verify IT systems hadn't spread to OT, and they lacked billing capabilities. This highlights the need to understand, document, and plan for IT/OT interdependencies."
+    },
+    {
+      "id": "gov_021",
+      "question": "What is the difference between IEC 62443 SL-T, SL-A, and SL-C?",
+      "options": [
+        "They are three different security standards",
+        "SL-T is target level, SL-A is achieved level, SL-C is component capability level",
+        "They represent different vendor certifications",
+        "They are different network security zones"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "SL-T (Target) is the security level an organization aims to achieve based on risk assessment. SL-A (Achieved) reflects current state. SL-C (Capability) indicates what a component can support. A gap between these indicates security debt."
+    },
+    {
+      "id": "gov_022",
+      "question": "How should an ICS security program handle a vulnerability in an air-gapped HMI versus the same vulnerability in an internet-facing server?",
+      "options": [
+        "Treat both identically since the vulnerability is the same",
+        "Assess actual exploitability considering compensating controls—the air-gapped system may have lower effective risk",
+        "Only patch internet-facing systems",
+        "Air-gapped systems cannot have vulnerabilities"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "ICS risk assessment must consider context: the same vulnerability in an air-gapped HMI has different actual risk than in an internet-facing server. Compensating controls (network isolation) reduce exploitability, though the vulnerability should still be tracked."
+    },
+    {
+      "id": "gov_023",
+      "question": "NERC CIP requirements scale based on what criteria?",
+      "options": [
+        "Company revenue",
+        "Number of employees",
+        "Impact rating of facilities: High, Medium, or Low impact",
+        "Geographic location of facilities"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "NERC CIP requirements scale based on the impact rating of facilities on the bulk electric system. High, Medium, and Low impact ratings determine which CIP requirements apply and their stringency. Impact assessment per CIP-002 drives this categorization."
+    },
+    {
+      "id": "gov_024",
+      "question": "How should security metrics be presented to executive leadership for an ICS security program?",
+      "options": [
+        "Using technical CVE scores and patch counts only",
+        "In business terms they understand: operational risk, financial impact, regulatory exposure",
+        "Executives don't need to see security metrics",
+        "Using raw log data for transparency"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Executive sponsorship requires presenting risks in business terms: operational risk to production, potential financial impacts, regulatory exposure, and reputational consequences. Technical metrics should be translated into business relevance."
+    },
+    {
+      "id": "gov_025",
+      "question": "Why did TSA issue new Security Directives after the Colonial Pipeline attack?",
+      "options": [
+        "Colonial Pipeline requested additional regulations",
+        "Major incidents in critical infrastructure typically prompt increased regulatory requirements",
+        "TSA randomly issues directives annually",
+        "The directives were unrelated to the attack"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Major incidents affecting critical infrastructure typically prompt regulatory responses. Following Colonial Pipeline, TSA imposed new cybersecurity requirements on pipeline operators. Organizations should anticipate increased regulation after major sector incidents."
+    },
+    {
+      "id": "gov_026",
+      "question": "What methodology adapts process safety studies to identify cyber-enabled process deviations?",
+      "options": [
+        "NIST RMF",
+        "HAZOP for Cyber",
+        "FAIR analysis",
+        "PCI-DSS assessment"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "HAZOP (Hazard and Operability) for Cyber adapts traditional process safety studies to identify how cyber attacks could cause process deviations. This bridges the gap between process safety engineering and cybersecurity risk assessment."
+    },
+    {
+      "id": "gov_027",
+      "question": "What IEC 62443 series helps asset owners evaluate vendor security claims about components?",
+      "options": [
+        "Series 1 - General",
+        "Series 2 - Policies & Procedures",
+        "Series 3 - System",
+        "Series 4 - Component"
+      ],
+      "correct": 3,
+      "difficulty": "hard",
+      "explanation": "IEC 62443 Series 4 covers security requirements for individual components and product development. Asset owners can use Series 4 requirements to evaluate vendor claims about product security capabilities and certifications."
+    },
+    {
+      "id": "gov_028",
+      "question": "How should OT patch management policy differ from IT patch management policy?",
+      "options": [
+        "OT should patch faster than IT to ensure security",
+        "OT must account for vendor certification requirements, maintenance windows, and system availability",
+        "OT systems never need patches",
+        "IT and OT should use identical patch policies"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "OT patch management must account for: vendor certification requirements (patches may void support), limited maintenance windows for critical systems, extensive testing needs, and high availability requirements. Patch timelines are typically months rather than days."
+    },
+    {
+      "id": "gov_029",
+      "question": "What common compliance finding occurs when controls exist but lack documentation?",
+      "options": [
+        "Policy gaps",
+        "Evidence gaps",
+        "Training deficiencies",
+        "Access control weaknesses"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Evidence gaps occur when security controls are implemented but lack documentation proving consistent application. Compliance requires not just implementing controls but maintaining records that demonstrate ongoing compliance."
+    },
+    {
+      "id": "gov_030",
+      "question": "According to NIST SP 800-82, how should ICS risk management integrate with enterprise risk management?",
+      "options": [
+        "ICS risk should be managed completely separately",
+        "ICS risk should feed into enterprise risk management with ICS-specific considerations maintained",
+        "Enterprise risk management doesn't apply to ICS",
+        "ICS risks should be hidden from enterprise leadership"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "NIST SP 800-82 recommends ICS risk management integrate with enterprise risk management while maintaining ICS-specific considerations. This ensures executive visibility while preserving the technical depth needed for OT risk decisions."
+    },
+    {
+      "id": "gov_031",
+      "question": "When documenting exceptions between OT security policies and corporate IT policies, what must be included?",
+      "options": [
+        "Nothing—exceptions should not be documented",
+        "Business justification, compensating controls, risk acceptance, and exception expiration dates",
+        "Only the policy difference",
+        "Generic statements about operational requirements"
+      ],
+      "correct": 1,
+      "difficulty": "hard",
+      "explanation": "Policy exceptions require documentation of: business justification explaining why the IT policy cannot apply, compensating controls that reduce risk, formal risk acceptance by appropriate management, and exception review/expiration dates."
+    },
+    {
+      "id": "gov_032",
+      "question": "What governance structure best assigns responsibility for ICS security across IT and OT organizations?",
+      "options": [
+        "IT security owns all decisions without OT input",
+        "OT operations owns all decisions without IT input",
+        "A RACI matrix documenting Responsible, Accountable, Consulted, and Informed roles across both organizations",
+        "No formal structure is needed"
+      ],
+      "correct": 2,
+      "difficulty": "hard",
+      "explanation": "A RACI matrix clearly assigns Responsible, Accountable, Consulted, and Informed roles for ICS security decisions. This ensures IT and OT both have defined responsibilities, preventing gaps or conflicts between organizations."
+    },
+    {
+      "id": "gov_033",
+      "question": "An organization is implementing IEC 62443 but has components that only support SL-C 2 in an area requiring SL-T 3. What approach resolves this?",
+      "options": [
+        "Lower the target security level to match components",
+        "Implement compensating controls at the zone/conduit level to achieve SL-T 3 despite component limitations",
+        "Ignore the gap since components cannot be changed",
+        "Remove the components from the network"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "When components cannot achieve target SL, implement compensating controls at the zone and conduit level: enhanced network segmentation, additional monitoring, access restrictions. Document the gap and compensating controls as part of risk acceptance."
+    },
+    {
+      "id": "gov_034",
+      "question": "How should an ICS security program prepare for compliance audits year-round rather than just before scheduled assessments?",
+      "options": [
+        "Compliance only matters during audits",
+        "Conduct regular internal self-assessments using audit criteria, maintain current documentation, address gaps proactively",
+        "Keep documentation hidden until audit time",
+        "Rely on auditors to identify all issues"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Audit-ready programs conduct regular internal self-assessments using the same criteria auditors will use, maintain current documentation accessible for review, address known gaps proactively, and ensure staff can explain control purposes—not just their existence."
+    },
+    {
+      "id": "gov_035",
+      "question": "A manufacturing company is subject to no mandatory ICS security regulations but wants to implement a structured security program. What combination of frameworks is most appropriate?",
+      "options": [
+        "NERC CIP only since it's the most stringent",
+        "NIST CSF for overall program structure combined with IEC 62443 for ICS-specific technical requirements",
+        "No framework is needed without regulatory requirements",
+        "PCI-DSS for all operational technology"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "NIST CSF provides a flexible, risk-based program structure applicable to any industry. IEC 62443 provides ICS-specific technical requirements. Together they offer comprehensive guidance without the regulatory specificity of NERC CIP."
+    },
+    {
+      "id": "gov_036",
+      "question": "When conducting consequence-based risk assessment for a water treatment facility, how would you prioritize systems?",
+      "options": [
+        "By acquisition cost of equipment",
+        "Identify consequence scenarios (contamination, service disruption), map to enabling systems (chemical dosing, pumping), assess threat paths to those systems",
+        "Alphabetically by system name",
+        "By vendor recommendation"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Consequence-based assessment starts with worst outcomes (public health contamination, service loss), identifies which physical processes could cause them (chemical dosing, pressure), maps to cyber systems controlling those processes, then assesses threats to those systems."
+    },
+    {
+      "id": "gov_037",
+      "question": "How should an organization handle a situation where NERC CIP requirements conflict with vendor-recommended security configurations?",
+      "options": [
+        "Always follow vendor recommendations over regulations",
+        "Document the conflict, implement CIP requirements, work with vendor on compliant configurations, and involve legal if needed",
+        "Ignore the regulation to maintain vendor support",
+        "Disable the affected systems entirely"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Regulatory requirements take precedence, but conflicts must be managed carefully: document the specific conflict, implement CIP requirements, work with vendor to develop compliant configurations, and involve legal/compliance if the vendor cannot support compliance."
+    },
+    {
+      "id": "gov_038",
+      "question": "What key elements should an ICS incident response policy include that differs from IT incident response?",
+      "options": [
+        "IT and ICS incident response are identical",
+        "Coordination with operations staff, process safety considerations, safe system restart procedures, and maintaining operational safety during response",
+        "Focus only on data recovery",
+        "Immediate system shutdown regardless of process state"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "ICS incident response must coordinate with operations staff who understand process impacts, consider process safety throughout response (avoid actions that could cause physical harm), define safe restart procedures, and balance security response with maintaining safe operations."
+    },
+    {
+      "id": "gov_039",
+      "question": "How should an organization measure the maturity of its ICS security program over multiple years?",
+      "options": [
+        "Count the number of security tools purchased",
+        "Track progression through NIST CSF tiers, closure of IEC 62443 gaps between SL-T and SL-A, audit findings trending, and incident metrics",
+        "Security program maturity cannot be measured",
+        "Survey employee satisfaction with security"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Measure maturity through: NIST CSF tier progression (Partial to Adaptive), IEC 62443 gap closure (SL-A approaching SL-T), year-over-year audit finding trends, mean time to detect/respond to incidents, and completion of security program milestones."
+    },
+    {
+      "id": "gov_040",
+      "question": "A new regulation requires asset owners to report ICS security incidents within 24 hours. What governance preparations are needed before this regulation takes effect?",
+      "options": [
+        "Wait until an incident occurs to develop procedures",
+        "Define incident classification criteria, establish reporting thresholds, create report templates, identify authorities, test reporting procedures, train staff",
+        "Hire additional lawyers only",
+        "Assume existing IT incident procedures will suffice"
+      ],
+      "correct": 1,
+      "difficulty": "expert",
+      "explanation": "Prepare by: defining what constitutes a reportable ICS incident, establishing classification criteria and thresholds, creating pre-approved report templates, identifying regulatory authorities and contacts, testing reporting procedures through tabletops, and training staff on requirements."
     }
   ]
 }

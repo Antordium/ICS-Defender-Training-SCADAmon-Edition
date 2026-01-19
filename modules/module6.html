@@ -1,62 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 6: ICS Governance & Compliance | ICS Defender Training</title>
-  <link rel="stylesheet" href="../css/pokemon-theme.css">
-</head>
-<body>
-  <header class="course-header" style="background: linear-gradient(135deg, var(--type-normal) 0%, #333 100%);">
-    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 6</div>
-    <h1>📜 ICS Governance & Compliance</h1>
-    <p class="subtitle">Governance Gardens • Gym Leader: COMPLIANT</p>
-  </header>
+<div class="content-section">
+  <h2><span class="section-icon">📜</span> Module 6: Governance and Compliance in ICS Security</h2>
+  
+  <p>Welcome to Module 6, Cyber Defender! You've mastered the technical controls—now it's time to understand the <strong>frameworks, standards, and regulations</strong> that guide ICS security programs. Effective cybersecurity isn't just about deploying firewalls and hardening systems; it requires structured governance, risk management, and compliance with industry standards.</p>
 
-  <main class="content-container">
-    <section class="content-section fade-in">
-      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
-      <p>Content for Module 6 will be displayed here once media assets are generated.</p>
-      
-      <div class="info-box">
-        <p class="info-box-title">📝 Module Status</p>
-        <p>This module's content structure is defined in the Course Design Document. 
-        Video and infographic placeholders will be replaced with generated media assets.</p>
-      </div>
-    </section>
+  <p>In this module, you'll learn the major frameworks that shape ICS security: NIST Cybersecurity Framework, IEC 62443, and NERC CIP. You'll understand how to conduct risk assessments for industrial environments and build security programs that satisfy both operational needs and regulatory requirements.</p>
 
-    <!-- Quiz Section -->
-    <section class="content-section">
-      <h2><span class="section-icon">📝</span> Module 6 Quiz</h2>
-      <div id="quiz-container"></div>
-    </section>
+  <div class="info-box">
+    <p class="info-box-title">🎯 Learning Objectives</p>
+    <p>By the end of this module, you will be able to: apply the NIST Cybersecurity Framework to ICS environments, understand IEC 62443 security levels and zones, explain NERC CIP requirements for bulk electric systems, conduct ICS-specific risk assessments, develop security policies aligned with operational requirements, and navigate compliance audits effectively.</p>
+  </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
-      <a href="module5.html" class="btn btn-secondary">← Previous Module</a>
-      <a href="module7.html" class="btn btn-primary">Next Module →</a>
-    </div>
-  </main>
+  <h3>🏛️ NIST Cybersecurity Framework</h3>
+  
+  <p>The <strong>NIST Cybersecurity Framework (CSF)</strong> provides a voluntary, risk-based approach to managing cybersecurity. Originally developed for critical infrastructure, it's now widely adopted across industries. The framework is flexible enough to apply to both IT and OT environments.</p>
 
-  <footer class="course-footer">
-    <p>ICS Defender Training: SCADAmon Edition</p>
-    <p>Module 6: ICS Governance & Compliance</p>
-  </footer>
+  <h4>The Five Core Functions</h4>
+  <p>The CSF organizes security activities into five concurrent, continuous functions:</p>
+  
+  <p><strong>Identify:</strong> Develop organizational understanding of cybersecurity risks to systems, assets, data, and capabilities. For ICS, this includes asset inventories of PLCs, HMIs, and network devices; understanding process dependencies; and identifying which systems are most critical to safety and operations.</p>
+  
+  <p><strong>Protect:</strong> Implement safeguards to ensure delivery of critical services. In OT, this encompasses network segmentation, access controls, secure remote access, and hardening of industrial systems covered in earlier modules.</p>
+  
+  <p><strong>Detect:</strong> Develop activities to identify cybersecurity events. For ICS, detection includes passive network monitoring for anomalous industrial protocol traffic, log analysis from historians and engineering workstations, and integration with Security Operations Centers.</p>
+  
+  <p><strong>Respond:</strong> Take action regarding detected cybersecurity incidents. ICS response requires coordination with operations staff, understanding of process impacts, and procedures that maintain safety while addressing security events.</p>
+  
+  <p><strong>Recover:</strong> Restore capabilities impaired by cybersecurity incidents. OT recovery emphasizes safe restart procedures, validation of control logic integrity, and maintaining production continuity.</p>
 
-  <script src="../js/cmi5-wrapper.js"></script>
-  <script src="../js/quiz-engine.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      await window.cmi5.initialize();
-      window.quiz = new QuizEngine('quiz-container', {
-        questionsPerQuiz: 10,
-        passingScore: 80,
-        moduleId: '6',
-        moduleName: 'ICS Governance & Compliance',
-        badgeName: 'Governance Gardens Badge'
-      });
-      await quiz.loadQuestions('../quizzes/module6-questions.json');
-      quiz.renderQuiz();
-    });
-  </script>
-</body>
-</html>
+  <h4>Implementation Tiers</h4>
+  <p>NIST CSF defines four implementation tiers that describe how organizations manage cybersecurity risk:</p>
+  
+  <p><strong>Tier 1 - Partial:</strong> Ad hoc, reactive cybersecurity. Risk management is not formalized. Many smaller OT environments unfortunately operate at this level.</p>
+  
+  <p><strong>Tier 2 - Risk Informed:</strong> Risk management practices exist but may not be organization-wide. Some awareness of cybersecurity risk at the executive level.</p>
+  
+  <p><strong>Tier 3 - Repeatable:</strong> Formal, organization-wide risk management policies. Regular updates to security practices based on lessons learned. This is the target for most ICS operators.</p>
+  
+  <p><strong>Tier 4 - Adaptive:</strong> Organization continuously adapts based on lessons learned and predictive indicators. Security practices evolve with the threat landscape.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📊 Framework Profiles</p>
+    <p>A NIST CSF <strong>Profile</strong> represents an organization's current security posture or target state. Creating a "Current Profile" and "Target Profile" helps identify gaps and prioritize improvements. For ICS, profiles should consider operational constraints like uptime requirements and change management limitations.</p>
+  </div>
+
+  <h3>🔒 IEC 62443: Industrial Automation Security</h3>
+  
+  <p><strong>IEC 62443</strong> (formerly ISA/IEC 62443) is the international standard series specifically designed for industrial automation and control system security. Unlike frameworks that apply broadly, IEC 62443 addresses the unique requirements of operational technology.</p>
+
+  <h4>Standard Structure</h4>
+  <p>IEC 62443 is organized into four series:</p>
+  
+  <p><strong>Series 1 - General:</strong> Concepts, terminology, and metrics common across the standard. Establishes foundation for understanding ICS security requirements.</p>
+  
+  <p><strong>Series 2 - Policies & Procedures:</strong> Requirements for asset owners to establish and maintain an ICS security program. Covers security management system requirements.</p>
+  
+  <p><strong>Series 3 - System:</strong> Security requirements at the system level. Defines security levels and system design requirements including the crucial zones and conduits model.</p>
+  
+  <p><strong>Series 4 - Component:</strong> Security requirements for individual components and product development. Helps asset owners evaluate vendor security claims.</p>
+
+  <h4>Security Levels (SL)</h4>
+  <p>IEC 62443 defines four Security Levels representing protection against different threat actors:</p>
+  
+  <p><strong>SL 1:</strong> Protection against casual or coincidental violation. Defends against unintentional errors or accidental misuse.</p>
+  
+  <p><strong>SL 2:</strong> Protection against intentional violation using simple means. Defends against attackers with low motivation, generic skills, and limited resources.</p>
+  
+  <p><strong>SL 3:</strong> Protection against intentional violation using sophisticated means. Defends against attackers with moderate motivation, ICS-specific skills, and moderate resources.</p>
+  
+  <p><strong>SL 4:</strong> Protection against intentional violation using sophisticated means with extended resources. Defends against state-sponsored attackers with high motivation, advanced ICS expertise, and extensive resources.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🎯 Target vs. Achieved Security Level</p>
+    <p>Organizations set a <strong>Target Security Level (SL-T)</strong> based on risk assessment, then work to achieve that level. The <strong>Achieved Security Level (SL-A)</strong> reflects current state. <strong>Capability Security Level (SL-C)</strong> indicates what a component can support. An HMI might be SL-C 2 capable, but if deployed insecurely, SL-A might only be 1.</p>
+  </div>
+
+  <h4>Zones and Conduits</h4>
+  <p>IEC 62443-3-2 formalizes the zones and conduits approach to network segmentation:</p>
+  
+  <p><strong>Zones:</strong> Groupings of logical or physical assets that share common security requirements. Each zone has a defined security level. Examples include the Safety Zone (highest SL), Process Control Zone, and Supervisory Zone.</p>
+  
+  <p><strong>Conduits:</strong> Logical groupings of communication channels connecting zones. Each conduit must be secured appropriately for the zones it connects. A conduit between an SL3 zone and SL2 zone must be protected to at least SL3 standards.</p>
+
+  <h3>⚡ NERC CIP: Bulk Electric System Security</h3>
+  
+  <p>The <strong>North American Electric Reliability Corporation Critical Infrastructure Protection</strong> (NERC CIP) standards are mandatory, enforceable regulations for the bulk electric system in North America. Unlike voluntary frameworks, NERC CIP violations carry significant financial penalties.</p>
+
+  <h4>Applicability</h4>
+  <p>NERC CIP applies to entities that own or operate portions of the Bulk Electric System (BES): transmission operators, generation operators, balancing authorities, and reliability coordinators. Requirements scale based on the impact rating of facilities: High, Medium, or Low impact.</p>
+
+  <h4>Key CIP Standards</h4>
+  <p><strong>CIP-002: BES Cyber System Categorization</strong> requires identifying and categorizing BES Cyber Systems based on their impact to the reliable operation of the bulk electric system.</p>
+  
+  <p><strong>CIP-003: Security Management Controls</strong> establishes requirements for cyber security policies and assigns clear security responsibilities.</p>
+  
+  <p><strong>CIP-004: Personnel & Training</strong> requires security awareness training, role-based training for personnel with access to BES Cyber Systems, and personnel risk assessments.</p>
+  
+  <p><strong>CIP-005: Electronic Security Perimeter</strong> requires identifying and protecting Electronic Security Perimeters (ESPs), controlling interactive remote access, and managing vendor remote access.</p>
+  
+  <p><strong>CIP-006: Physical Security</strong> mandates physical access controls for facilities containing BES Cyber Systems, visitor escort requirements, and physical access logging.</p>
+  
+  <p><strong>CIP-007: System Security Management</strong> covers ports and services management, patch management processes, malicious code prevention, security event monitoring, and system access controls.</p>
+  
+  <p><strong>CIP-008: Incident Reporting and Response Planning</strong> requires documented incident response plans, testing of response procedures, and reporting of cybersecurity incidents.</p>
+  
+  <p><strong>CIP-009: Recovery Plans</strong> mandates backup and recovery procedures, testing of recovery plans, and data preservation.</p>
+  
+  <p><strong>CIP-010: Configuration Change Management</strong> requires baseline configurations, change management processes, and vulnerability assessments.</p>
+  
+  <p><strong>CIP-011: Information Protection</strong> covers protection and secure handling of BES Cyber System Information.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">⚠️ NERC CIP Enforcement</p>
+    <p>NERC CIP violations result in monetary penalties that can reach millions of dollars. Penalties consider violation severity, the organization's compliance history, and whether the violation was self-reported. Severe violations can impact an organization's authority to operate bulk electric system assets.</p>
+  </div>
+
+  <h3>📊 Risk Assessment for ICS</h3>
+  
+  <p>Risk assessment in ICS environments must account for factors that don't exist in typical IT risk models: safety implications, operational impacts, and the potential for physical consequences.</p>
+
+  <h4>ICS Risk Assessment Challenges</h4>
+  <p><strong>Safety considerations:</strong> Traditional risk assessments focus on confidentiality, integrity, and availability. ICS risk must also consider safety—can a cyber incident cause injury or death? Can it trigger environmental releases?</p>
+  
+  <p><strong>Process dependencies:</strong> Understanding how cyber assets support physical processes is essential. A compromised historian might seem low-risk from an IT perspective, but if operators rely on it for situational awareness, the safety implications change dramatically.</p>
+  
+  <p><strong>Threat modeling:</strong> ICS threat actors differ from IT threats. Nation-states may seek persistent access for potential future attacks rather than immediate exploitation. The MITRE ATT&CK for ICS framework helps model these threats.</p>
+  
+  <p><strong>Vulnerability context:</strong> A vulnerability in an internet-facing web server differs from the same vulnerability in an air-gapped HMI. ICS risk assessment must consider compensating controls and actual exploitability.</p>
+
+  <h4>Consequence-Based Risk Approach</h4>
+  <p>ICS security prioritizes <strong>consequence-based risk</strong>: identifying the worst-case outcomes first, then working backward to determine which systems could enable those outcomes, and finally assessing threats and vulnerabilities.</p>
+  
+  <p>For example: a chemical release (consequence) could result from improper valve operation (process), controlled by specific PLCs (systems), which could be compromised via engineering workstation malware (threat path). This analysis drives prioritization of protective controls.</p>
+
+  <h4>Risk Assessment Methodologies</h4>
+  <p><strong>NIST SP 800-82:</strong> Guide to Industrial Control Systems Security provides a risk management framework tailored to ICS environments.</p>
+  
+  <p><strong>IEC 62443-3-2:</strong> Defines a specific methodology for conducting security risk assessments using zones and conduits.</p>
+  
+  <p><strong>HAZOP for Cyber:</strong> Adapts Hazard and Operability studies to identify cyber-enabled process deviations.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🔧 Crown Jewel Analysis</p>
+    <p>Many ICS security programs begin with <strong>Crown Jewel Analysis</strong>: identifying the most critical assets whose compromise would cause unacceptable consequences. For a water utility, this might be chemical dosing systems. For manufacturing, it might be safety instrumented systems. Protecting crown jewels gets priority.</p>
+  </div>
+
+  <h3>📝 Policy Development for OT</h3>
+  
+  <p>Security policies for OT environments must balance security requirements with operational realities. Policies that operations staff cannot follow become shelfware.</p>
+
+  <h4>Key OT Security Policies</h4>
+  <p><strong>Access Control Policy:</strong> Defines who can access OT systems, authentication requirements, privilege management. Must account for 24/7 operations and emergency access needs.</p>
+  
+  <p><strong>Change Management Policy:</strong> Specifies how changes to OT systems are requested, reviewed, tested, approved, and implemented. Must coordinate with maintenance windows and vendor involvement.</p>
+  
+  <p><strong>Remote Access Policy:</strong> Governs vendor access, employee remote access, and technical controls required. Should specify MFA requirements and session monitoring.</p>
+  
+  <p><strong>Incident Response Policy:</strong> Defines roles, responsibilities, and procedures for security incidents affecting OT. Must coordinate security response with safe operations.</p>
+  
+  <p><strong>Patch Management Policy:</strong> Establishes patch evaluation, testing, and deployment procedures that account for OT system availability requirements and vendor certification needs.</p>
+
+  <h4>Policy Alignment</h4>
+  <p>OT security policies should align with: corporate IT security policies (with documented exceptions where needed), regulatory requirements (NERC CIP mandates specific policy elements), industry standards (IEC 62443 policy requirements), and operational procedures (integrating with existing safety and maintenance programs).</p>
+
+  <h3>✅ Compliance and Audit Preparation</h3>
+  
+  <p>Whether facing NERC CIP audits, internal assessments, or customer security reviews, being audit-ready requires systematic preparation.</p>
+
+  <h4>Documentation Requirements</h4>
+  <p>Compliance requires evidence. Maintain documentation of: policies and procedures with version control, asset inventories with owner assignments, network diagrams showing security boundaries, risk assessments and their outcomes, training records for all personnel, change management records, incident reports and response actions, and evidence of periodic review and updates.</p>
+
+  <h4>Common Audit Findings</h4>
+  <p><strong>Incomplete asset inventory:</strong> Undocumented systems discovered during audits indicate weak asset management. Continuous asset discovery is essential.</p>
+  
+  <p><strong>Policy gaps:</strong> Policies that don't address all required areas or haven't been updated to reflect current operations.</p>
+  
+  <p><strong>Training deficiencies:</strong> Lack of documented security training or training that doesn't cover required topics.</p>
+  
+  <p><strong>Access control weaknesses:</strong> Shared accounts, excessive privileges, or missing access reviews.</p>
+  
+  <p><strong>Evidence gaps:</strong> Controls may exist but lack documentation proving consistent application.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📋 Audit Survival Tips</p>
+    <p>Prepare for audits year-round, not just before scheduled assessments. Conduct internal self-assessments using the same criteria auditors will use. Ensure staff can explain why controls exist, not just what they are. Have documentation readily accessible and organized. Address known gaps proactively rather than hoping auditors won't find them.</p>
+  </div>
+
+  <h3>🔥 Real-World Case: Colonial Pipeline and Governance</h3>
+  
+  <p>The <strong>Colonial Pipeline</strong> ransomware attack (May 2021) disrupted fuel delivery across the southeastern United States. While technically a ransomware attack on IT systems, the incident revealed governance failures.</p>
+
+  <h4>Governance Lessons</h4>
+  <p><strong>IT/OT interdependencies:</strong> Colonial shut down OT operations because they couldn't verify IT systems hadn't spread to OT, and they lacked billing capabilities. This highlights the need to understand and document dependencies between IT and OT systems.</p>
+  
+  <p><strong>Incident response planning:</strong> The decision to pay the ransom ($4.4M) and the extended outage suggest incident response planning could have been more robust. Plans should include scenarios for IT compromises affecting OT operations.</p>
+  
+  <p><strong>Regulatory response:</strong> Following the attack, TSA issued Security Directives imposing new cybersecurity requirements on pipeline operators. Organizations in critical infrastructure should anticipate increased regulation following major incidents.</p>
+  
+  <p><strong>Board-level visibility:</strong> The attack's impact on fuel availability and Colonial's stock price ensured board-level attention. Effective governance includes ensuring executives understand OT cyber risks before incidents occur.</p>
+
+  <h3>🛠️ Building an ICS Security Program</h3>
+  
+  <p>Effective ICS security requires more than technical controls—it needs an organized program with leadership support, defined roles, and continuous improvement.</p>
+
+  <h4>Program Elements</h4>
+  <p><strong>Executive sponsorship:</strong> Security programs without executive support struggle for resources and organizational attention. Present risks in business terms executives understand.</p>
+  
+  <p><strong>Defined roles:</strong> Clearly assign responsibility for ICS security. Who owns asset inventory? Who approves firewall changes? Who coordinates vendor access? Document in a RACI matrix.</p>
+  
+  <p><strong>Metrics and reporting:</strong> Track meaningful metrics: percent of assets inventoried, patch currency, vulnerability remediation time, incidents detected. Report regularly to leadership.</p>
+  
+  <p><strong>Continuous improvement:</strong> Security programs mature over time. Conduct periodic assessments, learn from incidents, and adjust based on threat intelligence.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🎮 Module Complete!</p>
+    <p>Outstanding work, Cyber Defender! You now understand the governance frameworks, standards, and compliance requirements that shape ICS security programs. In Module 7, you'll put this knowledge into action with Incident Response—learning how to detect, respond to, and recover from security incidents in industrial environments. The Incident Response Arena awaits!</p>
+  </div>
+</div>

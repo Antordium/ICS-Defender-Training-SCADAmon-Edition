@@ -731,6 +731,256 @@ export const WILD_SCADAMON = [
       30: ['DEFENSE_IN_DEPTH'],
       50: ['COMPLIANCE_AUDIT']
     }
+  },
+
+  // NEW ADVANCED SCADAMON (from new-scadamon.json)
+  // Architecture Types
+  {
+    id: 36,
+    name: 'PURGAMON',
+    types: ['GROUND', 'STEEL'],
+    baseStats: { hp: 65, atk: 45, def: 75, spd: 35, int: 60, res: 70 },
+    description: 'A towering guardian formed of crystallized network segments, each layer glowing with different intensity. Embodies the Purdue Model.',
+    emoji: '🏛️',
+    rarity: 'uncommon',
+    availableAfterGym: 2,
+    evolutionLevel: 20,
+    evolvesTo: 'SEGMANTIS',
+    moves: {
+      1: ['NETWORK_SEGMENT', 'BASELINE_CHECK'],
+      15: ['FIREWALL_BLOCK'],
+      20: ['DEFENSE_IN_DEPTH']
+    }
+  },
+  {
+    id: 37,
+    name: 'SEGMANTIS',
+    types: ['GROUND', 'STEEL'],
+    baseStats: { hp: 80, atk: 65, def: 90, spd: 40, int: 70, res: 85 },
+    description: 'A mantis-like creature with crystalline exoskeleton divided into perfectly isolated segments. Damage to one segment never affects another.',
+    emoji: '🦗',
+    rarity: 'rare',
+    availableAfterGym: 4,
+    moves: {
+      1: ['NETWORK_SEGMENT', 'FIREWALL_BLOCK'],
+      20: ['DEFENSE_IN_DEPTH'],
+      35: ['ZERO_TRUST']
+    }
+  },
+
+  // Protocol Types
+  {
+    id: 38,
+    name: 'MODBYTE',
+    types: ['WATER'],
+    baseStats: { hp: 50, atk: 55, def: 30, spd: 70, int: 65, res: 45 },
+    description: 'A small, simple creature that communicates in pure binary. Direct and unsophisticated—what you see is what you get.',
+    emoji: '📡',
+    rarity: 'uncommon',
+    availableAfterGym: 3,
+    evolutionLevel: 25,
+    evolvesTo: 'PROTOCRAWL',
+    moves: {
+      1: ['WATER_PULSE', 'PROTOCOL_SCAN'],
+      15: ['MODBUS_SURGE'],
+      25: ['DNP3_STRIKE']
+    }
+  },
+  {
+    id: 39,
+    name: 'PROTOCRAWL',
+    types: ['WATER', 'STEEL'],
+    baseStats: { hp: 70, atk: 75, def: 55, spd: 80, int: 85, res: 65 },
+    description: 'A serpentine creature that has evolved to understand multiple industrial languages. Can translate between protocol dialects.',
+    emoji: '🐍',
+    rarity: 'rare',
+    availableAfterGym: 5,
+    moves: {
+      1: ['MODBUS_SURGE', 'DNP3_STRIKE'],
+      20: ['ENCRYPTION_SHIELD'],
+      35: ['ZERO_TRUST']
+    }
+  },
+
+  // Integrity Types
+  {
+    id: 40,
+    name: 'HASHLING',
+    types: ['STEEL'],
+    baseStats: { hp: 45, atk: 40, def: 60, spd: 55, int: 70, res: 60 },
+    description: 'A small spherical creature that constantly verifies its own existence. Can instantly detect when anything has been modified.',
+    emoji: '🔐',
+    rarity: 'uncommon',
+    availableAfterGym: 4,
+    evolutionLevel: 25,
+    evolvesTo: 'CRYPTOGUARD',
+    moves: {
+      1: ['ENCRYPTION_SHIELD', 'BASELINE_CHECK'],
+      15: ['PATCH_DEPLOY'],
+      25: ['ZERO_TRUST']
+    }
+  },
+  {
+    id: 41,
+    name: 'CRYPTOGUARD',
+    types: ['STEEL', 'DARK'],
+    baseStats: { hp: 75, atk: 55, def: 85, spd: 45, int: 80, res: 80 },
+    description: 'An armored warrior whose shield constantly displays rotating cryptographic keys. Protects authenticity and integrity.',
+    emoji: '🛡️',
+    rarity: 'rare',
+    availableAfterGym: 6,
+    moves: {
+      1: ['ENCRYPTION_SHIELD', 'ZERO_TRUST'],
+      20: ['FORENSIC_SCAN'],
+      35: ['DEFENSE_IN_DEPTH']
+    }
+  },
+
+  // Monitoring Types
+  {
+    id: 42,
+    name: 'AUDITRIX',
+    types: ['NORMAL', 'DARK'],
+    baseStats: { hp: 55, atk: 35, def: 50, spd: 60, int: 75, res: 55 },
+    description: 'A creature with countless eyes arranged in concentric rings, each recording everything. Never forgets and can replay any event.',
+    emoji: '👁️',
+    rarity: 'uncommon',
+    availableAfterGym: 5,
+    evolutionLevel: 30,
+    evolvesTo: 'SENTINULL',
+    moves: {
+      1: ['BASELINE_CHECK', 'INCIDENT_DETECT'],
+      15: ['RISK_ASSESS'],
+      30: ['FORENSIC_SCAN']
+    }
+  },
+  {
+    id: 43,
+    name: 'SENTINULL',
+    types: ['DARK', 'STEEL'],
+    baseStats: { hp: 80, atk: 60, def: 70, spd: 50, int: 90, res: 70 },
+    description: 'A towering sentinel whose body is composed of flowing log streams and alert patterns. Doesn\'t just observe—correlates, analyzes, and acts.',
+    emoji: '🗼',
+    rarity: 'rare',
+    availableAfterGym: 7,
+    moves: {
+      1: ['INCIDENT_DETECT', 'FORENSIC_SCAN'],
+      20: ['RISK_ASSESS'],
+      35: ['COMPLIANCE_AUDIT']
+    }
+  },
+
+  // Governance Types
+  {
+    id: 44,
+    name: 'COMPLION',
+    types: ['NORMAL', 'STEEL'],
+    baseStats: { hp: 60, atk: 40, def: 65, spd: 40, int: 70, res: 65 },
+    description: 'A creature made of scrolls, policy documents, and regulatory frameworks. Ensures all actions follow proper procedure.',
+    emoji: '📜',
+    rarity: 'uncommon',
+    availableAfterGym: 6,
+    evolutionLevel: 30,
+    evolvesTo: 'RISKMASTER',
+    moves: {
+      1: ['COMPLIANCE_AUDIT', 'BASELINE_CHECK'],
+      15: ['RISK_ASSESS'],
+      30: ['DEFENSE_IN_DEPTH']
+    }
+  },
+  {
+    id: 45,
+    name: 'RISKMASTER',
+    types: ['NORMAL', 'STEEL'],
+    baseStats: { hp: 85, atk: 50, def: 80, spd: 55, int: 90, res: 80 },
+    description: 'Has transcended mere compliance to truly understand risk. Can assess any threat\'s likelihood and impact.',
+    emoji: '⚖️',
+    rarity: 'rare',
+    availableAfterGym: 7,
+    moves: {
+      1: ['RISK_ASSESS', 'COMPLIANCE_AUDIT'],
+      20: ['DEFENSE_IN_DEPTH'],
+      35: ['ZERO_TRUST']
+    }
+  },
+
+  // Legendary Threat Types
+  {
+    id: 46,
+    name: 'INDUSTROYER',
+    types: ['ELECTRIC', 'DARK'],
+    baseStats: { hp: 100, atk: 95, def: 70, spd: 75, int: 95, res: 75 },
+    description: 'A terrifying digital entity that speaks the language of industrial protocols—all of them. First witnessed during Ukraine power grid attacks.',
+    emoji: '⚡',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['GRID_SURGE', 'DNP3_STRIKE'],
+      30: ['MODBUS_SURGE'],
+      50: ['ZERO_TRUST']
+    }
+  },
+  {
+    id: 47,
+    name: 'TRITANIUM',
+    types: ['FIRE', 'POISON'],
+    baseStats: { hp: 90, atk: 100, def: 65, spd: 85, int: 95, res: 70 },
+    description: 'Born from the TRITON/TRISIS malware that targeted safety systems. Represents attacks designed to disable safety protections.',
+    emoji: '☣️',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['EMBER', 'INCIDENT_DETECT'],
+      30: ['FORENSIC_SCAN'],
+      50: ['RISK_ASSESS']
+    }
+  },
+  {
+    id: 48,
+    name: 'LAYERION',
+    types: ['STEEL', 'GROUND'],
+    baseStats: { hp: 110, atk: 60, def: 100, spd: 45, int: 80, res: 95 },
+    description: 'The embodiment of defense-in-depth. Exists simultaneously across multiple security layers—physical, network, host, application, data, and procedural.',
+    emoji: '🏰',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['DEFENSE_IN_DEPTH', 'NETWORK_SEGMENT'],
+      30: ['FIREWALL_BLOCK'],
+      50: ['ZERO_TRUST']
+    }
+  },
+  {
+    id: 49,
+    name: 'ZERODAWN',
+    types: ['GHOST', 'DARK'],
+    baseStats: { hp: 95, atk: 90, def: 75, spd: 90, int: 100, res: 80 },
+    description: 'The manifestation of the unknown unknown—the zero-day vulnerability no one has discovered yet. Form constantly shifting.',
+    emoji: '🌑',
+    rarity: 'legendary',
+    availableAfterGym: 8,
+    moves: {
+      1: ['FORENSIC_SCAN', 'INCIDENT_DETECT'],
+      30: ['ZERO_TRUST'],
+      50: ['DEFENSE_IN_DEPTH']
+    }
+  },
+
+  // Recovery Type
+  {
+    id: 50,
+    name: 'RESILIX',
+    types: ['STEEL', 'NORMAL'],
+    baseStats: { hp: 70, atk: 45, def: 55, spd: 50, int: 65, res: 70 },
+    description: 'A phoenix-like creature composed of backup data, redundant systems, and recovery procedures. When knocked down, rises from verified backups.',
+    emoji: '🔄',
+    rarity: 'uncommon',
+    availableAfterGym: 7,
+    moves: {
+      1: ['BASELINE_CHECK', 'PATCH_DEPLOY'],
+      15: ['DEFENSE_IN_DEPTH'],
+      25: ['COMPLIANCE_AUDIT']
+    }
   }
 ];
 

@@ -1,22 +1,605 @@
 {
-  "moduleId": "3",
-  "moduleName": "ICS Protocols & Communications",
+  "module": 3,
   "domain": "protocols",
+  "totalQuestions": 40,
   "questions": [
-    {"id": "m3_q01", "type": "multiple_choice", "difficulty": 1, "question": "Which port does Modbus TCP use?", "options": ["Port 80", "Port 443", "Port 502", "Port 20000"], "correctIndex": 2, "explanation": "Modbus TCP operates on TCP port 502."},
-    {"id": "m3_q02", "type": "multiple_choice", "difficulty": 2, "question": "Major security limitation of original Modbus?", "options": ["Too much bandwidth", "No authentication or encryption", "Only serial connections", "Expensive licensing"], "correctIndex": 1, "explanation": "Modbus (1979) has no authentication or encryption - anyone can send commands."},
-    {"id": "m3_q03", "type": "multiple_choice", "difficulty": 2, "question": "What is DNP3 Secure Authentication?", "options": ["Separate protocol", "Enhancement adding cryptographic authentication to DNP3", "Physical security feature", "Vendor-specific"], "correctIndex": 1, "explanation": "DNP3 SA adds challenge-response authentication while maintaining compatibility."},
-    {"id": "m3_q04", "type": "multiple_choice", "difficulty": 1, "question": "Which protocol uses port 20000 in utilities?", "options": ["Modbus", "BACnet", "DNP3", "OPC UA"], "correctIndex": 2, "explanation": "DNP3 (used in electric utilities) typically operates on port 20000."},
-    {"id": "m3_q05", "type": "multiple_choice", "difficulty": 3, "question": "What makes OPC UA fundamentally different security-wise?", "options": ["It's faster", "Built-in security from design including encryption and certificates", "No security features", "Windows-only"], "correctIndex": 1, "explanation": "OPC UA was designed with built-in encryption, certificates, and RBAC from the start."},
-    {"id": "m3_q06", "type": "true_false", "difficulty": 2, "question": "A replay attack retransmits captured legitimate messages.", "options": ["True", "False"], "correctIndex": 0, "explanation": "True. Attackers capture valid traffic and retransmit it to cause unauthorized actions."},
-    {"id": "m3_q07", "type": "multiple_choice", "difficulty": 2, "question": "In Modbus, what are function codes?", "options": ["Encryption method", "Type of operation to perform (read, write)", "Authentication", "Compression"], "correctIndex": 1, "explanation": "Function codes specify operations: code 3 reads registers, code 6 writes."},
-    {"id": "m3_q08", "type": "multiple_choice", "difficulty": 2, "question": "Purpose of protocol-aware firewalls in ICS?", "options": ["Increase speed", "Inspect ICS protocols and filter by specific commands", "Replace encryption", "Convert protocols"], "correctIndex": 1, "explanation": "They understand ICS protocols and can filter based on function codes."},
-    {"id": "m3_q09", "type": "multiple_choice", "difficulty": 3, "question": "Man-in-the-middle on Modbus allows attacker to:", "options": ["Read only", "Intercept, modify, and forward commands", "Damage cables", "Improve reliability"], "correctIndex": 1, "explanation": "Without authentication, attackers can intercept and modify Modbus traffic."},
-    {"id": "m3_q10", "type": "multiple_choice", "difficulty": 1, "question": "Protocol used in building automation (HVAC)?", "options": ["DNP3", "Modbus", "BACnet", "ICCP"], "correctIndex": 2, "explanation": "BACnet is the standard for building automation systems."},
-    {"id": "m3_q11", "type": "multiple_choice", "difficulty": 2, "question": "Compensating control for legacy Modbus?", "options": ["Faster hardware", "Wrap in encrypted VPN tunnel", "Increase polling", "Add more devices"], "correctIndex": 1, "explanation": "VPN/TLS tunnels protect Modbus traffic at the network level."},
-    {"id": "m3_q12", "type": "multiple_choice", "difficulty": 3, "question": "Why is encryption challenging for real-time ICS?", "options": ["Too expensive", "Overhead may cause unacceptable latency", "Already encrypted", "Illegal"], "correctIndex": 1, "explanation": "Crypto overhead can introduce latency unacceptable for time-critical control."},
-    {"id": "m3_q13", "type": "true_false", "difficulty": 2, "question": "EtherNet/IP is the same as standard office Ethernet.", "options": ["True", "False"], "correctIndex": 1, "explanation": "False. EtherNet/IP adds CIP (Common Industrial Protocol) for industrial automation."},
-    {"id": "m3_q14", "type": "multiple_choice", "difficulty": 1, "question": "What is serial communication in legacy ICS?", "options": ["Ethernet", "RS-232/RS-485 connections, one bit at a time", "Wireless", "Cloud-based"], "correctIndex": 1, "explanation": "Serial refers to protocols like Modbus RTU over RS-232/RS-485 connections."},
-    {"id": "m3_q15", "type": "multiple_choice", "difficulty": 2, "question": "Protocol whitelisting means:", "options": ["Painting equipment", "Allow only approved protocols, block all others", "Listing in documentation", "Remove restrictions"], "correctIndex": 1, "explanation": "Only explicitly approved protocols are allowed, reducing attack surface."}
+    {
+      "id": "proto_001",
+      "question": "What is the default TCP port for Modbus TCP?",
+      "options": [
+        "Port 80",
+        "Port 443",
+        "Port 502",
+        "Port 20000"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "Modbus TCP uses TCP port 502 by default. This is one of the most commonly scanned ports when attackers look for industrial control systems."
+    },
+    {
+      "id": "proto_002",
+      "question": "Which protocol was developed in 1979 and is considered the 'grandfather' of ICS protocols?",
+      "options": [
+        "DNP3",
+        "OPC UA",
+        "Modbus",
+        "BACnet"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "Modbus was developed by Modicon in 1979 and remains one of the most widely deployed industrial protocols due to its simplicity and royalty-free specification."
+    },
+    {
+      "id": "proto_003",
+      "question": "What does DNP3 stand for?",
+      "options": [
+        "Dynamic Network Protocol 3",
+        "Distributed Network Protocol 3",
+        "Digital Network Process 3",
+        "Data Network Protocol 3"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "DNP3 stands for Distributed Network Protocol 3. It was developed in the 1990s for the electric utility industry."
+    },
+    {
+      "id": "proto_004",
+      "question": "Which protocol is most commonly used in building automation systems?",
+      "options": [
+        "Modbus",
+        "DNP3",
+        "BACnet",
+        "EtherNet/IP"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "BACnet (Building Automation and Control Networks) is the dominant protocol for building automation, controlling HVAC, lighting, and access control systems."
+    },
+    {
+      "id": "proto_005",
+      "question": "What is the default TCP port for OPC UA?",
+      "options": [
+        "Port 502",
+        "Port 4840",
+        "Port 20000",
+        "Port 47808"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "OPC UA uses TCP port 4840 by default for binary protocol communication. It can also use HTTPS on port 443."
+    },
+    {
+      "id": "proto_006",
+      "question": "What is the PRIMARY security weakness of the Modbus protocol?",
+      "options": [
+        "Weak encryption algorithm",
+        "No built-in authentication or encryption",
+        "Complex password requirements",
+        "Excessive logging overhead"
+      ],
+      "correct": 1,
+      "difficulty": 1,
+      "explanation": "Modbus has no built-in authentication, encryption, or integrity protection. Any device that can reach TCP port 502 can read or write registers without any credentials."
+    },
+    {
+      "id": "proto_007",
+      "question": "What is the default port for DNP3 over TCP/IP?",
+      "options": [
+        "Port 502",
+        "Port 4840",
+        "Port 20000",
+        "Port 44818"
+      ],
+      "correct": 2,
+      "difficulty": 1,
+      "explanation": "DNP3 typically uses TCP or UDP port 20000 for IP-based communications. Serial variants are still common in some utility deployments."
+    },
+    {
+      "id": "proto_008",
+      "question": "Which Modbus function code is used to read holding registers?",
+      "options": [
+        "Function Code 01",
+        "Function Code 03",
+        "Function Code 05",
+        "Function Code 16"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Function Code 03 (Read Holding Registers) is used to read the contents of holding registers from a Modbus device. Function Code 01 reads coils, 05 writes a single coil."
+    },
+    {
+      "id": "proto_009",
+      "question": "What security feature does DNP3 Secure Authentication (SA) provide?",
+      "options": [
+        "Full end-to-end encryption of all data",
+        "Challenge-response authentication using HMAC-SHA256",
+        "Automatic key distribution via PKI",
+        "Network-level firewall rules"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "DNP3 SA provides challenge-response authentication using HMAC-SHA256 to verify message authenticity. However, it does not provide encryption—messages are still sent in cleartext."
+    },
+    {
+      "id": "proto_010",
+      "question": "OPC Classic relies on which Microsoft technology that creates significant security challenges?",
+      "options": [
+        "Active Directory",
+        "DCOM (Distributed COM)",
+        "BitLocker",
+        "Windows Defender"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "OPC Classic relies on DCOM, which requires numerous firewall exceptions, is difficult to configure securely, and was designed for trusted network environments."
+    },
+    {
+      "id": "proto_011",
+      "question": "In EtherNet/IP, what does 'IP' stand for?",
+      "options": [
+        "Internet Protocol",
+        "Industrial Protocol",
+        "Integrated Processor",
+        "Input Processing"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "In EtherNet/IP, the 'IP' stands for Industrial Protocol, not Internet Protocol. EtherNet/IP is managed by ODVA and uses CIP (Common Industrial Protocol)."
+    },
+    {
+      "id": "proto_012",
+      "question": "Which OPC UA security mode provides both message signing and encryption?",
+      "options": [
+        "None",
+        "Sign",
+        "SignAndEncrypt",
+        "BasicAuthentication"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "OPC UA SignAndEncrypt mode provides full security with both message signing (integrity) and encryption (confidentiality). Production deployments should always use this mode."
+    },
+    {
+      "id": "proto_013",
+      "question": "What is the default UDP port for BACnet/IP?",
+      "options": [
+        "Port 502",
+        "Port 2222",
+        "Port 47808",
+        "Port 20000"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "BACnet/IP uses UDP port 47808 (hex 0xBAC0, chosen as a play on 'BACnet') for communication between building automation devices."
+    },
+    {
+      "id": "proto_014",
+      "question": "Which attack is MOST facilitated by Modbus's lack of authentication?",
+      "options": [
+        "Password cracking",
+        "Unauthorized command injection to PLCs",
+        "Cross-site scripting",
+        "Certificate spoofing"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Without authentication, any device that can reach a Modbus server can inject commands. Attackers can write arbitrary values to registers, potentially manipulating physical processes."
+    },
+    {
+      "id": "proto_015",
+      "question": "Modbus RTU uses which physical communication layers?",
+      "options": [
+        "Ethernet and WiFi",
+        "RS-232 and RS-485 serial",
+        "Fiber optic only",
+        "Bluetooth and ZigBee"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "Modbus RTU operates over serial connections using RS-232 or RS-485 physical layers. RS-485 allows multi-drop configurations with multiple devices on one line."
+    },
+    {
+      "id": "proto_016",
+      "question": "In the Ukraine 2015 power grid attack, attackers used which protocol to open circuit breakers?",
+      "options": [
+        "Modbus TCP",
+        "DNP3",
+        "OPC UA",
+        "BACnet"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "The Ukraine attackers used DNP3 commands to open breakers at substations. The protocol worked as designed—the security failure was that attackers had unauthorized access to issue commands."
+    },
+    {
+      "id": "proto_017",
+      "question": "What is the main advantage of EtherNet/IP using the Common Industrial Protocol (CIP)?",
+      "options": [
+        "It provides built-in encryption",
+        "It allows integration with DeviceNet and ControlNet systems",
+        "It eliminates the need for PLCs",
+        "It automatically patches firmware"
+      ],
+      "correct": 1,
+      "difficulty": 2,
+      "explanation": "CIP is used across EtherNet/IP, DeviceNet, and ControlNet, making it easier to integrate systems using different physical network technologies."
+    },
+    {
+      "id": "proto_018",
+      "question": "Which tool is commonly used to capture and analyze ICS protocol traffic?",
+      "options": [
+        "Microsoft Word",
+        "Adobe Photoshop",
+        "Wireshark",
+        "Windows Calculator"
+      ],
+      "correct": 2,
+      "difficulty": 2,
+      "explanation": "Wireshark has built-in dissectors for Modbus, DNP3, OPC UA, EtherNet/IP, BACnet, and many other ICS protocols, making it essential for protocol analysis."
+    },
+    {
+      "id": "proto_019",
+      "question": "A security analyst captures Modbus TCP traffic and sees function code 06 being sent to a PLC. What operation is being performed?",
+      "options": [
+        "Read Coils",
+        "Read Holding Registers",
+        "Write Single Register",
+        "Diagnostics"
+      ],
+      "correct": 2,
+      "difficulty": 3,
+      "explanation": "Modbus function code 06 is Write Single Register. This could be changing a setpoint, limit, or control parameter on the PLC."
+    },
+    {
+      "id": "proto_020",
+      "question": "What limitation of DNP3 Secure Authentication makes it less useful than it might appear?",
+      "options": [
+        "It's too expensive to license",
+        "It provides authentication but not encryption, so data is still visible",
+        "It only works on Siemens devices",
+        "It requires monthly password changes"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "DNP3 SA provides message authentication but no encryption. All process data and commands are still transmitted in cleartext, visible to anyone capturing traffic."
+    },
+    {
+      "id": "proto_021",
+      "question": "In the Stuxnet attack, what protocol-level technique allowed the malware to hide its activity from operators?",
+      "options": [
+        "Encrypting all SCADA traffic",
+        "Feeding false normal readings back to monitoring systems while manipulating centrifuges",
+        "Disabling all network communications",
+        "Redirecting traffic to a foreign server"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Stuxnet intercepted process data and sent normal-looking readings to operators while actually spinning centrifuges at damaging speeds. This man-in-the-middle at the protocol level made detection extremely difficult."
+    },
+    {
+      "id": "proto_022",
+      "question": "Which BACnet security extension, introduced in 2019, provides TLS encryption and certificate-based authentication?",
+      "options": [
+        "BACnet Advanced Security",
+        "BACnet Secure Connect (BACnet/SC)",
+        "BACnet Enterprise Edition",
+        "BACnet Firewall Protocol"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "BACnet Secure Connect (BACnet/SC) was introduced in 2019 to provide TLS encryption and certificate-based authentication over WebSockets, addressing legacy BACnet's lack of security."
+    },
+    {
+      "id": "proto_023",
+      "question": "An attacker wants to perform reconnaissance on Modbus devices. Which Nmap command option would be MOST useful?",
+      "options": [
+        "--script http-enum",
+        "--script modbus-discover",
+        "--script ssl-cert",
+        "--script ftp-anon"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Nmap includes Modbus-specific NSE scripts like modbus-discover that can enumerate Modbus devices, identify device types, and extract information from accessible registers."
+    },
+    {
+      "id": "proto_024",
+      "question": "In OPC UA, what authentication method provides the strongest security?",
+      "options": [
+        "Anonymous access",
+        "Username and password",
+        "X.509 certificates",
+        "IP address whitelisting"
+      ],
+      "correct": 2,
+      "difficulty": 3,
+      "explanation": "X.509 certificate-based authentication provides the strongest security in OPC UA, enabling mutual authentication between client and server with cryptographic proof of identity."
+    },
+    {
+      "id": "proto_025",
+      "question": "A protocol-aware firewall can enforce which security control that Modbus itself cannot?",
+      "options": [
+        "Packet-level encryption",
+        "Restricting which source addresses can send write commands",
+        "Automatic firmware updates",
+        "Virus scanning of PLC logic"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Protocol-aware firewalls can enforce rules like 'only HMI-1 can send Modbus write commands to PLC-5,' compensating for Modbus's lack of built-in authentication."
+    },
+    {
+      "id": "proto_026",
+      "question": "DNP3's Select-Before-Operate (SBO) sequence can be exploited by attackers through which technique?",
+      "options": [
+        "SQL injection",
+        "Replay attacks if SA is not enabled",
+        "Buffer overflow in web servers",
+        "Cross-site request forgery"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Without DNP3 Secure Authentication, attackers can capture and replay SBO sequences to operate field devices. The protocol has no mechanism to detect replayed commands."
+    },
+    {
+      "id": "proto_027",
+      "question": "What makes OPC UA more suitable for modern ICS architectures than OPC Classic?",
+      "options": [
+        "OPC UA is faster",
+        "OPC UA is platform-independent with built-in security, not relying on DCOM",
+        "OPC UA requires less memory",
+        "OPC UA was developed earlier"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "OPC UA is platform-independent (no Windows/DCOM dependency), uses standard TCP or HTTPS, and includes built-in security features for authentication, encryption, and integrity."
+    },
+    {
+      "id": "proto_028",
+      "question": "EtherNet/IP uses which two ports for explicit messaging and implicit I/O?",
+      "options": [
+        "TCP 502 and UDP 502",
+        "TCP 44818 and UDP 2222",
+        "TCP 4840 and UDP 4840",
+        "TCP 20000 and UDP 20000"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "EtherNet/IP uses TCP port 44818 for explicit messaging (configuration, diagnostics) and UDP port 2222 for implicit real-time I/O data exchange."
+    },
+    {
+      "id": "proto_029",
+      "question": "A hospital's HVAC system uses BACnet without security features. Which attack could have life-safety implications?",
+      "options": [
+        "Stealing patient records",
+        "Manipulating temperature setpoints in operating rooms or medication storage",
+        "Accessing the billing system",
+        "Sending spam emails"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "Manipulating BACnet HVAC controls in a hospital could affect operating room temperatures, medication storage conditions, or patient room environments, potentially causing patient harm."
+    },
+    {
+      "id": "proto_030",
+      "question": "When analyzing Modbus traffic, how can you distinguish between read and write operations?",
+      "options": [
+        "Read operations use TCP, writes use UDP",
+        "By examining the function code in the Modbus PDU",
+        "Read operations are encrypted, writes are not",
+        "They cannot be distinguished without the PLC documentation"
+      ],
+      "correct": 1,
+      "difficulty": 3,
+      "explanation": "The function code in the Modbus PDU identifies the operation. Codes 01-04 are reads (coils, discrete inputs, holding/input registers), while 05-06 and 15-16 are writes."
+    },
+    {
+      "id": "proto_031",
+      "question": "An ICS security assessment reveals that a SCADA master is communicating with RTUs using DNP3 over the Internet without VPN. Beyond enabling DNP3-SA, what is the BEST immediate mitigation?",
+      "options": [
+        "Change the DNP3 port number",
+        "Implement IPsec or SSL VPN tunneling for all DNP3 traffic",
+        "Increase the polling interval",
+        "Add more RTUs to distribute the risk"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "VPN tunneling provides encryption and authentication at the network level, protecting DNP3 traffic even if SA is not fully deployed. DNP3-SA alone doesn't encrypt data."
+    },
+    {
+      "id": "proto_032",
+      "question": "An attacker with access to a Modbus network wants to cause a pump to overspeed. They've identified that register 40001 holds the speed setpoint with a normal range of 0-1000. What Modbus command would they use?",
+      "options": [
+        "Function Code 01 to address 40001 with value 9999",
+        "Function Code 03 to address 40001 with value 9999",
+        "Function Code 06 to address 40001 with value 9999",
+        "Function Code 43 to address 40001 with value 9999"
+      ],
+      "correct": 2,
+      "difficulty": 4,
+      "explanation": "Function Code 06 (Write Single Register) would write value 9999 to register 40001. Without input validation, the PLC might accept this out-of-range value, causing the pump to overspeed."
+    },
+    {
+      "id": "proto_033",
+      "question": "During a penetration test, you discover that an OPC UA server is configured with security mode 'None.' What is the MOST significant risk?",
+      "options": [
+        "Slow performance",
+        "Complete lack of authentication, encryption, and integrity protection",
+        "Excessive logging",
+        "Incompatibility with clients"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "OPC UA security mode 'None' provides no authentication, encryption, or message signing. Anyone who can connect to the server can read all data and potentially write values."
+    },
+    {
+      "id": "proto_034",
+      "question": "A utility is implementing DNP3-SA across their SCADA system. For which DNP3 message types should Critical Authentication ALWAYS be enabled?",
+      "options": [
+        "All polling requests",
+        "Commands that change system state (control operations, configuration changes)",
+        "Time synchronization messages only",
+        "Unsolicited responses only"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Critical Authentication should protect messages that change system state—control operations, configuration modifications, and firmware updates. Read-only polling has lower risk."
+    },
+    {
+      "id": "proto_035",
+      "question": "An industrial protocol monitor detects a Modbus client sending function code 08 (Diagnostics) subcode 01 (Restart Communications) to all PLCs. What is the MOST likely attacker objective?",
+      "options": [
+        "Stealing process data",
+        "Denial of service by causing PLCs to restart and interrupt control",
+        "Establishing encrypted sessions",
+        "Creating user accounts"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "The Diagnostics function with Restart Communications can force PLCs to restart, causing momentary loss of control. Sending this to multiple PLCs could disrupt an entire process."
+    },
+    {
+      "id": "proto_036",
+      "question": "You're implementing protocol-level monitoring for a water treatment facility. Which detection would indicate potential TRITON-style attack preparation?",
+      "options": [
+        "Increased Modbus read operations",
+        "Programming commands sent to Safety Instrumented System controllers outside maintenance windows",
+        "Normal OPC UA data polling",
+        "BACnet temperature readings"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "TRITON targeted Safety Instrumented Systems. Detecting programming/configuration commands to SIS controllers, especially outside maintenance windows, could indicate attack preparation."
+    },
+    {
+      "id": "proto_037",
+      "question": "A manufacturing plant needs to integrate data from PLCs (Modbus), building systems (BACnet), and enterprise applications (OPC UA). What architectural approach provides the BEST security?",
+      "options": [
+        "Directly connect all systems to the same network",
+        "Use a protocol gateway in a DMZ that normalizes data while enforcing security policies",
+        "Convert all systems to use the same protocol",
+        "Disable security features for interoperability"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "A protocol gateway in a DMZ can translate between protocols while enforcing security policies, providing segmentation between different system types and controlled data flow."
+    },
+    {
+      "id": "proto_038",
+      "question": "An OPC UA server implements certificate-based authentication. An attacker has compromised an authorized client's private key. What is the CORRECT immediate response?",
+      "options": [
+        "Change the server's IP address",
+        "Revoke the compromised certificate and update the server's trust list",
+        "Disable OPC UA entirely",
+        "Switch to username/password authentication"
+      ],
+      "correct": 1,
+      "difficulty": 4,
+      "explanation": "Certificate revocation removes the compromised credential's validity. The server's trust list must be updated to reject the compromised certificate while maintaining other valid connections."
+    },
+    {
+      "id": "proto_039",
+      "question": "During protocol traffic analysis, you notice DNP3 unsolicited responses being sent to an IP address outside your network that isn't the configured SCADA master. What does this indicate?",
+      "options": [
+        "Normal protocol behavior",
+        "Potential data exfiltration or attacker receiving copies of field device data",
+        "Improved system performance",
+        "Automatic load balancing"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "DNP3 unsolicited responses contain process data and events. An unauthorized destination receiving these could indicate data exfiltration or that an attacker has configured RTUs to report to their system."
+    },
+    {
+      "id": "proto_040",
+      "question": "You're designing protocol security for a nuclear facility where both safety and security are paramount. For DNP3 communications to safety systems, which configuration provides MAXIMUM protection?",
+      "options": [
+        "DNP3-SA with Aggressive Mode over standard TCP",
+        "Standard DNP3 over encrypted VPN with SA disabled",
+        "DNP3-SA with hardware security modules for key storage, over encrypted tunnels, with protocol-aware IDS monitoring",
+        "DNP3 over RS-485 serial with physical access controls only"
+      ],
+      "correct": 2,
+      "difficulty": 5,
+      "explanation": "Defense-in-depth for critical infrastructure combines multiple controls: DNP3-SA for protocol authentication, HSMs for key protection, encrypted tunnels for confidentiality, and IDS for monitoring."
+    },
+    {
+      "id": "proto_041",
+      "question": "A sophisticated attacker has compromised an HMI and wants to manipulate a process while avoiding detection. Which protocol-level technique would be MOST difficult to detect?",
+      "options": [
+        "Sending commands from an unauthorized IP address",
+        "Flooding the network with malformed packets",
+        "Sending valid commands during normal operational times with values just outside safe limits",
+        "Attempting to use unimplemented function codes"
+      ],
+      "correct": 2,
+      "difficulty": 5,
+      "explanation": "Commands from authorized sources with seemingly valid values are hardest to detect. Values just outside safe limits may not trigger alarms but could cause gradual damage—similar to Stuxnet's approach."
+    },
+    {
+      "id": "proto_042",
+      "question": "A CIP Security implementation uses DTLS for securing EtherNet/IP implicit I/O messages. What challenge does this create for real-time control applications?",
+      "options": [
+        "DTLS is not compatible with Ethernet",
+        "The encryption handshake and processing adds latency that may affect time-critical I/O",
+        "DTLS requires too much bandwidth",
+        "DTLS only works with explicit messaging"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "Real-time I/O has strict timing requirements (often sub-millisecond). DTLS encryption adds processing overhead and handshake latency that must be carefully considered in safety-critical applications."
+    },
+    {
+      "id": "proto_043",
+      "question": "You're performing forensic analysis after an ICS incident. Protocol captures show legitimate-looking Modbus traffic, but the historian recorded impossible process states. What should you investigate?",
+      "options": [
+        "The Modbus devices were malfunctioning",
+        "An attacker may have modified values between the source and historian, or compromised the historian directly",
+        "The historian software needs to be updated",
+        "Network latency caused data corruption"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "If protocol traffic looks normal but recorded data is impossible, consider man-in-the-middle attacks modifying data in transit, or direct compromise of the historian similar to Stuxnet's data falsification."
+    },
+    {
+      "id": "proto_044",
+      "question": "An ICS security architect wants to implement 'defense in depth' at the protocol layer across Modbus, DNP3, and EtherNet/IP networks. Which combination provides the MOST comprehensive protection?",
+      "options": [
+        "Enable all available protocol security features only",
+        "Deploy VPNs between all devices",
+        "Protocol-aware firewalls, encrypted tunnels for inter-zone traffic, protocol security features where available, and deep packet inspection IDS with baseline-anomaly detection",
+        "Replace all protocols with OPC UA"
+      ],
+      "correct": 2,
+      "difficulty": 5,
+      "explanation": "Defense-in-depth requires multiple controls: protocol-aware firewalls for access control, encryption for confidentiality, native security features where available, and monitoring for detection."
+    },
+    {
+      "id": "proto_045",
+      "question": "A chemical plant uses OPC Classic to transfer process data from the control network to the business network. The DCOM configuration requires 'Everyone Full Control' for it to function. What is the RECOMMENDED long-term solution?",
+      "options": [
+        "Accept the risk since OPC Classic is widely used",
+        "Migrate to OPC UA with proper security configuration through a controlled gateway architecture",
+        "Disable the firewall between networks",
+        "Add more DCOM authentication requirements"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "OPC UA eliminates DCOM dependencies and provides modern security. A gateway in a DMZ can convert OPC Classic to OPC UA, enabling secure communication without requiring immediate replacement of all field devices."
+    },
+    {
+      "id": "proto_046",
+      "question": "During threat hunting, you discover that BACnet broadcast messages are reaching the corporate network from the building automation system. Beyond immediate network segmentation, what protocol-specific investigation should occur?",
+      "options": [
+        "Check if BACnet/SC is available and implement it",
+        "Determine what device information and process data is being exposed, identify all receiving devices, and assess if attackers could use this information for targeted attacks on building systems",
+        "Disable all BACnet communications",
+        "Upgrade to a newer HVAC system"
+      ],
+      "correct": 1,
+      "difficulty": 5,
+      "explanation": "BACnet broadcasts expose device enumeration data. Investigate what's disclosed (device types, addresses, object lists), who received it, and whether this enables attacks on physical building systems."
+    }
   ]
 }

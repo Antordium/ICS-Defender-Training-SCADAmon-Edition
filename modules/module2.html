@@ -1,62 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 2: Network Architecture & Defense | ICS Defender Training</title>
-  <link rel="stylesheet" href="../css/pokemon-theme.css">
-</head>
-<body>
-  <header class="course-header" style="background: linear-gradient(135deg, var(--type-ground) 0%, #333 100%);">
-    <div style="font-size: 0.9rem; opacity: 0.9;">MODULE 2</div>
-    <h1>🏗️ Network Architecture & Defense</h1>
-    <p class="subtitle">Purdue City • Gym Leader: SEGMENTA</p>
-  </header>
+<div class="content-section">
+  <h2><span class="section-icon">🏗️</span> Module 2: ICS Network Architecture</h2>
+  
+  <p>Welcome to Module 2, Cyber Defender! Now that you understand the basics of ICS components, it's time to learn how to architect secure networks that protect critical infrastructure. Network architecture is the foundation of ICS security—without proper segmentation and defense-in-depth, even the most secure individual devices can be compromised through lateral movement.</p>
 
-  <main class="content-container">
-    <section class="content-section fade-in">
-      <h2><span class="section-icon">🎯</span> Learning Objectives</h2>
-      <p>Content for Module 2 will be displayed here once media assets are generated.</p>
-      
-      <div class="info-box">
-        <p class="info-box-title">📝 Module Status</p>
-        <p>This module's content structure is defined in the Course Design Document. 
-        Video and infographic placeholders will be replaced with generated media assets.</p>
-      </div>
-    </section>
+  <p>In this module, you'll master the <strong>Purdue Model</strong>, understand <strong>Industrial Demilitarized Zones (IDMZ)</strong>, and learn how to implement <strong>defense-in-depth</strong> strategies that have protected power grids, water treatment facilities, and manufacturing plants from sophisticated attackers.</p>
 
-    <!-- Quiz Section -->
-    <section class="content-section">
-      <h2><span class="section-icon">📝</span> Module 2 Quiz</h2>
-      <div id="quiz-container"></div>
-    </section>
+  <div class="info-box">
+    <p class="info-box-title">🎯 Learning Objectives</p>
+    <p>By the end of this module, you will be able to: identify all levels of the Purdue Model and their functions, design proper network segmentation for ICS environments, implement IDMZ architectures, configure firewalls and data diodes for OT networks, and apply IEC 62443 zone and conduit concepts.</p>
+  </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 32px;">
-      <a href="module1.html" class="btn btn-secondary">← Previous Module</a>
-      <a href="module3.html" class="btn btn-primary">Next Module →</a>
-    </div>
-  </main>
+  <h3>📊 The Purdue Model (ISA-95/IEC 62264)</h3>
+  
+  <p>The <strong>Purdue Enterprise Reference Architecture</strong> (PERA), also known as the Purdue Model, is the foundational framework for understanding ICS network architecture. Developed at Purdue University in the 1990s and formalized in the ISA-95 standard (now IEC 62264), this model divides industrial networks into hierarchical levels based on function and security requirements.</p>
 
-  <footer class="course-footer">
-    <p>ICS Defender Training: SCADAmon Edition</p>
-    <p>Module 2: Network Architecture & Defense</p>
-  </footer>
+  <h4>Level 0 – The Process (Physical World)</h4>
+  <p>Level 0 represents the actual physical process being controlled—the <strong>sensors</strong>, <strong>actuators</strong>, <strong>valves</strong>, <strong>motors</strong>, <strong>pumps</strong>, and other field devices that directly interact with the physical world. These devices measure temperature, pressure, flow rates, and other process variables, or they actuate physical changes like opening valves or starting motors.</p>
+  
+  <p>At this level, devices typically communicate using <strong>4-20mA analog signals</strong>, <strong>discrete I/O</strong>, or industrial fieldbus protocols like <strong>HART</strong>, <strong>Foundation Fieldbus</strong>, or <strong>PROFIBUS PA</strong>. Security at Level 0 focuses on physical protection—locked cabinets, tamper-evident seals, and physical access controls.</p>
 
-  <script src="../js/cmi5-wrapper.js"></script>
-  <script src="../js/quiz-engine.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      await window.cmi5.initialize();
-      window.quiz = new QuizEngine('quiz-container', {
-        questionsPerQuiz: 10,
-        passingScore: 80,
-        moduleId: '2',
-        moduleName: 'Network Architecture & Defense',
-        badgeName: 'Purdue City Badge'
-      });
-      await quiz.loadQuestions('../quizzes/module2-questions.json');
-      quiz.renderQuiz();
-    });
-  </script>
-</body>
-</html>
+  <h4>Level 1 – Basic Control</h4>
+  <p>Level 1 contains the <strong>Programmable Logic Controllers (PLCs)</strong>, <strong>Remote Terminal Units (RTUs)</strong>, and <strong>Intelligent Electronic Devices (IEDs)</strong> that directly control Level 0 devices. These controllers execute the logic that keeps processes running safely—monitoring inputs from sensors and sending commands to actuators.</p>
+  
+  <p>Communication at this level uses industrial protocols like <strong>Modbus RTU</strong>, <strong>EtherNet/IP</strong>, and <strong>PROFINET</strong>. Controllers at Level 1 often have real-time requirements measured in milliseconds, making traditional IT security controls (like antivirus scanning) impractical.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">⚠️ Critical Understanding</p>
+    <p>Level 0 and Level 1 together form the <strong>Safety Zone</strong>—the most critical area of an ICS network. Compromise at these levels can cause physical damage, environmental disasters, or loss of human life. The 2017 TRITON/TRISIS attack specifically targeted Level 1 safety controllers at a Saudi petrochemical facility.</p>
+  </div>
+
+  <h4>Level 2 – Area Supervisory Control</h4>
+  <p>Level 2 hosts <strong>Human-Machine Interfaces (HMIs)</strong>, <strong>engineering workstations</strong>, and <strong>local SCADA servers</strong> that provide operators visibility into the process. Operators use HMIs to monitor alarms, view process graphics, and issue commands to Level 1 controllers.</p>
+  
+  <p>Engineering workstations at this level run specialized software for programming PLCs, configuring devices, and troubleshooting control systems. These workstations often run legacy operating systems like Windows 7 or even Windows XP to maintain compatibility with vendor software.</p>
+
+  <h4>Level 3 – Site Operations</h4>
+  <p>Level 3 contains <strong>site-wide SCADA servers</strong>, <strong>historians</strong>, <strong>batch management systems</strong>, and <strong>manufacturing execution systems (MES)</strong>. This level aggregates data from multiple Level 2 systems and provides site-wide visibility and coordination.</p>
+  
+  <p>The <strong>historian</strong> is a critical component at Level 3—it collects and stores process data for trend analysis, regulatory compliance, and operational optimization. Historians can store millions of data points per second and retain data for years.</p>
+
+  <h4>Level 3.5 – The Industrial DMZ (IDMZ)</h4>
+  <p>The <strong>Industrial Demilitarized Zone</strong> (IDMZ) sits between the OT network (Levels 0-3) and the IT network (Levels 4-5). This is not part of the original Purdue Model but has become essential in modern architectures. The IDMZ contains systems that need to communicate with both IT and OT networks, such as <strong>jump servers</strong>, <strong>patch management servers</strong>, <strong>replica historians</strong>, and <strong>security monitoring tools</strong>.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🛡️ IDMZ Golden Rule</p>
+    <p>No direct communication should ever flow between Level 4 (Enterprise) and Level 3 (Site Operations). All traffic must pass through the IDMZ, where it can be inspected, logged, and controlled. Think of the IDMZ as a security checkpoint—nothing crosses without being validated.</p>
+  </div>
+
+  <h4>Level 4 – Enterprise Business Systems</h4>
+  <p>Level 4 hosts traditional IT systems like <strong>ERP (Enterprise Resource Planning)</strong>, <strong>email servers</strong>, <strong>business intelligence systems</strong>, and <strong>corporate databases</strong>. These systems need operational data from Level 3 for business decisions but should never directly access control systems.</p>
+
+  <h4>Level 5 – Enterprise Network/Internet</h4>
+  <p>Level 5 represents the <strong>corporate network perimeter</strong> and connections to the <strong>Internet</strong>, <strong>cloud services</strong>, <strong>third-party vendors</strong>, and <strong>remote sites</strong>. This is the most exposed level and requires the strongest perimeter defenses.</p>
+
+  <h3>🧱 Network Segmentation Strategies</h3>
+  
+  <p>Network segmentation divides a large network into smaller, isolated segments to contain breaches and limit lateral movement. In ICS environments, segmentation is implemented using multiple technologies working together.</p>
+
+  <h4>VLANs (Virtual Local Area Networks)</h4>
+  <p><strong>VLANs</strong> provide Layer 2 segmentation by creating separate broadcast domains on the same physical switch infrastructure. In ICS environments, VLANs are commonly used to separate different control system vendors, process areas, or criticality levels.</p>
+  
+  <p>However, VLANs alone are insufficient for ICS security. VLAN-hopping attacks and misconfigured trunk ports can allow attackers to bypass VLAN isolation. VLANs should always be combined with Layer 3 segmentation using firewalls or routers with access control lists (ACLs).</p>
+
+  <h4>Firewalls in OT Environments</h4>
+  <p>Industrial firewalls differ from traditional IT firewalls in several ways. They must understand and inspect <strong>industrial protocols</strong> like Modbus, DNP3, and OPC. They must operate reliably in harsh environments with extended temperature ranges. And they must never fail in a way that disrupts critical processes—<strong>fail-open</strong> vs. <strong>fail-closed</strong> configurations require careful consideration.</p>
+  
+  <p>Key firewall placement points include: between each Purdue level, between the OT network and IDMZ, between different vendor systems, and between safety and control networks.</p>
+
+  <h4>Data Diodes (Unidirectional Security Gateways)</h4>
+  <p><strong>Data diodes</strong> are hardware-enforced one-way communication devices that physically prevent data from flowing in the reverse direction. Unlike firewalls, which can be misconfigured or compromised, data diodes provide an air gap that cannot be bridged by software attacks.</p>
+  
+  <p>Common data diode use cases include: sending historian data from OT to IT networks, transmitting security logs to a corporate SIEM, replicating process data to a business intelligence system, and sending sensor data to cloud analytics platforms.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🔒 Data Diode Limitation</p>
+    <p>Data diodes prevent bidirectional communication, which means protocols requiring acknowledgments (like TCP) need special handling. Most data diode solutions include protocol-break technology that terminates connections on each side and reconstructs data on the receiving end.</p>
+  </div>
+
+  <h3>🏰 Defense-in-Depth for ICS</h3>
+  
+  <p><strong>Defense-in-depth</strong> is a security strategy that deploys multiple layers of defensive mechanisms so that if one layer fails, others continue to protect the system. In ICS environments, defense-in-depth spans physical, network, host, application, and data layers.</p>
+
+  <h4>Physical Layer</h4>
+  <p>Physical security includes fences, locks, cameras, guards, and access control systems. In ICS environments, physical access often grants direct access to control systems—an attacker who can physically touch a PLC can often reprogram it, regardless of network security.</p>
+
+  <h4>Network Layer</h4>
+  <p>Network defenses include firewalls, intrusion detection systems (IDS), network segmentation, and encrypted communications. ICS-specific network security tools can perform <strong>deep packet inspection</strong> of industrial protocols to detect anomalous commands.</p>
+
+  <h4>Host Layer</h4>
+  <p>Host-based security includes application whitelisting, endpoint detection and response (EDR), host-based firewalls, and secure configurations. In OT environments, application whitelisting is often preferred over traditional antivirus because it has lower performance impact and doesn't require signature updates.</p>
+
+  <h4>Application Layer</h4>
+  <p>Application security includes secure coding practices, input validation, authentication, and authorization controls. Many legacy ICS applications lack basic security features like authentication, making network segmentation even more critical.</p>
+
+  <h4>Data Layer</h4>
+  <p>Data security includes encryption, integrity monitoring, backup and recovery, and data loss prevention. In ICS environments, protecting configuration data and logic programs is essential—if an attacker can modify PLC logic, they control the physical process.</p>
+
+  <h3>📐 IEC 62443: Zones and Conduits</h3>
+  
+  <p><strong>IEC 62443</strong> (formerly ISA/IEC 62443) is the international standard for industrial automation and control systems security. It introduces the concepts of <strong>zones</strong> and <strong>conduits</strong> as a systematic approach to ICS network architecture.</p>
+
+  <h4>Security Zones</h4>
+  <p>A <strong>zone</strong> is a logical or physical grouping of assets that share common security requirements. Zones are defined based on criticality, function, connectivity requirements, and risk tolerance. Each zone is assigned a <strong>Security Level Target (SL-T)</strong> from SL 1 (basic protection) to SL 4 (protection against nation-state actors).</p>
+
+  <h4>Conduits</h4>
+  <p>A <strong>conduit</strong> is the communication path between zones. Conduits must provide security controls appropriate to the security levels of the connected zones. If a high-security zone connects to a low-security zone, the conduit must protect the high-security zone from threats originating in the low-security zone.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">📋 Zone Assessment Questions</p>
+    <p>When defining zones, consider: What assets are in this zone? What is the consequence of compromise? What connectivity does this zone require? Who needs access? What threats are most relevant? What security controls already exist?</p>
+  </div>
+
+  <h3>🔥 Real-World Incident: Ukraine Power Grid Attack (2015)</h3>
+  
+  <p>On December 23, 2015, attackers compromised three Ukrainian power distribution companies, causing power outages affecting approximately 225,000 customers. This attack demonstrated the consequences of inadequate network segmentation and defense-in-depth.</p>
+
+  <h4>Attack Path Analysis</h4>
+  <p>The attackers used spear-phishing emails with malicious Microsoft Word documents to compromise IT workstations. From there, they moved laterally through the corporate network, eventually finding VPN connections to the OT network. Once in the OT environment, they used legitimate HMI software to open breakers at substations, causing the blackouts.</p>
+
+  <h4>Architecture Failures</h4>
+  <p>Several architectural weaknesses enabled this attack: direct VPN access from IT to OT networks (no IDMZ), shared credentials between IT and OT systems, lack of multi-factor authentication on remote access, insufficient monitoring of OT network traffic, and no application whitelisting on HMI workstations.</p>
+
+  <h4>Lessons Learned</h4>
+  <p>Proper network architecture could have prevented or limited this attack. An IDMZ with jump servers would have provided a chokepoint for monitoring and access control. Network segmentation between substations would have limited the attack scope. Application whitelisting would have prevented the attackers' custom malware from executing.</p>
+
+  <h3>🛠️ Practical Implementation Guidelines</h3>
+
+  <h4>Starting from Scratch</h4>
+  <p>When designing a new ICS network: start with the Purdue Model as your framework, identify all assets and their communication requirements, group assets into zones based on criticality and function, define conduits between zones and specify allowed protocols, implement firewalls at zone boundaries, consider data diodes for critical one-way flows, deploy intrusion detection at key network segments, and document everything in network diagrams and data flow diagrams.</p>
+
+  <h4>Securing Legacy Networks</h4>
+  <p>Many ICS environments evolved organically without security considerations. When securing legacy networks: conduct a thorough asset inventory, map all network connections and data flows, identify "quick wins" like unnecessary Internet connections, prioritize segmentation of the most critical assets, implement monitoring before making changes, test changes in maintenance windows, and document the current state and target state.</p>
+
+  <h4>Remote Access Architecture</h4>
+  <p>Remote access is often necessary for vendor support and remote operations but introduces significant risk. Secure remote access architecture includes: VPN termination in the IDMZ (never directly into OT), multi-factor authentication for all remote users, jump servers that log all sessions, time-limited access with automatic expiration, network access control that limits access to specific systems, and session recording for forensic purposes.</p>
+
+  <div class="info-box">
+    <p class="info-box-title">🎮 Module Complete!</p>
+    <p>Excellent work, Cyber Defender! You now understand the architectural foundations that protect industrial control systems. In Module 3, you'll dive deep into ICS protocols—learning how Modbus, DNP3, and other protocols work, and more importantly, how attackers exploit their weaknesses. Head to the Protocols Gym when you're ready!</p>
+  </div>
+</div>
