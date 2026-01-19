@@ -78,6 +78,8 @@ class BattleEngine {
       this.playerTeam.reduce((sum, mon) => sum + mon.level, 0) / this.playerTeam.length
     );
 
+    console.log(`[BattleEngine] Player team avg level: ${avgPlayerLevel}`);
+
     // Create enemy team from gym leader, scaled to player level
     if (this.options.gymLeader) {
       this.enemyTeam = this.options.gymLeader.team.map((entry, index) => {
@@ -89,6 +91,7 @@ class BattleEngine {
         // Scale enemy level: match player level, with slight increase for later enemies
         // First enemy = player level, subsequent enemies +1 each
         const scaledLevel = avgPlayerLevel + index;
+        console.log(`[BattleEngine] Creating enemy ${def.name} at level ${scaledLevel} (original: ${entry.level})`);
         return this.createEnemyInstance(def, scaledLevel);
       }).filter(Boolean);
     }
