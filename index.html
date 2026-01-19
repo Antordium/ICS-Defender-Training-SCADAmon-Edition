@@ -1021,14 +1021,39 @@
 
       // New Game button
       newGameBtn.onclick = async () => {
-        // Reset game state
+        // Check if there's an existing game
+        if (stateManager.hasStarted()) {
+          // Show confirmation dialog
+          const confirmed = await showConfirmDialog(
+            'Start New Game?',
+            'This will erase your current progress, including your team, badges, and all course completion. This cannot be undone.',
+            'Start New Game',
+            'Cancel'
+          );
+          if (!confirmed) return;
+        }
+
+        // Reset game state completely
         await stateManager.resetGame();
 
         // Hide lobby and show intro
         lobbyScreen.classList.add('hidden');
+
+        // Reset UI elements
+        document.getElementById('team-display').style.display = 'none';
+        document.getElementById('badge-display').style.display = 'none';
+
+        // Reset badge slots
+        document.querySelectorAll('.badge-slot').forEach(slot => {
+          slot.classList.remove('earned');
+          slot.textContent = '';
+        });
+
+        // Navigate to intro
         navigateToSection(0, false);
 
-        // Reload starter options
+        // Restore starter section HTML and reload options
+        restoreStarterSection();
         loadStarterOptions();
       };
 
@@ -1640,6 +1665,93 @@
         toast.style.animation = 'fadeIn 0.3s ease-out reverse';
         setTimeout(() => toast.remove(), 300);
       }, 2000);
+    }
+
+    // Show confirmation dialog
+    function showConfirmDialog(title, message, confirmText, cancelText) {
+      return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 3000;
+        `;
+
+        overlay.innerHTML = `
+          <div style="
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 3px solid #FF1C1C;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(255, 28, 28, 0.3);
+          ">
+            <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+            <h2 style="color: #FFDE00; margin-bottom: 16px; font-family: 'Press Start 2P', cursive; font-size: 1rem;">${title}</h2>
+            <p style="color: #ccc; margin-bottom: 24px; line-height: 1.6;">${message}</p>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+              <button id="confirm-dialog-cancel" style="
+                font-family: 'Press Start 2P', cursive;
+                font-size: 0.7rem;
+                padding: 12px 24px;
+                background: #333;
+                color: #fff;
+                border: 2px solid #555;
+                border-radius: 8px;
+                cursor: pointer;
+              ">${cancelText}</button>
+              <button id="confirm-dialog-confirm" style="
+                font-family: 'Press Start 2P', cursive;
+                font-size: 0.7rem;
+                padding: 12px 24px;
+                background: linear-gradient(135deg, #FF1C1C 0%, #CC0000 100%);
+                color: #fff;
+                border: 2px solid #fff;
+                border-radius: 8px;
+                cursor: pointer;
+              ">${confirmText}</button>
+            </div>
+          </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        overlay.querySelector('#confirm-dialog-cancel').onclick = () => {
+          overlay.remove();
+          resolve(false);
+        };
+
+        overlay.querySelector('#confirm-dialog-confirm').onclick = () => {
+          overlay.remove();
+          resolve(true);
+        };
+      });
+    }
+
+    // Restore starter section HTML for new game
+    function restoreStarterSection() {
+      const starterSection = document.getElementById('starter-section');
+      if (starterSection) {
+        starterSection.innerHTML = `
+          <h2><span class="section-icon">🎮</span> Choose Your Starter SCADAmon</h2>
+          <p>Professor OAKLEY has three SCADAmon ready for you. Choose wisely!</p>
+
+          <div class="starter-grid" id="starter-grid">
+            <!-- Starters will be loaded by JS -->
+          </div>
+
+          <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary" id="confirm-starter-btn" disabled>
+              Choose This SCADAmon
+            </button>
+          </div>
+        `;
+      }
     }
 
     // ========================================
