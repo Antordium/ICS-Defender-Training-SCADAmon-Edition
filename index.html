@@ -189,6 +189,11 @@
     .team-member {
       font-size: 24px;
       transition: transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
     }
 
     .team-member:hover {
@@ -198,6 +203,16 @@
     .team-member.fainted {
       opacity: 0.3;
       filter: grayscale(100%);
+    }
+
+    .team-member-sprite {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .team-member-emoji {
+      font-size: 24px;
     }
 
     .team-display:hover {
@@ -284,9 +299,25 @@
       border-color: #FF1C1C;
     }
 
+    .team-panel-sprite {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 64px;
+      margin-bottom: 8px;
+    }
+
+    .team-panel-sprite-img {
+      max-width: 64px;
+      max-height: 64px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    }
+
     .team-panel-emoji {
       font-size: 48px;
-      margin-bottom: 8px;
     }
 
     .team-panel-name {
@@ -1427,7 +1458,13 @@
 
       grid.innerHTML = STARTERS.map(starter => `
         <div class="starter-card" data-starter="${starter.name}">
-          <div class="starter-emoji">${starter.emoji}</div>
+          <div class="starter-sprite">
+            ${starter.sprite
+              ? `<img src="${starter.sprite}" alt="${starter.name}" class="starter-sprite-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                 <div class="starter-emoji" style="display:none;">${starter.emoji}</div>`
+              : `<div class="starter-emoji">${starter.emoji}</div>`
+            }
+          </div>
           <div class="starter-name">${starter.name}</div>
           <div class="starter-types">
             ${starter.types.map(t => `<span class="type-badge" style="background: ${TYPE_COLORS[t]}">${t}</span>`).join('')}
@@ -1538,7 +1575,11 @@
       display.style.display = 'flex';
       container.innerHTML = team.map(mon => `
         <span class="team-member ${mon.currentHp <= 0 ? 'fainted' : ''}" title="${mon.name} Lv.${mon.level}">
-          ${mon.emoji}
+          ${mon.sprite
+            ? `<img src="${mon.sprite}" alt="${mon.name}" class="team-member-sprite" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
+               <span class="team-member-emoji" style="display:none;">${mon.emoji}</span>`
+            : `<span class="team-member-emoji">${mon.emoji}</span>`
+          }
         </span>
       `).join('');
     }
@@ -1559,7 +1600,13 @@
 
         return `
           <div class="team-panel-member ${mon.currentHp <= 0 ? 'fainted' : ''}">
-            <div class="team-panel-emoji">${mon.emoji}</div>
+            <div class="team-panel-sprite">
+              ${mon.sprite
+                ? `<img src="${mon.sprite}" alt="${mon.name}" class="team-panel-sprite-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                   <div class="team-panel-emoji" style="display:none;">${mon.emoji}</div>`
+                : `<div class="team-panel-emoji">${mon.emoji}</div>`
+              }
+            </div>
             <div class="team-panel-name">${mon.name}</div>
             <div class="team-panel-level">Lv. ${mon.level}</div>
             <div class="team-panel-types">
@@ -1893,7 +1940,13 @@
         ${toShow.map(scadamon => `
           <div class="catch-card" data-scadamon="${scadamon.name}">
             <div class="catch-rarity-badge ${scadamon.rarity}">${scadamon.rarity.toUpperCase()}</div>
-            <div class="catch-emoji">${scadamon.emoji}</div>
+            <div class="catch-sprite">
+              ${scadamon.sprite
+                ? `<img src="${scadamon.sprite}" alt="${scadamon.name}" class="catch-sprite-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                   <div class="catch-emoji" style="display:none;">${scadamon.emoji}</div>`
+                : `<div class="catch-emoji">${scadamon.emoji}</div>`
+              }
+            </div>
             <div class="catch-name">${scadamon.name}</div>
             <div class="catch-types">
               ${scadamon.types.map(t => `<span class="type-badge" style="background: ${TYPE_COLORS[t]}">${t}</span>`).join('')}

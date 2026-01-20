@@ -334,6 +334,7 @@ export const STARTERS = [
     description: 'A tiny spark that inhabits power distribution systems. It feeds on stable current and becomes agitated during power fluctuations.',
     lore: 'GRIDLINGs were first discovered in early SCADA systems during the 1980s. They\'re naturally drawn to well-maintained infrastructure.',
     emoji: '⚡',
+    sprite: 'assets/images/SCADAmon/grideon.png',
     evolutionLevel: 16,
     evolvesTo: 'GRIDEON',
     moves: {
@@ -351,6 +352,7 @@ export const STARTERS = [
     description: 'A small water pump spirit. It happily monitors flow rates and becomes distressed when pressure drops unexpectedly.',
     lore: 'PUMPLETs are common in water treatment facilities. Operators say they chirp contentedly when turbidity levels are optimal.',
     emoji: '💧',
+    sprite: 'assets/images/SCADAmon/pumplet_battle.png',
     evolutionLevel: 16,
     evolvesTo: 'PUMPLUX',
     moves: {
@@ -368,6 +370,7 @@ export const STARTERS = [
     description: 'A tiny flame from refinery flare stacks. It dances when processes run smoothly and flickers when something\'s wrong.',
     lore: 'SPARKLETs are temperamental but loyal. They form strong bonds with operators who understand process safety.',
     emoji: '🔥',
+    sprite: 'assets/images/SCADAmon/sparklet.png',
     evolutionLevel: 16,
     evolvesTo: 'REFINAX',
     moves: {
@@ -388,6 +391,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 35, atk: 40, def: 30, spd: 55, int: 60, res: 45 },
     description: 'A floating sensor orb that monitors everything around it.',
     emoji: '🔮',
+    sprite: 'assets/images/SCADAmon/sensorb.png',
     rarity: 'common',
     availableAfterGym: 1,
     moves: {
@@ -403,6 +407,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 50, atk: 55, def: 60, spd: 30, int: 40, res: 55 },
     description: 'A sturdy actuator creature. It faithfully executes commands.',
     emoji: '🤖',
+    sprite: 'assets/images/SCADAmon/actumon.png',
     rarity: 'common',
     availableAfterGym: 1,
     moves: {
@@ -418,6 +423,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 60, atk: 45, def: 50, spd: 55, int: 65, res: 55 },
     description: 'A Human-Machine Interface spirit. It displays process data.',
     emoji: '🖥️',
+    sprite: 'assets/images/SCADAmon/hminder.png',
     rarity: 'common',
     availableAfterGym: 1,
     moves: {
@@ -433,6 +439,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 55, atk: 50, def: 65, spd: 35, int: 70, res: 60 },
     description: 'The embodiment of a Programmable Logic Controller.',
     emoji: '🎛️',
+    sprite: 'assets/images/SCADAmon/plcee.png',
     rarity: 'uncommon',
     availableAfterGym: 2,
     moves: {
@@ -448,6 +455,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 65, atk: 70, def: 80, spd: 45, int: 60, res: 70 },
     description: 'A fierce network firewall creature. Guards boundaries.',
     emoji: '🐺',
+    sprite: 'assets/images/SCADAmon/firewolf.png',
     rarity: 'uncommon',
     availableAfterGym: 2,
     moves: {
@@ -463,6 +471,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 45, atk: 50, def: 40, spd: 65, int: 75, res: 50 },
     description: 'A spectral Modbus protocol spirit. Passes through networks freely.',
     emoji: '👻',
+    sprite: 'assets/images/SCADAmon/modbuzz.png',
     rarity: 'common',
     availableAfterGym: 3,
     moves: {
@@ -478,6 +487,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 55, atk: 55, def: 55, spd: 55, int: 70, res: 60 },
     description: 'A DNP3 protocol creature. More sophisticated than MODBUZZ.',
     emoji: '🌊',
+    sprite: 'assets/images/SCADAmon/dnpeep.png',
     rarity: 'uncommon',
     availableAfterGym: 3,
     moves: {
@@ -493,6 +503,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 70, atk: 60, def: 75, spd: 50, int: 85, res: 80 },
     description: 'An OPC UA protocol guardian. Born secure.',
     emoji: '🛡️',
+    sprite: 'assets/images/SCADAmon/opcuron.png',
     rarity: 'rare',
     availableAfterGym: 3,
     moves: {
@@ -510,6 +521,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 55, atk: 45, def: 65, spd: 40, int: 55, res: 60 },
     description: 'A diligent patch management creature. It constantly updates and fixes vulnerabilities.',
     emoji: '🩹',
+    sprite: 'assets/images/SCADAmon/patchmon.png',
     rarity: 'uncommon',
     availableAfterGym: 2,
     moves: {
@@ -525,6 +537,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 50, atk: 50, def: 60, spd: 55, int: 65, res: 55 },
     description: 'A VLAN boundary guardian. It segments networks with precision.',
     emoji: '🔀',
+    sprite: 'assets/images/SCADAmon/segmentron.png',
     rarity: 'uncommon',
     availableAfterGym: 2,
     moves: {
@@ -540,6 +553,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 60, atk: 55, def: 70, spd: 35, int: 70, res: 65 },
     description: 'A Siemens-style industrial controller guardian. Robust and reliable.',
     emoji: '🏭',
+    sprite: 'assets/images/SCADAmon/plcmaster.png',
     rarity: 'uncommon',
     availableAfterGym: 3,
     moves: {
@@ -555,6 +569,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 65, atk: 40, def: 55, spd: 45, int: 75, res: 60 },
     description: 'A log aggregation spirit. It remembers everything that happens.',
     emoji: '📜',
+    sprite: 'assets/images/SCADAmon/logmon.png',
     rarity: 'uncommon',
     availableAfterGym: 4,
     moves: {
@@ -570,6 +585,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 50, atk: 55, def: 65, spd: 50, int: 70, res: 65 },
     description: 'A cryptographic hash guardian. It ensures data integrity through checksums.',
     emoji: '🔗',
+    sprite: 'assets/images/SCADAmon/cryptlock.png',
     rarity: 'uncommon',
     availableAfterGym: 4,
     moves: {
@@ -585,6 +601,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 55, atk: 50, def: 50, spd: 60, int: 65, res: 55 },
     description: 'A scheduled task spirit. It executes jobs at precise times, watching for anomalies.',
     emoji: '⏰',
+    sprite: 'assets/images/SCADAmon/cronmon.png',
     rarity: 'uncommon',
     availableAfterGym: 5,
     moves: {
@@ -602,6 +619,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 65, atk: 60, def: 75, spd: 55, int: 80, res: 75 },
     description: 'Never trust, always verify. This creature questions everything.',
     emoji: '🚫',
+    sprite: 'assets/images/SCADAmon/dmzeon.png',
     rarity: 'rare',
     availableAfterGym: 5,
     moves: {
@@ -617,6 +635,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 80, atk: 55, def: 90, spd: 25, int: 60, res: 85 },
     description: 'The ultimate isolationist. Completely disconnects systems from networks.',
     emoji: '🏝️',
+    sprite: 'assets/images/SCADAmon/segmentron.png',
     rarity: 'rare',
     availableAfterGym: 5,
     moves: {
@@ -632,6 +651,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 55, atk: 65, def: 50, spd: 70, int: 90, res: 60 },
     description: 'A digital forensics master. It uncovers hidden evidence and traces attacks.',
     emoji: '🔬',
+    sprite: 'assets/images/SCADAmon/forensix.png',
     rarity: 'rare',
     availableAfterGym: 6,
     moves: {
@@ -647,6 +667,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 70, atk: 45, def: 55, spd: 50, int: 85, res: 70 },
     description: 'A deception specialist. It lures attackers into revealing themselves.',
     emoji: '🍯',
+    sprite: 'assets/images/SCADAmon/detectron.png',
     rarity: 'rare',
     availableAfterGym: 6,
     moves: {
@@ -662,6 +683,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 65, atk: 70, def: 60, spd: 65, int: 85, res: 65 },
     description: 'Security Operations Center guardian. 24/7 vigilance personified.',
     emoji: '👁️‍🗨️',
+    sprite: 'assets/images/SCADAmon/detectmaster.png',
     rarity: 'rare',
     availableAfterGym: 7,
     moves: {
@@ -679,6 +701,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 80, atk: 90, def: 80, spd: 75, int: 95, res: 80 },
     description: 'Born from lessons of Stuxnet. The ultimate ICS defender against targeted attacks.',
     emoji: '⚔️',
+    sprite: 'assets/images/SCADAmon/grideon.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -694,6 +717,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 85, atk: 85, def: 75, spd: 80, int: 90, res: 85 },
     description: 'Forged from the TRITON/TRISIS attack lessons. Protects safety systems.',
     emoji: '☢️',
+    sprite: 'assets/images/SCADAmon/refinax.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -709,6 +733,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 90, atk: 80, def: 85, spd: 70, int: 100, res: 90 },
     description: 'Master of the power grid. Learned from Ukraine blackout attacks.',
     emoji: '👑',
+    sprite: 'assets/images/SCADAmon/sudoking.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -724,6 +749,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 95, atk: 85, def: 90, spd: 65, int: 95, res: 95 },
     description: 'The ultimate ICS defender. Embodies all principles of SCADA security.',
     emoji: '🦁',
+    sprite: 'assets/images/SCADAmon/sudoking.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -742,6 +768,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 65, atk: 45, def: 75, spd: 35, int: 60, res: 70 },
     description: 'A towering guardian formed of crystallized network segments, each layer glowing with different intensity. Embodies the Purdue Model.',
     emoji: '🏛️',
+    sprite: 'assets/images/SCADAmon/segmentron.png',
     rarity: 'uncommon',
     availableAfterGym: 2,
     evolutionLevel: 20,
@@ -759,6 +786,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 80, atk: 65, def: 90, spd: 40, int: 70, res: 85 },
     description: 'A mantis-like creature with crystalline exoskeleton divided into perfectly isolated segments. Damage to one segment never affects another.',
     emoji: '🦗',
+    sprite: 'assets/images/SCADAmon/firewolf.png',
     rarity: 'rare',
     availableAfterGym: 4,
     moves: {
@@ -776,6 +804,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 50, atk: 55, def: 30, spd: 70, int: 65, res: 45 },
     description: 'A small, simple creature that communicates in pure binary. Direct and unsophisticated—what you see is what you get.',
     emoji: '📡',
+    sprite: 'assets/images/SCADAmon/modbuzz.png',
     rarity: 'uncommon',
     availableAfterGym: 3,
     evolutionLevel: 25,
@@ -793,6 +822,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 70, atk: 75, def: 55, spd: 80, int: 85, res: 65 },
     description: 'A serpentine creature that has evolved to understand multiple industrial languages. Can translate between protocol dialects.',
     emoji: '🐍',
+    sprite: 'assets/images/SCADAmon/dnpshield.png',
     rarity: 'rare',
     availableAfterGym: 5,
     moves: {
@@ -810,6 +840,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 45, atk: 40, def: 60, spd: 55, int: 70, res: 60 },
     description: 'A small spherical creature that constantly verifies its own existence. Can instantly detect when anything has been modified.',
     emoji: '🔐',
+    sprite: 'assets/images/SCADAmon/cryptlock.png',
     rarity: 'uncommon',
     availableAfterGym: 4,
     evolutionLevel: 25,
@@ -827,6 +858,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 75, atk: 55, def: 85, spd: 45, int: 80, res: 80 },
     description: 'An armored warrior whose shield constantly displays rotating cryptographic keys. Protects authenticity and integrity.',
     emoji: '🛡️',
+    sprite: 'assets/images/SCADAmon/dmzeon.png',
     rarity: 'rare',
     availableAfterGym: 6,
     moves: {
@@ -844,6 +876,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 55, atk: 35, def: 50, spd: 60, int: 75, res: 55 },
     description: 'A creature with countless eyes arranged in concentric rings, each recording everything. Never forgets and can replay any event.',
     emoji: '👁️',
+    sprite: 'assets/images/SCADAmon/detectron.png',
     rarity: 'uncommon',
     availableAfterGym: 5,
     evolutionLevel: 30,
@@ -861,6 +894,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 80, atk: 60, def: 70, spd: 50, int: 90, res: 70 },
     description: 'A towering sentinel whose body is composed of flowing log streams and alert patterns. Doesn\'t just observe—correlates, analyzes, and acts.',
     emoji: '🗼',
+    sprite: 'assets/images/SCADAmon/detectmaster.png',
     rarity: 'rare',
     availableAfterGym: 7,
     moves: {
@@ -878,6 +912,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 60, atk: 40, def: 65, spd: 40, int: 70, res: 65 },
     description: 'A creature made of scrolls, policy documents, and regulatory frameworks. Ensures all actions follow proper procedure.',
     emoji: '📜',
+    sprite: 'assets/images/SCADAmon/nistling.png',
     rarity: 'uncommon',
     availableAfterGym: 6,
     evolutionLevel: 30,
@@ -895,6 +930,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 85, atk: 50, def: 80, spd: 55, int: 90, res: 80 },
     description: 'Has transcended mere compliance to truly understand risk. Can assess any threat\'s likelihood and impact.',
     emoji: '⚖️',
+    sprite: 'assets/images/SCADAmon/frameworker.png',
     rarity: 'rare',
     availableAfterGym: 7,
     moves: {
@@ -912,6 +948,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 100, atk: 95, def: 70, spd: 75, int: 95, res: 75 },
     description: 'A terrifying digital entity that speaks the language of industrial protocols—all of them. First witnessed during Ukraine power grid attacks.',
     emoji: '⚡',
+    sprite: 'assets/images/SCADAmon/iecmon.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -927,6 +964,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 90, atk: 100, def: 65, spd: 85, int: 95, res: 70 },
     description: 'Born from the TRITON/TRISIS malware that targeted safety systems. Represents attacks designed to disable safety protections.',
     emoji: '☣️',
+    sprite: 'assets/images/SCADAmon/refinemaster.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -942,6 +980,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 110, atk: 60, def: 100, spd: 45, int: 80, res: 95 },
     description: 'The embodiment of defense-in-depth. Exists simultaneously across multiple security layers—physical, network, host, application, data, and procedural.',
     emoji: '🏰',
+    sprite: 'assets/images/SCADAmon/nerccip.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -957,6 +996,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 95, atk: 90, def: 75, spd: 90, int: 100, res: 80 },
     description: 'The manifestation of the unknown unknown—the zero-day vulnerability no one has discovered yet. Form constantly shifting.',
     emoji: '🌑',
+    sprite: 'assets/images/SCADAmon/nullvoid.png',
     rarity: 'legendary',
     availableAfterGym: 8,
     moves: {
@@ -974,6 +1014,7 @@ export const WILD_SCADAMON = [
     baseStats: { hp: 70, atk: 45, def: 55, spd: 50, int: 65, res: 70 },
     description: 'A phoenix-like creature composed of backup data, redundant systems, and recovery procedures. When knocked down, rises from verified backups.',
     emoji: '🔄',
+    sprite: 'assets/images/SCADAmon/recoverex.png',
     rarity: 'uncommon',
     availableAfterGym: 7,
     moves: {
@@ -993,6 +1034,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 50, atk: 65, def: 40, spd: 70, int: 75, res: 45 },
     description: 'A malicious code creature used by Team Hack-It.',
     emoji: '🦠',
+    sprite: 'assets/images/SCADAmon/malwaremon.png',
     moves: ['MALWARE_INJECT', 'LATERAL_MOVE', 'PHISHING_LURE']
   },
   {
@@ -1002,6 +1044,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 40, atk: 55, def: 35, spd: 80, int: 50, res: 40 },
     description: 'Uses pre-written exploit scripts without understanding them.',
     emoji: '👶',
+    sprite: 'assets/images/SCADAmon/scriptkid.png',
     moves: ['PHISHING_LURE', 'LATERAL_MOVE']
   },
   {
@@ -1011,6 +1054,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 35, atk: 45, def: 35, spd: 60, int: 40, res: 35 },
     description: 'A tiny bot creature. Weak alone, dangerous in swarms.',
     emoji: '🤖',
+    sprite: 'assets/images/SCADAmon/botling.png',
     moves: ['PHISHING_LURE', 'DATA_EXFIL']
   },
   {
@@ -1020,6 +1064,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 55, atk: 70, def: 55, spd: 75, int: 80, res: 55 },
     description: 'A lateral movement specialist. Finds paths between segments.',
     emoji: '🕸️',
+    sprite: 'assets/images/SCADAmon/latermon.png',
     moves: ['LATERAL_MOVE', 'MALWARE_INJECT', 'DATA_EXFIL']
   },
   {
@@ -1029,6 +1074,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 50, atk: 65, def: 50, spd: 85, int: 75, res: 50 },
     description: 'Establishes footholds in networks for other attackers.',
     emoji: '🎯',
+    sprite: 'assets/images/SCADAmon/pivoteer.png',
     moves: ['LATERAL_MOVE', 'PHISHING_LURE', 'MALWARE_INJECT']
   },
   {
@@ -1038,6 +1084,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 45, atk: 55, def: 45, spd: 70, int: 90, res: 50 },
     description: 'A packet sniffer creature. Observes all network traffic.',
     emoji: '👁️',
+    sprite: 'assets/images/SCADAmon/sniffermon.png',
     moves: ['DATA_EXFIL', 'PHISHING_LURE', 'LATERAL_MOVE']
   },
   {
@@ -1047,6 +1094,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 50, atk: 75, def: 50, spd: 75, int: 80, res: 55 },
     description: 'Forges messages, pretending to be legitimate devices.',
     emoji: '🎭',
+    sprite: 'assets/images/SCADAmon/spoofeon.png',
     moves: ['PHISHING_LURE', 'MALWARE_INJECT', 'DATA_EXFIL']
   },
   {
@@ -1056,6 +1104,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 65, atk: 80, def: 70, spd: 60, int: 85, res: 65 },
     description: 'A ransomware creature. Encrypts data and demands payment.',
     emoji: '🔐',
+    sprite: 'assets/images/SCADAmon/cryptlock.png',
     moves: ['RANSOMWARE_LOCK', 'MALWARE_INJECT', 'DATA_EXFIL']
   },
   {
@@ -1065,6 +1114,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 50, atk: 60, def: 45, spd: 90, int: 80, res: 55 },
     description: 'Steals sensitive information and smuggles it out.',
     emoji: '📤',
+    sprite: 'assets/images/SCADAmon/exfilmon.png',
     moves: ['DATA_EXFIL', 'LATERAL_MOVE', 'PHISHING_LURE']
   },
   {
@@ -1074,6 +1124,7 @@ export const ENEMY_SCADAMON = [
     baseStats: { hp: 90, atk: 95, def: 85, spd: 80, int: 100, res: 90 },
     description: 'NULL PRIME\'s ultimate SCADAmon. Embodies every attack technique.',
     emoji: '🌑',
+    sprite: 'assets/images/SCADAmon/nullvoid.png',
     moves: ['RANSOMWARE_LOCK', 'MALWARE_INJECT', 'LATERAL_MOVE', 'DATA_EXFIL']
   }
 ];

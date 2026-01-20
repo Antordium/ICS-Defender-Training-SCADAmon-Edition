@@ -144,8 +144,20 @@ class BattleEngine {
       maxHp: stats.hp,
       stats: stats,
       moves: moves,
-      emoji: definition.emoji
+      emoji: definition.emoji,
+      sprite: definition.sprite
     };
+  }
+
+  /**
+   * Render sprite HTML - uses image if available, falls back to emoji
+   */
+  renderSprite(scadamon, className = '') {
+    if (scadamon?.sprite) {
+      return `<img src="${scadamon.sprite}" alt="${scadamon.name}" class="sprite-image ${className}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="sprite-placeholder sprite-fallback" style="display:none;">${scadamon?.emoji || '❓'}</div>`;
+    }
+    return `<div class="sprite-placeholder">${scadamon?.emoji || '❓'}</div>`;
   }
 
   /**
@@ -200,7 +212,7 @@ class BattleEngine {
 
           <div class="battle-sprite-container enemy-sprite-container">
             <div class="battle-sprite enemy-sprite" id="enemy-sprite">
-              <div class="sprite-placeholder">${enemy?.emoji || '?'}</div>
+              ${this.renderSprite(enemy)}
             </div>
             <div class="trainer-sprite gym-leader-sprite" id="gym-leader-sprite">
               <div class="sprite-placeholder">${this.options.gymLeader?.emoji || '🏛️'}</div>
@@ -212,7 +224,7 @@ class BattleEngine {
         <div class="battle-player-side">
           <div class="battle-sprite-container player-sprite-container">
             <div class="battle-sprite player-sprite" id="player-sprite">
-              <div class="sprite-placeholder">${player?.emoji || '?'}</div>
+              ${this.renderSprite(player)}
             </div>
             <div class="trainer-sprite player-trainer-sprite" id="player-trainer-sprite">
               <div class="sprite-placeholder">🧑‍💻</div>
@@ -246,6 +258,14 @@ class BattleEngine {
           <div class="moves-grid" id="moves-grid">
             ${this.renderMoves(player)}
           </div>
+          <button class="switch-button" id="switch-btn">Switch SCADAmon</button>
+        </div>
+
+        <!-- Switch Panel -->
+        <div class="battle-switch-panel" id="switch-panel" style="display: none;">
+          <div class="switch-header">Choose a SCADAmon:</div>
+          <div class="switch-grid" id="switch-grid"></div>
+          <button class="switch-cancel-btn" id="switch-cancel-btn">Cancel</button>
         </div>
 
         <!-- Question Panel -->
@@ -312,6 +332,42 @@ class BattleEngine {
       });
     }
 
+    // Switch button
+    const switchBtn = this.container.querySelector('#switch-btn');
+    if (switchBtn) {
+      switchBtn.addEventListener('click', () => {
+        if (this.state === BATTLE_STATE.PLAYER_TURN) {
+          this.showSwitchPanel();
+        }
+      });
+    }
+
+    // Switch cancel button
+    const switchCancelBtn = this.container.querySelector('#switch-cancel-btn');
+    if (switchCancelBtn) {
+      switchCancelBtn.addEventListener('click', () => {
+        this.hideSwitchPanel();
+        this.startPlayerTurn();
+      });
+    }
+
+    // Switch grid
+    const switchGrid = this.container.querySelector('#switch-grid');
+    if (switchGrid) {
+      switchGrid.addEventListener('click', (e) => {
+        const button = e.target.closest('.switch-option');
+        if (button && this.state === BATTLE_STATE.SWITCHING) {
+          const index = parseInt(button.dataset.index);
+          // Check if this is a forced switch (current SCADAmon fainted)
+          if (this.playerTeam[this.playerCurrent].currentHp <= 0) {
+            this.forcedSwitchToScadamon(index);
+          } else {
+            this.switchToScadamon(index);
+          }
+        }
+      });
+    }
+
     // Answer buttons (delegated) - use container.querySelector
     const answersGrid = this.container.querySelector('#answers-grid');
     if (answersGrid) {
@@ -322,6 +378,85 @@ class BattleEngine {
         }
       });
     }
+  }
+
+  /**
+   * Show switch panel
+   */
+  showSwitchPanel() {
+    this.state = BATTLE_STATE.SWITCHING;
+    this.hidePanel('moves-panel');
+
+    const switchGrid = this.container.querySelector('#switch-grid');
+    if (switchGrid) {
+      switchGrid.innerHTML = this.playerTeam.map((mon, index) => {
+        const isCurrent = index === this.playerCurrent;
+        const isFainted = mon.currentHp <= 0;
+        const hpPercent = Math.round((mon.currentHp / mon.maxHp) * 100);
+
+        return `
+          <button class="switch-option ${isCurrent ? 'current' : ''} ${isFainted ? 'fainted' : ''}"
+                  data-index="${index}"
+                  ${isCurrent || isFainted ? 'disabled' : ''}>
+            <span class="switch-sprite">${this.renderSwitchSprite(mon)}</span>
+            <span class="switch-name">${mon.name}</span>
+            <span class="switch-level">Lv. ${mon.level}</span>
+            <span class="switch-hp">HP: ${mon.currentHp}/${mon.maxHp} (${hpPercent}%)</span>
+            ${isCurrent ? '<span class="switch-status">In Battle</span>' : ''}
+            ${isFainted ? '<span class="switch-status fainted-status">Fainted</span>' : ''}
+          </button>
+        `;
+      }).join('');
+    }
+
+    this.showPanel('switch-panel');
+    this.showMessage('Choose a SCADAmon to switch to!', 0);
+  }
+
+  /**
+   * Render small sprite for switch panel
+   */
+  renderSwitchSprite(scadamon) {
+    if (scadamon?.sprite) {
+      return `<img src="${scadamon.sprite}" alt="${scadamon.name}" class="switch-sprite-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
+              <span class="switch-emoji-fallback" style="display:none;">${scadamon?.emoji || '❓'}</span>`;
+    }
+    return `<span class="switch-emoji-fallback">${scadamon?.emoji || '❓'}</span>`;
+  }
+
+  /**
+   * Hide switch panel
+   */
+  hideSwitchPanel() {
+    this.hidePanel('switch-panel');
+  }
+
+  /**
+   * Switch to a different SCADAmon
+   */
+  async switchToScadamon(index) {
+    if (index === this.playerCurrent) return;
+    if (this.playerTeam[index].currentHp <= 0) return;
+
+    this.hideSwitchPanel();
+
+    const oldMon = this.playerTeam[this.playerCurrent];
+    const newMon = this.playerTeam[index];
+
+    // Animate out old SCADAmon
+    await this.showMessage(`Come back, ${oldMon.name}!`, 1500);
+    await this.animateFaint('player-sprite');
+
+    // Switch to new SCADAmon
+    this.playerCurrent = index;
+
+    // Animate in new SCADAmon
+    await this.showMessage(`Go! ${newMon.name}!`, 1500);
+    this.updatePlayerDisplay();
+    await this.animateAppear('player-sprite');
+
+    // Switching uses your turn - enemy attacks
+    await this.enemyTurn();
   }
 
   /**
@@ -368,6 +503,7 @@ class BattleEngine {
     // Hide panels
     this.hidePanel('moves-panel');
     this.hidePanel('question-panel');
+    this.hidePanel('switch-panel');
 
     // Show gym leader message
     if (this.options.gymLeader) {
@@ -381,15 +517,120 @@ class BattleEngine {
     // Animate enemy appearance
     await this.animateAppear('enemy-sprite');
 
-    // Send out player
-    const player = this.playerTeam[this.playerCurrent];
-    await this.showMessage(`Go! ${player.name}!`, 1500);
+    // Let player choose their starting SCADAmon
+    await this.showStarterSelection();
+  }
 
-    // Animate player appearance
+  /**
+   * Show starter SCADAmon selection at beginning of battle
+   */
+  async showStarterSelection() {
+    this.state = BATTLE_STATE.SWITCHING;
+
+    await this.showMessage('Choose your lead SCADAmon!', 0);
+
+    const switchGrid = this.container.querySelector('#switch-grid');
+    if (switchGrid) {
+      switchGrid.innerHTML = this.playerTeam.map((mon, index) => {
+        const isFainted = mon.currentHp <= 0;
+        const hpPercent = Math.round((mon.currentHp / mon.maxHp) * 100);
+
+        return `
+          <button class="switch-option starter-option ${isFainted ? 'fainted' : ''}"
+                  data-index="${index}"
+                  ${isFainted ? 'disabled' : ''}>
+            <span class="switch-sprite">${this.renderSwitchSprite(mon)}</span>
+            <span class="switch-name">${mon.name}</span>
+            <span class="switch-level">Lv. ${mon.level}</span>
+            <span class="switch-hp">HP: ${mon.currentHp}/${mon.maxHp} (${hpPercent}%)</span>
+            ${isFainted ? '<span class="switch-status fainted-status">Fainted</span>' : ''}
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Hide cancel button for starter selection
+    const cancelBtn = this.container.querySelector('#switch-cancel-btn');
+    if (cancelBtn) cancelBtn.style.display = 'none';
+
+    // Update switch grid click handler to detect starter selection
+    const existingSwitchGrid = this.container.querySelector('#switch-grid');
+    if (existingSwitchGrid) {
+      // Remove old listener and add new one that handles starter
+      const newSwitchGrid = existingSwitchGrid.cloneNode(true);
+      existingSwitchGrid.parentNode.replaceChild(newSwitchGrid, existingSwitchGrid);
+
+      newSwitchGrid.addEventListener('click', (e) => {
+        const button = e.target.closest('.switch-option');
+        if (button && this.state === BATTLE_STATE.SWITCHING) {
+          const index = parseInt(button.dataset.index);
+
+          // Check if this is starter selection (player sprite not yet shown)
+          if (button.classList.contains('starter-option')) {
+            this.selectStarterScadamon(index);
+          } else if (this.playerTeam[this.playerCurrent].currentHp <= 0) {
+            this.forcedSwitchToScadamon(index);
+          } else {
+            this.switchToScadamon(index);
+          }
+        }
+      });
+    }
+
+    this.showPanel('switch-panel');
+  }
+
+  /**
+   * Select starter SCADAmon at beginning of battle
+   */
+  async selectStarterScadamon(index) {
+    if (this.playerTeam[index].currentHp <= 0) return;
+
+    this.hideSwitchPanel();
+
+    // Show cancel button for future voluntary switches
+    const cancelBtn = this.container.querySelector('#switch-cancel-btn');
+    if (cancelBtn) cancelBtn.style.display = 'block';
+
+    // Set player's starting SCADAmon
+    this.playerCurrent = index;
+    const player = this.playerTeam[this.playerCurrent];
+
+    // Update display with selected SCADAmon
+    this.updatePlayerDisplay();
+
+    // Send out player's chosen SCADAmon
+    await this.showMessage(`Go! ${player.name}!`, 1500);
     await this.animateAppear('player-sprite');
+
+    // Re-attach the standard event listeners for the switch grid
+    this.reattachSwitchListeners();
 
     // Start player turn
     this.startPlayerTurn();
+  }
+
+  /**
+   * Re-attach switch grid listeners after starter selection
+   */
+  reattachSwitchListeners() {
+    const switchGrid = this.container.querySelector('#switch-grid');
+    if (switchGrid) {
+      const newSwitchGrid = switchGrid.cloneNode(true);
+      switchGrid.parentNode.replaceChild(newSwitchGrid, switchGrid);
+
+      newSwitchGrid.addEventListener('click', (e) => {
+        const button = e.target.closest('.switch-option');
+        if (button && this.state === BATTLE_STATE.SWITCHING) {
+          const index = parseInt(button.dataset.index);
+          if (this.playerTeam[this.playerCurrent].currentHp <= 0) {
+            this.forcedSwitchToScadamon(index);
+          } else {
+            this.switchToScadamon(index);
+          }
+        }
+      });
+    }
   }
 
   /**
@@ -730,29 +971,76 @@ class BattleEngine {
     await this.showMessage(`${player.name} fainted!`, 2000);
     await this.animateFaint('player-sprite');
 
-    // Check for more SCADAmon
-    const remaining = this.playerTeam.filter((m, i) => i > this.playerCurrent && m.currentHp > 0);
+    // Check for ANY remaining SCADAmon with HP > 0 (not just those after current index)
+    const remaining = this.playerTeam.filter(m => m.currentHp > 0);
 
     if (remaining.length > 0) {
-      // Switch to next available
-      for (let i = this.playerCurrent + 1; i < this.playerTeam.length; i++) {
-        if (this.playerTeam[i].currentHp > 0) {
-          this.playerCurrent = i;
-          break;
-        }
-      }
-
-      const nextPlayer = this.playerTeam[this.playerCurrent];
-      await this.showMessage(`Go! ${nextPlayer.name}!`, 2000);
-
-      this.updatePlayerDisplay();
-      await this.animateAppear('player-sprite');
-
-      this.startPlayerTurn();
+      // Show forced switch panel - player must choose which SCADAmon to send out
+      await this.showForcedSwitchPanel();
     } else {
-      // All fainted
+      // All fainted - defeat
       await this.handleDefeat();
     }
+  }
+
+  /**
+   * Show forced switch panel (when current SCADAmon faints)
+   */
+  async showForcedSwitchPanel() {
+    this.state = BATTLE_STATE.SWITCHING;
+
+    const switchGrid = this.container.querySelector('#switch-grid');
+    if (switchGrid) {
+      switchGrid.innerHTML = this.playerTeam.map((mon, index) => {
+        const isFainted = mon.currentHp <= 0;
+        const hpPercent = Math.round((mon.currentHp / mon.maxHp) * 100);
+
+        return `
+          <button class="switch-option ${isFainted ? 'fainted' : ''}"
+                  data-index="${index}"
+                  ${isFainted ? 'disabled' : ''}>
+            <span class="switch-sprite">${this.renderSwitchSprite(mon)}</span>
+            <span class="switch-name">${mon.name}</span>
+            <span class="switch-level">Lv. ${mon.level}</span>
+            <span class="switch-hp">HP: ${mon.currentHp}/${mon.maxHp} (${hpPercent}%)</span>
+            ${isFainted ? '<span class="switch-status fainted-status">Fainted</span>' : ''}
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Hide cancel button for forced switch
+    const cancelBtn = this.container.querySelector('#switch-cancel-btn');
+    if (cancelBtn) cancelBtn.style.display = 'none';
+
+    this.showPanel('switch-panel');
+    this.showMessage('Choose a SCADAmon to continue the battle!', 0);
+  }
+
+  /**
+   * Handle forced switch selection (after faint)
+   */
+  async forcedSwitchToScadamon(index) {
+    if (this.playerTeam[index].currentHp <= 0) return;
+
+    this.hideSwitchPanel();
+
+    // Show cancel button again for future voluntary switches
+    const cancelBtn = this.container.querySelector('#switch-cancel-btn');
+    if (cancelBtn) cancelBtn.style.display = 'block';
+
+    const newMon = this.playerTeam[index];
+
+    // Switch to new SCADAmon
+    this.playerCurrent = index;
+
+    // Animate in new SCADAmon
+    await this.showMessage(`Go! ${newMon.name}!`, 1500);
+    this.updatePlayerDisplay();
+    await this.animateAppear('player-sprite');
+
+    // After forced switch, go back to player turn (no enemy attack)
+    this.startPlayerTurn();
   }
 
   /**
@@ -841,7 +1129,7 @@ class BattleEngine {
     }
 
     if (sprite) {
-      sprite.querySelector('.sprite-placeholder').textContent = enemy.emoji;
+      sprite.innerHTML = this.renderSprite(enemy);
     }
   }
 
@@ -864,7 +1152,7 @@ class BattleEngine {
     }
 
     if (sprite) {
-      sprite.querySelector('.sprite-placeholder').textContent = player.emoji;
+      sprite.innerHTML = this.renderSprite(player);
     }
 
     if (movesGrid) {

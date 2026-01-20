@@ -237,10 +237,27 @@
   justify-content: center;
 }
 
+.sprite-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: spriteBob 2s ease-in-out infinite;
+  image-rendering: auto;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
 .sprite-placeholder {
   font-size: 64px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   animation: spriteBob 2s ease-in-out infinite;
+}
+
+.sprite-fallback {
+  display: none;
+  align-items: center;
+  justify-content: center;
 }
 
 .trainer-sprite .sprite-placeholder {
@@ -258,6 +275,29 @@
 
 .player-sprite {
   transform-origin: bottom center;
+}
+
+/* Switch panel sprites */
+.switch-sprite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.switch-sprite-img {
+  max-width: 48px;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.switch-emoji-fallback {
+  font-size: 2rem;
 }
 
 /* ============================================
@@ -372,6 +412,152 @@
   right: 4px;
   font-size: 0.9rem;
   opacity: 0.5;
+}
+
+/* ============================================
+   Switch Button
+   ============================================ */
+.switch-button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #4a5a6a 0%, #3a4a5a 100%);
+  border: 2px solid #666;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.switch-button:hover {
+  border-color: var(--pokemon-yellow, #FFDE00);
+  background: linear-gradient(135deg, #5a6a7a 0%, #4a5a6a 100%);
+}
+
+/* ============================================
+   Switch Panel
+   ============================================ */
+.battle-switch-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #1a2a3a 0%, #0a1520 100%);
+  border-top: 4px solid var(--pokemon-blue, #3B4CCA);
+  padding: 16px;
+  z-index: 26;
+  max-height: 70%;
+  overflow-y: auto;
+}
+
+.switch-header {
+  font-size: 1.1rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.switch-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.switch-option {
+  background: linear-gradient(135deg, #2a3a4a 0%, #1a2a3a 100%);
+  border: 2px solid #444;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.switch-option:hover:not(:disabled) {
+  border-color: var(--pokemon-yellow, #FFDE00);
+  transform: translateX(8px);
+}
+
+.switch-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.switch-option.current {
+  border-color: var(--pokemon-blue, #3B4CCA);
+  background: linear-gradient(135deg, #2a3a5a 0%, #1a2a4a 100%);
+}
+
+.switch-option.fainted {
+  opacity: 0.5;
+  background: linear-gradient(135deg, #3a2a2a 0%, #2a1a1a 100%);
+}
+
+.switch-emoji {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+/* Old switch-emoji fallback kept for compatibility */
+
+.switch-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.switch-level {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: 8px;
+}
+
+.switch-hp {
+  font-size: 0.8rem;
+  color: #78C850;
+  margin-left: auto;
+}
+
+.switch-option.fainted .switch-hp {
+  color: #FF1C1C;
+}
+
+.switch-status {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--pokemon-blue, #3B4CCA);
+  color: #fff;
+  margin-left: 8px;
+}
+
+.switch-status.fainted-status {
+  background: var(--danger, #FF1C1C);
+}
+
+.switch-cancel-btn {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #5a4a4a 0%, #4a3a3a 100%);
+  border: 2px solid #666;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.switch-cancel-btn:hover {
+  border-color: var(--danger, #FF1C1C);
 }
 
 /* ============================================
@@ -654,9 +840,26 @@
   box-shadow: 0 0 20px rgba(255, 28, 28, 0.4);
 }
 
+.starter-sprite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  margin-bottom: 16px;
+}
+
+.starter-sprite-img {
+  max-width: 120px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: starterFloat 3s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
 .starter-emoji {
   font-size: 80px;
-  margin-bottom: 16px;
   animation: starterFloat 3s ease-in-out infinite;
 }
 
@@ -817,9 +1020,25 @@
   color: #333;
 }
 
+.catch-sprite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  margin: 16px 0;
+}
+
+.catch-sprite-img {
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
 .catch-emoji {
   font-size: 60px;
-  margin: 16px 0;
 }
 
 .catch-name {
