@@ -1,142 +1,624 @@
 <div class="content-section">
   <h2><span class="section-icon">🏗️</span> Module 2: ICS Network Architecture</h2>
-  
+
   <p>Welcome to Module 2, Cyber Defender! Now that you understand the basics of ICS components, it's time to learn how to architect secure networks that protect critical infrastructure. Network architecture is the foundation of ICS security—without proper segmentation and defense-in-depth, even the most secure individual devices can be compromised through lateral movement.</p>
 
-  <p>In this module, you'll master the <strong>Purdue Model</strong>, understand <strong>Industrial Demilitarized Zones (IDMZ)</strong>, and learn how to implement <strong>defense-in-depth</strong> strategies that have protected power grids, water treatment facilities, and manufacturing plants from sophisticated attackers.</p>
-
+  <!-- Learning Objectives -->
   <div class="info-box">
     <p class="info-box-title">🎯 Learning Objectives</p>
-    <p>By the end of this module, you will be able to: identify all levels of the Purdue Model and their functions, design proper network segmentation for ICS environments, implement IDMZ architectures, configure firewalls and data diodes for OT networks, and apply IEC 62443 zone and conduit concepts.</p>
+    <ul class="content-list">
+      <li>Identify all levels of the Purdue Model and their functions</li>
+      <li>Design proper network segmentation for ICS environments</li>
+      <li>Implement IDMZ architectures</li>
+      <li>Configure firewalls and data diodes for OT networks</li>
+      <li>Apply IEC 62443 zone and conduit concepts</li>
+    </ul>
+  </div>
+
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: Building Your ICS Fortress</div>
+    <div class="video-id">[V2.1 - assets/videos/m2_v1_ics_architecture.mp4]</div>
   </div>
 
   <h3>📊 The Purdue Model (ISA-95/IEC 62264)</h3>
-  
+
   <p>The <strong>Purdue Enterprise Reference Architecture</strong> (PERA), also known as the Purdue Model, is the foundational framework for understanding ICS network architecture. Developed at Purdue University in the 1990s and formalized in the ISA-95 standard (now IEC 62264), this model divides industrial networks into hierarchical levels based on function and security requirements.</p>
 
-  <h4>Level 0 – The Process (Physical World)</h4>
-  <p>Level 0 represents the actual physical process being controlled—the <strong>sensors</strong>, <strong>actuators</strong>, <strong>valves</strong>, <strong>motors</strong>, <strong>pumps</strong>, and other field devices that directly interact with the physical world. These devices measure temperature, pressure, flow rates, and other process variables, or they actuate physical changes like opening valves or starting motors.</p>
-  
-  <p>At this level, devices typically communicate using <strong>4-20mA analog signals</strong>, <strong>discrete I/O</strong>, or industrial fieldbus protocols like <strong>HART</strong>, <strong>Foundation Fieldbus</strong>, or <strong>PROFIBUS PA</strong>. Security at Level 0 focuses on physical protection—locked cabinets, tamper-evident seals, and physical access controls.</p>
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">🏛️</div>
+    <div class="image-placeholder-text">Infographic: The Purdue Model Tower</div>
+    <div class="image-id">[I2.1 - assets/images/m2_i1_purdue_tower.png]</div>
+  </div>
 
-  <h4>Level 1 – Basic Control</h4>
-  <p>Level 1 contains the <strong>Programmable Logic Controllers (PLCs)</strong>, <strong>Remote Terminal Units (RTUs)</strong>, and <strong>Intelligent Electronic Devices (IEDs)</strong> that directly control Level 0 devices. These controllers execute the logic that keeps processes running safely—monitoring inputs from sensors and sending commands to actuators.</p>
-  
-  <p>Communication at this level uses industrial protocols like <strong>Modbus RTU</strong>, <strong>EtherNet/IP</strong>, and <strong>PROFINET</strong>. Controllers at Level 1 often have real-time requirements measured in milliseconds, making traditional IT security controls (like antivirus scanning) impractical.</p>
+  <!-- Purdue Level Pokedex Entries -->
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Level 0 – The Physical Process</span>
+      <span class="pokedex-entry-number">GROUND</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">⚙️</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Components:</span>
+          <span>Sensors, Actuators, Valves, Motors, Pumps</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Protocols:</span>
+          <span>4-20mA, HART, Foundation Fieldbus, PROFIBUS PA</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Security Focus:</span>
+          <span>Physical protection - locks, tamper seals, access controls</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Risk Level:</span>
+          <span>🔴 CRITICAL - Direct physical world interaction</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="info-box">
-    <p class="info-box-title">⚠️ Critical Understanding</p>
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Level 1 – Basic Control</span>
+      <span class="pokedex-entry-number">CONTROL</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🤖</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Components:</span>
+          <span>PLCs, RTUs, IEDs</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Protocols:</span>
+          <span>Modbus RTU, EtherNet/IP, PROFINET</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Timing:</span>
+          <span>Real-time requirements (milliseconds)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Risk Level:</span>
+          <span>🔴 CRITICAL - TRITON/TRISIS targeted this level</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <p class="info-box-title">⚠️ Safety Zone Alert</p>
     <p>Level 0 and Level 1 together form the <strong>Safety Zone</strong>—the most critical area of an ICS network. Compromise at these levels can cause physical damage, environmental disasters, or loss of human life. The 2017 TRITON/TRISIS attack specifically targeted Level 1 safety controllers at a Saudi petrochemical facility.</p>
   </div>
 
-  <h4>Level 2 – Area Supervisory Control</h4>
-  <p>Level 2 hosts <strong>Human-Machine Interfaces (HMIs)</strong>, <strong>engineering workstations</strong>, and <strong>local SCADA servers</strong> that provide operators visibility into the process. Operators use HMIs to monitor alarms, view process graphics, and issue commands to Level 1 controllers.</p>
-  
-  <p>Engineering workstations at this level run specialized software for programming PLCs, configuring devices, and troubleshooting control systems. These workstations often run legacy operating systems like Windows 7 or even Windows XP to maintain compatibility with vendor software.</p>
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Level 2 – Area Supervisory Control</span>
+      <span class="pokedex-entry-number">SUPERVISE</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🖥️</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Components:</span>
+          <span>HMIs, Engineering Workstations, Local SCADA</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Function:</span>
+          <span>Operator visibility, alarm monitoring, process graphics</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Common OS:</span>
+          <span>Windows 7, Windows XP (legacy compatibility)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Risk Level:</span>
+          <span>🟠 HIGH - Primary attack target for operators access</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4>Level 3 – Site Operations</h4>
-  <p>Level 3 contains <strong>site-wide SCADA servers</strong>, <strong>historians</strong>, <strong>batch management systems</strong>, and <strong>manufacturing execution systems (MES)</strong>. This level aggregates data from multiple Level 2 systems and provides site-wide visibility and coordination.</p>
-  
-  <p>The <strong>historian</strong> is a critical component at Level 3—it collects and stores process data for trend analysis, regulatory compliance, and operational optimization. Historians can store millions of data points per second and retain data for years.</p>
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Level 3 – Site Operations</span>
+      <span class="pokedex-entry-number">SITE</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">💾</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Components:</span>
+          <span>Historians, MES, Batch Management, Site SCADA</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Function:</span>
+          <span>Site-wide coordination, data aggregation, trending</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Data Volume:</span>
+          <span>Millions of data points/second, years of retention</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Risk Level:</span>
+          <span>🟠 HIGH - Valuable data, often bridges to IT</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4>Level 3.5 – The Industrial DMZ (IDMZ)</h4>
-  <p>The <strong>Industrial Demilitarized Zone</strong> (IDMZ) sits between the OT network (Levels 0-3) and the IT network (Levels 4-5). This is not part of the original Purdue Model but has become essential in modern architectures. The IDMZ contains systems that need to communicate with both IT and OT networks, such as <strong>jump servers</strong>, <strong>patch management servers</strong>, <strong>replica historians</strong>, and <strong>security monitoring tools</strong>.</p>
+  <div class="pokedex-entry" style="border-color: #FF1C1C; background: linear-gradient(135deg, rgba(255,28,28,0.1), rgba(255,165,0,0.1));">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #FF1C1C, #FF8C00);">
+      <span class="pokedex-entry-title">Level 3.5 – Industrial DMZ (IDMZ)</span>
+      <span class="pokedex-entry-number">🛡️ CRITICAL</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🏰</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Components:</span>
+          <span>Jump Servers, Patch Servers, Replica Historians</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Function:</span>
+          <span>Security checkpoint between IT and OT networks</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Golden Rule:</span>
+          <span>NO direct IT-to-OT traffic - ALL must traverse IDMZ!</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Risk Level:</span>
+          <span>🔴 CRITICAL BOUNDARY - Most important defense point</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="info-box">
+  <div class="info-box success">
     <p class="info-box-title">🛡️ IDMZ Golden Rule</p>
     <p>No direct communication should ever flow between Level 4 (Enterprise) and Level 3 (Site Operations). All traffic must pass through the IDMZ, where it can be inspected, logged, and controlled. Think of the IDMZ as a security checkpoint—nothing crosses without being validated.</p>
   </div>
 
-  <h4>Level 4 – Enterprise Business Systems</h4>
-  <p>Level 4 hosts traditional IT systems like <strong>ERP (Enterprise Resource Planning)</strong>, <strong>email servers</strong>, <strong>business intelligence systems</strong>, and <strong>corporate databases</strong>. These systems need operational data from Level 3 for business decisions but should never directly access control systems.</p>
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Level 4 & 5 – Enterprise & Internet</span>
+      <span class="pokedex-entry-number">ENTERPRISE</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🌐</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">L4 Components:</span>
+          <span>ERP, Email, Business Intelligence, Corporate Databases</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">L5 Components:</span>
+          <span>Internet, Cloud Services, Vendors, Remote Sites</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Data Flow:</span>
+          <span>Needs OT data for business decisions, never direct access</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Risk Level:</span>
+          <span>🟡 MODERATE - Standard IT security applies</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4>Level 5 – Enterprise Network/Internet</h4>
-  <p>Level 5 represents the <strong>corporate network perimeter</strong> and connections to the <strong>Internet</strong>, <strong>cloud services</strong>, <strong>third-party vendors</strong>, and <strong>remote sites</strong>. This is the most exposed level and requires the strongest perimeter defenses.</p>
+  <!-- Purdue Model Summary Table -->
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Name</th>
+        <th>Key Components</th>
+        <th>Security Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Level 5</strong></td>
+        <td>Enterprise/Internet</td>
+        <td>Internet, Cloud, Vendors</td>
+        <td>Perimeter defense</td>
+      </tr>
+      <tr>
+        <td><strong>Level 4</strong></td>
+        <td>Business Planning</td>
+        <td>ERP, Email, BI</td>
+        <td>Standard IT security</td>
+      </tr>
+      <tr style="background: rgba(255, 28, 28, 0.2);">
+        <td><strong>Level 3.5</strong></td>
+        <td>IDMZ</td>
+        <td>Jump servers, Data diodes</td>
+        <td>⚠️ CRITICAL BOUNDARY</td>
+      </tr>
+      <tr>
+        <td><strong>Level 3</strong></td>
+        <td>Site Operations</td>
+        <td>Historians, MES</td>
+        <td>High protection</td>
+      </tr>
+      <tr>
+        <td><strong>Level 2</strong></td>
+        <td>Area Supervisory</td>
+        <td>HMI, Engineering WS</td>
+        <td>Very high protection</td>
+      </tr>
+      <tr style="background: rgba(255, 28, 28, 0.15);">
+        <td><strong>Level 1</strong></td>
+        <td>Basic Control</td>
+        <td>PLCs, RTUs, DCS</td>
+        <td>🔴 MAXIMUM protection</td>
+      </tr>
+      <tr style="background: rgba(255, 28, 28, 0.15);">
+        <td><strong>Level 0</strong></td>
+        <td>Physical Process</td>
+        <td>Sensors, Actuators</td>
+        <td>🔴 Physical security</td>
+      </tr>
+    </tbody>
+  </table>
 
   <h3>🧱 Network Segmentation Strategies</h3>
-  
+
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: Segmentation in Action</div>
+    <div class="video-id">[V2.2 - assets/videos/m2_v2_segmentation.mp4]</div>
+  </div>
+
   <p>Network segmentation divides a large network into smaller, isolated segments to contain breaches and limit lateral movement. In ICS environments, segmentation is implemented using multiple technologies working together.</p>
 
-  <h4>VLANs (Virtual Local Area Networks)</h4>
-  <p><strong>VLANs</strong> provide Layer 2 segmentation by creating separate broadcast domains on the same physical switch infrastructure. In ICS environments, VLANs are commonly used to separate different control system vendors, process areas, or criticality levels.</p>
-  
-  <p>However, VLANs alone are insufficient for ICS security. VLAN-hopping attacks and misconfigured trunk ports can allow attackers to bypass VLAN isolation. VLANs should always be combined with Layer 3 segmentation using firewalls or routers with access control lists (ACLs).</p>
+  <!-- Segmentation Tools Pokedex -->
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">VLANs - Virtual Local Area Networks</span>
+      <span class="pokedex-entry-number">L2 SEG</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔀</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Function:</span>
+          <span>Layer 2 segmentation - separate broadcast domains</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Use Cases:</span>
+          <span>Separate vendors, process areas, criticality levels</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Weakness:</span>
+          <span>VLAN-hopping attacks, trunk port misconfigs</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Best Practice:</span>
+          <span>Always combine with L3 firewalls/ACLs!</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4>Firewalls in OT Environments</h4>
-  <p>Industrial firewalls differ from traditional IT firewalls in several ways. They must understand and inspect <strong>industrial protocols</strong> like Modbus, DNP3, and OPC. They must operate reliably in harsh environments with extended temperature ranges. And they must never fail in a way that disrupts critical processes—<strong>fail-open</strong> vs. <strong>fail-closed</strong> configurations require careful consideration.</p>
-  
-  <p>Key firewall placement points include: between each Purdue level, between the OT network and IDMZ, between different vendor systems, and between safety and control networks.</p>
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Industrial Firewalls</span>
+      <span class="pokedex-entry-number">L3+ SEG</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔥</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Capability:</span>
+          <span>Deep packet inspection of Modbus, DNP3, OPC</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Environment:</span>
+          <span>Extended temp ranges, harsh industrial conditions</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Failure Mode:</span>
+          <span>Fail-open vs fail-closed - critical consideration!</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Placement:</span>
+          <span>Between Purdue levels, OT/IDMZ, vendor systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4>Data Diodes (Unidirectional Security Gateways)</h4>
-  <p><strong>Data diodes</strong> are hardware-enforced one-way communication devices that physically prevent data from flowing in the reverse direction. Unlike firewalls, which can be misconfigured or compromised, data diodes provide an air gap that cannot be bridged by software attacks.</p>
-  
-  <p>Common data diode use cases include: sending historian data from OT to IT networks, transmitting security logs to a corporate SIEM, replicating process data to a business intelligence system, and sending sensor data to cloud analytics platforms.</p>
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Data Diodes - Unidirectional Gateways</span>
+      <span class="pokedex-entry-number">HW SEG</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">➡️</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Function:</span>
+          <span>Hardware-enforced one-way communication</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Strength:</span>
+          <span>Cannot be bypassed by software attacks - true air gap</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Use Cases:</span>
+          <span>Historian to IT, security logs to SIEM, cloud analytics</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Limitation:</span>
+          <span>TCP acknowledgments need protocol-break technology</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="info-box">
-    <p class="info-box-title">🔒 Data Diode Limitation</p>
-    <p>Data diodes prevent bidirectional communication, which means protocols requiring acknowledgments (like TCP) need special handling. Most data diode solutions include protocol-break technology that terminates connections on each side and reconstructs data on the receiving end.</p>
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">🖼️</div>
+    <div class="image-placeholder-text">Infographic: Segmentation Technologies Comparison</div>
+    <div class="image-id">[I2.2 - assets/images/m2_i2_segmentation_compare.png]</div>
   </div>
 
   <h3>🏰 Defense-in-Depth for ICS</h3>
-  
-  <p><strong>Defense-in-depth</strong> is a security strategy that deploys multiple layers of defensive mechanisms so that if one layer fails, others continue to protect the system. In ICS environments, defense-in-depth spans physical, network, host, application, and data layers.</p>
 
-  <h4>Physical Layer</h4>
-  <p>Physical security includes fences, locks, cameras, guards, and access control systems. In ICS environments, physical access often grants direct access to control systems—an attacker who can physically touch a PLC can often reprogram it, regardless of network security.</p>
+  <p><strong>Defense-in-depth</strong> is a security strategy that deploys multiple layers of defensive mechanisms so that if one layer fails, others continue to protect the system.</p>
 
-  <h4>Network Layer</h4>
-  <p>Network defenses include firewalls, intrusion detection systems (IDS), network segmentation, and encrypted communications. ICS-specific network security tools can perform <strong>deep packet inspection</strong> of industrial protocols to detect anomalous commands.</p>
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: Layered Defense Strategy</div>
+    <div class="video-id">[V2.3 - assets/videos/m2_v3_defense_depth.mp4]</div>
+  </div>
 
-  <h4>Host Layer</h4>
-  <p>Host-based security includes application whitelisting, endpoint detection and response (EDR), host-based firewalls, and secure configurations. In OT environments, application whitelisting is often preferred over traditional antivirus because it has lower performance impact and doesn't require signature updates.</p>
-
-  <h4>Application Layer</h4>
-  <p>Application security includes secure coding practices, input validation, authentication, and authorization controls. Many legacy ICS applications lack basic security features like authentication, making network segmentation even more critical.</p>
-
-  <h4>Data Layer</h4>
-  <p>Data security includes encryption, integrity monitoring, backup and recovery, and data loss prevention. In ICS environments, protecting configuration data and logic programs is essential—if an attacker can modify PLC logic, they control the physical process.</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Controls</th>
+        <th>ICS Considerations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🏢 <strong>Physical</strong></td>
+        <td>Fences, locks, cameras, guards, badges</td>
+        <td>Physical access = device access; PLC touch = reprogram</td>
+      </tr>
+      <tr>
+        <td>🌐 <strong>Network</strong></td>
+        <td>Firewalls, IDS/IPS, segmentation, encryption</td>
+        <td>DPI for industrial protocols, anomaly detection</td>
+      </tr>
+      <tr>
+        <td>💻 <strong>Host</strong></td>
+        <td>Whitelisting, EDR, hardening, patching</td>
+        <td>App whitelisting preferred over AV (lower impact)</td>
+      </tr>
+      <tr>
+        <td>📱 <strong>Application</strong></td>
+        <td>Secure coding, authentication, authorization</td>
+        <td>Many legacy apps lack basic auth - segment heavily!</td>
+      </tr>
+      <tr>
+        <td>💾 <strong>Data</strong></td>
+        <td>Encryption, integrity checks, backups</td>
+        <td>PLC logic protection critical - controls physical process</td>
+      </tr>
+    </tbody>
+  </table>
 
   <h3>📐 IEC 62443: Zones and Conduits</h3>
-  
+
   <p><strong>IEC 62443</strong> (formerly ISA/IEC 62443) is the international standard for industrial automation and control systems security. It introduces the concepts of <strong>zones</strong> and <strong>conduits</strong> as a systematic approach to ICS network architecture.</p>
 
-  <h4>Security Zones</h4>
-  <p>A <strong>zone</strong> is a logical or physical grouping of assets that share common security requirements. Zones are defined based on criticality, function, connectivity requirements, and risk tolerance. Each zone is assigned a <strong>Security Level Target (SL-T)</strong> from SL 1 (basic protection) to SL 4 (protection against nation-state actors).</p>
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">🗺️</div>
+    <div class="image-placeholder-text">Infographic: Zones and Conduits Diagram</div>
+    <div class="image-id">[I2.3 - assets/images/m2_i3_zones_conduits.png]</div>
+  </div>
 
-  <h4>Conduits</h4>
-  <p>A <strong>conduit</strong> is the communication path between zones. Conduits must provide security controls appropriate to the security levels of the connected zones. If a high-security zone connects to a low-security zone, the conduit must protect the high-security zone from threats originating in the low-security zone.</p>
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Security Zones</span>
+      <span class="pokedex-entry-number">IEC 62443</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔲</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Definition:</span>
+          <span>Logical/physical asset grouping with common security needs</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">SL-T Levels:</span>
+          <span>SL 1 (basic) to SL 4 (nation-state protection)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Defined By:</span>
+          <span>Criticality, function, connectivity, risk tolerance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Conduits</span>
+      <span class="pokedex-entry-number">IEC 62443</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔗</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Definition:</span>
+          <span>Communication path between zones</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Security Rule:</span>
+          <span>Must protect highest-security zone from lower zones</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Controls:</span>
+          <span>Firewalls, encryption, monitoring, access control</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="info-box">
     <p class="info-box-title">📋 Zone Assessment Questions</p>
-    <p>When defining zones, consider: What assets are in this zone? What is the consequence of compromise? What connectivity does this zone require? Who needs access? What threats are most relevant? What security controls already exist?</p>
+    <ul class="content-list">
+      <li>What assets are in this zone?</li>
+      <li>What is the consequence of compromise?</li>
+      <li>What connectivity does this zone require?</li>
+      <li>Who needs access?</li>
+      <li>What threats are most relevant?</li>
+      <li>What security controls already exist?</li>
+    </ul>
   </div>
 
   <h3>🔥 Real-World Incident: Ukraine Power Grid Attack (2015)</h3>
-  
+
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: Ukraine Attack Case Study</div>
+    <div class="video-id">[V2.4 - assets/videos/m2_v4_ukraine_attack.mp4]</div>
+  </div>
+
   <p>On December 23, 2015, attackers compromised three Ukrainian power distribution companies, causing power outages affecting approximately 225,000 customers. This attack demonstrated the consequences of inadequate network segmentation and defense-in-depth.</p>
 
-  <h4>Attack Path Analysis</h4>
-  <p>The attackers used spear-phishing emails with malicious Microsoft Word documents to compromise IT workstations. From there, they moved laterally through the corporate network, eventually finding VPN connections to the OT network. Once in the OT environment, they used legitimate HMI software to open breakers at substations, causing the blackouts.</p>
+  <div class="info-box danger">
+    <p class="info-box-title">⚡ Target: Ukrainian Power Distribution</p>
+    <p>Attackers used spear-phishing emails with malicious Microsoft Word documents to compromise IT workstations. From there, they moved laterally through the corporate network, eventually finding VPN connections to the OT network. Once in the OT environment, they used legitimate HMI software to open breakers at substations, causing blackouts for ~225,000 customers.</p>
+    <p><strong>Duration:</strong> Attackers had access for 6+ months before executing attack.</p>
+  </div>
 
   <h4>Architecture Failures</h4>
-  <p>Several architectural weaknesses enabled this attack: direct VPN access from IT to OT networks (no IDMZ), shared credentials between IT and OT systems, lack of multi-factor authentication on remote access, insufficient monitoring of OT network traffic, and no application whitelisting on HMI workstations.</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Failure</th>
+        <th>What Should Have Been</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>❌ Direct VPN from IT to OT</td>
+        <td>✅ IDMZ with jump servers, session logging</td>
+      </tr>
+      <tr>
+        <td>❌ Shared IT/OT credentials</td>
+        <td>✅ Separate credential domains, PAM</td>
+      </tr>
+      <tr>
+        <td>❌ No MFA on remote access</td>
+        <td>✅ MFA required for all remote connections</td>
+      </tr>
+      <tr>
+        <td>❌ No OT network monitoring</td>
+        <td>✅ ICS-specific IDS/anomaly detection</td>
+      </tr>
+      <tr>
+        <td>❌ No application whitelisting</td>
+        <td>✅ Whitelisting on HMI workstations</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <h4>Lessons Learned</h4>
-  <p>Proper network architecture could have prevented or limited this attack. An IDMZ with jump servers would have provided a chokepoint for monitoring and access control. Network segmentation between substations would have limited the attack scope. Application whitelisting would have prevented the attackers' custom malware from executing.</p>
+  <div class="info-box success">
+    <p class="info-box-title">💡 Key Lessons Learned</p>
+    <p>Proper network architecture could have prevented or limited this attack:</p>
+    <ul class="content-list">
+      <li><strong>IDMZ with jump servers</strong> would have provided a chokepoint for monitoring</li>
+      <li><strong>Segmentation between substations</strong> would have limited attack scope</li>
+      <li><strong>Application whitelisting</strong> would have prevented custom malware execution</li>
+      <li><strong>MFA</strong> would have stopped credential reuse from IT to OT</li>
+    </ul>
+  </div>
 
   <h3>🛠️ Practical Implementation Guidelines</h3>
 
-  <h4>Starting from Scratch</h4>
-  <p>When designing a new ICS network: start with the Purdue Model as your framework, identify all assets and their communication requirements, group assets into zones based on criticality and function, define conduits between zones and specify allowed protocols, implement firewalls at zone boundaries, consider data diodes for critical one-way flows, deploy intrusion detection at key network segments, and document everything in network diagrams and data flow diagrams.</p>
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">📋</div>
+    <div class="image-placeholder-text">Infographic: Architecture Implementation Checklist</div>
+    <div class="image-id">[I2.4 - assets/images/m2_i4_implementation_checklist.png]</div>
+  </div>
+
+  <h4>Building a New ICS Network</h4>
+  <ol class="content-list">
+    <li>Start with the Purdue Model as your framework</li>
+    <li>Identify all assets and their communication requirements</li>
+    <li>Group assets into zones based on criticality and function</li>
+    <li>Define conduits between zones and specify allowed protocols</li>
+    <li>Implement firewalls at zone boundaries</li>
+    <li>Consider data diodes for critical one-way flows</li>
+    <li>Deploy intrusion detection at key network segments</li>
+    <li>Document everything in network diagrams and data flow diagrams</li>
+  </ol>
 
   <h4>Securing Legacy Networks</h4>
-  <p>Many ICS environments evolved organically without security considerations. When securing legacy networks: conduct a thorough asset inventory, map all network connections and data flows, identify "quick wins" like unnecessary Internet connections, prioritize segmentation of the most critical assets, implement monitoring before making changes, test changes in maintenance windows, and document the current state and target state.</p>
+  <ol class="content-list">
+    <li>Conduct a thorough asset inventory</li>
+    <li>Map all network connections and data flows</li>
+    <li>Identify "quick wins" like unnecessary Internet connections</li>
+    <li>Prioritize segmentation of the most critical assets</li>
+    <li>Implement monitoring before making changes</li>
+    <li>Test changes in maintenance windows</li>
+    <li>Document the current state and target state</li>
+  </ol>
 
-  <h4>Remote Access Architecture</h4>
-  <p>Remote access is often necessary for vendor support and remote operations but introduces significant risk. Secure remote access architecture includes: VPN termination in the IDMZ (never directly into OT), multi-factor authentication for all remote users, jump servers that log all sessions, time-limited access with automatic expiration, network access control that limits access to specific systems, and session recording for forensic purposes.</p>
-
+  <h4>Secure Remote Access Architecture</h4>
   <div class="info-box">
+    <p class="info-box-title">🔐 Remote Access Requirements</p>
+    <ul class="content-list">
+      <li><strong>VPN termination in IDMZ</strong> - never directly into OT</li>
+      <li><strong>Multi-factor authentication</strong> for all remote users</li>
+      <li><strong>Jump servers</strong> that log all sessions</li>
+      <li><strong>Time-limited access</strong> with automatic expiration</li>
+      <li><strong>Network access control</strong> limiting access to specific systems</li>
+      <li><strong>Session recording</strong> for forensic purposes</li>
+    </ul>
+  </div>
+
+  <div class="info-box success">
     <p class="info-box-title">🎮 Module Complete!</p>
-    <p>Excellent work, Cyber Defender! You now understand the architectural foundations that protect industrial control systems. In Module 3, you'll dive deep into ICS protocols—learning how Modbus, DNP3, and other protocols work, and more importantly, how attackers exploit their weaknesses. Head to the Protocols Gym when you're ready!</p>
+    <p>Excellent work, Cyber Defender! You now understand the architectural foundations that protect industrial control systems. The Purdue Model, IDMZ, network segmentation, and defense-in-depth are your core defensive strategies. Head to <strong>Gym 2: Purdue City</strong> to prove your knowledge against Gym Leader SEGMENT!</p>
   </div>
 </div>

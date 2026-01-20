@@ -1,174 +1,732 @@
 <div class="content-section">
   <h2><span class="section-icon">📡</span> Module 3: ICS Protocols Deep Dive</h2>
-  
+
   <p>Welcome to Module 3, Cyber Defender! You've mastered network architecture—now it's time to understand what flows through those carefully segmented networks. Industrial protocols are the languages that PLCs, RTUs, HMIs, and SCADA systems use to communicate. Understanding these protocols is essential because <strong>most were designed decades ago without any security considerations</strong>.</p>
 
-  <p>In this module, you'll learn how <strong>Modbus</strong>, <strong>DNP3</strong>, <strong>OPC UA</strong>, and other protocols work at a technical level. More importantly, you'll understand their security weaknesses and how attackers exploit them. This knowledge will help you defend systems that can't simply be upgraded overnight.</p>
-
+  <!-- Learning Objectives -->
   <div class="info-box">
     <p class="info-box-title">🎯 Learning Objectives</p>
-    <p>By the end of this module, you will be able to: explain how Modbus RTU and TCP function, identify DNP3's role in utilities and its security features, understand OPC UA architecture and security models, recognize protocol-specific attack vectors, and implement protocol-level monitoring and defenses.</p>
+    <ul class="content-list">
+      <li>Explain how Modbus RTU and TCP function</li>
+      <li>Identify DNP3's role in utilities and its security features</li>
+      <li>Understand OPC UA architecture and security models</li>
+      <li>Recognize protocol-specific attack vectors</li>
+      <li>Implement protocol-level monitoring and defenses</li>
+    </ul>
+  </div>
+
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: Speaking the Language of Machines</div>
+    <div class="video-id">[V3.1 - assets/videos/m3_v1_ics_protocols_intro.mp4]</div>
   </div>
 
   <h3>⚡ Modbus: The Grandfather of ICS Protocols</h3>
-  
-  <p><strong>Modbus</strong> was developed by Modicon (now Schneider Electric) in 1979, making it one of the oldest and most widely deployed industrial protocols. Its simplicity and royalty-free specification led to universal adoption across vendors and industries. Today, Modbus is found in manufacturing, water treatment, oil and gas, building automation, and virtually every other ICS environment.</p>
 
-  <h4>Modbus RTU (Serial)</h4>
-  <p><strong>Modbus RTU</strong> (Remote Terminal Unit) operates over serial connections using RS-232 or RS-485 physical layers. RTU uses a compact binary format to minimize transmission time over slow serial links. A typical Modbus RTU frame contains: Device Address (1 byte), Function Code (1 byte), Data (variable), and CRC Error Check (2 bytes).</p>
-  
-  <p>RS-485 allows multi-drop configurations where multiple slave devices share a single communication line, with the master polling each device in sequence. This architecture is still common in field-level communications where running Ethernet to every device is impractical.</p>
+  <p><strong>Modbus</strong> was developed by Modicon (now Schneider Electric) in 1979, making it one of the oldest and most widely deployed industrial protocols. Its simplicity and royalty-free specification led to universal adoption across vendors and industries.</p>
 
-  <h4>Modbus TCP (Ethernet)</h4>
-  <p><strong>Modbus TCP</strong> wraps the Modbus application protocol inside TCP/IP, enabling communication over standard Ethernet networks on <strong>TCP port 502</strong>. The TCP variant adds a <strong>Modbus Application Protocol (MBAP) header</strong> that includes transaction identifiers and protocol identifiers but removes the CRC (TCP handles error checking).</p>
-  
-  <p>Modbus TCP uses a simple request-response pattern: the client sends a request, and the server responds. Common function codes include: Read Coils (01), Read Discrete Inputs (02), Read Holding Registers (03), Read Input Registers (04), Write Single Coil (05), Write Single Register (06), Write Multiple Coils (15), and Write Multiple Registers (16).</p>
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">🖼️</div>
+    <div class="image-placeholder-text">Infographic: Modbus Protocol Family</div>
+    <div class="image-id">[I3.1 - assets/images/m3_i1_modbus_family.png]</div>
+  </div>
 
-  <div class="info-box">
+  <!-- Modbus RTU Pokedex Entry -->
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Modbus RTU (Serial)</span>
+      <span class="pokedex-entry-number">SERIAL</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">📟</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Physical Layer:</span>
+          <span>RS-232 or RS-485</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Format:</span>
+          <span>Compact binary, CRC error check</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Architecture:</span>
+          <span>Master-Slave polling on shared bus</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Use Case:</span>
+          <span>Field-level devices, legacy systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modbus TCP Pokedex Entry -->
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">Modbus TCP (Ethernet)</span>
+      <span class="pokedex-entry-number">PORT 502</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🌐</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Transport:</span>
+          <span>TCP/IP on port 502</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Header:</span>
+          <span>MBAP (Modbus Application Protocol)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Pattern:</span>
+          <span>Request-Response (Client-Server)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Error Check:</span>
+          <span>TCP handles it (no CRC)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4>Modbus Function Codes</h4>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Function</th>
+        <th>Description</th>
+        <th>Risk Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01</td>
+        <td>Read Coils</td>
+        <td>Read discrete outputs (ON/OFF)</td>
+        <td>🟡 Read</td>
+      </tr>
+      <tr>
+        <td>02</td>
+        <td>Read Discrete Inputs</td>
+        <td>Read discrete inputs</td>
+        <td>🟡 Read</td>
+      </tr>
+      <tr>
+        <td>03</td>
+        <td>Read Holding Registers</td>
+        <td>Read analog output values</td>
+        <td>🟡 Read</td>
+      </tr>
+      <tr>
+        <td>04</td>
+        <td>Read Input Registers</td>
+        <td>Read analog input values</td>
+        <td>🟡 Read</td>
+      </tr>
+      <tr style="background: rgba(255, 28, 28, 0.15);">
+        <td>05</td>
+        <td>Write Single Coil</td>
+        <td>Control single output</td>
+        <td>🔴 WRITE</td>
+      </tr>
+      <tr style="background: rgba(255, 28, 28, 0.15);">
+        <td>06</td>
+        <td>Write Single Register</td>
+        <td>Set single value</td>
+        <td>🔴 WRITE</td>
+      </tr>
+      <tr style="background: rgba(255, 28, 28, 0.2);">
+        <td>15</td>
+        <td>Write Multiple Coils</td>
+        <td>Control multiple outputs</td>
+        <td>🔴 CRITICAL</td>
+      </tr>
+      <tr style="background: rgba(255, 28, 28, 0.2);">
+        <td>16</td>
+        <td>Write Multiple Registers</td>
+        <td>Set multiple values</td>
+        <td>🔴 CRITICAL</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box danger">
     <p class="info-box-title">🔴 Modbus Security Reality</p>
-    <p>Modbus has <strong>NO authentication</strong>—any device that can reach TCP port 502 can read or write registers. Modbus has <strong>NO encryption</strong>—all data travels in cleartext. Modbus has <strong>NO integrity protection</strong>—commands can be modified in transit. These aren't bugs; they're features of a 1979 protocol designed for isolated serial networks.</p>
+    <ul class="content-list">
+      <li><strong>NO Authentication</strong> — Any device on the network can read/write</li>
+      <li><strong>NO Encryption</strong> — All data travels in cleartext</li>
+      <li><strong>NO Integrity Protection</strong> — Commands can be modified in transit</li>
+    </ul>
+    <p>These aren't bugs—they're features of a 1979 protocol designed for isolated serial networks!</p>
   </div>
 
   <h4>Modbus Attack Scenarios</h4>
-  <p><strong>Reconnaissance:</strong> Attackers scan for port 502 and enumerate device IDs. Tools like Nmap have Modbus-specific scripts that can identify PLC types, read device information, and map register layouts.</p>
-  
-  <p><strong>Process Manipulation:</strong> Once an attacker can reach a Modbus device, they can write arbitrary values to registers. For example, Write Single Register (function code 06) to address 100 with value 0 might close a valve. Write Multiple Registers (function code 16) could change multiple setpoints simultaneously.</p>
-  
-  <p><strong>Denial of Service:</strong> Flooding a Modbus device with requests can overwhelm its limited processing capacity. Some PLCs crash or reset when receiving malformed requests or requests for invalid memory regions.</p>
+
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">⚔️</div>
+    <div class="image-placeholder-text">Infographic: Modbus Attack Vectors</div>
+    <div class="image-id">[I3.2 - assets/images/m3_i2_modbus_attacks.png]</div>
+  </div>
+
+  <div class="pokedex-entry" style="border-color: #FF1C1C;">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #FF1C1C, #8B0000);">
+      <span class="pokedex-entry-title">Attack: Reconnaissance</span>
+      <span class="pokedex-entry-number">RECON</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔍</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Method:</span>
+          <span>Scan for port 502, enumerate device IDs</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Tools:</span>
+          <span>Nmap Modbus scripts, Metasploit modules</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Result:</span>
+          <span>PLC types, device info, register layouts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pokedex-entry" style="border-color: #FF1C1C;">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #FF1C1C, #8B0000);">
+      <span class="pokedex-entry-title">Attack: Process Manipulation</span>
+      <span class="pokedex-entry-number">CONTROL</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🎮</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Method:</span>
+          <span>Write arbitrary values to registers</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Example:</span>
+          <span>FC 06 to address 100 = close valve</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Impact:</span>
+          <span>Physical process disruption or damage</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <h3>🔌 DNP3: The Utility Protocol</h3>
-  
-  <p><strong>Distributed Network Protocol 3 (DNP3)</strong> was developed in the 1990s for the electric utility industry and is now the dominant protocol in North American power systems, water utilities, and oil/gas pipelines. DNP3 typically runs on <strong>TCP port 20000</strong> or <strong>UDP port 20000</strong>, though serial variants still exist.</p>
 
-  <h4>DNP3 Architecture</h4>
-  <p>DNP3 uses a layered architecture with three main layers: the <strong>Data Link Layer</strong> (handles framing, addressing, and error detection), the <strong>Transport Layer</strong> (handles message fragmentation and reassembly), and the <strong>Application Layer</strong> (contains the actual commands and data).</p>
-  
-  <p>DNP3 supports multiple data types: <strong>Binary Inputs</strong> (switch positions, alarms), <strong>Binary Outputs</strong> (control commands), <strong>Analog Inputs</strong> (measured values like voltage, current), <strong>Analog Outputs</strong> (setpoints), and <strong>Counters</strong> (accumulated values like energy consumption).</p>
-
-  <h4>DNP3 Security Features (DNP3 Secure Authentication)</h4>
-  <p>Unlike Modbus, DNP3 has an optional security extension called <strong>DNP3 Secure Authentication (SA)</strong>, standardized in IEEE 1815-2012. SA Version 5 provides: <strong>Challenge-response authentication</strong> using HMAC-SHA256, <strong>Session key management</strong>, <strong>Aggressive Mode</strong> for frequent authentication, and <strong>Critical message authentication</strong> for commands that change system state.</p>
-  
-  <p>However, DNP3-SA has significant limitations: it's optional and rarely enabled, it only provides authentication (not encryption), key management is manual and cumbersome, and many legacy devices don't support it at all.</p>
-
-  <div class="info-box">
-    <p class="info-box-title">⚡ DNP3 in the Ukraine Attacks</p>
-    <p>The 2015 and 2016 Ukraine power grid attacks specifically targeted DNP3 communications. Attackers used legitimate DNP3 commands to open breakers at substations after compromising HMI systems. The protocol worked exactly as designed—the problem was attackers had unauthorized access to issue commands.</p>
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: DNP3 in the Power Grid</div>
+    <div class="video-id">[V3.2 - assets/videos/m3_v2_dnp3_utilities.mp4]</div>
   </div>
 
-  <h4>DNP3 Attack Scenarios</h4>
-  <p><strong>Control Command Injection:</strong> If SA is not enabled, attackers can inject DNP3 control commands. Select-Before-Operate (SBO) sequences can be replayed to control field devices.</p>
-  
-  <p><strong>Unsolicited Response Spoofing:</strong> DNP3 outstations can send unsolicited responses to report events. Attackers can spoof these responses to make operators believe false alarm conditions exist.</p>
-  
-  <p><strong>Buffer Overflow Attacks:</strong> Some DNP3 implementations have vulnerabilities when processing malformed packets. The Transport Layer's fragmentation mechanism has been a source of implementation bugs.</p>
+  <p><strong>Distributed Network Protocol 3 (DNP3)</strong> was developed in the 1990s for the electric utility industry and is now the dominant protocol in North American power systems, water utilities, and oil/gas pipelines.</p>
+
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">DNP3 Protocol</span>
+      <span class="pokedex-entry-number">PORT 20000</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">⚡</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Transport:</span>
+          <span>TCP/UDP port 20000 (or serial)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Industries:</span>
+          <span>Electric utilities, water, oil/gas</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Architecture:</span>
+          <span>3-layer: Data Link, Transport, Application</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Security:</span>
+          <span>Optional DNP3-SA (rarely enabled)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4>DNP3 Data Types</h4>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Data Type</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Binary Inputs</td>
+        <td>Switch positions, alarms</td>
+        <td>Breaker open/closed</td>
+      </tr>
+      <tr>
+        <td>Binary Outputs</td>
+        <td>Control commands</td>
+        <td>Open/close breaker</td>
+      </tr>
+      <tr>
+        <td>Analog Inputs</td>
+        <td>Measured values</td>
+        <td>Voltage, current, MW</td>
+      </tr>
+      <tr>
+        <td>Analog Outputs</td>
+        <td>Setpoints</td>
+        <td>Voltage setpoint</td>
+      </tr>
+      <tr>
+        <td>Counters</td>
+        <td>Accumulated values</td>
+        <td>Energy consumption (kWh)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pokedex-entry" style="border-color: #4CAF50; background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05));">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #4CAF50, #2E7D32);">
+      <span class="pokedex-entry-title">DNP3 Secure Authentication (SA)</span>
+      <span class="pokedex-entry-number">IEEE 1815</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔐</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Authentication:</span>
+          <span>Challenge-response with HMAC-SHA256</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Key Management:</span>
+          <span>Session keys (manual management)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Limitation:</span>
+          <span>Auth only, no encryption!</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Reality:</span>
+          <span>Rarely enabled in production</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box danger">
+    <p class="info-box-title">⚡ DNP3 in the Ukraine Attacks (2015-2016)</p>
+    <p>The Ukraine power grid attacks specifically targeted DNP3 communications. Attackers used <strong>legitimate DNP3 commands</strong> to open breakers at substations after compromising HMI systems. The protocol worked exactly as designed—the problem was attackers had unauthorized access to issue commands.</p>
+    <p><strong>Key Lesson:</strong> Protocol security alone isn't enough. Access control and monitoring are critical.</p>
+  </div>
 
   <h3>🌐 OPC: From DCOM Nightmare to Modern Security</h3>
-  
-  <p><strong>OPC (OLE for Process Control)</strong> originated in the 1990s as a way to standardize communication between different vendor systems. The original OPC specifications—OPC DA (Data Access), OPC HDA (Historical Data Access), and OPC A&E (Alarms & Events)—are called <strong>OPC Classic</strong> and rely on Microsoft's DCOM technology.</p>
 
-  <h4>OPC Classic Security Nightmares</h4>
-  <p>OPC Classic's reliance on DCOM creates significant security challenges: DCOM requires numerous firewall exceptions on unpredictable ports, DCOM authentication is tied to Windows domain credentials, DCOM was designed for trusted network environments, and configuring DCOM security properly is notoriously difficult.</p>
-  
-  <p>In practice, many OPC Classic deployments end up with DCOM security disabled or set to "Everyone Full Control" just to get systems working—creating massive security gaps.</p>
-
-  <h4>OPC UA: The Modern Alternative</h4>
-  <p><strong>OPC Unified Architecture (OPC UA)</strong> was designed from the ground up with security as a core requirement. OPC UA is platform-independent (no Windows/DCOM dependency), uses standard TCP (default <strong>port 4840</strong>) or HTTPS, includes built-in security features, and supports complex data modeling and information architectures.</p>
-  
-  <p>OPC UA Security includes: <strong>Authentication</strong> (username/password, X.509 certificates), <strong>Encryption</strong> (AES-128 or AES-256), <strong>Message Signing</strong> (SHA-256), and <strong>Security Policies</strong> that define acceptable algorithms.</p>
-
-  <div class="info-box">
-    <p class="info-box-title">🔐 OPC UA Security Modes</p>
-    <p><strong>None</strong>: No security (for testing only). <strong>Sign</strong>: Messages are signed but not encrypted (integrity without confidentiality). <strong>SignAndEncrypt</strong>: Full security with both signing and encryption. Production OPC UA deployments should always use SignAndEncrypt with certificate-based authentication.</p>
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: OPC Classic vs OPC UA</div>
+    <div class="video-id">[V3.3 - assets/videos/m3_v3_opc_evolution.mp4]</div>
   </div>
 
-  <h3>🏭 EtherNet/IP: Industrial Ethernet</h3>
-  
-  <p><strong>EtherNet/IP</strong> (IP = Industrial Protocol, not Internet Protocol) is managed by ODVA and widely used in manufacturing, particularly in North America. It runs on standard Ethernet using <strong>TCP port 44818</strong> for explicit messaging and <strong>UDP port 2222</strong> for implicit (real-time) I/O messaging.</p>
+  <p><strong>OPC (OLE for Process Control)</strong> standardizes communication between different vendor systems. The evolution from OPC Classic to OPC UA represents a security transformation.</p>
 
-  <h4>CIP: The Application Layer</h4>
-  <p>EtherNet/IP uses the <strong>Common Industrial Protocol (CIP)</strong> at the application layer. CIP is also used by DeviceNet and ControlNet, making it easy to integrate systems using different physical networks. CIP uses an object-oriented model where devices contain objects, objects have attributes, and services operate on objects.</p>
+  <div class="pokedex-entry" style="border-color: #FF8C00;">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #FF8C00, #CC7000);">
+      <span class="pokedex-entry-title">OPC Classic (DA/HDA/A&E)</span>
+      <span class="pokedex-entry-number">⚠️ LEGACY</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🪟</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Technology:</span>
+          <span>Microsoft DCOM (Windows only)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Ports:</span>
+          <span>Dynamic/unpredictable (DCOM nightmare)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Security:</span>
+          <span>Often disabled ("Everyone Full Control")</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Status:</span>
+          <span>Legacy - migrate to OPC UA!</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4>EtherNet/IP Security Concerns</h4>
-  <p>Original EtherNet/IP has no built-in security, similar to Modbus. Recent developments include <strong>CIP Security</strong>, which adds TLS/DTLS encryption, certificate-based authentication, and integrity protection. However, CIP Security adoption is still limited, and most deployed systems lack any security features.</p>
+  <div class="pokedex-entry" style="border-color: #4CAF50; background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05));">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #4CAF50, #2E7D32);">
+      <span class="pokedex-entry-title">OPC UA (Unified Architecture)</span>
+      <span class="pokedex-entry-number">PORT 4840</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔒</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Platform:</span>
+          <span>Cross-platform (no Windows dependency)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Transport:</span>
+          <span>TCP port 4840 or HTTPS</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Authentication:</span>
+          <span>Username/password, X.509 certificates</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Encryption:</span>
+          <span>AES-128/256, SHA-256 signing</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h3>🏢 BACnet: Building Automation</h3>
-  
-  <p><strong>BACnet</strong> (Building Automation and Control Networks) is the dominant protocol for building automation systems controlling HVAC, lighting, access control, and fire/life safety systems. BACnet typically runs on <strong>UDP port 47808</strong> for BACnet/IP.</p>
+  <div class="info-box success">
+    <p class="info-box-title">🔐 OPC UA Security Modes</p>
+    <table class="data-table" style="margin-top: 10px;">
+      <thead>
+        <tr>
+          <th>Mode</th>
+          <th>Signing</th>
+          <th>Encryption</th>
+          <th>Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: rgba(255, 28, 28, 0.15);">
+          <td>None</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>Testing only!</td>
+        </tr>
+        <tr>
+          <td>Sign</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>Integrity without confidentiality</td>
+        </tr>
+        <tr style="background: rgba(76, 175, 80, 0.15);">
+          <td>SignAndEncrypt</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅ Production recommended</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <h4>BACnet Object Model</h4>
-  <p>BACnet uses an object-oriented approach where everything is an object with properties. Common object types include: Analog Input/Output, Binary Input/Output, Multi-State Input/Output, Calendar, Schedule, Trend Log, and Notification Class.</p>
+  <h3>🏭 Other Industrial Protocols</h3>
 
-  <h4>BACnet Security Challenges</h4>
-  <p>Standard BACnet has no authentication or encryption. <strong>BACnet Secure Connect (BACnet/SC)</strong> was introduced in 2019 to address this, providing TLS encryption and certificate-based authentication over WebSockets. However, legacy BACnet deployments (the vast majority) remain unprotected.</p>
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">📊</div>
+    <div class="image-placeholder-text">Infographic: ICS Protocol Landscape</div>
+    <div class="image-id">[I3.3 - assets/images/m3_i3_protocol_landscape.png]</div>
+  </div>
 
-  <div class="info-box">
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">EtherNet/IP</span>
+      <span class="pokedex-entry-number">MFG</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🏭</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Ports:</span>
+          <span>TCP 44818 (explicit), UDP 2222 (I/O)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Application:</span>
+          <span>CIP (Common Industrial Protocol)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Industry:</span>
+          <span>Manufacturing (North America)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Security:</span>
+          <span>Optional CIP Security (limited adoption)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pokedex-entry">
+    <div class="pokedex-entry-header">
+      <span class="pokedex-entry-title">BACnet</span>
+      <span class="pokedex-entry-number">BAS</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🏢</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Port:</span>
+          <span>UDP 47808 (BACnet/IP)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Controls:</span>
+          <span>HVAC, lighting, access, fire/life safety</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Model:</span>
+          <span>Object-oriented (Analog I/O, Binary I/O)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Security:</span>
+          <span>BACnet/SC (2019) - TLS over WebSockets</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box warning">
     <p class="info-box-title">🏥 BACnet in Critical Infrastructure</p>
-    <p>BACnet controls HVAC in hospitals, data centers, and pharmaceutical facilities where temperature control is critical for patient safety, equipment operation, or product integrity. Attackers manipulating BACnet could cause data center overheating, spoil medical supplies, or disrupt hospital operations.</p>
+    <p>BACnet controls HVAC in <strong>hospitals</strong>, <strong>data centers</strong>, and <strong>pharmaceutical facilities</strong> where temperature control is critical. Attackers manipulating BACnet could:</p>
+    <ul class="content-list">
+      <li>Cause data center overheating (equipment damage)</li>
+      <li>Spoil medical supplies (patient safety)</li>
+      <li>Disrupt hospital operations (life safety)</li>
+    </ul>
   </div>
 
   <h3>🔓 Common Protocol Vulnerabilities</h3>
-  
-  <p>Most ICS protocols share similar security weaknesses, regardless of their specific design:</p>
 
-  <h4>Lack of Authentication</h4>
-  <p>Modbus, legacy DNP3, original OPC Classic, EtherNet/IP, and BACnet all allow any device that can establish a connection to read data and issue commands. There's no mechanism to verify who is sending commands.</p>
-
-  <h4>No Encryption</h4>
-  <p>Process data, commands, and even credentials (when authentication exists) travel in cleartext. Anyone who can capture network traffic can see exactly what's happening and craft their own commands.</p>
-
-  <h4>No Integrity Protection</h4>
-  <p>Without message authentication codes or digital signatures, attackers can modify packets in transit. A man-in-the-middle attacker could change a "close valve" command to "open valve" without detection.</p>
-
-  <h4>Denial of Service Susceptibility</h4>
-  <p>ICS devices have limited processing power and memory. Protocol implementations often crash or become unresponsive when flooded with requests or when receiving malformed packets that weren't anticipated during development.</p>
-
-  <h3>🔥 Real-World Incident: Stuxnet Protocol Exploitation</h3>
-  
-  <p>The Stuxnet worm (discovered in 2010) remains the most sophisticated known ICS attack. While Stuxnet primarily targeted Siemens Step 7 programming software, it also had to communicate with PLCs using <strong>PROFINET</strong> and <strong>S7comm</strong> protocols.</p>
-
-  <h4>Protocol-Level Attack</h4>
-  <p>Stuxnet injected malicious code into PLCs controlling uranium enrichment centrifuges. The worm would periodically take control of the centrifuges, spinning them at unsafe speeds while feeding normal-looking data back to the monitoring systems. Operators saw normal readings while the centrifuges destroyed themselves.</p>
-
-  <h4>Lessons for Protocol Security</h4>
-  <p>Stuxnet demonstrated that protocol-level attacks can cause physical damage while evading detection. The attack highlighted the need for: monitoring actual physical parameters (not just network data), validating PLC logic integrity, implementing defense-in-depth that doesn't rely solely on protocol security, and understanding that sophisticated attackers will exploit protocol weaknesses.</p>
-
-  <h3>🛡️ Protocol Security Strategies</h3>
-  
-  <h4>Network Segmentation</h4>
-  <p>Since many protocols can't be secured at the protocol level, network segmentation becomes critical. Only systems that need to communicate with PLCs should be able to reach them. Firewalls and access control lists should allow only specific, documented communication paths.</p>
-
-  <h4>Protocol-Aware Firewalls</h4>
-  <p>Industrial firewalls can inspect ICS protocols at the application layer. They can enforce rules like: "Only HMI-1 can write to PLC-5" or "Deny all Modbus write commands to critical registers." This compensates for the lack of authentication in the protocols themselves.</p>
-
-  <h4>Industrial Protocol Monitoring</h4>
-  <p>Passive monitoring tools can analyze ICS protocol traffic without disrupting operations. They can detect: unusual communication patterns, unauthorized commands, protocol anomalies, and changes to PLC logic. Products in this space include Claroty, Dragos, Nozomi Networks, and Forescout.</p>
-
-  <h4>Encrypted Tunnels</h4>
-  <p>Where protocols must traverse untrusted networks (like between facilities over the Internet), VPNs or other encrypted tunnels can provide confidentiality and integrity protection around insecure protocols.</p>
-
-  <h4>Migration to Secure Protocols</h4>
-  <p>Where possible, migrate to secure protocol variants: DNP3 Secure Authentication, OPC UA with SignAndEncrypt, CIP Security for EtherNet/IP, and BACnet Secure Connect. This is often a multi-year effort requiring equipment upgrades and vendor support.</p>
-
-  <div class="info-box">
-    <p class="info-box-title">📊 Protocol Quick Reference</p>
-    <p><strong>Modbus TCP:</strong> Port 502, No security. <strong>DNP3:</strong> Port 20000, Optional SA. <strong>OPC UA:</strong> Port 4840, Built-in security. <strong>EtherNet/IP:</strong> Ports 44818/2222, Optional CIP Security. <strong>BACnet/IP:</strong> Port 47808, Optional BACnet/SC.</p>
+  <!-- Video Placeholder -->
+  <div class="video-container">
+    <div class="video-placeholder-icon">🎬</div>
+    <div class="video-placeholder-text">Video: Exploiting ICS Protocol Weaknesses</div>
+    <div class="video-id">[V3.4 - assets/videos/m3_v4_protocol_exploits.mp4]</div>
   </div>
 
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Vulnerability</th>
+        <th>Impact</th>
+        <th>Affected Protocols</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>❌ <strong>No Authentication</strong></td>
+        <td>Anyone can issue commands</td>
+        <td>Modbus, legacy DNP3, OPC Classic, EtherNet/IP, BACnet</td>
+      </tr>
+      <tr>
+        <td>❌ <strong>No Encryption</strong></td>
+        <td>All data visible to attackers</td>
+        <td>All legacy protocols</td>
+      </tr>
+      <tr>
+        <td>❌ <strong>No Integrity</strong></td>
+        <td>Commands can be modified in transit</td>
+        <td>All legacy protocols</td>
+      </tr>
+      <tr>
+        <td>❌ <strong>DoS Susceptibility</strong></td>
+        <td>Devices crash on malformed packets</td>
+        <td>All protocols (implementation bugs)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>🔥 Real-World Incident: Stuxnet Protocol Exploitation</h3>
+
+  <div class="info-box danger">
+    <p class="info-box-title">☢️ Target: Iranian Nuclear Facility (2010)</p>
+    <p>Stuxnet remains the most sophisticated known ICS attack. The worm communicated with PLCs using <strong>PROFINET</strong> and <strong>S7comm</strong> protocols to:</p>
+    <ul class="content-list">
+      <li>Inject malicious code into PLCs controlling centrifuges</li>
+      <li>Spin centrifuges at unsafe speeds while displaying normal readings</li>
+      <li>Operators saw "everything normal" while equipment destroyed itself</li>
+    </ul>
+    <p><strong>Key Lesson:</strong> Protocol-level attacks can cause physical damage while evading detection!</p>
+  </div>
+
+  <!-- Infographic Placeholder -->
+  <div class="image-container">
+    <div class="image-placeholder-icon">☢️</div>
+    <div class="image-placeholder-text">Infographic: Stuxnet Attack Chain</div>
+    <div class="image-id">[I3.4 - assets/images/m3_i4_stuxnet_attack.png]</div>
+  </div>
+
+  <h3>🛡️ Protocol Security Strategies</h3>
+
+  <div class="pokedex-entry" style="border-color: #4CAF50;">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #4CAF50, #2E7D32);">
+      <span class="pokedex-entry-title">Defense: Network Segmentation</span>
+      <span class="pokedex-entry-number">NETWORK</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🧱</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Strategy:</span>
+          <span>Limit who can reach protocol endpoints</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Implementation:</span>
+          <span>Firewalls, ACLs, VLANs</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Why:</span>
+          <span>If protocols can't be secured, limit access!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pokedex-entry" style="border-color: #4CAF50;">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #4CAF50, #2E7D32);">
+      <span class="pokedex-entry-title">Defense: Protocol-Aware Firewalls</span>
+      <span class="pokedex-entry-number">DPI</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">🔥</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Capability:</span>
+          <span>Inspect ICS protocols at application layer</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Rules:</span>
+          <span>"Only HMI-1 can write to PLC-5"</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Benefit:</span>
+          <span>Compensates for lack of protocol auth</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pokedex-entry" style="border-color: #4CAF50;">
+    <div class="pokedex-entry-header" style="background: linear-gradient(90deg, #4CAF50, #2E7D32);">
+      <span class="pokedex-entry-title">Defense: Industrial Protocol Monitoring</span>
+      <span class="pokedex-entry-number">DETECT</span>
+    </div>
+    <div class="pokedex-entry-content">
+      <div class="pokedex-entry-image">
+        <span style="font-size: 3rem;">👁️</span>
+      </div>
+      <div class="pokedex-entry-details">
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Method:</span>
+          <span>Passive traffic analysis (no disruption)</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Detects:</span>
+          <span>Unusual patterns, unauthorized commands, anomalies</span>
+        </div>
+        <div class="pokedex-stat">
+          <span class="pokedex-stat-label">Products:</span>
+          <span>Claroty, Dragos, Nozomi, Forescout</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>📊 Protocol Quick Reference</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Protocol</th>
+        <th>Port</th>
+        <th>Security</th>
+        <th>Secure Variant</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Modbus TCP</td>
+        <td>502</td>
+        <td>🔴 None</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>DNP3</td>
+        <td>20000</td>
+        <td>🟡 Optional SA</td>
+        <td>DNP3-SA v5</td>
+      </tr>
+      <tr>
+        <td>OPC UA</td>
+        <td>4840</td>
+        <td>🟢 Built-in</td>
+        <td>SignAndEncrypt</td>
+      </tr>
+      <tr>
+        <td>EtherNet/IP</td>
+        <td>44818/2222</td>
+        <td>🟡 Optional</td>
+        <td>CIP Security</td>
+      </tr>
+      <tr>
+        <td>BACnet/IP</td>
+        <td>47808</td>
+        <td>🟡 Optional</td>
+        <td>BACnet/SC</td>
+      </tr>
+    </tbody>
+  </table>
+
   <h3>🛠️ Hands-On Protocol Analysis</h3>
-  
-  <p>Understanding protocols requires hands-on experience. Here are tools and techniques for protocol analysis:</p>
-
-  <h4>Wireshark</h4>
-  <p>Wireshark has built-in dissectors for Modbus, DNP3, OPC UA, EtherNet/IP, BACnet, and many other ICS protocols. Capture traffic and analyze the actual commands and responses flowing through your network.</p>
-
-  <h4>Protocol Simulation Tools</h4>
-  <p>Tools like ModRSsim2 (Modbus simulator) and OpenDNP3 allow you to create simulated ICS environments for testing. You can practice reconnaissance, understand protocol behavior, and test security controls without risking production systems.</p>
-
-  <h4>Scapy and Custom Scripts</h4>
-  <p>For deeper analysis, Python with Scapy allows you to craft custom protocol packets. Libraries like pymodbus and pydnp3 provide high-level APIs for interacting with ICS protocols programmatically.</p>
 
   <div class="info-box">
+    <p class="info-box-title">🔧 Essential Tools</p>
+    <ul class="content-list">
+      <li><strong>Wireshark</strong> — Built-in dissectors for Modbus, DNP3, OPC UA, EtherNet/IP, BACnet</li>
+      <li><strong>ModRSsim2</strong> — Modbus simulator for safe testing</li>
+      <li><strong>OpenDNP3</strong> — DNP3 simulator and library</li>
+      <li><strong>Scapy + pymodbus/pydnp3</strong> — Python libraries for custom packet crafting</li>
+    </ul>
+  </div>
+
+  <div class="info-box success">
     <p class="info-box-title">🎮 Module Complete!</p>
-    <p>Outstanding work, Cyber Defender! You now speak the languages of industrial control systems. You understand why these protocols are vulnerable and how to protect them despite their limitations. In Module 4, you'll tackle Windows security in OT environments—where legacy operating systems and vendor requirements create unique challenges. The Windows Security Gym awaits!</p>
+    <p>Outstanding work, Cyber Defender! You now speak the languages of industrial control systems. You understand why these protocols are vulnerable and how to protect them despite their limitations. Head to <strong>Gym 3: Protocol Port</strong> to prove your knowledge against Gym Leader CIPHER!</p>
   </div>
 </div>

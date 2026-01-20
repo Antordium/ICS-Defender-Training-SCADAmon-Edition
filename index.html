@@ -1651,10 +1651,10 @@
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
 
-        // Try main.content-container first (old format)
+        // Try main.content-container first (old format like module1)
         let mainContent = doc.querySelector('main.content-container');
 
-        // If not found, try getting the content-section directly (new format)
+        // If not found, try getting the content-section directly (new format like module2-8)
         if (!mainContent) {
           mainContent = doc.querySelector('.content-section');
         }
@@ -1664,9 +1664,47 @@
           mainContent = doc.body;
         }
 
+        // Create a working copy to clean up
+        const contentDiv = document.createElement('div');
+        contentDiv.innerHTML = mainContent.innerHTML;
+
+        // Remove quiz sections (handled by gym battles in main page)
+        contentDiv.querySelectorAll('#quiz-container').forEach(el => {
+          // Find and remove the parent section containing the quiz
+          const parentSection = el.closest('section.content-section');
+          if (parentSection) {
+            parentSection.remove();
+          } else {
+            el.remove();
+          }
+        });
+
+        // Remove navigation buttons from module files (main page has its own navigation)
+        contentDiv.querySelectorAll('a[href*="module"], a[href*="index.html"]').forEach(el => {
+          const parent = el.closest('div[style*="display: flex"]');
+          if (parent) {
+            parent.remove();
+          } else {
+            el.remove();
+          }
+        });
+
+        // Remove pokeball dividers before quiz sections
+        contentDiv.querySelectorAll('.pokeball-divider').forEach(el => el.remove());
+
+        // Remove any "Module X Quiz" headers that remain
+        contentDiv.querySelectorAll('h2').forEach(el => {
+          if (el.textContent.includes('Quiz')) {
+            const parentSection = el.closest('section.content-section');
+            if (parentSection) {
+              parentSection.remove();
+            }
+          }
+        });
+
         const targetElement = document.getElementById(`module${moduleId}-content`);
-        if (mainContent && targetElement) {
-          targetElement.innerHTML = mainContent.innerHTML;
+        if (contentDiv && targetElement) {
+          targetElement.innerHTML = contentDiv.innerHTML;
         } else {
           console.error(`Could not find target element module${moduleId}-content or content to load`);
         }
@@ -2175,6 +2213,11 @@
     async function startGymBattle(gymId) {
       const battleContainer = document.getElementById(`gym${gymId}-battle-container`);
       const startBtn = document.querySelector(`.gym-battle-btn[data-gym="${gymId}"]`);
+
+      // Heal team before battle starts
+      await stateManager.healTeam();
+      updateTeamDisplay();
+      console.log(`[startGymBattle] Gym ${gymId} - Team healed before battle`);
 
       // Lock navigation during battle
       battleInProgress = true;

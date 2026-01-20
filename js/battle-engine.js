@@ -301,8 +301,8 @@ class BattleEngine {
    * Attach event listeners
    */
   attachEventListeners() {
-    // Move buttons
-    const movesGrid = document.getElementById('moves-grid');
+    // Move buttons - use container.querySelector to avoid conflicts between gyms
+    const movesGrid = this.container.querySelector('#moves-grid');
     if (movesGrid) {
       movesGrid.addEventListener('click', (e) => {
         const button = e.target.closest('.move-button');
@@ -312,8 +312,8 @@ class BattleEngine {
       });
     }
 
-    // Answer buttons (delegated)
-    const answersGrid = document.getElementById('answers-grid');
+    // Answer buttons (delegated) - use container.querySelector
+    const answersGrid = this.container.querySelector('#answers-grid');
     if (answersGrid) {
       answersGrid.addEventListener('click', (e) => {
         const button = e.target.closest('.answer-button');
@@ -344,7 +344,7 @@ class BattleEngine {
    * Show message in message box
    */
   async showMessage(text, duration = 2000) {
-    const messageEl = document.getElementById('message-text');
+    const messageEl = this.container.querySelector('#message-text');
     if (messageEl) {
       messageEl.textContent = text;
 
@@ -459,9 +459,9 @@ class BattleEngine {
     // Update stats display
     this.updateStats();
 
-    // Show question panel
-    const questionText = document.getElementById('question-text');
-    const answersGrid = document.getElementById('answers-grid');
+    // Show question panel - use container.querySelector
+    const questionText = this.container.querySelector('#question-text');
+    const answersGrid = this.container.querySelector('#answers-grid');
 
     if (questionText) {
       questionText.textContent = this.currentQuestion.question;
@@ -830,7 +830,7 @@ class BattleEngine {
   updateEnemyDisplay() {
     const enemy = this.enemyTeam[this.enemyCurrent];
     const infoBox = this.container.querySelector('.enemy-info');
-    const sprite = document.getElementById('enemy-sprite');
+    const sprite = this.container.querySelector('#enemy-sprite');
 
     if (infoBox && enemy) {
       infoBox.querySelector('.battle-name').textContent = enemy.name;
@@ -851,8 +851,8 @@ class BattleEngine {
   updatePlayerDisplay() {
     const player = this.playerTeam[this.playerCurrent];
     const infoBox = this.container.querySelector('.player-info');
-    const sprite = document.getElementById('player-sprite');
-    const movesGrid = document.getElementById('moves-grid');
+    const sprite = this.container.querySelector('#player-sprite');
+    const movesGrid = this.container.querySelector('#moves-grid');
 
     if (infoBox && player) {
       infoBox.querySelector('.battle-name').textContent = player.name;
@@ -876,8 +876,8 @@ class BattleEngine {
    * Update stats display
    */
   updateStats() {
-    const questionsEl = document.getElementById('stat-questions');
-    const scoreEl = document.getElementById('stat-score');
+    const questionsEl = this.container.querySelector('#stat-questions');
+    const scoreEl = this.container.querySelector('#stat-score');
 
     if (questionsEl) {
       questionsEl.textContent = `${this.questionsCorrect}/${this.questionsAsked}`;
@@ -898,7 +898,8 @@ class BattleEngine {
    * Show a panel
    */
   showPanel(panelId) {
-    const panel = document.getElementById(panelId);
+    // Search within this battle's container to avoid conflicts between multiple battles
+    const panel = this.container.querySelector(`#${panelId}`);
     if (panel) {
       panel.style.display = 'block';
       panel.classList.add('fade-in');
@@ -909,7 +910,8 @@ class BattleEngine {
    * Hide a panel
    */
   hidePanel(panelId) {
-    const panel = document.getElementById(panelId);
+    // Search within this battle's container to avoid conflicts between multiple battles
+    const panel = this.container.querySelector(`#${panelId}`);
     if (panel) {
       panel.style.display = 'none';
       panel.classList.remove('fade-in');
@@ -927,7 +929,7 @@ class BattleEngine {
    * Animate sprite appearing
    */
   async animateAppear(spriteId) {
-    const sprite = document.getElementById(spriteId);
+    const sprite = this.container.querySelector(`#${spriteId}`);
     if (!sprite) return;
 
     sprite.style.opacity = '0';
@@ -946,8 +948,8 @@ class BattleEngine {
    * Animate attack
    */
   async animateAttack(attackerId, targetId) {
-    const attacker = document.getElementById(attackerId);
-    const target = document.getElementById(targetId);
+    const attacker = this.container.querySelector(`#${attackerId}`);
+    const target = this.container.querySelector(`#${targetId}`);
 
     if (!attacker || !target) return;
 
@@ -971,7 +973,7 @@ class BattleEngine {
    * Animate shake effect
    */
   async animateShake(spriteId) {
-    const sprite = document.getElementById(spriteId);
+    const sprite = this.container.querySelector(`#${spriteId}`);
     if (!sprite) return;
 
     const shakeFrames = [
@@ -1026,7 +1028,7 @@ class BattleEngine {
    * Animate faint
    */
   async animateFaint(spriteId) {
-    const sprite = document.getElementById(spriteId);
+    const sprite = this.container.querySelector(`#${spriteId}`);
     if (!sprite) return;
 
     sprite.style.transition = `all ${this.animSpeeds.fade}ms ease-in`;
